@@ -84,4 +84,10 @@ public class GeradorUtil {
     public static String gerarTeleCeluar() {
         return formatField("4899" + gerarNumero(7), "(##)#####-####");
     }
+    
+    public static String gerarNomeCategoria(){
+        String[] nomes = {"CategoriaUtil123", "CategoriaTest45", "CategoriaValendo", "CategoriaNome", "GerarNomeCategoria"};
+        int indice = (int) (Math.random() * nomes.length);
+        return nomes[indice].toString();
+    }
 }
