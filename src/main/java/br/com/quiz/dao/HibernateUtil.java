@@ -5,6 +5,7 @@
  */
 package br.com.quiz.dao;
 
+import br.com.quiz.entidade.Categoria;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -20,6 +21,7 @@ public class HibernateUtil {
     static {
         try {
             Configuration cfg = new Configuration();
+            cfg.addAnnotatedClass(Categoria.class);
 
             cfg.configure("/META-INF/hibernate.cfg.xml");
             StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
