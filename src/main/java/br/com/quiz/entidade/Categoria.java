@@ -5,12 +5,8 @@
 package br.com.quiz.entidade;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -28,6 +24,9 @@ public class Categoria implements Serializable {
     
     @Column(nullable = false)
     private String nome;
+    
+    @OneToMany(mappedBy = "categoria")
+    private List<Pergunta> perguntas;
 
     public Categoria() {
     }
@@ -50,6 +49,14 @@ public class Categoria implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public void setPerguntas(List<Pergunta> perguntas) {
+        this.perguntas = perguntas;
     }
 
     @Override

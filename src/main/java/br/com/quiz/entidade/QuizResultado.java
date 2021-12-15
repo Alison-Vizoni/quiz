@@ -6,6 +6,7 @@ package br.com.quiz.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -17,35 +18,63 @@ import javax.persistence.*;
 public class QuizResultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     
-    private int numeroAcertos;
+    @EmbeddedId
+    private QuizResultadoPK id = new QuizResultadoPK();
+    
+    @Column(name = "data_resolucao")
     private Date dataResolucao;
 
     public QuizResultado() {
     }
 
-    public QuizResultado(int numeroAcertos, Date dataResolucao) {
-        this.numeroAcertos = numeroAcertos;
+    public QuizResultado(Quiz quiz, Alternativa alternativa, Usuario usuario, 
+            AplicacaoQuiz aplicacaoQuiz,Date dataResolucao) {
+        id.setAlternativa(alternativa);
+        id.setUsuario(usuario);
+        id.setQuiz(quiz);
+        id.setAplicacaoQuiz(aplicacaoQuiz);
         this.dataResolucao = dataResolucao;
     }
-
-    public Long getId() {
+    
+    public QuizResultadoPK getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(QuizResultadoPK id) {
         this.id = id;
     }
-
-    public int getNumeroAcertos() {
-        return numeroAcertos;
+    
+    public Alternativa getAlternativa(){
+        return id.getAlternativa();
     }
-
-    public void setNumeroAcertos(int numeroAcertos) {
-        this.numeroAcertos = numeroAcertos;
+    
+    public void set(Alternativa alternativa){
+        id.setAlternativa(alternativa);
+    }
+    
+    public Usuario getUsuario(){
+        return id.getUsuario();
+    }
+    
+    public void set(Usuario usuario){
+        id.setUsuario(usuario);
+    }
+    
+    public Quiz getQuiz(){
+        return id.getQuiz();
+    }
+    
+    public void set(Quiz quiz){
+        id.setQuiz(quiz);
+    }
+    
+    public AplicacaoQuiz getAplicacaoQuiz(){
+        return id.getAplicacaoQuiz();
+    }
+    
+    public void set(AplicacaoQuiz aplicacaoQuiz){
+        id.setAplicacaoQuiz(aplicacaoQuiz);
     }
 
     public Date getDataResolucao() {
@@ -55,30 +84,19 @@ public class QuizResultado implements Serializable {
     public void setDataResolucao(Date dataResolucao) {
         this.dataResolucao = dataResolucao;
     }
-
+    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof QuizResultado)) {
-            return false;
-        }
-        QuizResultado other = (QuizResultado) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        if (this == object) return false;
+        
+        if (object == null || getClass() != object.getClass()) return false;
+        QuizResultado quizResultado = (QuizResultado) object;
+        return Objects.equals(id, quizResultado.id);
     }
-
-    @Override
-    public String toString() {
-        return "br.com.quiz.entidade.QuizResultado[ id=" + id + " ]";
-    }
-    
 }

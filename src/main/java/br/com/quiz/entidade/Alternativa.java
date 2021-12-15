@@ -5,6 +5,7 @@
 package br.com.quiz.entidade;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -21,8 +22,17 @@ public class Alternativa implements Serializable {
     private Long id;
     
     private String texto;
+    
+    @Column(name = "status_correta")
     private boolean statusCorreta;
 
+    @ManyToOne
+    @JoinColumn(name = "id_pergunta")
+    private Pergunta pergunta;
+    
+    @OneToMany(mappedBy = "id.alternativa")
+    private Set<AplicacaoQuiz> aplicacaoQuiz;
+    
     public Alternativa() {
     }
 
@@ -37,6 +47,38 @@ public class Alternativa implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public boolean isStatusCorreta() {
+        return statusCorreta;
+    }
+
+    public void setStatusCorreta(boolean statusCorreta) {
+        this.statusCorreta = statusCorreta;
+    }
+
+    public Pergunta getPergunta() {
+        return pergunta;
+    }
+
+    public void setPergunta(Pergunta pergunta) {
+        this.pergunta = pergunta;
+    }
+
+    public Set<AplicacaoQuiz> getAplicacaoQuiz() {
+        return aplicacaoQuiz;
+    }
+
+    public void setAplicacaoQuiz(Set<AplicacaoQuiz> aplicacaoQuiz) {
+        this.aplicacaoQuiz = aplicacaoQuiz;
     }
 
     @Override

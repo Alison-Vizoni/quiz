@@ -6,6 +6,8 @@ package br.com.quiz.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -23,19 +25,31 @@ public class Quiz implements Serializable {
     
     private String categoria;
     private String assunto;
+    
+    @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
+    
+    @Column(name = "data_criacao")
     private Date dataCriacao;
-    private Date dataUtilizacao;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_proprietario")
+    private Usuario usuarioProprietario;
+    
+    @OneToMany(mappedBy = "quiz")
+    private Set<AplicacaoQuiz> quizzesAplicados;
+    
+    @OneToMany(mappedBy = "id.quiz")
+    private Set<QuizResultado> quizResultado;
 
     public Quiz() {
     }
 
-    public Quiz(String categoria, String assunto, boolean visibilidadePrivada, Date dataCriacao, Date dataUtilizacao) {
+    public Quiz(String categoria, String assunto, boolean visibilidadePrivada, Date dataCriacao) {
         this.categoria = categoria;
         this.assunto = assunto;
         this.visibilidadePrivada = visibilidadePrivada;
         this.dataCriacao = dataCriacao;
-        this.dataUtilizacao = dataUtilizacao;
     }
 
     public Long getId() {
@@ -78,12 +92,28 @@ public class Quiz implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public Date getDataUtilizacao() {
-        return dataUtilizacao;
+    public Usuario getUsuarioProprietario() {
+        return usuarioProprietario;
     }
 
-    public void setDataUtilizacao(Date dataUtilizacao) {
-        this.dataUtilizacao = dataUtilizacao;
+    public void setUsuarioProprietario(Usuario usuarioProprietario) {
+        this.usuarioProprietario = usuarioProprietario;
+    }
+
+    public Set<AplicacaoQuiz> getQuizzesAplicados() {
+        return quizzesAplicados;
+    }
+
+    public void setQuizzesAplicados(Set<AplicacaoQuiz> quizzesAplicados) {
+        this.quizzesAplicados = quizzesAplicados;
+    }
+
+    public Set<QuizResultado> getQuizResultado() {
+        return quizResultado;
+    }
+
+    public void setQuizResultado(Set<QuizResultado> quizResultado) {
+        this.quizResultado = quizResultado;
     }
 
     @Override

@@ -5,6 +5,8 @@
 package br.com.quiz.entidade;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -24,6 +26,21 @@ public class Usuario implements Serializable {
     private String cpf;
     private String email;
     private String telefone;
+    
+    @OneToMany(mappedBy = "usuarioProprietario")
+    private List<Pergunta> pergunta;
+    
+    @OneToMany(mappedBy = "usuarioProprietario")
+    private List<Quiz> quizzes;
+    
+    @OneToMany(mappedBy = "usuario")
+    private Set<AplicacaoQuiz> aplicacoesQuizzes;
+    
+    @OneToOne(mappedBy = "usuario")
+    private Login login;
+    
+    @OneToMany(mappedBy = "id.usuario")
+    private Set<QuizResultado> quizResultados;
 
     public Usuario() {
     }
@@ -73,6 +90,46 @@ public class Usuario implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public List<Pergunta> getPergunta() {
+        return pergunta;
+    }
+
+    public void setPergunta(List<Pergunta> pergunta) {
+        this.pergunta = pergunta;
+    }
+
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+
+    public Set<AplicacaoQuiz> getAplicacoesQuizzes() {
+        return aplicacoesQuizzes;
+    }
+
+    public void setAplicacoesQuizzes(Set<AplicacaoQuiz> aplicacoesQuizzes) {
+        this.aplicacoesQuizzes = aplicacoesQuizzes;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public Set<QuizResultado> getQuizResultados() {
+        return quizResultados;
+    }
+
+    public void setQuizResultados(Set<QuizResultado> quizResultados) {
+        this.quizResultados = quizResultados;
     }
     
     @Override

@@ -6,6 +6,7 @@ package br.com.quiz.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -23,8 +24,23 @@ public class Pergunta implements Serializable {
     
     private String assunto;
     private String texto;
+    
+    @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
     private Date dataCriacao;
+    
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_proprietario")
+    private Usuario usuarioProprietario;
+    
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
+    private List<Alternativa> alternativas; 
+    
+    
 
     public Pergunta() {
     }
@@ -74,6 +90,14 @@ public class Pergunta implements Serializable {
 
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override

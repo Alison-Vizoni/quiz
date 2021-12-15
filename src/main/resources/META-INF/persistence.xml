@@ -10,6 +10,7 @@
     <class>br.com.quiz.entidade.Alternativa</class>
     <class>br.com.quiz.entidade.QuizResultado</class>
     <class>br.com.quiz.entidade.Quiz</class>
+    <class>br.com.quiz.entidade.AplicacaoQuiz</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quiz?useTimezone=true&amp;serverTimezone=America/Sao_Paulo&amp;zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
