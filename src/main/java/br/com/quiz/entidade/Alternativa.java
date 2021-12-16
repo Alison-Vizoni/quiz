@@ -18,7 +18,7 @@ public class Alternativa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String texto;
@@ -30,8 +30,8 @@ public class Alternativa implements Serializable {
     @JoinColumn(name = "id_pergunta")
     private Pergunta pergunta;
     
-    @OneToMany(mappedBy = "id.alternativa")
-    private Set<AplicacaoQuiz> aplicacaoQuiz;
+    @OneToMany(mappedBy = "alternativa")
+    private Set<AplicacaoQuizResultado> aplicacaoQuizResultado;
     
     public Alternativa() {
     }
@@ -73,12 +73,12 @@ public class Alternativa implements Serializable {
         this.pergunta = pergunta;
     }
 
-    public Set<AplicacaoQuiz> getAplicacaoQuiz() {
-        return aplicacaoQuiz;
+    public Set<AplicacaoQuizResultado> getAplicacaoQuizResultado() {
+        return aplicacaoQuizResultado;
     }
 
-    public void setAplicacaoQuiz(Set<AplicacaoQuiz> aplicacaoQuiz) {
-        this.aplicacaoQuiz = aplicacaoQuiz;
+    public void setAplicacaoQuizResultado(Set<AplicacaoQuizResultado> aplicacaoQuizResultado) {
+        this.aplicacaoQuizResultado = aplicacaoQuizResultado;
     }
 
     @Override

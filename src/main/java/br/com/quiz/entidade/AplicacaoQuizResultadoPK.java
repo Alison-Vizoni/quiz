@@ -5,12 +5,11 @@
 package br.com.quiz.entidade;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 import javax.persistence.*;
 
 /**
- *
+ * https://www.baeldung.com/jpa-many-to-many
  * @author alison
  */
 @Embeddable
@@ -18,45 +17,45 @@ public class AplicacaoQuizResultadoPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @Column(name = "id_usuario")
+    private Long idUsuario;
     
-    @ManyToOne
-    @JoinColumn(name = "id_alternativa")
-    private Alternativa alternativa;
+    @Column(name = "id_alternativa")
+    private Long idAlternativa;
     
-    @ManyToOne
-    @JoinColumn(name = "id_aplicacao_quiz")
-    private AplicacaoQuiz aplicacaoQuiz;
+    @Column(name = "id_aplicacao_quiz")
+    private Long idAplicacaoQuiz;
 
-    public Usuario getUsuario() {
-        return usuario;
+    public AplicacaoQuizResultadoPK() {
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public Alternativa getAlternativa() {
-        return alternativa;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public void setAlternativa(Alternativa alternativa) {
-        this.alternativa = alternativa;
+    public Long getIdAlternativa() {
+        return idAlternativa;
     }
 
-    public AplicacaoQuiz getAplicacaoQuiz() {
-        return aplicacaoQuiz;
+    public void setIdAlternativa(Long idAlternativa) {
+        this.idAlternativa = idAlternativa;
     }
 
-    public void setAplicacaoQuiz(AplicacaoQuiz aplicacaoQuiz) {
-        this.aplicacaoQuiz = aplicacaoQuiz;
+    public Long getIdAplicacaoQuiz() {
+        return idAplicacaoQuiz;
+    }
+
+    public void setIdAplicacaoQuiz(Long idAplicacaoQuiz) {
+        this.idAplicacaoQuiz = idAplicacaoQuiz;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(alternativa, usuario, aplicacaoQuiz);
+        return Objects.hash(idAlternativa, idUsuario, idAplicacaoQuiz);
     }
 
     @Override
@@ -66,8 +65,8 @@ public class AplicacaoQuizResultadoPK implements Serializable {
             return false;
         }
         final AplicacaoQuizResultadoPK that = (AplicacaoQuizResultadoPK) obj;
-        return Objects.equals(this.aplicacaoQuiz, that.aplicacaoQuiz) &&
-                Objects.equals(usuario, that.usuario) &&
-                Objects.equals(alternativa, that.alternativa);
+        return Objects.equals(this.idAplicacaoQuiz, that.idAplicacaoQuiz) &&
+                Objects.equals(idUsuario, that.idUsuario) &&
+                Objects.equals(idAlternativa, that.idAlternativa);
     }
 }

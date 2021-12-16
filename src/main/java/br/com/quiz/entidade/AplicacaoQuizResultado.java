@@ -14,25 +14,37 @@ import javax.persistence.*;
  * @author alison
  */
 @Entity
-@Table(name = "quiz_resultado")
+@Table(name = "aplicacao_quiz_resultado")
 public class AplicacaoQuizResultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    private AplicacaoQuizResultadoPK id = new AplicacaoQuizResultadoPK();
+    private AplicacaoQuizResultadoPK id;
     
     @Column(name = "data_resolucao")
+    @Temporal(TemporalType.DATE)
     private Date dataResolucao;
+    
+    @ManyToOne
+    @MapsId("idUsuario")
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+    
+    @ManyToOne
+    @MapsId("idAlternativa")
+    @JoinColumn(name = "id_alternativa")
+    private Alternativa alternativa;
+    
+    @ManyToOne
+    @MapsId("idAplicacaoQuiz")
+    @JoinColumn(name = "id_aplicacao_quiz")
+    private AplicacaoQuiz aplicacaoQuiz;
 
     public AplicacaoQuizResultado() {
     }
 
-    public AplicacaoQuizResultado(Alternativa alternativa, Usuario usuario, 
-            AplicacaoQuiz aplicacaoQuiz,Date dataResolucao) {
-        id.setAlternativa(alternativa);
-        id.setUsuario(usuario);
-        id.setAplicacaoQuiz(aplicacaoQuiz);
+    public AplicacaoQuizResultado(Date dataResolucao) {
         this.dataResolucao = dataResolucao;
     }
     
@@ -43,30 +55,6 @@ public class AplicacaoQuizResultado implements Serializable {
     public void setId(AplicacaoQuizResultadoPK id) {
         this.id = id;
     }
-    
-    public Alternativa getAlternativa(){
-        return id.getAlternativa();
-    }
-    
-    public void set(Alternativa alternativa){
-        id.setAlternativa(alternativa);
-    }
-    
-    public Usuario getUsuario(){
-        return id.getUsuario();
-    }
-    
-    public void set(Usuario usuario){
-        id.setUsuario(usuario);
-    }
-    
-    public AplicacaoQuiz getAplicacaoQuiz(){
-        return id.getAplicacaoQuiz();
-    }
-    
-    public void set(AplicacaoQuiz aplicacaoQuiz){
-        id.setAplicacaoQuiz(aplicacaoQuiz);
-    }
 
     public Date getDataResolucao() {
         return dataResolucao;
@@ -75,19 +63,28 @@ public class AplicacaoQuizResultado implements Serializable {
     public void setDataResolucao(Date dataResolucao) {
         this.dataResolucao = dataResolucao;
     }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (this == object) return false;
-        
-        if (object == null || getClass() != object.getClass()) return false;
-        AplicacaoQuizResultado quizResultado = (AplicacaoQuizResultado) object;
-        return Objects.equals(id, quizResultado.id);
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Alternativa getAlternativa() {
+        return alternativa;
+    }
+
+    public void setAlternativa(Alternativa alternativa) {
+        this.alternativa = alternativa;
+    }
+
+    public AplicacaoQuiz getAplicacaoQuiz() {
+        return aplicacaoQuiz;
+    }
+
+    public void setAplicacaoQuiz(AplicacaoQuiz aplicacaoQuiz) {
+        this.aplicacaoQuiz = aplicacaoQuiz;
     }
 }

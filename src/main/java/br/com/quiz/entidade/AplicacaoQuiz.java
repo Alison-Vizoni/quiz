@@ -19,10 +19,11 @@ public class AplicacaoQuiz implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "data_aplicacao")
+    @Temporal(TemporalType.DATE)
     private Date dataAplicacao;
 
     private String descricao;
@@ -35,7 +36,7 @@ public class AplicacaoQuiz implements Serializable {
     @JoinColumn(name = "id_quiz")
     private Quiz quiz;
     
-    @OneToMany(mappedBy = "id.aplicacaoQuiz")
+    @OneToMany(mappedBy = "aplicacaoQuiz")
     private Set<AplicacaoQuizResultado> quizResultado;
 
     public AplicacaoQuiz() {

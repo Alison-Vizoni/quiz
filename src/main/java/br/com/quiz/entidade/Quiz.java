@@ -6,7 +6,6 @@ package br.com.quiz.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -20,7 +19,7 @@ public class Quiz implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String categoria;
@@ -30,6 +29,7 @@ public class Quiz implements Serializable {
     private boolean visibilidadePrivada;
     
     @Column(name = "data_criacao")
+    @Temporal(TemporalType.DATE)
     private Date dataCriacao;
     
     @ManyToOne

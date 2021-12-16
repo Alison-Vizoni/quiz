@@ -19,7 +19,7 @@ public class Pergunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String assunto;
@@ -27,6 +27,8 @@ public class Pergunta implements Serializable {
     
     @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
+    
+    @Temporal(TemporalType.DATE)
     private Date dataCriacao;
     
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -40,8 +42,6 @@ public class Pergunta implements Serializable {
     @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
     private List<Alternativa> alternativas; 
     
-    
-
     public Pergunta() {
     }
 
@@ -98,6 +98,22 @@ public class Pergunta implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Usuario getUsuarioProprietario() {
+        return usuarioProprietario;
+    }
+
+    public void setUsuarioProprietario(Usuario usuarioProprietario) {
+        this.usuarioProprietario = usuarioProprietario;
+    }
+
+    public List<Alternativa> getAlternativas() {
+        return alternativas;
+    }
+
+    public void setAlternativas(List<Alternativa> alternativas) {
+        this.alternativas = alternativas;
     }
 
     @Override

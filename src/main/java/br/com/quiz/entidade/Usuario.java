@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String nome;
@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
     @OneToOne(mappedBy = "usuario")
     private Login login;
     
-    @OneToMany(mappedBy = "id.usuario")
+    @OneToMany(mappedBy = "usuario")
     private Set<AplicacaoQuizResultado> quizResultados;
 
     public Usuario() {
