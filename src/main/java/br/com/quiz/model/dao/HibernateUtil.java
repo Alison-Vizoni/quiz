@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.quiz.dao;
+package br.com.quiz.model.dao;
 
-import br.com.quiz.entidade.Alternativa;
-import br.com.quiz.entidade.AplicacaoQuiz;
-import br.com.quiz.entidade.AplicacaoQuizResultado;
-import br.com.quiz.entidade.Categoria;
-import br.com.quiz.entidade.Login;
-import br.com.quiz.entidade.Pergunta;
-import br.com.quiz.entidade.Quiz;
-import br.com.quiz.entidade.Usuario;
+import br.com.quiz.model.entidade.Alternativa;
+import br.com.quiz.model.entidade.AplicacaoQuiz;
+import br.com.quiz.model.entidade.AplicacaoQuizResultado;
+import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Login;
+import br.com.quiz.model.entidade.Pergunta;
+import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

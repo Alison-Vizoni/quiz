@@ -3,14 +3,14 @@
   <persistence-unit name="quizPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>br.com.quiz.util.GeradorTabela</class>
-    <class>br.com.quiz.entidade.Categoria</class>
-    <class>br.com.quiz.entidade.Usuario</class>
-    <class>br.com.quiz.entidade.Login</class>
-    <class>br.com.quiz.entidade.Pergunta</class>
-    <class>br.com.quiz.entidade.Alternativa</class>
-    <class>br.com.quiz.entidade.Quiz</class>
-    <class>br.com.quiz.entidade.AplicacaoQuiz</class>
-    <class>br.com.quiz.entidade.AplicacaoQuizResultado</class>
+    <class>br.com.quiz.model.entidade.Categoria</class>
+    <class>br.com.quiz.model.entidade.Pergunta</class>
+    <class>br.com.quiz.model.entidade.Login</class>
+    <class>br.com.quiz.model.entidade.Usuario</class>
+    <class>br.com.quiz.model.entidade.AplicacaoQuizResultado</class>
+    <class>br.com.quiz.model.entidade.Alternativa</class>
+    <class>br.com.quiz.model.entidade.Quiz</class>
+    <class>br.com.quiz.model.entidade.AplicacaoQuiz</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quiz?useTimezone=true&amp;serverTimezone=America/Sao_Paulo&amp;zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

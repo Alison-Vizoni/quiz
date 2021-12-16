@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.quiz.bo;
+package br.com.quiz.model.bo;
 
-import br.com.quiz.dao.CategoriaDao;
-import br.com.quiz.dao.CategoriaDaoImpl;
-import br.com.quiz.entidade.Categoria;
+import br.com.quiz.model.dao.CategoriaDao;
+import br.com.quiz.model.dao.CategoriaDaoImpl;
+import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.exceptions.CategoriaJaExistenteException;
 import java.util.List;
 import org.hibernate.Session;

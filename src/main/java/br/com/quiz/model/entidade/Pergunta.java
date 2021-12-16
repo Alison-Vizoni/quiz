@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.quiz.entidade;
+package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -14,37 +14,40 @@ import javax.persistence.*;
  * @author alison
  */
 @Entity
-@Table(name = "quiz")
-public class Quiz implements Serializable {
+@Table(name = "pergunta")
+public class Pergunta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String categoria;
     private String assunto;
+    private String texto;
     
     @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
     
-    @Column(name = "data_criacao")
     @Temporal(TemporalType.DATE)
     private Date dataCriacao;
+    
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
     
     @ManyToOne
     @JoinColumn(name = "id_usuario_proprietario")
     private Usuario usuarioProprietario;
     
-    @OneToMany(mappedBy = "quiz")
-    private Set<AplicacaoQuiz> quizzesAplicados;
-
-    public Quiz() {
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
+    private List<Alternativa> alternativas; 
+    
+    public Pergunta() {
     }
 
-    public Quiz(String categoria, String assunto, boolean visibilidadePrivada, Date dataCriacao) {
-        this.categoria = categoria;
+    public Pergunta(String assunto, String texto, boolean visibilidadePrivada, Date dataCriacao) {
         this.assunto = assunto;
+        this.texto = texto;
         this.visibilidadePrivada = visibilidadePrivada;
         this.dataCriacao = dataCriacao;
     }
@@ -57,20 +60,20 @@ public class Quiz implements Serializable {
         this.id = id;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public String getAssunto() {
         return assunto;
     }
 
     public void setAssunto(String assunto) {
         this.assunto = assunto;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
     }
 
     public boolean isVisibilidadePrivada() {
@@ -89,6 +92,14 @@ public class Quiz implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     public Usuario getUsuarioProprietario() {
         return usuarioProprietario;
     }
@@ -97,12 +108,12 @@ public class Quiz implements Serializable {
         this.usuarioProprietario = usuarioProprietario;
     }
 
-    public Set<AplicacaoQuiz> getQuizzesAplicados() {
-        return quizzesAplicados;
+    public List<Alternativa> getAlternativas() {
+        return alternativas;
     }
 
-    public void setQuizzesAplicados(Set<AplicacaoQuiz> quizzesAplicados) {
-        this.quizzesAplicados = quizzesAplicados;
+    public void setAlternativas(List<Alternativa> alternativas) {
+        this.alternativas = alternativas;
     }
 
     @Override
@@ -115,10 +126,10 @@ public class Quiz implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Quiz)) {
+        if (!(object instanceof Pergunta)) {
             return false;
         }
-        Quiz other = (Quiz) object;
+        Pergunta other = (Pergunta) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -127,7 +138,7 @@ public class Quiz implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.quiz.entidade.Quiz[ id=" + id + " ]";
+        return "br.com.quiz.entidade.Pergunta[ id=" + id + " ]";
     }
     
 }
