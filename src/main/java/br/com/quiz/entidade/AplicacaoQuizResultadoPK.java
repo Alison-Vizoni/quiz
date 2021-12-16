@@ -14,13 +14,9 @@ import javax.persistence.*;
  * @author alison
  */
 @Embeddable
-public class QuizResultadoPK implements Serializable {
+public class AplicacaoQuizResultadoPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_quiz")
-    private Quiz quiz;
     
     @ManyToOne
     @JoinColumn(name = "id_usuario")
@@ -33,14 +29,6 @@ public class QuizResultadoPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_aplicacao_quiz")
     private AplicacaoQuiz aplicacaoQuiz;
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -68,7 +56,7 @@ public class QuizResultadoPK implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(quiz, alternativa, usuario, aplicacaoQuiz);
+        return Objects.hash(alternativa, usuario, aplicacaoQuiz);
     }
 
     @Override
@@ -77,10 +65,9 @@ public class QuizResultadoPK implements Serializable {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final QuizResultadoPK that = (QuizResultadoPK) obj;
+        final AplicacaoQuizResultadoPK that = (AplicacaoQuizResultadoPK) obj;
         return Objects.equals(this.aplicacaoQuiz, that.aplicacaoQuiz) &&
                 Objects.equals(usuario, that.usuario) &&
-                Objects.equals(quiz, that.quiz) && 
                 Objects.equals(alternativa, that.alternativa);
     }
 }

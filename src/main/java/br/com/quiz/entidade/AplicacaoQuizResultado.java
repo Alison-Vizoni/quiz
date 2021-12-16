@@ -15,33 +15,32 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "quiz_resultado")
-public class QuizResultado implements Serializable {
+public class AplicacaoQuizResultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    private QuizResultadoPK id = new QuizResultadoPK();
+    private AplicacaoQuizResultadoPK id = new AplicacaoQuizResultadoPK();
     
     @Column(name = "data_resolucao")
     private Date dataResolucao;
 
-    public QuizResultado() {
+    public AplicacaoQuizResultado() {
     }
 
-    public QuizResultado(Quiz quiz, Alternativa alternativa, Usuario usuario, 
+    public AplicacaoQuizResultado(Alternativa alternativa, Usuario usuario, 
             AplicacaoQuiz aplicacaoQuiz,Date dataResolucao) {
         id.setAlternativa(alternativa);
         id.setUsuario(usuario);
-        id.setQuiz(quiz);
         id.setAplicacaoQuiz(aplicacaoQuiz);
         this.dataResolucao = dataResolucao;
     }
     
-    public QuizResultadoPK getId() {
+    public AplicacaoQuizResultadoPK getId() {
         return id;
     }
 
-    public void setId(QuizResultadoPK id) {
+    public void setId(AplicacaoQuizResultadoPK id) {
         this.id = id;
     }
     
@@ -59,14 +58,6 @@ public class QuizResultado implements Serializable {
     
     public void set(Usuario usuario){
         id.setUsuario(usuario);
-    }
-    
-    public Quiz getQuiz(){
-        return id.getQuiz();
-    }
-    
-    public void set(Quiz quiz){
-        id.setQuiz(quiz);
     }
     
     public AplicacaoQuiz getAplicacaoQuiz(){
@@ -96,7 +87,7 @@ public class QuizResultado implements Serializable {
         if (this == object) return false;
         
         if (object == null || getClass() != object.getClass()) return false;
-        QuizResultado quizResultado = (QuizResultado) object;
+        AplicacaoQuizResultado quizResultado = (AplicacaoQuizResultado) object;
         return Objects.equals(id, quizResultado.id);
     }
 }

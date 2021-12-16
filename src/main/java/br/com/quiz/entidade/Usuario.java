@@ -33,14 +33,14 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuarioProprietario")
     private List<Quiz> quizzes;
     
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuarioAplicador")
     private Set<AplicacaoQuiz> aplicacoesQuizzes;
     
     @OneToOne(mappedBy = "usuario")
     private Login login;
     
     @OneToMany(mappedBy = "id.usuario")
-    private Set<QuizResultado> quizResultados;
+    private Set<AplicacaoQuizResultado> quizResultados;
 
     public Usuario() {
     }
@@ -124,11 +124,11 @@ public class Usuario implements Serializable {
         this.login = login;
     }
 
-    public Set<QuizResultado> getQuizResultados() {
+    public Set<AplicacaoQuizResultado> getQuizResultados() {
         return quizResultados;
     }
 
-    public void setQuizResultados(Set<QuizResultado> quizResultados) {
+    public void setQuizResultados(Set<AplicacaoQuizResultado> quizResultados) {
         this.quizResultados = quizResultados;
     }
     

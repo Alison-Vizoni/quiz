@@ -28,15 +28,15 @@ public class AplicacaoQuiz implements Serializable {
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "id_usuario_aplicador")
+    private Usuario usuarioAplicador;
 
     @ManyToOne
     @JoinColumn(name = "id_quiz")
     private Quiz quiz;
     
     @OneToMany(mappedBy = "id.aplicacaoQuiz")
-    private Set<QuizResultado> quizResultado;
+    private Set<AplicacaoQuizResultado> quizResultado;
 
     public AplicacaoQuiz() {
     }
@@ -70,12 +70,12 @@ public class AplicacaoQuiz implements Serializable {
         this.descricao = descricao;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuarioAplicador() {
+        return usuarioAplicador;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioAplicador(Usuario usuarioAplicador) {
+        this.usuarioAplicador = usuarioAplicador;
     }
 
     public Quiz getQuiz() {
@@ -86,11 +86,11 @@ public class AplicacaoQuiz implements Serializable {
         this.quiz = quiz;
     }
 
-    public Set<QuizResultado> getQuizResultado() {
+    public Set<AplicacaoQuizResultado> getQuizResultado() {
         return quizResultado;
     }
 
-    public void setQuizResultado(Set<QuizResultado> quizResultado) {
+    public void setQuizResultado(Set<AplicacaoQuizResultado> quizResultado) {
         this.quizResultado = quizResultado;
     }
 

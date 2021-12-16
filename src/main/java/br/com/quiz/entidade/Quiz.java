@@ -38,9 +38,6 @@ public class Quiz implements Serializable {
     
     @OneToMany(mappedBy = "quiz")
     private Set<AplicacaoQuiz> quizzesAplicados;
-    
-    @OneToMany(mappedBy = "id.quiz")
-    private Set<QuizResultado> quizResultado;
 
     public Quiz() {
     }
@@ -106,14 +103,6 @@ public class Quiz implements Serializable {
 
     public void setQuizzesAplicados(Set<AplicacaoQuiz> quizzesAplicados) {
         this.quizzesAplicados = quizzesAplicados;
-    }
-
-    public Set<QuizResultado> getQuizResultado() {
-        return quizResultado;
-    }
-
-    public void setQuizResultado(Set<QuizResultado> quizResultado) {
-        this.quizResultado = quizResultado;
     }
 
     @Override
