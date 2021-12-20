@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
-package br.com.quiz.dao;
+package br.com.quiz.model.dao;
 
-import br.com.quiz.entidade.Categoria;
+import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dao.CategoriaDaoImpl;
+import br.com.quiz.model.dao.CategoriaDao;
+import br.com.quiz.model.entidade.Categoria;
 import java.util.List;
 import java.util.logging.Logger;
 import org.hibernate.Session;

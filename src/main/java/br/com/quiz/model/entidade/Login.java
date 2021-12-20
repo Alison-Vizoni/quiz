@@ -2,38 +2,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.quiz.entidade;
+package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
  * @author alison
  */
 @Entity
-@Table(name = "categoria")
-public class Categoria implements Serializable {
+@Table(name = "login")
+public class Login implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(nullable = false)
-    private String nome;
+    private String login;
+    
+    @Column(nullable = false)
+    private String senha;
+    
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
-    public Categoria() {
+    public Login() {
     }
 
-    public Categoria(String nome) {
-        this.nome = nome;
+    public Login(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
     }
 
     public Long getId() {
@@ -44,12 +46,28 @@ public class Categoria implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getLogin() {
+        return login;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -62,10 +80,10 @@ public class Categoria implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categoria)) {
+        if (!(object instanceof Login)) {
             return false;
         }
-        Categoria other = (Categoria) object;
+        Login other = (Login) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -74,7 +92,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.quiz.entidade.Categoria[ id=" + id + " ]";
+        return "br.com.quiz.entidade.Login[ id=" + id + " ]";
     }
     
 }

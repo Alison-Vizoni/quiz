@@ -3,9 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.quiz.dao;
+package br.com.quiz.model.dao;
 
-import br.com.quiz.entidade.Categoria;
+import br.com.quiz.model.entidade.Alternativa;
+import br.com.quiz.model.entidade.AplicacaoQuiz;
+import br.com.quiz.model.entidade.AplicacaoQuizResultado;
+import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Login;
+import br.com.quiz.model.entidade.Pergunta;
+import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -22,6 +29,13 @@ public class HibernateUtil {
         try {
             Configuration cfg = new Configuration();
             cfg.addAnnotatedClass(Categoria.class);
+            cfg.addAnnotatedClass(Pergunta.class);
+            cfg.addAnnotatedClass(Alternativa.class);
+            cfg.addAnnotatedClass(Quiz.class);
+            cfg.addAnnotatedClass(AplicacaoQuiz.class);
+            cfg.addAnnotatedClass(AplicacaoQuizResultado.class);
+            cfg.addAnnotatedClass(Usuario.class);
+            cfg.addAnnotatedClass(Login.class);
 
             cfg.configure("/META-INF/hibernate.cfg.xml");
             StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
