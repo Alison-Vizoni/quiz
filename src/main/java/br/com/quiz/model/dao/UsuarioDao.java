@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.quiz.dao;
+package br.com.quiz.model.dao;
 
-import br.com.quiz.entidade.Categoria;
+import br.com.quiz.model.entidade.Usuario;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -13,9 +13,9 @@ import org.hibernate.Session;
  *
  * @author alison
  */
-public interface CategoriaDao extends BaseDao<Categoria, Long>{
+public interface UsuarioDao extends BaseDao<Usuario, Long>{
     
-    List<Categoria> pesquisarPorNome(String nome, Session sessao)
+    List<Usuario> pesquisarPorNome(String nome, Session sessao)
             throws HibernateException;
     
 }
