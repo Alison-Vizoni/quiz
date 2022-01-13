@@ -27,20 +27,26 @@
         <header class="aw-topbar">
             <span class="aw-name" >Quizz</span>
             <a href="#" class="aw-toggle  js-toggle"><i class="fa fa-bars"></i></a>
-        </header>
+        </header>        
 
-        
-
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <div class="p-text-center">
+                    <h:graphicImage library="senac/images" name="blog-loader.gif"  />
+                </div>
+        </p:dialog>
+          
         <section class="aw-content  js-content is-toggled">
             <ui:insert name="content" />
         </section>
-          <aside class="aw-sidebar  js-sidebar is-toggled">
+          
+        <aside class="aw-sidebar  js-sidebar is-toggled">
             <ui:include src="menu.xhtml" />
         </aside>
 
-          <footer class="footer">
-              © Trabalho conclusão de curso Senac Santa Catarina  
-          </footer>
+        <footer class="footer">
+            © Trabalho conclusão de curso Senac Santa Catarina  
+        </footer>
+          
     </h:body>
 
 </html>

@@ -1,0 +1,175 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+        <p:panel id="painel_conteudo" styleClass="color" header="Projeto TCS">
+            <div id="header-name" >
+                <p:panel id="panel_cadastro">
+                    <style type="text/css">
+                        .label {
+                            width: 20%;
+                            padding: 4px;
+                        }
+
+                        .value {
+                            width: 80%;
+                            padding: 4px;
+                        }
+
+                        .grid {
+                            width: 100%;
+                        }
+
+                        .error {
+                            color: red;
+                        }
+
+                        .outputLabel {
+                            font-weight: bold;
+                        }
+
+                        .grid {
+                            width: 33%;
+                            padding: 4px;
+                        }
+                    </style>
+                    <div class="card">
+                        <h:form>
+                            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                            <p:wizard flowListener="#{perguntaC.onFlowProcess}">
+                                <p:tab id="tab_pergunta" title="Pergunta">
+                                    <p:panel header="Cadastro de Pergunta">
+                                        <p:messages/>
+                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
+                                            <p:inputText value="#{perguntaC.pergunta.texto}" 
+                                                         required="true" 
+                                                         label="Pergunta" 
+                                                         placeholder="Digite a pergunta *"
+                                                         requiredMessage="Texto da Pergunta é obrigatório!"
+                                                         maxlength="255" 
+                                                         style="width:100%" />
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="tab_categoria" title="Categoria">
+                                    <p:panel header="Defina a categoria">
+                                        <p:messages/>
+                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
+                                            <h:outputText value=" "/>
+
+                                            <p:selectOneMenu value="#{perguntaC.pergunta.categoria}"
+                                                             id="categoria"                                                             
+                                                             requiredMessage="Categoria é obrigatório!"  
+                                                             filter="true" 
+                                                             filterMatchMode="startsWith" >
+
+                                                 <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+                                                 <f:selectItems value=" "/>
+                                             </p:selectOneMenu>
+                                           
+                                            <br></br> 
+                                            
+                                             <h:outputText value="Não encontrou a categoria desejada?"/>
+                                             <p:inputText value="#{perguntaC.pergunta.categoria}" 
+                                                          label="Categoria"
+                                                          placeholder="Cadastre aqui sua categoria"
+                                                          maxlength="255"
+                                                          style="width:100%" />
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="tab_alternativas" title="Alternativas">
+                                    <p:panel header="Contact Information">
+                                        <p:messages/>
+                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
+                                            
+                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
+                                                          id="alternativa_1"
+                                                          label="Categoria"
+                                                          placeholder="Alternativa 1"
+                                                          maxlength="255"
+                                                          style="width:100%" />
+                                             
+                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
+                                                          id="alternativa_2"
+                                                          label="Categoria"
+                                                          placeholder="Alternativa 2"
+                                                          maxlength="255"
+                                                          style="width:100%" />
+                                             
+                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
+                                                          id="alternativa_3"
+                                                          label="Categoria"
+                                                          placeholder="Alternativa 3"
+                                                          maxlength="255"
+                                                          style="width:100%" />
+                                             
+                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
+                                                          id="alternativa_4"
+                                                          label="Categoria"
+                                                          placeholder="Alternativa 4"
+                                                          maxlength="255"
+                                                          style="width:100%" />
+                                             
+                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
+                                                          id="alternativa_5"
+                                                          label="Categoria"
+                                                          placeholder="Alternativa 5"
+                                                          maxlength="255"
+                                                          style="width:100%" />
+
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+
+                                <p:tab id="confirmacao" title="Confirmação">
+                                    <p:panel header="Confirmar inclusão">
+                                        
+                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
+                                            <h:outputText value="Pergunta: "/>
+                                            <h:outputText value="Texto da pergunta hdhfhfhfh ?" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Categoria: "/>
+                                            <h:outputText value="oooooggggggooooooooo" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Alternativa 1: "/>
+                                            <h:outputText value="ooooggggggggooooooo" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Alternativa 2: "/>
+                                            <h:outputText value="ooooogggggggggggggggooooooo" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Alternativa 3: "/>
+                                            <h:outputText value="ooggggggggggoooooooooo" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Alternativa 4: "/>
+                                            <h:outputText value="oooooggooooooooo" styleClass="outputLabel"/>
+
+                                            <h:outputText value="Alternativa 5: "/>
+                                            <h:outputText value="ooooooggggggggggggggggoooooooo" styleClass="outputLabel"/>
+
+                                            <br></br>
+                                            <h:outputText value="Conteúdo Privado: "/>
+                                            <h:selectBooleanCheckbox value="#{perguntaC.pergunta.visibilidadePrivada}"/>
+
+                                            <p:commandButton value="Submit" action="{questaoC.save()}" update="growl" process="@this" style="float: right"/>
+                                        </h:panelGrid>
+
+                                    </p:panel>
+                                </p:tab>
+                            </p:wizard>
+                        </h:form>
+                    </div>  
+                </p:panel>  
+            </div>
+        </p:panel>
+    </ui:define>
+</ui:composition>

@@ -43,7 +43,6 @@ public class UsuarioController {
         sessao = HibernateUtil.abrirSessao();
         usuarioBO = new UsuarioBO();
         try {
-//      
             if (usuarioBO.existeEmail(usuario.getEmail(), sessao)) {
                 Mensagem.erro("Email já cadastrado");
             } else {
@@ -59,7 +58,6 @@ public class UsuarioController {
         } finally {
             sessao.close();
         }
-
     }
 
     public Usuario getUsuario() {
