@@ -64,14 +64,14 @@
                                         <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
                                             <h:outputText value=" "/>
 
-                                            <p:selectOneMenu value="#{perguntaC.pergunta.categoria}"
+                                            <p:selectOneMenu value="#{perguntaC.pergunta.categoria.id}"
                                                              id="categoria"                                                             
                                                              requiredMessage="Categoria é obrigatório!"  
                                                              filter="true" 
                                                              filterMatchMode="startsWith" >
 
                                                  <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-                                                 <f:selectItems value=" "/>
+                                                 <f:selectItems value="#{categoriaC.comboCategorias}"/>
                                              </p:selectOneMenu>
                                            
                                             <br></br> 

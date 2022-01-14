@@ -17,7 +17,7 @@ import org.hibernate.Session;
  */
 public class CategoriaDaoImpl extends BaseDaoImpl<Categoria, Long> 
         implements CategoriaDao, Serializable{
-
+ 
     @Override
     public Categoria pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
@@ -29,6 +29,12 @@ public class CategoriaDaoImpl extends BaseDaoImpl<Categoria, Long>
             throws HibernateException {
         Query consulta = sessao.createQuery("FROM Categoria WHERE nome = :nome");
         consulta.setParameter("nome", nome);
+        return consulta.list();
+    }
+
+    @Override
+    public List<Categoria> populaComboInicial(Session sessao) throws HibernateException {
+        Query consulta = sessao.createQuery("FROM Categoria");
         return consulta.list();
     }
     
