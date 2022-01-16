@@ -4,6 +4,7 @@ package br.com.quiz.controle;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
+import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
@@ -22,9 +23,10 @@ public class PerguntaController implements Serializable{
 
     private PerguntaDao perguntaDao;
     private Pergunta pergunta;
-    private boolean skip; 
     
+    private Categoria categoria;
     private Session sessao;
+    private boolean skip;    
 
     public PerguntaController() {
         perguntaDao = new PerguntaDaoImpl();
@@ -85,5 +87,24 @@ public class PerguntaController implements Serializable{
     public void setPerguntaDao(PerguntaDao perguntaDao) {
         this.perguntaDao = perguntaDao;
     }
+
+    public Categoria getCategoria() {        
+        if (categoria == null) {
+             categoria = new Categoria();
+         }
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Session getSessao() {
+        return sessao;
+    }
+
+    public void setSessao(Session sessao) {
+        this.sessao = sessao;
+    }    
     
 }

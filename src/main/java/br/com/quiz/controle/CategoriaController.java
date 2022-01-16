@@ -4,6 +4,7 @@ import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.entidade.Categoria;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -18,12 +19,12 @@ import org.hibernate.Session;
  */
 @ManagedBean(name = "categoriaC")
 @ViewScoped
-public class CategoriaController {
+public class CategoriaController implements Serializable{
 
     private Categoria categoria;
     private CategoriaDao categoriaDao;
     private Session sessao;
-    
+
     private List<Categoria> categorias;
     private List<SelectItem> comboCategorias;
 
@@ -31,34 +32,29 @@ public class CategoriaController {
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();
     }
-    
+
     // CRUD
-    
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
-     * 
-     * @return lista com todas categorias cadastradas no BD
      */
-    public List<SelectItem> populaComboCategorias(){
+    public void populaComboCategorias() {
         try {
             sessao = HibernateUtil.abrirSessao();
             categorias = categoriaDao.populaComboInicial(sessao);
             comboCategorias = new ArrayList<>();
-            
+
             categorias.forEach(cat -> {
                 comboCategorias.add(new SelectItem(cat.getId(), cat.getNome()));
-            });            
-            
+            });
+
         } catch (HibernateException e) {
             System.err.println("método - populaComboCategorias(); \n Erro ao popular combo categorias [" + e.getMessage() + "]");
         } finally {
             sessao.close();
-        }        
-        return comboCategorias;        
+        }
     }
-    
-    // GETTERS AND SETTERS
 
+    // GETTERS AND SETTERS
     public Categoria getCategoria() {
         if (categoria == null) {
             categoria = new Categoria();
@@ -76,7 +72,7 @@ public class CategoriaController {
 
     public void setCategoriaDao(CategoriaDao categoriaDao) {
         this.categoriaDao = categoriaDao;
-    } 
+    }
 
     public Session getSessao() {
         return sessao;
@@ -100,6 +96,6 @@ public class CategoriaController {
 
     public void setComboCategorias(List<SelectItem> comboCategorias) {
         this.comboCategorias = comboCategorias;
-    }    
+    }
 
 }

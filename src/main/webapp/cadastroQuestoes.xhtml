@@ -58,13 +58,15 @@
                                     </p:panel>
                                 </p:tab>
 
+                                <!--      CATEGORIAS     -->
+                                
                                 <p:tab id="tab_categoria" title="Categoria">
                                     <p:panel header="Defina a categoria">
                                         <p:messages/>
                                         <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
                                             <h:outputText value=" "/>
 
-                                            <p:selectOneMenu value="#{perguntaC.pergunta.categoria.id}"
+                                            <p:selectOneMenu value="#{perguntaC.categoria.id}"
                                                              id="categoria"                                                             
                                                              requiredMessage="Categoria é obrigatório!"  
                                                              filter="true" 
@@ -86,50 +88,44 @@
                                         </h:panelGrid>
                                     </p:panel>
                                 </p:tab>
-
+                                
+                                <!--      ALTERNATIVAS     -->
+                                
                                 <p:tab id="tab_alternativas" title="Alternativas">
-                                    <p:panel header="Contact Information">
-                                        <p:messages/>
-                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
-                                            
-                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
-                                                          id="alternativa_1"
-                                                          label="Categoria"
-                                                          placeholder="Alternativa 1"
-                                                          maxlength="255"
-                                                          style="width:100%" />
-                                             
-                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
-                                                          id="alternativa_2"
-                                                          label="Categoria"
-                                                          placeholder="Alternativa 2"
-                                                          maxlength="255"
-                                                          style="width:100%" />
-                                             
-                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
-                                                          id="alternativa_3"
-                                                          label="Categoria"
-                                                          placeholder="Alternativa 3"
-                                                          maxlength="255"
-                                                          style="width:100%" />
-                                             
-                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
-                                                          id="alternativa_4"
-                                                          label="Categoria"
-                                                          placeholder="Alternativa 4"
-                                                          maxlength="255"
-                                                          style="width:100%" />
-                                             
-                                             <p:inputText value="#{perguntaC.pergunta.categoria}"
-                                                          id="alternativa_5"
-                                                          label="Categoria"
-                                                          placeholder="Alternativa 5"
-                                                          maxlength="255"
-                                                          style="width:100%" />
+                                    <p:messages id="messages" showDetail="true" closable="true">
+                                        <p:autoUpdate/>
+                                    </p:messages>
 
-                                        </h:panelGrid>
-                                    </p:panel>
+                                    <p:panelGrid columns="2" layout="flex" contentStyleClass="ui-fluid">
+                                        <p:outputLabel for="alternativa" value="" />
+                                        <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}"/>
+                                        <p:commandButton value="Cadastrar"
+                                                         update="tabela alternativa" 
+                                                         action="#{alternativaC.populaListaAlternativa()}" />
+                                    </p:panelGrid>
+
+                                    <p:dataTable id="tabela" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10">
+                                        
+                                        <p:column headerText="Alternativas Incluídas">
+                                            <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
+                                        </p:column>
+
+                                        <p:column headerText="Excluir" style="width: 9%; margin-left: 0">
+<!--                                            <p:commandButton icon="pi pi-pencil" title="Alterar" process="@this" 
+                                                            actionListener="{alternativaC.excluir()}" update="@all"
+                                                            style="margin-right: 12px" styleClass="rounded-button ui-button-outlined" />-->
+
+                                            <p:commandButton icon="pi pi-trash" title="Excluir" process="@this"
+                                                            actionListener="#{alternativaC.excluir()}" update="tabela"
+                                                            styleClass="rounded-button ui-button-outlined" />
+                                                
+                                                <!--<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle"/>-->
+                                        </p:column>                       
+
+                                    </p:dataTable>
                                 </p:tab>
+                                
+                                <!--      CONFIRMAÇÃO     -->
 
                                 <p:tab id="confirmacao" title="Confirmação">
                                     <p:panel header="Confirmar inclusão">
