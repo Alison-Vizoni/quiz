@@ -3,12 +3,13 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templates/layout.xhtml">
+                template="/WEB-INF/templates/layout.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content">
         <p:panel id="painel_conteudo" styleClass="color" header="Projeto TCS">
             <div id="header-name" >
-                <p:panel id="panel_cadastro">
+                <p:panel id="panel_cadastro_questao">
                     <style type="text/css">
                         .label {
                             width: 20%;
@@ -36,44 +37,49 @@
                             width: 33%;
                             padding: 4px;
                         }
-                    </style>
+                    </style>                    
                     <div class="card">
+                        
                         <h:form>
                             <p:growl id="growl" sticky="true" showDetail="true"/>
 
                             <p:wizard flowListener="#{perguntaC.onFlowProcess}">
+                                
+                                <!--      PERGUNTAS     -->
+                                
                                 <p:tab id="tab_pergunta" title="Pergunta">
-                                    <p:panel header="Cadastro de Pergunta">
-                                        <p:messages/>
-                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
-                                            <p:inputText value="#{perguntaC.pergunta.texto}" 
+                                    <p:messages for="Pergunta" closable="true" showIcon="false"/>
+                                    <p:panel header="Cadastro de Pergunta">                                        
+                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">                                            
+                                            <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}" 
                                                          required="true" 
-                                                         label="Pergunta" 
-                                                         placeholder="Digite a pergunta *"
-                                                         requiredMessage="Texto da Pergunta é obrigatório!"
-                                                         maxlength="255" 
-                                                         style="width:100%" />
-
+                                                         label=" " 
+                                                         maxlength="255"
+                                                         style="width:100%"
+                                                         placeholder="Digite a pergunta *">
+                                                <f:validateLength minimum="2"/>                                                
+                                            </p:inputText>                        
                                         </h:panelGrid>
                                     </p:panel>
                                 </p:tab>
 
                                 <!--      CATEGORIAS     -->
                                 
-                                <p:tab id="tab_categoria" title="Categoria">
-                                    <p:panel header="Defina a categoria">
+                                <p:tab id="tab_categoria" title="Categoria" >
+                                    <p:messages closable="true"/>
+                                    <p:panel header="Defina a categoria" >
                                         <p:messages/>
-                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
+                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto" >
                                             <h:outputText value=" "/>
 
-                                            <p:selectOneMenu value="#{perguntaC.categoria.id}"
+                                            <p:selectOneMenu value="#{categoriaC.categoria.id}"
                                                              id="categoria"                                                             
-                                                             requiredMessage="Categoria é obrigatório!"  
+                                                             requiredMessage="Categoria é obrigatório!" 
                                                              filter="true" 
-                                                             filterMatchMode="startsWith" >
+                                                             filterMatchMode="startsWith">                                                       
 
                                                  <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-                                                 <f:selectItems value="#{categoriaC.comboCategorias}"/>
+                                                 <f:selectItems value="#{categoriaC.comboCategorias}" />
                                              </p:selectOneMenu>
                                            
                                             <br></br> 
@@ -92,14 +98,14 @@
                                 <!--      ALTERNATIVAS     -->
                                 
                                 <p:tab id="tab_alternativas" title="Alternativas">
-                                    <p:messages id="messages" showDetail="true" closable="true">
-                                        <p:autoUpdate/>
+                                    <p:messages id="messages" showDetail="true" closable="true" >
+                                        <p:autoUpdate />
                                     </p:messages>
 
                                     <p:panelGrid columns="2" layout="flex" contentStyleClass="ui-fluid">
                                         <p:outputLabel for="alternativa" value="" />
-                                        <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}"/>
-                                        <p:commandButton value="Cadastrar"
+                                        <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}" placeholder="Digite suas alternativas *" />
+                                        <p:commandButton value="Cadastrar Alternativa"
                                                          update="tabela alternativa" 
                                                          action="#{alternativaC.populaListaAlternativa()}" />
                                     </p:panelGrid>
@@ -111,10 +117,6 @@
                                         </p:column>
 
                                         <p:column headerText="Excluir" style="width: 9%; margin-left: 0">
-<!--                                            <p:commandButton icon="pi pi-pencil" title="Alterar" process="@this" 
-                                                            actionListener="{alternativaC.excluir()}" update="@all"
-                                                            style="margin-right: 12px" styleClass="rounded-button ui-button-outlined" />-->
-
                                             <p:commandButton icon="pi pi-trash" title="Excluir" process="@this"
                                                             actionListener="#{alternativaC.excluir()}" update="tabela"
                                                             styleClass="rounded-button ui-button-outlined" />
@@ -127,36 +129,26 @@
                                 
                                 <!--      CONFIRMAÇÃO     -->
 
-                                <p:tab id="confirmacao" title="Confirmação">
+                                <p:tab id="tab_confirmacao" title="Confirmação">
                                     <p:panel header="Confirmar inclusão">
                                         
                                         <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
                                             <h:outputText value="Pergunta: "/>
-                                            <h:outputText value="Texto da pergunta hdhfhfhfh ?" styleClass="outputLabel"/>
+                                            <h:outputText value="#{perguntaC.pergunta.texto}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Categoria: "/>
-                                            <h:outputText value="oooooggggggooooooooo" styleClass="outputLabel"/>
-
-                                            <h:outputText value="Alternativa 1: "/>
-                                            <h:outputText value="ooooggggggggooooooo" styleClass="outputLabel"/>
-
-                                            <h:outputText value="Alternativa 2: "/>
-                                            <h:outputText value="ooooogggggggggggggggooooooo" styleClass="outputLabel"/>
-
-                                            <h:outputText value="Alternativa 3: "/>
-                                            <h:outputText value="ooggggggggggoooooooooo" styleClass="outputLabel"/>
-
-                                            <h:outputText value="Alternativa 4: "/>
-                                            <h:outputText value="oooooggooooooooo" styleClass="outputLabel"/>
-
-                                            <h:outputText value="Alternativa 5: "/>
-                                            <h:outputText value="ooooooggggggggggggggggoooooooo" styleClass="outputLabel"/>
-
+                                            <h:outputText value="#{categoriaC.pergunta.categoria.nome}" styleClass="outputLabel"/>
+                                            
+                                            <h:outputText value="Alternativas: " />
+                                            <p:dataList value="#{alternativaC.modelAlternativas}" var="alt" type="ordered">
+                                                <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-bottom: 10px"/>
+                                            </p:dataList>
+                                            
                                             <br></br>
                                             <h:outputText value="Conteúdo Privado: "/>
                                             <h:selectBooleanCheckbox value="#{perguntaC.pergunta.visibilidadePrivada}"/>
 
-                                            <p:commandButton value="Submit" action="{questaoC.save()}" update="growl" process="@this" style="float: right"/>
+                                            <p:commandButton value="Submit" action="#{perguntaC.salvar()}" update="growl" process="@this" style="float: right"/>
                                         </h:panelGrid>
 
                                     </p:panel>

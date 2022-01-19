@@ -4,6 +4,7 @@ import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class CategoriaController implements Serializable{
 
     private List<Categoria> categorias;
     private List<SelectItem> comboCategorias;
+    
+    private Pergunta pergunta;
 
     public CategoriaController() {
         categoriaDao = new CategoriaDaoImpl();
@@ -34,6 +37,10 @@ public class CategoriaController implements Serializable{
     }
 
     // CRUD
+    
+    
+    
+    
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
      */
@@ -54,6 +61,7 @@ public class CategoriaController implements Serializable{
         }
     }
 
+    
     // GETTERS AND SETTERS
     public Categoria getCategoria() {
         if (categoria == null) {
@@ -96,6 +104,20 @@ public class CategoriaController implements Serializable{
 
     public void setComboCategorias(List<SelectItem> comboCategorias) {
         this.comboCategorias = comboCategorias;
+    }
+
+    public Pergunta getPergunta() {
+        if (pergunta == null) {
+             pergunta = new Pergunta();
+         }
+        sessao = HibernateUtil.abrirSessao();
+        pergunta.setCategoria(categoriaDao.pesquisarPorID(categoria.getId(), sessao));
+        sessao.close();
+        return pergunta;
+    }
+
+    public void setPergunta(Pergunta pergunta) {
+        this.pergunta = pergunta;
     }
 
 }

@@ -4,9 +4,12 @@ package br.com.quiz.controle;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
+import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.hibernate.HibernateException;
@@ -23,7 +26,7 @@ public class PerguntaController implements Serializable{
 
     private PerguntaDao perguntaDao;
     private Pergunta pergunta;
-    
+    private List<Alternativa> listaAlternativas = new ArrayList<>();
     private Categoria categoria;
     private Session sessao;
     private boolean skip;    
@@ -32,7 +35,7 @@ public class PerguntaController implements Serializable{
         perguntaDao = new PerguntaDaoImpl();
        
     }
-    
+       
     public String onFlowProcess(FlowEvent event) {
         if (skip) {
             skip = false; 
@@ -46,9 +49,11 @@ public class PerguntaController implements Serializable{
     // CRUD
     
     public void salvar() {
-        sessao = HibernateUtil.abrirSessao();
         
         try {
+            sessao = HibernateUtil.abrirSessao();
+            pergunta.setCategoria(categoria);
+            pergunta.setAlternativas(listaAlternativas);
             
          
 
@@ -64,7 +69,7 @@ public class PerguntaController implements Serializable{
      public Pergunta getPergunta() {
          if (pergunta == null) {
              pergunta = new Pergunta();
-         }        
+         }
         return pergunta;
     }
 
@@ -105,6 +110,14 @@ public class PerguntaController implements Serializable{
 
     public void setSessao(Session sessao) {
         this.sessao = sessao;
+    }
+
+    public List<Alternativa> getListaAlternativas() {
+        return listaAlternativas;
+    }
+
+    public void setListaAlternativas(List<Alternativa> listaAlternativas) {
+        this.listaAlternativas = listaAlternativas;
     }    
     
 }

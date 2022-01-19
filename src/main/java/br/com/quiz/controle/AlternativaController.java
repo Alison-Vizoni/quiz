@@ -2,7 +2,12 @@ package br.com.quiz.controle;
 
 import br.com.quiz.model.dao.AlternativaDao;
 import br.com.quiz.model.dao.AlternativaDaoImpl;
+import br.com.quiz.model.dao.CategoriaDao;
+import br.com.quiz.model.dao.CategoriaDaoImpl;
+import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.entidade.Alternativa;
+import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +34,10 @@ public class AlternativaController implements Serializable {
 
     private Long contadorId = 0L;
     private Alternativa alter;
+    private Categoria categoria;
+    private CategoriaDao categoriaDao;
 
     public AlternativaController() {
-
         alternativaDao = new AlternativaDaoImpl();
 
     }
@@ -118,5 +124,34 @@ public class AlternativaController implements Serializable {
     public void setModelAlternativas(DataModel<Alternativa> modelAlternativas) {
         this.modelAlternativas = modelAlternativas;
     }
+
+    public Alternativa getAlter() {
+        return alter;
+    }
+
+    public void setAlter(Alternativa alter) {
+        this.alter = alter;
+    }
+
+    public Categoria getCategoria() {
+        if (categoria == null) {
+            categoria = new Categoria();
+        }
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public CategoriaDao getCategoriaDao() {
+        return categoriaDao;
+    }
+
+    public void setCategoriaDao(CategoriaDao categoriaDao) {
+        this.categoriaDao = categoriaDao;
+    }
+    
+    
 
 }

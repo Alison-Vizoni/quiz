@@ -9,6 +9,7 @@
         <f:facet name="first">
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="shortcut icon" href="resources\senac\images\logo_1.png" />
         </f:facet>
 
         <title>Quizz</title>
@@ -42,6 +43,23 @@
         <aside class="aw-sidebar  js-sidebar is-toggled">
             <ui:include src="menu.xhtml" />
         </aside>
+
+
+<!--        <aside class="aw-sidebar  js-sidebar">
+            <ui:include src="menu.xhtml" />
+        </aside>
+
+        <section class="aw-content  js-content">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <div class="p-text-center">
+                    <h:graphicImage library="senac/images" name="blog-loader.gif"  />
+                </div>
+            </p:dialog>
+            <ui:insert name="content" />
+        </section>-->
+
 
         <footer class="footer">
             © Trabalho conclusão de curso Senac Santa Catarina  
