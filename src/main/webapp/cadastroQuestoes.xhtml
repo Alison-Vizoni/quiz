@@ -72,7 +72,7 @@
                                         <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto" >
                                             <h:outputText value=" "/>
 
-                                            <p:selectOneMenu value="#{categoriaC.categoria.id}"
+                                            <p:selectOneMenu value="#{perguntaC.categoria.id}"
                                                              id="categoria"                                                             
                                                              requiredMessage="Categoria é obrigatório!" 
                                                              filter="true" 
@@ -80,6 +80,7 @@
 
                                                  <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
                                                  <f:selectItems value="#{categoriaC.comboCategorias}" />
+                                                 <p:ajax listener="#{perguntaC.setaCategoria()}" update="tab_categoria categoria"/>
                                              </p:selectOneMenu>
                                            
                                             <br></br> 
@@ -104,13 +105,13 @@
 
                                     <p:panelGrid columns="2" layout="flex" contentStyleClass="ui-fluid">
                                         <p:outputLabel for="alternativa" value="" />
-                                        <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}" placeholder="Digite suas alternativas *" />
+                                        <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *" />
                                         <p:commandButton value="Cadastrar Alternativa"
                                                          update="tabela alternativa" 
-                                                         action="#{alternativaC.populaListaAlternativa()}" />
+                                                         action="#{perguntaC.populaListaAlternativa()}" />
                                     </p:panelGrid>
 
-                                    <p:dataTable id="tabela" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10">
+                                    <p:dataTable id="tabela" var="alternativa" value="#{perguntaC.modelAlternativas}" rows="10">
                                         
                                         <p:column headerText="Alternativas Incluídas">
                                             <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
@@ -118,7 +119,7 @@
 
                                         <p:column headerText="Excluir" style="width: 9%; margin-left: 0">
                                             <p:commandButton icon="pi pi-trash" title="Excluir" process="@this"
-                                                            actionListener="#{alternativaC.excluir()}" update="tabela"
+                                                            actionListener="#{perguntaC.excluir()}" update="tabela"
                                                             styleClass="rounded-button ui-button-outlined" />
                                                 
                                                 <!--<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle"/>-->
@@ -137,16 +138,16 @@
                                             <h:outputText value="#{perguntaC.pergunta.texto}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Categoria: "/>
-                                            <h:outputText value="#{categoriaC.pergunta.categoria.nome}" styleClass="outputLabel"/>
+                                            <h:outputText value="#{perguntaC.categoria.nome}" styleClass="outputLabel"/>
                                             
                                             <h:outputText value="Alternativas: " />
-                                            <p:dataList value="#{alternativaC.modelAlternativas}" var="alt" type="ordered">
+                                            <p:dataList value="#{perguntaC.modelAlternativas}" var="alt" type="ordered">
                                                 <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-bottom: 10px"/>
                                             </p:dataList>
                                             
                                             <br></br>
                                             <h:outputText value="Conteúdo Privado: "/>
-                                            <h:selectBooleanCheckbox value="#{perguntaC.pergunta.visibilidadePrivada}"/>
+                                            <p:selectBooleanCheckbox value="#{perguntaC.pergunta.visibilidadePrivada}" />
 
                                             <p:commandButton value="Submit" action="#{perguntaC.salvar()}" update="growl" process="@this" style="float: right"/>
                                         </h:panelGrid>

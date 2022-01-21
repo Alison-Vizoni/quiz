@@ -35,6 +35,9 @@ public class CategoriaController implements Serializable{
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();
     }
+    
+    
+    
 
     // CRUD
     
@@ -51,7 +54,7 @@ public class CategoriaController implements Serializable{
             comboCategorias = new ArrayList<>();
 
             categorias.forEach(cat -> {
-                comboCategorias.add(new SelectItem(cat.getId(), cat.getNome()));
+                comboCategorias.add(new SelectItem(cat.getId(), cat.getNome().toUpperCase()));
             });
 
         } catch (HibernateException e) {
@@ -106,18 +109,18 @@ public class CategoriaController implements Serializable{
         this.comboCategorias = comboCategorias;
     }
 
-    public Pergunta getPergunta() {
-        if (pergunta == null) {
-             pergunta = new Pergunta();
-         }
-        sessao = HibernateUtil.abrirSessao();
-        pergunta.setCategoria(categoriaDao.pesquisarPorID(categoria.getId(), sessao));
-        sessao.close();
-        return pergunta;
-    }
-
-    public void setPergunta(Pergunta pergunta) {
-        this.pergunta = pergunta;
-    }
+//    public Pergunta getPergunta() {
+//        if (pergunta == null) {
+//             pergunta = new Pergunta();
+//         }
+//        sessao = HibernateUtil.abrirSessao();
+//        pergunta.setCategoria(categoriaDao.pesquisarPorID(categoria.getId(), sessao));
+//        sessao.close();
+//        return pergunta;
+//    }
+//
+//    public void setPergunta(Pergunta pergunta) {
+//        this.pergunta = pergunta;
+//    }
 
 }

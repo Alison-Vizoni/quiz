@@ -37,5 +37,13 @@ public class CategoriaDaoImpl extends BaseDaoImpl<Categoria, Long>
         Query consulta = sessao.createQuery("FROM Categoria");
         return consulta.list();
     }
+
+    @Override
+    public Categoria buscaNomeEspecifico(String nome, Session sessao) {
+        Query query = sessao.createQuery("FROM Categoria WHERE nome = :nome");
+        query.setMaxResults(1);
+        Categoria cat = (Categoria) query.uniqueResult();
+        return cat;
+    }
     
 }
