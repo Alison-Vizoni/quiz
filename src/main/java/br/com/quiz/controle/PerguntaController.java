@@ -11,6 +11,7 @@ import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -38,8 +39,6 @@ public class PerguntaController implements Serializable{
     private DataModel<Alternativa> modelAlternativas;
     private Alternativa alternativa;
     private Alternativa alter;
-    
- //   private Boolean visib;
     
     private Long contadorId = 0L;
     private Session sessao;
@@ -110,6 +109,13 @@ public class PerguntaController implements Serializable{
         }
     }
     
+    /**
+     * Atualiza o status de visibilidade da questão
+     */
+    public void defineStatusVisibilidade(){
+        System.out.println("teste " + pergunta.isVisibilidadePrivada());
+    }
+    
     // CRUD
     
     public void salvar() {
@@ -117,7 +123,9 @@ public class PerguntaController implements Serializable{
         try {
             sessao = HibernateUtil.abrirSessao();
             pergunta.setCategoria(categoria);
-            pergunta.setAlternativas(listaAlternativas);
+            Date criacao =  new Date(System.currentTimeMillis());            
+            pergunta.setDataCriacao(criacao); 
+            perguntaDao.salvarOuAlterar(pergunta, sessao);           
 
         } catch (HibernateException e) {
             System.out.println("Erro ao salvar " + e.getMessage());
@@ -224,17 +232,5 @@ public class PerguntaController implements Serializable{
     public void setContadorId(Long contadorId) {
         this.contadorId = contadorId;
     }
-
-//    public Boolean getVisib() {
-//        
-//        return visib;
-//    }
-//
-//    public void setVisib(Boolean visib) {
-//        this.visib = visib;
-//    }
-    
-    
-    
     
 }
