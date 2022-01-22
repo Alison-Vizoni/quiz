@@ -2,12 +2,10 @@ package br.com.quiz.controle;
 
 import br.com.quiz.model.dao.AlternativaDao;
 import br.com.quiz.model.dao.AlternativaDaoImpl;
-import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
 import br.com.quiz.model.entidade.Alternativa;
-import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,18 +30,13 @@ public class AlternativaController implements Serializable {
     private AlternativaDao alternativaDao;
     private Alternativa alternativa;
     private Alternativa alter;
-    private Session sessao;
-
-    private Pergunta pergunta;
- //   private PerguntaDao perguntaDao;
     
     private Long contadorId = 0L;
-//    private Categoria categoria;
-//    private CategoriaDao categoriaDao;
+    private Pergunta pergunta;
+    private Session sessao;
 
-    public AlternativaController() {
-        alternativaDao = new AlternativaDaoImpl();        
-
+    public AlternativaController() {        
+        alternativaDao = new AlternativaDaoImpl();       
     }
 
     /**
@@ -85,8 +78,6 @@ public class AlternativaController implements Serializable {
     public void salvar(Long id){
         try {
             PerguntaDao perguntaDao = new PerguntaDaoImpl();
-     //       Pergunta perg;
-            
             sessao = HibernateUtil.abrirSessao();
             pergunta = perguntaDao.pesquisarPorID(id, sessao);
             
@@ -101,7 +92,6 @@ public class AlternativaController implements Serializable {
 //            }).forEachOrdered(altern -> {
 //                alternativaDao.salvarOuAlterar(altern, sessao);
 //            });
-            
 
         } catch (HibernateException e) {
             System.out.println("método salvar - Erro ao salvar alternativa " + e.getMessage());
@@ -109,9 +99,6 @@ public class AlternativaController implements Serializable {
             sessao.close();
         }
     }
-    
-    
-    
     
     // GETTERS AND SETTERS
     public Alternativa getAlternativa() {
@@ -164,25 +151,6 @@ public class AlternativaController implements Serializable {
     public void setAlter(Alternativa alter) {
         this.alter = alter;
     }
-//
-//    public Categoria getCategoria() {
-//        if (categoria == null) {
-//            categoria = new Categoria();
-//        }
-//        return categoria;
-//    }
-//
-//    public void setCategoria(Categoria categoria) {
-//        this.categoria = categoria;
-//    }
-//
-//    public CategoriaDao getCategoriaDao() {
-//        return categoriaDao;
-//    }
-//
-//    public void setCategoriaDao(CategoriaDao categoriaDao) {
-//        this.categoriaDao = categoriaDao;
-//    }
 
     public Pergunta getPergunta() {
         
@@ -194,10 +162,6 @@ public class AlternativaController implements Serializable {
 
     public void setPergunta(Pergunta pergunta) {
         this.pergunta = pergunta;
-    }
-    
-    
-    
-    
+    }    
 
 }
