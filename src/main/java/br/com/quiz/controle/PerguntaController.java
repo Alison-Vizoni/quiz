@@ -1,4 +1,3 @@
-
 package br.com.quiz.controle;
 
 import br.com.quiz.model.dao.CategoriaDao;
@@ -16,7 +15,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.primefaces.event.FlowEvent;
@@ -57,42 +55,6 @@ public class PerguntaController implements Serializable{
         else {
             return event.getNewStep();
         }
-    }
-    
-    //Tratamento View Alternativas
-    
-     /**
-     * Insere alternativas na tabela
-     */
-    public void populaListaAlternativa() {
-        if (!alternativa.getTexto().isBlank()) {
-            alternativa.setId(contadorId++);
-            listaAlternativas.add(alternativa);
-            apresentaTabela();
-            alternativa = null;
-        } else {
-            Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
-        }
-    }
-
-    /**
-     * Apresenta na tela as alternativas cadastradas
-     */
-    public void apresentaTabela() {
-        try {
-            modelAlternativas = new ListDataModel<>(listaAlternativas);
-        } catch (HibernateException e) {
-            System.out.println("Método apresentaTabela() - \n Erro ao incluir alternativa na tabela [" + e.getMessage() + "]");
-        }
-    }
-
-    /**
-     * Exclui alternativa da tabela
-     */
-    public void excluir() {
-        alter = new Alternativa();
-        alter = modelAlternativas.getRowData();
-        listaAlternativas.removeIf(alt -> alt.equals(alter));
     }
     
     /**

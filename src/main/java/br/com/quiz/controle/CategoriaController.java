@@ -36,13 +36,9 @@ public class CategoriaController implements Serializable{
         populaComboCategorias();
     }
     
-    
-    
-
     // CRUD
     
-    
-    
+        
     
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
@@ -63,7 +59,6 @@ public class CategoriaController implements Serializable{
             sessao.close();
         }
     }
-
     
     // GETTERS AND SETTERS
     public Categoria getCategoria() {
@@ -108,19 +103,5 @@ public class CategoriaController implements Serializable{
     public void setComboCategorias(List<SelectItem> comboCategorias) {
         this.comboCategorias = comboCategorias;
     }
-
-//    public Pergunta getPergunta() {
-//        if (pergunta == null) {
-//             pergunta = new Pergunta();
-//         }
-//        sessao = HibernateUtil.abrirSessao();
-//        pergunta.setCategoria(categoriaDao.pesquisarPorID(categoria.getId(), sessao));
-//        sessao.close();
-//        return pergunta;
-//    }
-//
-//    public void setPergunta(Pergunta pergunta) {
-//        this.pergunta = pergunta;
-//    }
 
 }
