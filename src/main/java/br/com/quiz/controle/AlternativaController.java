@@ -86,6 +86,7 @@ public class AlternativaController implements Serializable {
              altern.setId(null);
              alternativaDao.salvarOuAlterar(altern, sessao);
             }
+            
 //        listaAlternativas.stream().map(altern -> {
 //            altern.setPergunta(pergunta);
 //                return altern;
