@@ -106,3 +106,49 @@ body {
         border: none;
     }
 }
+
+
+/* HOME */
+
+.cards_home{
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px;
+    width: 30vw;
+    height: 250px;
+    border: 10px solid #880EE8;
+    justify-content: center;
+    
+}
+
+.cards_home h1{
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #880EE8;
+    
+    
+}
+
+.cards_home p{
+    font-family: sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    
+}
+
+.cards_link{    
+    font-family: sans-serif;
+    font-size: 10px;
+    text-align: center;
+    margin-top: 35px;
+    
+}
+
+.cards_link a{    
+    color: darkslateblue;
+    float: right;
+    
+}
+

@@ -11,7 +11,8 @@
     align-items: center;
     justify-content: space-between;
     padding-left: 10px;
-    background-color: #c4c4c4;
+    background: rgb(203,148,210);
+    background: linear-gradient(90deg, rgba(203,148,210,1) 0%, rgba(179,122,199,1) 14%, rgba(114,79,139,1) 62%, rgba(130,75,173,1) 100%);
 }
 
 .aw-topbar > img {

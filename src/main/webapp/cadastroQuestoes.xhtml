@@ -4,7 +4,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/layout.xhtml"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <ui:define name="content">
         <p:panel id="painel_conteudo" styleClass="color" header="Projeto TCS">
@@ -37,20 +38,24 @@
                             width: 33%;
                             padding: 4px;
                         }
+
+                        .grid-radio td {
+                            padding: .5rem;
+                        }
                     </style>                    
                     <div class="card">
-                        
+
                         <h:form>
                             <p:growl id="growl" sticky="true" showDetail="true"/>
 
                             <p:wizard flowListener="#{perguntaC.onFlowProcess}">
-                                
+
                                 <!--      PERGUNTAS     -->
-                                
+
                                 <p:tab id="tab_pergunta" title="Pergunta">
                                     <p:messages for="Pergunta" closable="true" showIcon="false"/>
                                     <p:panel header="Cadastro de Pergunta">                                        
-                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">                                            
+                                        <p:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">                                            
                                             <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}" 
                                                          required="true" 
                                                          label=" " 
@@ -59,12 +64,12 @@
                                                          placeholder="Digite a pergunta *">
                                                 <f:validateLength minimum="2"/>                                                
                                             </p:inputText>                        
-                                        </h:panelGrid>
+                                        </p:panelGrid>
                                     </p:panel>
                                 </p:tab>
 
                                 <!--      CATEGORIAS     -->
-                                
+
                                 <p:tab id="tab_categoria" title="Categoria" >
                                     <p:messages closable="true"/>
                                     <p:panel header="Defina a categoria" >
@@ -78,26 +83,69 @@
                                                              filter="true" 
                                                              filterMatchMode="startsWith">                                                       
 
-                                                 <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-                                                 <f:selectItems value="#{categoriaC.comboCategorias}" />
-                                                 <p:ajax listener="#{perguntaC.setaCategoria()}" update="tab_categoria categoria"/>
-                                             </p:selectOneMenu>
-                                           
+                                                <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+                                                <f:selectItems value="#{categoriaC.comboCategorias}" />
+                                                <p:ajax listener="#{perguntaC.setaCategoria()}" update="tab_categoria categoria"/>
+                                            </p:selectOneMenu>
+
                                             <br></br> 
-                                            
-                                             <h:outputText value="Não encontrou a categoria desejada?"/>
-                                             <p:inputText value="#{perguntaC.pergunta.categoria}" 
-                                                          label="Categoria"
-                                                          placeholder="Cadastre aqui sua categoria"
-                                                          maxlength="255"
-                                                          style="width:100%" />
+
+                                            <h:outputText value="Não encontrou a categoria desejada?"/>
+                                            <p:inputText value="#{perguntaC.pergunta.categoria}" 
+                                                         label="Categoria"
+                                                         placeholder="Cadastre aqui sua categoria"
+                                                         maxlength="255"
+                                                         style="width:100%" />
 
                                         </h:panelGrid>
                                     </p:panel>
                                 </p:tab>
+
+                                <!--                                      ALTERNATIVAS     
+                                                                
+                                                                <p:tab id="tab_alternativas" title="Alternativas">
+                                                                    <p:messages id="messages" showDetail="true" closable="true" >
+                                                                        <p:autoUpdate />
+                                                                    </p:messages>
                                 
+                                                                    <p:panelGrid columns="2" layout="flex" contentStyleClass="ui-fluid">
+                                                                        <p:outputLabel for="alternativa" value="" />
+                                                                        <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}" placeholder="Digite suas alternativas *" />
+                                                                        <p:commandButton value="Cadastrar Alternativa"
+                                                                                         update="tabela alternativa" 
+                                                                                         action="#{alternativaC.populaListaAlternativa()}" />
+                                                                    </p:panelGrid>
+                                
+                                                                    <p:dataTable id="tabela" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10">
+                                                                        
+                                                                        <p:column headerText="Alternativas Incluídas">
+                                                                            <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
+                                                                        </p:column>
+                                
+                                                                        <p:column headerText="Excluir" style="width: 9%; margin-left: 0">
+                                                                            <p:commandButton icon="pi pi-trash" title="Excluir" process="@this"
+                                                                                            actionListener="#{alternativaC.excluir()}" update="tabela"
+                                                                                            styleClass="rounded-button ui-button-outlined" >
+                                                                                
+                                                                                <p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle"/>
+                                                                            </p:commandButton>
+                                                                        </p:column>                       
+                                
+                                                                    </p:dataTable>
+                                                                    
+                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                                                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                                                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                                                    </p:confirmDialog>
+                                                                    
+                                                                </p:tab>-->
+
+
+
+
+
                                 <!--      ALTERNATIVAS     -->
-                                
+
                                 <p:tab id="tab_alternativas" title="Alternativas">
                                     <p:messages id="messages" showDetail="true" closable="true" >
                                         <p:autoUpdate />
@@ -112,46 +160,157 @@
                                     </p:panelGrid>
 
                                     <p:dataTable id="tabela" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10">
-                                        
-                                        <p:column headerText="Alternativas Incluídas">
+
+
+                                        <!--********************-->       
+
+
+
+                                        <p:column headerText="Correta" style="width: 5%" >
+
+
+<!--                                            <h:selectOneRadio class="foo" value="#{bean.selectedItem}">
+    <f:selectItem itemValue="one" />
+</h:selectOneRadio>
+<h:selectOneRadio class="foo">
+    <f:selectItem itemValue="two" />
+</h:selectOneRadio>
+<h:selectOneRadio class="foo">
+    <f:selectItem itemValue="three" />
+</h:selectOneRadio>-->
+
+
+
+
+
+
+
+                                            <p:selectOneRadio id="console" value="#{alternativa.statusCorreta}" unselectable="true" >
+                                                <f:selectItem itemLabel="" itemValue="#{alternativa.statusCorreta}" noSelectionOption="true"/>
+                                            </p:selectOneRadio>
+                                        </p:column>
+
+
+
+
+                                        <!--********************-->        
+
+
+                                        <p:column headerText="Alternativas Incluídas">                                                             
                                             <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
                                         </p:column>
 
                                         <p:column headerText="Excluir" style="width: 9%; margin-left: 0">
                                             <p:commandButton icon="pi pi-trash" title="Excluir" process="@this"
-                                                            actionListener="#{alternativaC.excluir()}" update="tabela"
-                                                            styleClass="rounded-button ui-button-outlined" >
-                                                
+                                                             actionListener="#{alternativaC.excluir()}" update="tabela"
+                                                             styleClass="rounded-button ui-button-outlined" >
+
                                                 <p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle"/>
                                             </p:commandButton>
                                         </p:column>                       
 
                                     </p:dataTable>
-                                    
+
                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                         <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                                         <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                                     </p:confirmDialog>
-                                    
+
                                 </p:tab>
-                                
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <!--      CONFIRMAÇÃO     -->
 
                                 <p:tab id="tab_confirmacao" title="Confirmação">
                                     <p:panel header="Confirmar inclusão">
-                                        
+
                                         <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">
                                             <h:outputText value="Pergunta: "/>
                                             <h:outputText value="#{perguntaC.pergunta.texto}" styleClass="outputLabel"/>
 
                                             <h:outputText value="Categoria: "/>
                                             <h:outputText value="#{perguntaC.categoria.nome}" styleClass="outputLabel"/>
-                                            
+
                                             <h:outputText value="Alternativas: " />
-                                            <p:dataList value="#{alternativaC.modelAlternativas}" var="alt" type="ordered">
+<!--                                            <p:dataList value="#{alternativaC.modelAlternativas}" var="alt" type="ordered">
                                                 <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-bottom: 10px"/>
-                                            </p:dataList>
-                                            
+                                            </p:dataList>-->
+
+
+                                            <!--********************-->           
+
+
+                                            <div style="display: flex; background-color: yellow; width: 90%">     
+                                                <ui:repeat value="#{alternativaC.modelAlternativas}" var="alt" >
+
+<!--                                                    <li>
+
+                                                        <h:selectOneRadio  value="#{alt.statusCorreta}"  >
+                                                            <div style="display: inline; background-color: yellowgreen">
+                                                            <f:selectItem itemValue="#{alt.statusCorreta}" />
+                                                            </div>                                                            
+                                                        </h:selectOneRadio>
+                                                    </li>-->
+
+
+<!--                                                    <li>
+                                                        <input type="radio" jsf:id="item" a:name="#{hiddenItem.clientId}"
+                                                               value="#{item}" a:checked="#{item eq bean.selectedItem ? 'checked' : null}" />
+                                                        <h:outputLabel for="item" value="#{item}" />
+                                                    </li>-->
+
+
+
+                                                    <ul>
+                                                        <ui:repeat value="#{alternativaC.modelAlternativas}" var="loop">
+                                                            <li><p:radioButton  itemIndex="#{loop.statusCorreta}" /></li>
+                                                        </ui:repeat>
+                                                    </ul>
+
+
+
+
+
+
+                                                    <!--<div >-->
+                                                    <h:outputText value="#{alt.texto}" styleClass="outputLabel"
+                                                                  style="display: inline; background-color: lavender; width: 90%; margin-bottom: 7px"/><br></br>
+                                                    <!--</div>-->
+
+
+                                                </ui:repeat>
+                                            </div>
+
+
+
+
+
+
+                                            <p:selectOneRadio id="console" value="Nada" unselectable="true">
+                                                <f:selectItem itemLabel="Option1" itemValue="Option1"/>
+                                                <f:selectItem itemLabel="Option2" itemValue="Option2"/>
+                                                <f:selectItem itemLabel="Option3" itemValue="Option3"/>
+                                            </p:selectOneRadio>
+
+
+
+
+                                            <!--********************-->            
+
+
+
+
                                             <br></br>
                                             <h:outputText value="Conteúdo Privado: "/>
                                             <p:selectBooleanCheckbox id="visibilidade_privada" value="#{perguntaC.pergunta.visibilidadePrivada}" >

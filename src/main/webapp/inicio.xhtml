@@ -6,10 +6,55 @@
                 template="/WEB-INF/templates/layout.xhtml">
 
     <ui:define name="content">
-        <p:panel id="painel_conteudo" header="Principal" >
-           
+        <p:panel  >
+            
+            <p:imageSwitch effect="fade" id="fade" >
+                <ui:repeat value="#{bannerC.images}" var="image" id="fadeEffectImages">
+                    <h:graphicImage library="senac/images" name="#{image}"  />
+                </ui:repeat>
+            </p:imageSwitch>       
+
         </p:panel> 
-        
+
+        <div style="display: flex; justify-content: space-between">
+
+            <div class="cards_home">
+                <h1>Explorar Conteúdo</h1>
+                <p>
+                    Aqui você encontra uma grande quantidade de conteúdo com assuntos variados para
+                    facilitar a tarefa de montar e aplicar questionários.
+                </p>
+                <div class="cards_link">
+                    <p:link  outcome="cadastroQuestoes" value="Explorar Conteúdo" />
+                </div>
+
+            </div>
+
+            <div class="cards_home">
+                <h1>Questões de vários Assuntos</h1>
+                <p>
+                    Com o compartilhamento de material, você pode fazer uso de um grande número
+                    de questões prontas, e ainda escolher entre diversas categorias
+                </p>
+                <div class="cards_link">
+                    <p:link  outcome="cadastroQuestoes" value="Explorar Questões" />
+                </div>
+
+            </div>
+
+            <div class="cards_home">
+                <h1>Questionários Prontos</h1>
+                <p>
+                    Se a ideia é obter um quiz rapidamente, você pode escolher um conteúdo já 
+                    organizado e pronto para aplicação. Basta selecionar e aplicar.
+                </p>
+                <div class="cards_link">
+                    <p:link  outcome="cadastroQuestoes" value="Explorar Quiz" />
+                </div>
+
+            </div>
+        </div>
+
     </ui:define>
 
 </ui:composition>
