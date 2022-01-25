@@ -17,5 +17,9 @@ public interface CategoriaDao extends BaseDao<Categoria, Long>{
     
     List<Categoria> pesquisarPorNome(String nome, Session sessao)
             throws HibernateException;
+
+    List<Categoria> populaComboInicial(Session sessao);
+    
+    Categoria buscaNomeEspecifico(String nome, Session sessao);
     
 }

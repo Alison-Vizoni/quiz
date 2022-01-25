@@ -9,9 +9,10 @@
         <f:facet name="first">
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="shortcut icon" href="resources\senac\images\logo_1.png" />
         </f:facet>
 
-        <title>AlgaWorks</title>
+        <title>Quizz</title>
 
         <h:outputStylesheet library="senac/styles" name="custom.css" />
         <h:outputStylesheet library="senac/styles" name="layout.css" />
@@ -24,27 +25,63 @@
 
     <h:body>
 
-        <header class="aw-topbar" style="margin-bottom: 5px;">
-            <h:graphicImage library="senac" name="images/logo.png" />
-            <a href="#" class="aw-toggle  js-toggle"><i class="fa  fa-bars"></i></a>
-            <h:outputText styleClass="logado" value="olá #{usuarioLogadoControle.usuarioLogado.nome}"/>
-        </header>
+        <header class="aw-topbar">
+            <span >
+                <h:graphicImage library="senac/images" name="logo_headr.png" height="50px" />
+                <span class="aw-name" >Quizz</span>
+            </span>
+            <div style="display: flex; justify-content: space-between; width: 30vw; align-items: center">
+                <a href="http://localhost:8080/quiz" ><i class="pi pi-home" style="color: white; size: 20px"></i></a>
+                <a href="http://localhost:8080/quiz/sobreNos.xhtml" ><i class="pi pi-info-circle" style="color: white; size: 20px"></i></a>
+                
+                <a href="#" class="aw-toggle  js-toggle" ><i class="fa fa-bars"></i></a>
 
-        <aside class="aw-sidebar  js-sidebar">
+                <h:form>
+                    <p:menubar style="background-color: #84509c; color: white; margin: 3px">
+                        <p:submenu label=" " icon="pi pi-fw pi-user" style="background-color: white; border-radius: 10%">
+                            <p:menuitem value="Novo Usuário" outcome="cadastroUsuario" icon="pi pi-fw pi-user-plus"/>
+                            <p:menuitem value="Login" outcome="cadastroUsuario" icon="pi pi-fw pi-sign-in"/>
+                            <p:menuitem value="Logout" outcome="cadastroUsuario" icon="pi pi-fw pi-sign-out" />
+                        </p:submenu>
+                    </p:menubar>
+                </h:form>
+            </div>
+        </header>        
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <div class="p-text-center">
+                <h:graphicImage library="senac/images" name="blog-loader.gif"  />
+            </div>
+        </p:dialog>
+
+        <section class="aw-content  js-content is-toggled">
+            <ui:insert name="content" />
+        </section>
+
+        <aside class="aw-sidebar  js-sidebar is-toggled">
             <ui:include src="menu.xhtml" />
         </aside>
 
-        <section class="aw-content  js-content">
-            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
-            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                <div class="p-text-center">
-                    <h:graphicImage library="senac/images" name="carregando.gif"  />
-                </div>
-            </p:dialog>
+        <!--        <aside class="aw-sidebar  js-sidebar">
+                    <ui:include src="menu.xhtml" />
+                </aside>
+        
+                <section class="aw-content  js-content">
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+        
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <div class="p-text-center">
+                            <h:graphicImage library="senac/images" name="blog-loader.gif"  />
+                        </div>
+                    </p:dialog>
+                    <ui:insert name="content" />
+                </section>-->
 
-            <ui:insert name="content" />
-        </section>
+
+        <footer class="footer">
+            © Trabalho conclusão de curso Senac Santa Catarina  
+        </footer>
 
     </h:body>
 
