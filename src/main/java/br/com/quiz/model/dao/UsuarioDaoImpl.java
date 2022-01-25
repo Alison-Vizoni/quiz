@@ -32,4 +32,12 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long>
         return consulta.list();
     }
     
+    @Override
+    public List<Usuario> pesquisarPorEmail(String email, Session sessao) 
+            throws HibernateException {
+        Query consulta = sessao.createQuery("FROM Usuario WHERE email = :email");
+        consulta.setParameter("email", email);
+        return consulta.list();
+    }
+    
 }
