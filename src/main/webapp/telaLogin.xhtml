@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <link rel="stylesheet" href="resources/senac/styles/custom.css"/>
+    <section class="principal">
+        <div class="container">
+            <div class="user signinBx">
+                <div class="imgBx">
+                    <img class="img-login" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
+                </div>
+                <div class="formBx">
+                    <form>
+                        <h2 class="login-title">Sign In</h2>
+                        <p:inputText type="text" placeholder="Username"/>
+                        <p:inputText type="password" placeholder="Password"/>
+                        <h:commandButton type="submit" value='login'/>
+                        <p class="signup">don't have an account?<a href="#"  onclick="toogle()">Sign up.</a></p>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <div class="user signupBx">
+                    <div class="formBx">
+                        <form>
+                            <h2 class="login-title">Create an account</h2>
+                            <p:inputText type="text" placeholder="Username"/>
+                            <p:inputText type="text" placeholder="Email Address"/>
+                            <p:inputText type="password" placeholder="Create Password"/>
+                            <p:inputText type="password" placeholder="Confirm Password"/>
+                            <h:commandButton type="submit" value='Sign up'/>
+                            <p class="signup">Already have an account?<a href="#" onclick="toogle()">Sign in.</a></p>
+                        </form>
+                    </div>
+                    <div class="imgBx">
+                        <img src="https://images.pexels.com/photos/315658/pexels-photo-315658.jpeg"/>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+    </section>
+    <script>
+        const toogle = () => {
+        let container = document.querySelector('.container');
+        let section = document.querySelector('section');
+        container.classList.toggle('active');
+        section.classList.toggle('active');
+};
+    </script>
+</h:body>
+</html>
