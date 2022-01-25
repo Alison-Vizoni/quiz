@@ -31,7 +31,8 @@ public class CategoriaDaoImplTest {
         categoriaDao = new CategoriaDaoImpl();
     }
     
- //   @Test
+
+//    @Test
     public void testSalvar(){
         LOG.info("Test salvar categoria");
         
@@ -44,7 +45,7 @@ public class CategoriaDaoImplTest {
         assertNotNull(categoria.getId());
     }
 
- //   @Test
+//    @Test
     public void testPesquisarPorID() {
         LOG.info("Test pesquisar por id categoria");
         buscarCategoriaNoBancoDeDados();

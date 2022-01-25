@@ -179,16 +179,16 @@
     <f:selectItem itemValue="three" />
 </h:selectOneRadio>-->
 
-                                            <h:selectOneRadio   id="console" value="#{alternativa.statusCorreta}"  >
+<!--                                            <h:selectOneRadio   id="console" value="#{alternativa.statusCorreta}"  >
                                                 <f:selectItem itemLabel="" itemValue="#{alternativa.statusCorreta}" noSelectionOption="true"/>
-                                            </h:selectOneRadio>
+                                            </h:selectOneRadio>-->
 
 
 
 
 
                                             <p:selectOneRadio   id="console" value="#{alternativa.statusCorreta}" unselectable="true" >
-                                                <f:selectItem parent="console" itemLabel="" itemValue="#{alternativa.statusCorreta}" noSelectionOption="true"/>
+                                                <f:selectItem parent="" itemLabel="" itemValue="#{alternativa.statusCorreta}" noSelectionOption="true"/>
                                             </p:selectOneRadio>
                                         </p:column>
 
@@ -254,7 +254,7 @@
 
 
                                             <div style="display: flex; background-color: yellow; width: 90%">     
-                                                <ui:repeat value="#{alternativaC.modelAlternativas}" var="alt" >
+                                                <!--<ui:repeat value="#{alternativaC.modelAlternativas}" var="alt" >-->
 
 <!--                                                    <li>
 
@@ -267,31 +267,22 @@
 
 
 <!--                                                    <li>
-                                                        <input type="radio" jsf:id="item" a:name="#{hiddenItem.clientId}"
-                                                               value="#{item}" a:checked="#{item eq bean.selectedItem ? 'checked' : null}" />
-                                                        <h:outputLabel for="item" value="#{item}" />
+                                                        <input type="radio" jsf:id="item" a:name="{hiddenItem.clientId}"
+                                                               value="{item}" a:checked="{item eq bean.selectedItem ? 'checked' : null}" />
+                                                        <h:outputLabel for="item" value="{item}" />
                                                     </li>-->
 
 
 
                                                     <ul>
                                                         <ui:repeat value="#{alternativaC.modelAlternativas}" var="loop">
+                                                            <h:outputLabel value="#{loop.statusCorreta}"/>
                                                             <li><p:radioButton  itemIndex="#{loop.statusCorreta}" /></li>
                                                         </ui:repeat>
                                                     </ul>
 
 
-
-
-
-
-                                                    <!--<div >-->
-                                                    <h:outputText value="#{alt.texto}" styleClass="outputLabel"
-                                                                  style="display: inline; background-color: lavender; width: 90%; margin-bottom: 7px"/><br></br>
-                                                    <!--</div>-->
-
-
-                                                </ui:repeat>
+                                                <!--</ui:repeat>-->
                                             </div>
 
 
