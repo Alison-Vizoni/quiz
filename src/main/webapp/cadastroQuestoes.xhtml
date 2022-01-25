@@ -179,14 +179,16 @@
     <f:selectItem itemValue="three" />
 </h:selectOneRadio>-->
 
-
-
-
-
-
-
-                                            <p:selectOneRadio id="console" value="#{alternativa.statusCorreta}" unselectable="true" >
+                                            <h:selectOneRadio   id="console" value="#{alternativa.statusCorreta}"  >
                                                 <f:selectItem itemLabel="" itemValue="#{alternativa.statusCorreta}" noSelectionOption="true"/>
+                                            </h:selectOneRadio>
+
+
+
+
+
+                                            <p:selectOneRadio   id="console" value="#{alternativa.statusCorreta}" unselectable="true" >
+                                                <f:selectItem parent="console" itemLabel="" itemValue="#{alternativa.statusCorreta}" noSelectionOption="true"/>
                                             </p:selectOneRadio>
                                         </p:column>
 

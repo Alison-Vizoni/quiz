@@ -32,11 +32,21 @@
             </span>
             <div style="display: flex; justify-content: space-between; width: 30vw; align-items: center">
                 <a href="http://localhost:8080/quiz" ><i class="pi pi-home" style="color: white; size: 20px"></i></a>
-                <a href="http://localhost:8080/quiz" ><i class="pi pi-user" style="color: white; size: 20px"></i></a>
+                <a href="http://localhost:8080/quiz/sobreNos.xhtml" ><i class="pi pi-info-circle" style="color: white; size: 20px"></i></a>
+                
                 <a href="#" class="aw-toggle  js-toggle" ><i class="fa fa-bars"></i></a>
+
+                <h:form>
+                    <p:menubar style="background-color: #84509c; color: white; margin: 3px">
+                        <p:submenu label=" " icon="pi pi-fw pi-user" style="background-color: white; border-radius: 10%">
+                            <p:menuitem value="Novo Usuário" outcome="cadastroUsuario" icon="pi pi-fw pi-user-plus"/>
+                            <p:menuitem value="Login" outcome="cadastroUsuario" icon="pi pi-fw pi-sign-in"/>
+                            <p:menuitem value="Logout" outcome="cadastroUsuario" icon="pi pi-fw pi-sign-out" />
+                        </p:submenu>
+                    </p:menubar>
+                </h:form>
             </div>
         </header>        
-
 
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <div class="p-text-center">

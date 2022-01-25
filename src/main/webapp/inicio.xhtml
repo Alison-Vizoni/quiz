@@ -9,7 +9,7 @@
         <p:panel  >
             
             <p:imageSwitch effect="fade" id="fade" >
-                <ui:repeat value="#{bannerC.images}" var="image" id="fadeEffectImages">
+                <ui:repeat value="#{bannerC.images}" var="image" id="fadeEffectImages" >
                     <h:graphicImage library="senac/images" name="#{image}"  />
                 </ui:repeat>
             </p:imageSwitch>       
@@ -37,7 +37,7 @@
                     de questões prontas, e ainda escolher entre diversas categorias
                 </p>
                 <div class="cards_link">
-                    <p:link  outcome="cadastroQuestoes" value="Explorar Questões" />
+                    <p:link  outcome="pesquisaQuestoes" value="Explorar Questões" />
                 </div>
 
             </div>
@@ -49,7 +49,7 @@
                     organizado e pronto para aplicação. Basta selecionar e aplicar.
                 </p>
                 <div class="cards_link">
-                    <p:link  outcome="cadastroQuestoes" value="Explorar Quiz" />
+                    <p:link  outcome="pesquisaQuiz" value="Explorar Quiz" />
                 </div>
 
             </div>

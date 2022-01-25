@@ -111,6 +111,7 @@ body {
 /* HOME */
 
 .cards_home{
+    box-shadow: 15px 20px 10px #8a8a8a;
     border-radius: 20px;
     padding: 15px;
     margin: 20px;
