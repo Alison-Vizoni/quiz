@@ -3,6 +3,11 @@
     margin: auto;
 }
 
+.descricao p{
+    width: 70%;
+    margin: auto;
+}
+
 .sobre_nos h1{
     text-align: center;
 }
@@ -13,8 +18,10 @@
     margin-top: 1%;
 }
 
-.integrantes div{
-    width: 33%
+.membro{
+    width: 33%;
+    margin: auto;
+    
 }
 
 .icons{
