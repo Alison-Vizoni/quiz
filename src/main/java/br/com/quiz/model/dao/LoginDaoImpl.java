@@ -16,7 +16,9 @@ import org.hibernate.Session;
 public class LoginDaoImpl extends BaseDaoImpl<Login, Long> 
         implements LoginDao, Serializable{
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public Login pesquisarPorID(Long id, Session sessao) throws HibernateException {
         return (Login) sessao.get(Login.class, id);
     }

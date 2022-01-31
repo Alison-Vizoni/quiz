@@ -91,8 +91,10 @@ public class Login implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "br.com.quiz.entidade.Login[ id=" + id + " ]";
-    }
+	public String toString() {
+		return "Login [id=" + id + ", login=" + login + ", senha=" + senha + ", usuario=" + usuario + "]";
+	}
+    
+    
     
 }

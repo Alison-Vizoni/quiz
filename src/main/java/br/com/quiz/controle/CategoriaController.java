@@ -1,18 +1,20 @@
 package br.com.quiz.controle;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.entidade.Categoria;
-import br.com.quiz.model.entidade.Pergunta;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 /**
  *
@@ -22,15 +24,15 @@ import org.hibernate.Session;
 @ViewScoped
 public class CategoriaController implements Serializable{
 
-    private Categoria categoria;
+	private static final long serialVersionUID = 1L;
+	
+	private Categoria categoria;
     private CategoriaDao categoriaDao;
     private Session sessao;
 
     private List<Categoria> categorias;
     private List<SelectItem> comboCategorias;
     
-    private Pergunta pergunta;
-
     public CategoriaController() {
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();

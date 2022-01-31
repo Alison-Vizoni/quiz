@@ -6,55 +6,97 @@
                 template="/WEB-INF/templates/layout.xhtml">
 
     <ui:define name="content">
-        <p:panel  >
-            
-            <p:imageSwitch effect="fade" id="fade" >
-                <ui:repeat value="#{bannerC.images}" var="image" id="fadeEffectImages" >
-                    <h:graphicImage library="senac/images" name="#{image}"  />
-                </ui:repeat>
-            </p:imageSwitch>       
+    
+<!--   BANNER    -->
+        
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" >        
+	      <div class="carousel-inner">
+	        <div class="carousel-item active" id="teste">
+	          <div class="banner">
+	            <div class="container_image">
+	              <h:graphicImage library="senac/images" name="ban_1.png" />
+	            </div>
+	            <div>
+	              <h1>Otimize seu tempo</h1>
+	              <p>
+	                Aqui você monta seus questionários de forma prática e sem perder
+	                tempo
+	              </p>
+	            </div>
+	          </div>
+	        </div>
 
-        </p:panel> 
+	        <div class="carousel-item">
+	          <div class="banner">
+	            <div class="container_image">
+	              <h:graphicImage library="senac/images" name="ban_2.png"  />
+	            </div>
+	            <div>
+	              <h1>Acesso rápido e simples</h1>
+	              <p>
+	                Com poucos cliques você você tem acesso ao conteúdo da
+	                plataforma e pode explorar nossas ferramentas
+	              </p>
+	            </div>
+	          </div>
+	        </div>
+	
+	        <div class="carousel-item">
+	          <div class="banner">
+	            <div class="container_image">
+	              <h:graphicImage library="senac/images" name="ban_3.png"  />
+	            </div>
+	            <div>
+	              <h1>Mande seu quiz para quem você quiser</h1>
+	              <p>
+	                Quando terminar de montar seu quiz, é só incluir o email de quem
+	                irá responder seu questionário e clicar. Está pronto!
+	              </p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>	      
+	    </div>
+    
+<!--    CORPO   -->
 
-        <div style="display: flex; justify-content: space-between">
-
-            <div class="cards_home">
-                <h1>Explorar Conteúdo</h1>
-                <p>
-                    Aqui você encontra uma grande quantidade de conteúdo com assuntos variados para
-                    facilitar a tarefa de montar e aplicar questionários.
-                </p>
-                <div class="cards_link">
-                    <p:link  outcome="cadastroQuestoes" value="Explorar Conteúdo" />
-                </div>
-
-            </div>
-
-            <div class="cards_home">
-                <h1>Questões de vários Assuntos</h1>
-                <p>
-                    Com o compartilhamento de material, você pode fazer uso de um grande número
-                    de questões prontas, e ainda escolher entre diversas categorias
-                </p>
-                <div class="cards_link">
-                    <p:link  outcome="pesquisaQuestoes" value="Explorar Questões" />
-                </div>
-
-            </div>
-
-            <div class="cards_home">
-                <h1>Questionários Prontos</h1>
-                <p>
-                    Se a ideia é obter um quiz rapidamente, você pode escolher um conteúdo já 
-                    organizado e pronto para aplicação. Basta selecionar e aplicar.
-                </p>
-                <div class="cards_link">
-                    <p:link  outcome="pesquisaQuiz" value="Explorar Quiz" />
-                </div>
-
-            </div>
-        </div>
+		<div id="container_cards">
+	
+	         <div class="cards_home">
+	             <h1>Explorar Conteúdo</h1>
+	             <p>
+	                 Aqui você encontra uma grande quantidade de conteúdo com assuntos variados para
+	                 facilitar a tarefa de montar e aplicar questionários.
+	             </p>
+	             <div class="cards_link">
+	                 <p:link  outcome="cadastroQuestoes" value="Explorar Conteúdo" />
+	             </div>	
+	         </div>
+	
+	         <div class="cards_home">
+	             <h1>Questões de vários Assuntos</h1>
+	             <p>
+	                 Com o compartilhamento de material, você pode fazer uso de um grande número
+	                 de questões prontas, e ainda escolher entre diversas categorias
+	             </p>
+	             <div class="cards_link">
+	                 <p:link  outcome="pesquisaQuestoes" value="Explorar Questões" />
+	             </div>	
+	         </div>
+	
+	         <div class="cards_home">
+	         	
+	             <h1>Questionários Prontos</h1>
+	             <p>
+	                 Se a ideia é obter um quiz rapidamente, você pode escolher um conteúdo já 
+	                 organizado e pronto para aplicação. Basta selecionar e aplicar.
+	             </p>
+	             
+	             <div class="cards_link">
+	                 <p:link  outcome="pesquisaQuiz" value="Explorar Quiz" />
+	             </div>	
+	         </div>
+	     </div>
 
     </ui:define>
-
 </ui:composition>

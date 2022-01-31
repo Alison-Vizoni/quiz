@@ -12,3 +12,4 @@ nbproject/
 .project
 .classpath
 .settings
+/target/

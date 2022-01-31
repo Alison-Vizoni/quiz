@@ -16,7 +16,9 @@ import org.hibernate.Session;
 public class AlternativaDaoImpl extends BaseDaoImpl<Alternativa, Long> 
         implements AlternativaDao, Serializable{
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public Alternativa pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (Alternativa) sessao.get(Alternativa.class, id);

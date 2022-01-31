@@ -5,8 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/layout.xhtml">
 
-    <ui:define name="content">
-        <p:panel id="painel_conteudo" header="Principal" >
+    <ui:define name="content">      
 
             <link rel="stylesheet" href="resources/senac/styles/custom.css"/>
             <section class="principal">
@@ -16,13 +15,14 @@
                             <img class="img-login" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
                         </div>
                         <div class="formBx">
-                            <form>
-                                <h2 class="login-title">Login</h2>
+                            <h:form>
+                                <h2 class="login-title">Bem Vindo</h2>
                                 <p:inputText type="text" placeholder="Usuário"/>
                                 <p:inputText type="password" placeholder="Senha"/>
-                                <h:commandButton type="submit" value='Entrar'/>
+                                <p:commandButton type="submit" value='Entrar'
+                                		  action="inicio" actionListener="#{loginC.iniciaSessao()}"/>
                                 <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
-                            </form>
+                            </h:form>
                         </div>
                     </div>
                     <div>
@@ -53,9 +53,7 @@
                     container.classList.toggle('active');
                     section.classList.toggle('active');
                 };
-            </script>
-
-        </p:panel> 
+            </script>         
 
     </ui:define>
 

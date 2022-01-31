@@ -16,7 +16,9 @@ import org.hibernate.Session;
 public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long> 
         implements QuizDao, Serializable{
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public Quiz pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (Quiz) sessao.get(Quiz.class, id);

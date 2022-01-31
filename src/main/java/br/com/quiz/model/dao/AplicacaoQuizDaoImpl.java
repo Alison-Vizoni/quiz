@@ -4,11 +4,12 @@
  */
 package br.com.quiz.model.dao;
 
-import br.com.quiz.model.entidade.Alternativa;
-import br.com.quiz.model.entidade.AplicacaoQuiz;
 import java.io.Serializable;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+
+import br.com.quiz.model.entidade.AplicacaoQuiz;
 
 /**
  *
@@ -17,7 +18,9 @@ import org.hibernate.Session;
 public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long> 
         implements AplicacaoQuizDao, Serializable{
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public AplicacaoQuiz pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (AplicacaoQuiz) sessao.get(AplicacaoQuiz.class, id);
