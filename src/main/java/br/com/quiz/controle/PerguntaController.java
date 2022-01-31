@@ -1,23 +1,22 @@
 package br.com.quiz.controle;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.primefaces.event.FlowEvent;
+
 import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
-import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.model.DataModel;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -27,18 +26,14 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class PerguntaController implements Serializable{
 
-    private PerguntaDao perguntaDao;
+	private static final long serialVersionUID = 1L;
+	
+	private PerguntaDao perguntaDao;
     private Pergunta pergunta;
     
     private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private Categoria categoria;
     
-    private List<Alternativa> listaAlternativas = new ArrayList<>();
-    private DataModel<Alternativa> modelAlternativas;
-    private Alternativa alternativa;
-    private Alternativa alter;
-    
-    private Long contadorId = 0L;
     private Session sessao;
     private boolean skip;    
 
@@ -144,55 +139,12 @@ public class PerguntaController implements Serializable{
         this.sessao = sessao;
     }
 
-    public List<Alternativa> getListaAlternativas() {
-        return listaAlternativas;
-    }
-
-    public void setListaAlternativas(List<Alternativa> listaAlternativas) {
-        this.listaAlternativas = listaAlternativas;
-    }
-
     public CategoriaDao getCategoriaDao() {
         return categoriaDao;
     }
 
     public void setCategoriaDao(CategoriaDao categoriaDao) {
         this.categoriaDao = categoriaDao;
-    }
-
-    public DataModel<Alternativa> getModelAlternativas() {
-        return modelAlternativas;
-    }
-
-    public void setModelAlternativas(DataModel<Alternativa> modelAlternativas) {
-        this.modelAlternativas = modelAlternativas;
-    }
-
-    public Alternativa getAlternativa() {
-        if (alternativa == null) {
-            alternativa = new Alternativa();
-        }
-        return alternativa;
-    }
-
-    public void setAlternativa(Alternativa alternativa) {
-        this.alternativa = alternativa;
-    }
-
-    public Alternativa getAlter() {
-        return alter;
-    }
-
-    public void setAlter(Alternativa alter) {
-        this.alter = alter;
-    }
-
-    public Long getContadorId() {
-        return contadorId;
-    }
-
-    public void setContadorId(Long contadorId) {
-        this.contadorId = contadorId;
     }
     
 }

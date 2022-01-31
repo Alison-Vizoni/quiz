@@ -4,6 +4,14 @@
  */
 package br.com.quiz.controle;
 
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
 import br.com.quiz.model.bo.UsuarioBO;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.LoginDao;
@@ -12,11 +20,6 @@ import br.com.quiz.model.dao.UsuarioDao;
 import br.com.quiz.model.dao.UsuarioDaoImpl;
 import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Usuario;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 /**
  *
@@ -24,14 +27,15 @@ import org.hibernate.Session;
  */
 @ManagedBean(name = "usuarioC")
 @ViewScoped
-public class UsuarioController {
+public class UsuarioController implements Serializable{
 
-    private Usuario usuario;
+	private static final long serialVersionUID = 1L;
+	
+	private Usuario usuario;
     private Login login;
     private UsuarioBO usuarioBO;
     private LoginDao loginDao;
     private UsuarioDao usuarioDao;
-    private Mensagem mensagem;
     private Session sessao;
 
     public UsuarioController() {

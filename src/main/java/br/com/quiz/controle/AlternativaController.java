@@ -25,7 +25,9 @@ import org.hibernate.Session;
 @ViewScoped
 public class AlternativaController implements Serializable {
 
-    private List<Alternativa> listaAlternativas = new ArrayList<>();
+	private static final long serialVersionUID = 1L;
+	
+	private List<Alternativa> listaAlternativas = new ArrayList<>();
     private DataModel<Alternativa> modelAlternativas;
     private AlternativaDao alternativaDao;
     private Alternativa alternativa;

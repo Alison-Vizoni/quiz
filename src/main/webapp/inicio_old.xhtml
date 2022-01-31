@@ -1,0 +1,228 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="content">
+        <!--        <p:panel  >
+                    
+                    
+                    
+                    <p:imageSwitch effect="fade" id="fade" >
+                        <div style="display: flex; align-items: center; color: #84509c; background-color: white">
+                            <div style="display: flex; align-items: center">
+                                <div>
+                                    <h:graphicImage library="senac/images" name="ban_1.png" />
+                                </div>
+                                <div style="width: 40vw">
+                                    <h1 style="display: block">Otimize seu tempo</h1>
+                                    <p style="display: block; margin: auto">
+                                        Aqui você monta seus questionários de forma prática e sem perder tempo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; color: #84509c; background-color: white">
+                            <div style="display: flex; align-items: center">
+                                <div>
+                                    <h:graphicImage library="senac/images" name="ban_2.png"  />
+                                </div>
+                                <div>
+                                    <h1 style="display: block">Acesso rápido e simples</h1>
+                                    <p style="display: block; margin: auto">
+                                        Com poucos cliques você você tem acesso ao conteúdo da plataforma e 
+                                        pode explorar nossas ferramentas
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; color: #84509c; background-color: white">
+                            <div style="display: flex; align-items: center">
+                                <div>
+                                    <h:graphicImage library="senac/images" name="ban_3.png"  />
+                                </div>
+                                <div>
+                                    <h1 style="display: block">Mande seu quiz para quem você quiser</h1>
+                                    <p style="display: block; margin: auto">
+                                        Quando terminar de montar seu quiz, é só incluir 
+                                        o email de quem irá responder seu questionário e clicar. Está pronto!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </p:imageSwitch>
+                    
+                    
+          
+          ###########################         certo                ####################################
+                    
+                    <p:imageSwitch effect="fade" id="fade" >
+                        <ui:repeat value="#{bannerC.images}" var="image" id="fadeEffectImages" >
+                            <h:graphicImage library="senac/images" name="#{image}"  />
+                            <div>
+                                <h1></h1>
+                                <p></p>
+                            </div>
+                        </ui:repeat>
+                    </p:imageSwitch>       
+        
+         ############################################################################################
+        
+                     <p:imageSwitch effect="fade" id="fade" >
+                         <ui:repeat value="{bannerC.banners}" var="image" id="fadeEffectImages" >
+                             <h:graphicImage library="senac/images" name="#{image.imagem}"  />
+                            <div>
+                                <h1>{image.titulo}</h1>
+                                <p>{image.texto}</p>
+                            </div>
+                        </ui:repeat>
+                    </p:imageSwitch> 
+        
+        
+        
+        
+        
+                </p:panel> 
+        
+                <div style="display: flex; justify-content: space-between">
+        
+                    <div class="cards_home">
+                        <h1>Explorar Conteúdo</h1>
+                        <p>
+                            Aqui você encontra uma grande quantidade de conteúdo com assuntos variados para
+                            facilitar a tarefa de montar e aplicar questionários.
+                        </p>
+                        <div class="cards_link">
+                            <p:link  outcome="cadastroQuestoes" value="Explorar Conteúdo" />
+                        </div>
+        
+                    </div>
+        
+                    <div class="cards_home">
+                        <h1>Questões de vários Assuntos</h1>
+                        <p>
+                            Com o compartilhamento de material, você pode fazer uso de um grande número
+                            de questões prontas, e ainda escolher entre diversas categorias
+                        </p>
+                        <div class="cards_link">
+                            <p:link  outcome="pesquisaQuestoes" value="Explorar Questões" />
+                        </div>
+        
+                    </div>
+        
+                    <div class="cards_home">
+                        <h1>Questionários Prontos</h1>
+                        <p>
+                            Se a ideia é obter um quiz rapidamente, você pode escolher um conteúdo já 
+                            organizado e pronto para aplicação. Basta selecionar e aplicar.
+                        </p>
+                        <div class="cards_link">
+                            <p:link  outcome="pesquisaQuiz" value="Explorar Quiz" />
+                        </div>
+        
+                    </div>
+                </div>-->
+
+
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div style="display: flex; align-items: center; color: #84509c; background-color: white">
+                        <div style="display: flex; align-items: center">
+                            <div>
+                                <h:graphicImage library="senac/images" name="ban_1.png" />
+                            </div>
+                            <div style="width: 40vw">
+                                <h1 style="display: block">Otimize seu tempo</h1>
+                                <p style="display: block; margin: auto">
+                                    Aqui você monta seus questionários de forma prática e sem perder tempo
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="carousel-item">
+                    <div style="display: flex; align-items: center; color: #84509c; background-color: white">
+                        <div style="display: flex; align-items: center">
+                            <div>
+                                <h:graphicImage library="senac/images" name="ban_2.png"  />
+                            </div>
+                            <div>
+                                <h1 style="display: block">Acesso rápido e simples</h1>
+                                <p style="display: block; margin: auto">
+                                    Com poucos cliques você você tem acesso ao conteúdo da plataforma e 
+                                    pode explorar nossas ferramentas
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div style="display: flex; align-items: center; color: #84509c; background-color: white">
+                        <div style="display: flex; align-items: center">
+                            <div>
+                                <h:graphicImage library="senac/images" name="ban_3.png"  />
+                            </div>
+                            <div>
+                                <h1 style="display: block">Mande seu quiz para quem você quiser</h1>
+                                <p style="display: block; margin: auto">
+                                    Quando terminar de montar seu quiz, é só incluir 
+                                    o email de quem irá responder seu questionário e clicar. Está pronto!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between">
+
+            <div class="cards_home">
+                <h1>Explorar Conteúdo</h1>
+                <p>
+                    Aqui você encontra uma grande quantidade de conteúdo com assuntos variados para
+                    facilitar a tarefa de montar e aplicar questionários.
+                </p>
+                <div class="cards_link">
+                    <p:link  outcome="cadastroQuestoes" value="Explorar Conteúdo" />
+                </div>
+
+            </div>
+
+            <div class="cards_home">
+                <h1>Questões de vários Assuntos</h1>
+                <p>
+                    Com o compartilhamento de material, você pode fazer uso de um grande número
+                    de questões prontas, e ainda escolher entre diversas categorias
+                </p>
+                <div class="cards_link">
+                    <p:link  outcome="pesquisaQuestoes" value="Explorar Questões" />
+                </div>
+
+            </div>
+
+            <div class="cards_home">
+                <h1>Questionários Prontos</h1>
+                <p>
+                    Se a ideia é obter um quiz rapidamente, você pode escolher um conteúdo já 
+                    organizado e pronto para aplicação. Basta selecionar e aplicar.
+                </p>
+                <div class="cards_link">
+                    <p:link  outcome="pesquisaQuiz" value="Explorar Quiz" />
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </ui:define>
+
+</ui:composition>
