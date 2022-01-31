@@ -16,7 +16,9 @@ import org.hibernate.Session;
 public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long> 
         implements PerguntaDao, Serializable{
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public Pergunta pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (Pergunta) sessao.get(Pergunta.class, id);

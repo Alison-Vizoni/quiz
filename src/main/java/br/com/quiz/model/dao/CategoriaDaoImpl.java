@@ -4,12 +4,14 @@
  */
 package br.com.quiz.model.dao;
 
-import br.com.quiz.model.entidade.Categoria;
 import java.io.Serializable;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+
+import br.com.quiz.model.entidade.Categoria;
 
 /**
  *
@@ -17,8 +19,10 @@ import org.hibernate.Session;
  */
 public class CategoriaDaoImpl extends BaseDaoImpl<Categoria, Long> 
         implements CategoriaDao, Serializable{
- 
-    @Override
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public Categoria pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (Categoria) sessao.get(Categoria.class, id);

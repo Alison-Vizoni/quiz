@@ -5,10 +5,12 @@
  */
 package br.com.quiz.util;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
+
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 /**
  *
