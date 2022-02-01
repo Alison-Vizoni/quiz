@@ -48,7 +48,7 @@
 			</a>
 
 
-			<h:form id="nada">
+			<h:form id="menuForm">
 				<p:menubar
 					style="background-color: #84509c; color: white; margin-right:10px; border: none">
 					<p:submenu label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
@@ -56,8 +56,8 @@
 						
 						<p:menuitem value="Login" outcome="login" icon="pi pi-fw pi-sign-in" />
  							
-						<p:menuitem value="Logout" outcome="inicio" icon="pi pi-fw pi-sign-in" 
-							actionListener="#{loginC.encerraSessao()}" ajax="false" process="@this"/>
+						<p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" 
+                                                            actionListener="#{loginC.encerraSessao()}" ajax="false" process="@all"/>
 						
 					</p:submenu>
 				</p:menubar>
