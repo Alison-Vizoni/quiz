@@ -53,6 +53,14 @@
                     container.classList.toggle('active');
                     section.classList.toggle('active');
                 };
+                
+                setTimeout(() => {
+                   (function (){
+                    document.querySelector('#header').style.display = 'none';
+                    document.querySelector('.footer').style.display = 'none';
+                })();   
+                },50)
+              
             </script>         
 
     </ui:define>
