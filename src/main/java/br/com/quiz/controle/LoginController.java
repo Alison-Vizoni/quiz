@@ -23,11 +23,7 @@ public class LoginController implements Serializable{
 
 
 	public LoginController() {
-//		login = new Login();
-//		login.setId(1L);
-//		login.setLogin("log");
-//		login.setSenha("sen");
-//		login.setUsuario(new Usuario("João", "999.999.999-99", "joao@gmail.com", "(48) 99999-9999"));
+
 	}
 
 		

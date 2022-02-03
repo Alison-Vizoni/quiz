@@ -23,10 +23,6 @@ body {
     color: #555;
 }
 
-/* .aw-name { */
-/*     font-size: 24px; */
-/*     color:#eaeaea; */
-/* } */
 .header-name {
     width: 100%;
     height: 215px;
@@ -346,6 +342,8 @@ body {
   margin: 20px;  
   border: 3px solid #880ee8;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards_home h1 {
@@ -397,8 +395,11 @@ body {
 
 /* BANNER */
 
+#container_banner{
+	overflow:hidden; /* sem efeito */
+}
+
 .banner {
-/*   height: 70vh; */
   display: flex;
   align-items: center;
   color: #84509c;
@@ -406,6 +407,7 @@ body {
 }
 
 .banner h1 {
+  overflow:hidden;
   display: block;
   text-align: center;
   margin-right:35px;
@@ -413,6 +415,7 @@ body {
 }
 
 .banner p {
+  overflow:hidden;
   display: block;
   text-align: center;
   margin-right:35px;
@@ -421,6 +424,7 @@ body {
 }
 
 .container_image{
+	overflow:hidden;
 	display: flex;
 	height: 40vh;
 	

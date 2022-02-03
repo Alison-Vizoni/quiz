@@ -49,25 +49,32 @@
 
 
 			<h:form id="nada">
+
 				<p:menubar
 					style="background-color: #84509c; color: white; margin-right:10px; border: none">
-					<p:submenu label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
+					<p:submenu
+						label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
 						style="background-color: white; border-radius: 10%">
-						
+
 						<p:menuitem value="Login" outcome="login" icon="pi pi-fw pi-sign-in" />
- 							
-						<p:menuitem value="Logout" outcome="inicio" icon="pi pi-fw pi-sign-in" 
-							actionListener="#{loginC.encerraSessao()}" ajax="false" process="@this"/>
-						
+
+						<p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
+										ajax="false" process="@all" action="inicio" />
+
 					</p:submenu>
 				</p:menubar>
+
+
 			</h:form>
 		</div>
 	</header>
-	
+
+
+
 	<ui:insert name="content" />
 
-	<footer class="footer"> © Trabalho conclusão de curso Senac Santa Catarina </footer>
+	<footer class="footer"> © Trabalho conclusão de curso Senac
+		Santa Catarina </footer>
 
 </h:body>
 
