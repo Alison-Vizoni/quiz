@@ -44,16 +44,16 @@ public class AlternativaController implements Serializable {
     /**
      * Insere alternativas na tabela
      */
-//    public void populaListaAlternativa() {
-//        if (!alternativa.getTexto().isBlank()) {
-//            alternativa.setId(contadorId++);
-//            listaAlternativas.add(alternativa);
-//            apresentaTabela();
-//            alternativa = null;
-//        } else {
-//            Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
-//        }
-//    }
+    public void populaListaAlternativa() {
+        if (!alternativa.getTexto().isBlank()) {
+            alternativa.setId(contadorId++);
+            listaAlternativas.add(alternativa);
+            apresentaTabela();
+            alternativa = null;
+        } else {
+            Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
+        }
+    }
 
     /**
      * Apresenta na tela as alternativas cadastradas

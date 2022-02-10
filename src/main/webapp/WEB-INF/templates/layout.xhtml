@@ -62,7 +62,27 @@
 		</div>
 	</header>
 	
-	<ui:insert name="content" />
+<!-- 	********************** -->
+	
+	
+	 <section class="aw-content  js-content">
+          <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+
+          <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+              <div class="p-text-center">
+                  <h:graphicImage library="senac/images" name="loading-17.gif"  />
+              </div>
+          </p:dialog>
+          <ui:insert name="content" />
+      </section>
+
+        	
+	
+<!-- 	************* -->
+	
+	
+	
+<!-- 	<ui:insert name="content" /> -->
 
 	<footer class="footer"> © Trabalho conclusão de curso Senac Santa Catarina </footer>
 

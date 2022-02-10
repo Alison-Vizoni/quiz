@@ -4,6 +4,11 @@
  */
 package br.com.quiz.model.dao;
 
+import java.util.List;
+
+import org.hibernate.Session;
+
+import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 
 /**
@@ -11,4 +16,8 @@ import br.com.quiz.model.entidade.Pergunta;
  * @author alison
  */
 public interface PerguntaDao extends BaseDao<Pergunta, Long>{
+
+	List<Pergunta> buscaTodasPerguntas(Session sessao);
+
+	List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao);
 }

@@ -6,11 +6,90 @@
                 template="/WEB-INF/templates/layout.xhtml">
 
     <ui:define name="content">
-
-        <p:panel id="painel_conteudo" styleClass="color" header="Projeto TCS">
-            <h1>TODO página de busca de questões</h1>
-        </p:panel> 
-
+    
+   				<!-- HEADER --> 
+		        <p:panel id="combo_busca_questao" styleClass="color"  >
+			        	<h:form id="formCategoria">		        
+							<p:selectOneMenu value="#{perguntaC.categoria.id}"
+		                                     id="comboCategoria"                                                             
+		                                     requiredMessage="Categoria é obrigatório!" 
+		                                     filter="true" 
+		                                     filterMatchMode="startsWith"
+		                                     style="background: #f2f2f2; border-radius:5px">                                                       
+		
+		                        <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" style="background-color: green;"/>
+		                        <f:selectItems value="#{categoriaC.comboCategorias}" />
+		                        <p:ajax listener="#{perguntaC.setaCategoria()}" />
+		                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
+		                    </p:selectOneMenu>
+			                      
+						    <div class="seletor_busca_questao">
+					       		<p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2">
+					       			<p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
+					       		</p:inputText>
+						    </div>       
+			        	</h:form>
+		        </p:panel>
+			
+			<!-- TABELA -->
+			
+			<h:form id="form">			
+				<p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
+	                         paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+	                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" selectionMode="single"
+	 			             selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
+	                <p:column headerText="PERGUNTAS">
+	                    <h:outputText value="#{pergunta.texto}" />
+	                </p:column>
+	                
+	                 <f:facet name="footer">
+		                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
+		                                 value="Visualizar"
+		                                 oncomplete="PF('productDialog').show()"/>
+		            </f:facet>
+	            </p:dataTable>		
+	
+				    
+			    <!--  MODAL --> 
+			    
+			    <p:dialog header=" ... " widgetVar="productDialog" modal="true" showEffect="fade"
+			              hideEffect="fade" resizable="false">
+			        <p:outputPanel id="productDetail" style="text-align:center;">
+			            <p:column rendered="#{not empty perguntaC.pergunta}">
+			                <div class="product">
+			                    <div class="product-grid-item card" style="margin-bottom: 0">
+			                        <div class="product-grid-item-top">
+			                            <div>
+			                                <i class="pi pi-tag product-category-icon"/>
+			                                <span class="product-category">#{perguntaC.pergunta.texto}</span>
+			                            </div>
+<!-- 			                            <span class="product-badge status-#{dtSelectionView.selectedProduct.inventoryStatus.name().toLowerCase()}">#{dtSelectionView.selectedProduct.inventoryStatus.text}</span> -->
+			                        </div>
+<!-- 			                        <div class="product-grid-item-content"> -->
+<!-- 			                            <p:graphicImage -->
+<!-- 			                                    name="demo/images/product/#{dtSelectionView.selectedProduct.image}"/> -->
+<!-- 			                            <div class="product-name">#{dtSelectionView.selectedProduct.name}</div> -->
+<!-- 			                            <div class="product-description">#{dtSelectionView.selectedProduct.description}</div> -->
+<!-- 			                            <p:rating readonly="true" value="#{dtSelectionView.selectedProduct.rating}"/> -->
+<!-- 			                        </div> -->
+<!-- 			                        <div class="product-grid-item-bottom"> -->
+<!-- 			                            <h:outputText value="#{dtSelectionView.selectedProduct.price}" -->
+<!-- 			                                          styleClass="product-price"> -->
+<!-- 			                                <f:convertNumber currencySymbol="$" type="currency"/> -->
+<!-- 			                            </h:outputText> -->
+<!-- 			                            <p:commandButton value="Add To Cart" icon="pi pi-shopping-cart" -->
+<!-- 			                                             disabled="#{dtSelectionView.selectedProduct.inventoryStatus == 'OUTOFSTOCK'}"> -->
+<!-- 			                                <f:setPropertyActionListener value="#{dtSelectionView.selectedProduct}" -->
+<!-- 			                                                             target="#{dtSelectionView.selectedProduct}"/> -->
+<!-- 			                            </p:commandButton> -->
+<!-- 			                        </div> -->
+			                    </div>
+			                </div>
+			            </p:column>
+			        </p:outputPanel>
+			    </p:dialog>
+			</h:form>    
     </ui:define>
-
 </ui:composition>

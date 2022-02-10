@@ -28,12 +28,23 @@ body {
     border:none;
 }
 
+/* #painel_conteudo_header { */
+/*     height: 215px; */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     align-items: center; */
+/*     font-size:48px; */
+/*     background: #880EE8; */
+/*     color:#eaeaea; */
+/*     box-shadow: 1px 1px 1px black; */
+/* } */
+
 #painel_conteudo_header {
-    height: 215px;
+	margin: 0px;
+    height: 25vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:48px;
     background: #880EE8;
     color:#eaeaea;
     box-shadow: 1px 1px 1px black;
@@ -657,3 +668,67 @@ i{
         font-size: 14px
     }
 }
+
+/* BUSCA DE QUESTÕES */
+
+ui-panel-content ui-widget-content{
+	display: flex;
+	justify-content: space-between;
+	height: 25vh;
+}
+
+#customerTable{
+	display: flex;
+}
+
+#combo_busca_questao{
+	display: flex;
+	background: white;
+}
+
+#formCategoria{
+	display: flex;
+	justify-content: space-evenly;
+	align-content: center;
+    font-size: 1.6rem;
+}
+
+body .ui-panel .ui-panel-content{
+	background: white;
+	border: none;
+	width: 100vw;
+}
+
+@media (max-width: 650px) {
+    #combo_busca_questao {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+    
+    ui-panel-content ui-widget-content {
+        margin: 0 auto;
+    }
+    
+    #formCategoria {
+        display: flex;
+        flex-direction: column;
+        align-content: space-between;
+        justify-content: center;
+    }
+    
+    .seletor_busca_questao{
+	margin: 10px auto;
+	}
+	
+	
+	
+}
+
+
+
+
+
+
+
+
