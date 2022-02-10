@@ -721,10 +721,20 @@ body .ui-panel .ui-panel-content{
 	margin: 10px auto;
 	}
 	
-	
-	
 }
 
+/* MODAL BUSCA DE QUESTÕES */
+	
+#botao_seleciona_questao{
+	bottom: 0;
+	float: right;
+}
+
+#texto_pergunta_modal{
+	font-size: 1.2rem;
+	text-align: left;
+	padding: 5px;
+}
 
 
 

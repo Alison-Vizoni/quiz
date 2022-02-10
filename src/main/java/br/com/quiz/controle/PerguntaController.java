@@ -1,6 +1,7 @@
 package br.com.quiz.controle;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,14 @@ import org.jboss.logging.Logger;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
 
+import br.com.quiz.model.dao.AlternativaDao;
+import br.com.quiz.model.dao.AlternativaDaoImpl;
 import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
+import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Pergunta;
@@ -47,6 +51,9 @@ public class PerguntaController implements Serializable{
     
     private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private Categoria categoria;
+    
+//    teste
+    private List<Alternativa> listaAlternativas = new ArrayList<>();
     
     private Login login;
     
@@ -144,6 +151,30 @@ public class PerguntaController implements Serializable{
 	    }
     }
     
+    public void buscaAlternativasPorPergunta(Pergunta pergunta) {
+    	logger.info("método buscaAlternativasPorPergunta()");
+    	
+    	  AlternativaDao alternativaDao = new AlternativaDaoImpl(); 
+    	
+    	try {
+            perguntaDao = new PerguntaDaoImpl();
+            sessao = HibernateUtil.abrirSessao();
+            listaAlternativas = alternativaDao.pesquisarPorPergunta(pergunta, sessao);
+            
+            for (Alternativa altern : listaAlternativas) {
+             altern.setPergunta(pergunta);
+             altern.setId(null);
+             alternativaDao.salvarOuAlterar(altern, sessao);
+            }
+
+        } catch (HibernateException e) {
+        	logger.error("método buscaAlternativasPorPergunta() - " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    	
+    }
+    
     
     // getters and setters
     
@@ -227,6 +258,20 @@ public class PerguntaController implements Serializable{
 	public void setPerguntas(List<Pergunta> perguntas) {
 		this.perguntas = perguntas;
 	}
+
+
+	
+	//	teste
+	public List<Alternativa> getListaAlternativas() {
+		return listaAlternativas;
+	}
+
+	public void setListaAlternativas(List<Alternativa> listaAlternativas) {
+		this.listaAlternativas = listaAlternativas;
+	}
+	
+	
+	
 	
     
 }

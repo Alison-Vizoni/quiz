@@ -39,10 +39,9 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 
 	@Override
 	public List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao) {
-		logger.info("Categoria - " + categoria.getNome());
+		logger.info("método buscaPerguntasPorCategoria()");
 		Query consulta = sessao.createQuery("FROM Pergunta WHERE categoria = :categoria");
 		consulta.setParameter("categoria", categoria);
-		logger.info(consulta.list());
 		return consulta.list();
 	}
     

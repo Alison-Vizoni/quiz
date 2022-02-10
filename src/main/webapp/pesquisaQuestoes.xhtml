@@ -38,8 +38,8 @@
 	                         paginator="true" paginatorPosition="bottom"
 	                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-	                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" selectionMode="single"
-	 			             selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
+	                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+	                         selectionMode="single" selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
 	                <p:column headerText="PERGUNTAS">
 	                    <h:outputText value="#{pergunta.texto}" />
 	                </p:column>
@@ -47,48 +47,40 @@
 	                 <f:facet name="footer">
 		                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
 		                                 value="Visualizar"
-		                                 oncomplete="PF('productDialog').show()"/>
+		                                 oncomplete="PF('productDialog').show()" actionListener="#{alternativaC.buscaAlternativasPorPergunta(perguntaC.pergunta)}" />
 		            </f:facet>
 	            </p:dataTable>		
-	
-				    
+
+    
 			    <!--  MODAL --> 
 			    
-			    <p:dialog header=" ... " widgetVar="productDialog" modal="true" showEffect="fade"
-			              hideEffect="fade" resizable="false">
-			        <p:outputPanel id="productDetail" style="text-align:center;">
+			    <p:dialog header="PERGUNTA" widgetVar="productDialog" modal="true" showEffect="fade"
+			              hideEffect="fade" resizable="false" >			              		                            
+			        <p:outputPanel id="productDetail" style="text-align:center; width: 88vw; height: 80vh">
 			            <p:column rendered="#{not empty perguntaC.pergunta}">
 			                <div class="product">
 			                    <div class="product-grid-item card" style="margin-bottom: 0">
 			                        <div class="product-grid-item-top">
-			                            <div>
-			                                <i class="pi pi-tag product-category-icon"/>
+			                            <div id="texto_pergunta_modal" >
 			                                <span class="product-category">#{perguntaC.pergunta.texto}</span>
 			                            </div>
-<!-- 			                            <span class="product-badge status-#{dtSelectionView.selectedProduct.inventoryStatus.name().toLowerCase()}">#{dtSelectionView.selectedProduct.inventoryStatus.text}</span> -->
 			                        </div>
-<!-- 			                        <div class="product-grid-item-content"> -->
-<!-- 			                            <p:graphicImage -->
-<!-- 			                                    name="demo/images/product/#{dtSelectionView.selectedProduct.image}"/> -->
-<!-- 			                            <div class="product-name">#{dtSelectionView.selectedProduct.name}</div> -->
-<!-- 			                            <div class="product-description">#{dtSelectionView.selectedProduct.description}</div> -->
-<!-- 			                            <p:rating readonly="true" value="#{dtSelectionView.selectedProduct.rating}"/> -->
-<!-- 			                        </div> -->
-<!-- 			                        <div class="product-grid-item-bottom"> -->
-<!-- 			                            <h:outputText value="#{dtSelectionView.selectedProduct.price}" -->
-<!-- 			                                          styleClass="product-price"> -->
-<!-- 			                                <f:convertNumber currencySymbol="$" type="currency"/> -->
-<!-- 			                            </h:outputText> -->
-<!-- 			                            <p:commandButton value="Add To Cart" icon="pi pi-shopping-cart" -->
-<!-- 			                                             disabled="#{dtSelectionView.selectedProduct.inventoryStatus == 'OUTOFSTOCK'}"> -->
-<!-- 			                                <f:setPropertyActionListener value="#{dtSelectionView.selectedProduct}" -->
-<!-- 			                                                             target="#{dtSelectionView.selectedProduct}"/> -->
-<!-- 			                            </p:commandButton> -->
-<!-- 			                        </div> -->
 			                    </div>
+			                        
+		                        <div class="product-grid-item-content">
+		                            <div style="text-align: left; margin: 10px 0; font-size: 1.2rem; font-weight: bolder">ALTERNATIVAS</div>
+                                    <p:dataList value="#{alternativaC.listaAlternativas}" var="alt" type="ordered">
+                                       <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-left: 8px; float: left "/>
+                                    </p:dataList>
+								</div>
 			                </div>
 			            </p:column>
 			        </p:outputPanel>
+			        <div id="botao_seleciona_questao">
+				        <p:commandButton value="Usar questão" icon="pi pi-plus">
+	                         <f:setPropertyActionListener value="#{dtSelectionView.selectedProduct}" target="#{dtSelectionView.selectedProduct}"/>
+	                     </p:commandButton>
+                    </div>
 			    </p:dialog>
 			</h:form>    
     </ui:define>

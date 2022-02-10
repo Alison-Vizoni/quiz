@@ -16,6 +16,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  *
@@ -27,11 +29,15 @@ public class AlternativaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private final Logger logger = LoggerFactory.logger(getClass());
+	
 	private List<Alternativa> listaAlternativas = new ArrayList<>();
     private DataModel<Alternativa> modelAlternativas;
     private AlternativaDao alternativaDao;
     private Alternativa alternativa;
     private Alternativa alter;
+    
+    private PerguntaDao perguntaDao;
     
     private Long contadorId = 0L;
     private Pergunta pergunta;
@@ -62,7 +68,7 @@ public class AlternativaController implements Serializable {
         try {
             modelAlternativas = new ListDataModel<>(listaAlternativas);
         } catch (HibernateException e) {
-            System.out.println("Método apresentaTabela() - \n Erro ao incluir alternativa na tabela [" + e.getMessage() + "]");
+        	logger.error("Método apresentaTabela() - " + e.getMessage());
         }
     }
 
@@ -78,8 +84,10 @@ public class AlternativaController implements Serializable {
     // CRUD
     
     public void salvar(Long id){
+    	logger.info("método salvar()");
+    	
         try {
-            PerguntaDao perguntaDao = new PerguntaDaoImpl();
+            perguntaDao = new PerguntaDaoImpl();
             sessao = HibernateUtil.abrirSessao();
             pergunta = perguntaDao.pesquisarPorID(id, sessao);
             
@@ -88,19 +96,28 @@ public class AlternativaController implements Serializable {
              altern.setId(null);
              alternativaDao.salvarOuAlterar(altern, sessao);
             }
-            
-//        listaAlternativas.stream().map(altern -> {
-//            altern.setPergunta(pergunta);
-//                return altern;
-//            }).forEachOrdered(altern -> {
-//                alternativaDao.salvarOuAlterar(altern, sessao);
-//            });
 
         } catch (HibernateException e) {
-            System.out.println("método salvar - Erro ao salvar alternativa " + e.getMessage());
+        	logger.error("método salvar() - " + e.getMessage());
         } finally {
             sessao.close();
         }
+    }
+    
+    public void buscaAlternativasPorPergunta(Pergunta pergunta) {
+    	logger.info("método buscaAlternativasPorPergunta()");
+    	
+    	try {
+            perguntaDao = new PerguntaDaoImpl();
+            sessao = HibernateUtil.abrirSessao();
+            listaAlternativas = alternativaDao.pesquisarPorPergunta(pergunta, sessao);            
+
+        } catch (HibernateException e) {
+        	logger.error("método buscaAlternativasPorPergunta() - " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    	
     }
     
     // GETTERS AND SETTERS
