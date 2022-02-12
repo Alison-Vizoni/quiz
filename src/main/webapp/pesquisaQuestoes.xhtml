@@ -17,7 +17,7 @@
 		                                     filterMatchMode="startsWith"
 		                                     style="background: #f2f2f2; border-radius:5px">                                                       
 		
-		                        <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" style="background-color: green;"/>
+		                        <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" />
 		                        <f:selectItems value="#{categoriaC.comboCategorias}" />
 		                        <p:ajax listener="#{perguntaC.setaCategoria()}" />
 		                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
@@ -47,7 +47,7 @@
 	                 <f:facet name="footer">
 		                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
 		                                 value="Visualizar"
-		                                 oncomplete="PF('productDialog').show()" actionListener="#{alternativaC.buscaAlternativasPorPergunta(perguntaC.pergunta)}" />
+		                                 oncomplete="PF('productDialog').show()"  />
 		            </f:facet>
 	            </p:dataTable>		
 
@@ -55,7 +55,7 @@
 			    <!--  MODAL --> 
 			    
 			    <p:dialog header="PERGUNTA" widgetVar="productDialog" modal="true" showEffect="fade"
-			              hideEffect="fade" resizable="false" >			              		                            
+			              hideEffect="fade" resizable="false" id="modal">			              		                            
 			        <p:outputPanel id="productDetail" style="text-align:center; width: 88vw; height: 80vh">
 			            <p:column rendered="#{not empty perguntaC.pergunta}">
 			                <div class="product">
@@ -69,7 +69,7 @@
 			                        
 		                        <div class="product-grid-item-content">
 		                            <div style="text-align: left; margin: 10px 0; font-size: 1.2rem; font-weight: bolder">ALTERNATIVAS</div>
-                                    <p:dataList value="#{alternativaC.listaAlternativas}" var="alt" type="ordered">
+                                    <p:dataList value="#{perguntaC.pergunta.alternativas}" var="alt" type="ordered">
                                        <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-left: 8px; float: left "/>
                                     </p:dataList>
 								</div>
@@ -77,11 +77,24 @@
 			            </p:column>
 			        </p:outputPanel>
 			        <div id="botao_seleciona_questao">
-				        <p:commandButton value="Usar questão" icon="pi pi-plus">
-	                         <f:setPropertyActionListener value="#{dtSelectionView.selectedProduct}" target="#{dtSelectionView.selectedProduct}"/>
+				        <p:commandButton value="Usar questão" icon="pi pi-plus" actionListener="#{quizC.incluiPergunta(perguntaC.pergunta)}" update="modal">
+	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />
+	                         <p:confirm header="Confirmação" message="Continuar incluindo questões ?" icon="pi pi-info-circle"/>
 	                     </p:commandButton>
                     </div>
 			    </p:dialog>
+			    
+			    <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
+			    
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" id="dialog_modal">
+                    <p:commandButton value="Não" type="button" 
+                    		styleClass="ui-confirmdialog-no ui-button-flat">
+                    		<p:ajax listener="#{quizC.salvar(perguntaC.pergunta)}" update="modal" />
+                    </p:commandButton>
+                    <p:commandButton value="Sim" type="button" 
+                    		styleClass="ui-confirmdialog-yes" update="dialog_modal"/>
+                </p:confirmDialog>
+			    
 			</h:form>    
     </ui:define>
 </ui:composition>

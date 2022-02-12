@@ -5,8 +5,20 @@
 package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -30,7 +42,7 @@ public class Alternativa implements Serializable {
     @JoinColumn(name = "id_pergunta")
     private Pergunta pergunta;
     
-    @OneToMany(mappedBy = "alternativa")
+    @OneToMany(mappedBy = "alternativa", cascade = CascadeType.ALL)
     private Set<AplicacaoQuizResultado> aplicacaoQuizResultado;
     
     public Alternativa() {

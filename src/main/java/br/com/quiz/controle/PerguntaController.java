@@ -52,7 +52,6 @@ public class PerguntaController implements Serializable{
     private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private Categoria categoria;
     
-//    teste
     private List<Alternativa> listaAlternativas = new ArrayList<>();
     
     private Login login;
@@ -137,13 +136,17 @@ public class PerguntaController implements Serializable{
     public void buscaPerguntasPorCategoria() {
     	logger.info("método - buscaPerguntaPorCategoria()");
     	
+    	Pergunta p;
+    	List<Pergunta> listaPerguntas = new ArrayList<>();
 		sessao = HibernateUtil.abrirSessao();
 	    try {
 		    perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
-		    modelPerguntas = new ListDataModel<>(perguntas);
-		    for (Pergunta pergunta : modelPerguntas) {
-				logger.info("texto - " + pergunta.getTexto());
+		    for (Pergunta perg : perguntas) {
+		    	p = new Pergunta();
+				p = perg ;
+				listaPerguntas.add(p);
 			}
+		    modelPerguntas = new ListDataModel<>(listaPerguntas);
 	    } catch (HibernateException e) {
 	        logger.error("erro na busca - " + e.getMessage());
 	    } finally {
@@ -151,32 +154,7 @@ public class PerguntaController implements Serializable{
 	    }
     }
     
-    public void buscaAlternativasPorPergunta(Pergunta pergunta) {
-    	logger.info("método buscaAlternativasPorPergunta()");
-    	
-    	  AlternativaDao alternativaDao = new AlternativaDaoImpl(); 
-    	
-    	try {
-            perguntaDao = new PerguntaDaoImpl();
-            sessao = HibernateUtil.abrirSessao();
-            listaAlternativas = alternativaDao.pesquisarPorPergunta(pergunta, sessao);
-            
-            for (Alternativa altern : listaAlternativas) {
-             altern.setPergunta(pergunta);
-             altern.setId(null);
-             alternativaDao.salvarOuAlterar(altern, sessao);
-            }
-
-        } catch (HibernateException e) {
-        	logger.error("método buscaAlternativasPorPergunta() - " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-    	
-    }
-    
-    
-    // getters and setters
+    // GETTERS AND SETTERS
     
      public Pergunta getPergunta() {
          if (pergunta == null) {
@@ -243,6 +221,14 @@ public class PerguntaController implements Serializable{
 		this.login = login;
 	}
 
+	public List<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+
+	public void setPerguntas(List<Pergunta> perguntas) {
+		this.perguntas = perguntas;
+	}
+	
 	public DataModel<Pergunta> getModelPerguntas() {
 		return modelPerguntas;
 	}
@@ -251,17 +237,6 @@ public class PerguntaController implements Serializable{
 		this.modelPerguntas = modelPerguntas;
 	}
 
-	public List<Pergunta> getPerguntas() {
-		return perguntas;
-	}
-
-	public void setPerguntas(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
-	}
-
-
-	
-	//	teste
 	public List<Alternativa> getListaAlternativas() {
 		return listaAlternativas;
 	}
@@ -270,8 +245,4 @@ public class PerguntaController implements Serializable{
 		this.listaAlternativas = listaAlternativas;
 	}
 	
-	
-	
-	
-    
 }

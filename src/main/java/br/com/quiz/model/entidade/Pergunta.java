@@ -7,6 +7,7 @@ package br.com.quiz.model.entidade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -39,8 +40,12 @@ public class Pergunta implements Serializable {
     @JoinColumn(name = "id_usuario_proprietario")
     private Usuario usuarioProprietario;
     
-    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
-    private List<Alternativa> alternativas; 
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Alternativa> alternativas;
+    
+    @ManyToMany
+    @JoinColumn(name = "id_quiz")
+    private List<Quiz> quiz;
     
     public Pergunta() {
     }
@@ -116,7 +121,15 @@ public class Pergunta implements Serializable {
         this.alternativas = alternativas;
     }
 
-    @Override
+    public List<Quiz> getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(List<Quiz> quiz) {
+        this.quiz = quiz;
+    }
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
