@@ -44,12 +44,32 @@
 	                    <h:outputText value="#{pergunta.texto}" />
 	                </p:column>
 	                
-	                 <f:facet name="footer">
-		                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
-		                                 value="Visualizar"
-		                                 oncomplete="PF('productDialog').show()"  />
+	                 <f:facet name="footer" >
+	                 	<div style="display: flex; justify-content: space-around">
+			                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
+			                                 value="Visualizar Questão"
+			                                 oncomplete="PF('productDialog').show()"  />
+			                                 
+			                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-eye"
+			                                 value="Visualizar Quiz"
+			                                 oncomplete="PF('productDialog').show()"  />
+			                                 
+			                <p:commandButton process="tabela" update=":form:tabela" icon="pi pi-save"
+			                                 value="Cadastrar Quiz"  action="finalizaQuiz" >			                                 
+			                	<p:confirm header="Confirmação" message="Encerrar inclusão de questões ?" icon="pi pi-info-circle"/>
+			                </p:commandButton>
+		                </div>
 		            </f:facet>
-	            </p:dataTable>		
+	            </p:dataTable>
+	            
+	            <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
+			    
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes ui-button-flat">
+                    		<p:ajax listener="#{quizC.salvar(perguntaC.pergunta)}"  />
+                    </p:commandButton>
+                    <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" update="tabela" process="tabela"/>
+                </p:confirmDialog>		
 
     
 			    <!--  MODAL --> 
@@ -78,23 +98,10 @@
 			        </p:outputPanel>
 			        <div id="botao_seleciona_questao">
 				        <p:commandButton value="Usar questão" icon="pi pi-plus" actionListener="#{quizC.incluiPergunta(perguntaC.pergunta)}" update="modal">
-	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />
-	                         <p:confirm header="Confirmação" message="Continuar incluindo questões ?" icon="pi pi-info-circle"/>
+	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />	                         
 	                     </p:commandButton>
                     </div>
-			    </p:dialog>
-			    
-			    <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
-			    
-			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" id="dialog_modal">
-                    <p:commandButton value="Não" type="button" 
-                    		styleClass="ui-confirmdialog-no ui-button-flat">
-                    		<p:ajax listener="#{quizC.salvar(perguntaC.pergunta)}" update="modal" />
-                    </p:commandButton>
-                    <p:commandButton value="Sim" type="button" 
-                    		styleClass="ui-confirmdialog-yes" update="dialog_modal"/>
-                </p:confirmDialog>
-			    
+			    </p:dialog>			    
 			</h:form>    
     </ui:define>
 </ui:composition>

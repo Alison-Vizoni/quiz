@@ -8,7 +8,19 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -21,6 +33,7 @@ public class Pergunta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pergunta")
     private Long id;
     
     private String assunto;
@@ -43,9 +56,12 @@ public class Pergunta implements Serializable {
     @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Alternativa> alternativas;
     
-    @ManyToMany
-    @JoinColumn(name = "id_quiz")
-    private List<Quiz> quiz;
+//    @ManyToMany
+//    @JoinTable(name = "pergunta_quiz", 
+//    			joinColumns = @JoinColumn(name = "id_quiz"),
+//    			inverseJoinColumns = @JoinColumn(name = "id_pergunta"))
+//    			
+//    private List<Quiz> quiz;
     
     public Pergunta() {
     }
@@ -121,13 +137,13 @@ public class Pergunta implements Serializable {
         this.alternativas = alternativas;
     }
 
-    public List<Quiz> getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(List<Quiz> quiz) {
-        this.quiz = quiz;
-    }
+//    public List<Quiz> getQuiz() {
+//        return quiz;
+//    }
+//
+//    public void setQuiz(List<Quiz> quiz) {
+//        this.quiz = quiz;
+//    }
 
 	@Override
     public int hashCode() {

@@ -69,7 +69,7 @@ public class QuizController implements Serializable{
             quiz.setDataCriacao(criacao);
             quiz.setCategoria(perguntas.get(0).getCategoria().getNome());
             quiz.setPerguntas(perguntas);
-            quiz.getPerguntas().forEach(a -> logger.info("[" + a.getTexto() + "]"));
+                       
             logger.info(quiz.getPerguntas().size());
             quizDao.salvarOuAlterar(quiz, sessao);
 

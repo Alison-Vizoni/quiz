@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -8,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -33,6 +36,7 @@ public class Quiz implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_quiz")
     private Long id;
     
     private String categoria;
@@ -52,7 +56,11 @@ public class Quiz implements Serializable {
     @OneToMany(mappedBy = "quiz")
     private Set<AplicacaoQuiz> quizzesAplicados;
     
-    @ManyToMany(mappedBy = "quiz")
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+        name = "quiz_pergunta",
+        joinColumns = @JoinColumn(name = "id_quiz"),
+        inverseJoinColumns = @JoinColumn(name = "id_pergunta"))
     private List<Pergunta> perguntas;
 
     public Quiz() {
@@ -122,12 +130,12 @@ public class Quiz implements Serializable {
     }
 
     public List<Pergunta> getPerguntas() {
-		return perguntas;
-	}
+        return perguntas;
+    }
 
-	public void setPerguntas(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
-	}
+    public void setPerguntas(List<Pergunta> perguntas) {
+        this.perguntas = perguntas;
+    }
 
 	@Override
     public int hashCode() {
