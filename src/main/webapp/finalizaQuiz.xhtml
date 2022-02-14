@@ -14,20 +14,32 @@
 	        	<div id="container_finaliza_quiz">
 	        	
 	        		<div id="content_email_quiz">
-	        			<p id="titulo_content_quiz">Insira o email de quem irá responder</p>
-	        			<p:inputText value="" style="width: 90%;"/>
-	        			<p:commandButton icon="pi pi-plus-circle" value="Adicionar" />
-	        			
-	        			<p:dataTable id="tabela_email" var="email" value="" rows="10" >
-			                <p:column headerText="">
-			                    <h:outputText value="" />
-			                </p:column>
-			            </p:dataTable>
+	        			<p id="titulo_content_quiz">Insira o email de quem irá responder seu Quiz</p>
+	        			<div style="display: flex; margin-bottom: 5px">
+	        				
+                            <p:inputText id="email_cadastrado" value="#{emailC.emailConvidado}" required="true" 
+                                         requiredMessage="Email é obrigatório" style="width:90%"/>
+                            <p:commandButton value="Pesquisar" update="email_cadastrado tabela_email" 
+                                             action="#{emailC.salvarListaEmails()}" style="margin-left:5px"/>
+	        				
+	        			</div>
+	        			<h3>Emails Cadastrados</h3>
+				        <p:scrollPanel mode="native" style="width:45vw; height:35vh">
+		        			<p:dataTable id="tabela_email" var="email" value="#{emailC.modelEmails}" rows="10" >
+				                <p:column headerText=" ">
+					                    <p:inputText value="#{email}" style="width:40vw"/>
+				                </p:column>
+				            </p:dataTable>
+				        </p:scrollPanel>
 	        		
 	        		</div>
 	        		<div id="container_visualiza_encerra_quiz">
 		        		<div  id="content_visualiza_quiz">
-		        		
+		        			<h:graphicImage library="senac/images" name="final.png"/>
+		        			<p id="texto_final_quiz">
+			        			 Tudo pronto, agora é só adicionar os emails para quem
+			        			 vai responder seu quiz e clicar em enviar
+		        			</p>
 		        		
 		        		</div>
 	        		

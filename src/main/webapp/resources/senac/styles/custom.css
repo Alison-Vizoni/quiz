@@ -744,17 +744,20 @@ body .ui-panel .ui-panel-content{
 	
 }
 
+#header_finaliza_quiz_content{
+	display:none;
+	
+}
+
 #container_finaliza_quiz{
 	display: flex;
 	justify-content: space-around;
 	padding: 10px;
-	background-color: blue;
 	
 }
 
 #content_email_quiz{
 	padding: 10px;
-	background-color: red;
 	width: 45vw;
 	margin: 0 auto;
 	
@@ -766,30 +769,35 @@ body .ui-panel .ui-panel-content{
 	flex-direction: column;
 	padding: 10px;
 	margin: 0 auto;
-	background-color: yellow;
 }
 
 #content_visualiza_quiz{
+	display:flex;
 	padding: 10px;
 	margin: 10px 0;
-	height: 25vh;
-	background-color: gray;
 	
 }
 
 #content_encerra_quiz{
 	padding: 10px;
 	margin: 10px 0;
-	height: 25vh;
 	background-color: green;
 	
 }
 
 #titulo_content_quiz{
 	font-weight:bolder;
-	text-align:center;
 	margin: 0 auto
 	
+}
+
+#texto_final_quiz{
+	align-content: center;
+	font-size: 1.3rem;
+	font-weight: bolder;
+	color:  #880ee8;
+	display: flex;
+	align-items: center;
 }
 
 
