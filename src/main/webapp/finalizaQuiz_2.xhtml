@@ -7,19 +7,18 @@
 
     <ui:define name="content">
 
-        <p:panel id="header_finaliza_quiz" styleClass="color" header="ÚLTIMA ETAPA" />
+        <p:panel id="header_finaliza_quiz" styleClass="color" header="ÚLTIMA ETAPA" ></p:panel>
             
-        
+        <p:inputText />
 			<h:form id="form_quiz">
 	        	<div id="container_finaliza_quiz">
 	        	
 	        		<div id="content_email_quiz">
-	        			<p id="titulo_content_quiz">Insira o email de quem irá responder seu Quiz</p>
+	        			<span id="titulo_content_quiz">Insira o email de quem irá responder seu Quiz</span>
 	        			<div style="display: flex; margin-bottom: 5px">
 	        				
-                            <p:inputText id="email_cadastrado" value="#{emailC.emailConvidado}" required="true" 
-                                         requiredMessage="Email é obrigatório" style="width:90%"/>
-                            <p:commandButton value="Pesquisar" update="email_cadastrado tabela_email" 
+                            <p:inputText id="email_cadastrado" value="#{emailC.emailConvidado}" style="width:90%" />
+                            <p:commandButton value="Incluir" update="email_cadastrado tabela_email" 
                                              action="#{emailC.salvarListaEmails()}" style="margin-left:5px"/>
 	        				
 	        			</div>
@@ -35,7 +34,10 @@
 	        		</div>
 	        		<div id="container_visualiza_encerra_quiz">
 		        		<div  id="content_visualiza_quiz">
-		        			<h:graphicImage library="senac/images" name="final.png"/>
+		        			<h:graphicImage library="senac/images" name="final.png" 
+						        			style= "display: block;
+													max-height: 100%;
+				  									max-width: 100%;"/>
 		        			<p id="texto_final_quiz">
 			        			 Tudo pronto, agora é só adicionar os emails para quem
 			        			 vai responder seu quiz e clicar em enviar
@@ -45,6 +47,7 @@
 	        		
 	        		
 		        		<div  id="content_encerra_quiz">
+		        			<p:commandButton value="Enviar Quiz" update="email_cadastrado tabela_email" style="width:100%"/>
 		        		
 		        		
 		        		</div>

@@ -55,7 +55,7 @@
 			                                 oncomplete="PF('productDialog').show()"  />
 			                                 
 			                <p:commandButton process="tabela" update=":form:tabela" icon="pi pi-save"
-			                                 value="Cadastrar Quiz"  action="finalizaQuiz" >			                                 
+			                                 value="Cadastrar Quiz"  action="final" >			                                 
 			                	<p:confirm header="Confirmação" message="Encerrar inclusão de questões ?" icon="pi pi-info-circle"/>
 			                </p:commandButton>
 		                </div>
@@ -66,7 +66,7 @@
 			    
 			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes ui-button-flat">
-                    		<p:ajax listener="#{quizC.salvar(perguntaC.pergunta)}"  />
+                    		<p:ajax listener="#{quizC.preparaQuiz()}"  />
                     </p:commandButton>
                     <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" update="tabela" process="tabela"/>
                 </p:confirmDialog>		

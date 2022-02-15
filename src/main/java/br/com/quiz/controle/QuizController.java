@@ -46,75 +46,82 @@ public class QuizController implements Serializable{
 		quizDao = new QuizDaoImpl();
 	}
 	
-	/**  CRUD  **/
+	/* *  CRUD  * */
 	
 	public void incluiPergunta(Pergunta pergunta) {
-		logger.info("método - incluiPergunta()");
+            logger.info("método - incluiPergunta()");
     	
-        try {
-            perguntas.add(pergunta);
-            logger.info("lista tem : " + perguntas.size());
+            try {
+                perguntas.add(pergunta);
+                logger.info("lista tem : " + perguntas.size());
 
-        } catch (HibernateException e) {
-        	logger.error("Erro ao incluiPergunta - " + e.getMessage());
-        }
+            } catch (HibernateException e) {
+                    logger.error("Erro ao incluiPergunta - " + e.getMessage());
+            }
 	}
 	
-	public void salvar(Pergunta pergunta) {
-		logger.info("método - salvar()");
+	public void preparaQuiz() {
+		logger.info("método - preparaQuiz()");
     	
-        try {
-            sessao = HibernateUtil.abrirSessao();
-            Date criacao =  new Date(System.currentTimeMillis());
-            quiz.setDataCriacao(criacao);
-            quiz.setCategoria(perguntas.get(0).getCategoria().getNome());
-            quiz.setPerguntas(perguntas);
-                       
-            logger.info(quiz.getPerguntas().size());
-            quizDao.salvarOuAlterar(quiz, sessao);
+            try {
+                sessao = HibernateUtil.abrirSessao();
+                Date criacao =  new Date(System.currentTimeMillis());
+                quiz.setDataCriacao(criacao);
+                quiz.setCategoria(perguntas.get(0).getCategoria().getNome());
+                quiz.setPerguntas(perguntas);
 
-        } catch (HibernateException e) {
-        	logger.error("Erro ao salvar - " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
+            } catch (HibernateException e) {
+                    logger.error("Erro ao preparaQuiz - " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
 	}
-	
-	
-	/** GETTERS AND SETTERS **/
+
+	public void salvarQuiz() {
+            logger.info("método - salvarQuiz()");
+
+            try {
+                sessao = HibernateUtil.abrirSessao();
+                quizDao.salvarOuAlterar(quiz, sessao);
+
+            } catch (HibernateException e) {
+                logger.error("Erro ao salvar - " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
+	}
+
+		
+	/* * GETTERS AND SETTERS * */
 
 	public Quiz getQuiz() {
-		return quiz;
+            return quiz;
 	}
 
 	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
+            this.quiz = quiz;
 	}
 
 	public List<Pergunta> getPerguntas() {
-		if (perguntas == null) {
-			perguntas = new ArrayList<>();
-		}
-		return perguntas;
+            if (perguntas == null) {
+                    perguntas = new ArrayList<>();
+            }
+            return perguntas;
 	}
 
 	public void setPerguntas(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
+            this.perguntas = perguntas;
 	}
 	
 	public Pergunta getPergunta() {
-        if (pergunta == null) {
-            pergunta = new Pergunta();
+            if (pergunta == null) {
+                pergunta = new Pergunta();
+            }
+            return pergunta;
         }
-       return pergunta;
-   }
 
-   public void setPergunta(Pergunta pergunta) {
-       this.pergunta = pergunta;
-   }
-	
-	
-	
-	
+        public void setPergunta(Pergunta pergunta) {
+            this.pergunta = pergunta;
+        }
 	
 }
