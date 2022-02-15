@@ -41,31 +41,48 @@
 			<div id="nome_logo" class="">Quizz</div>
 		</div>
 		<div id="container_menu_header">
-			<a href="http://localhost:8080/quiz"> <i class="pi pi-home"
-				style="color: white; size: 20px" />
-			</a> <a href="http://localhost:8080/quiz/sobreNos.xhtml"> <i
-				class="pi pi-info-circle" style="color: white; size: 20px" />
+		
+			<a href="http://localhost:8080/quiz">
+				<i class="pi pi-home" style="color: white; size: 20px" />
+			</a>
+			<a href="http://localhost:8080/quiz/sobreNos.xhtml"> 
+				<i class="pi pi-info-circle" style="color: white; size: 20px" />
 			</a>
 
-
 			<h:form id="menuForm">
-				<p:menubar
-					style="background-color: #84509c; color: white; margin-right:10px; border: none">
+				<p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
 					<p:submenu label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
-						style="background-color: white; border-radius: 10%">
-						
+										style="background-color: white; border-radius: 10%">
 						<p:menuitem value="Login" outcome="login" icon="pi pi-fw pi-sign-in" />
- 							
-						<p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" 
-                                                            actionListener="#{loginC.encerraSessao()}" ajax="false" process="@all"/>
-						
+						<p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
+										ajax="false" process="@all" action="inicio" />
 					</p:submenu>
 				</p:menubar>
 			</h:form>
 		</div>
 	</header>
 	
-	<ui:insert name="content" />
+<!-- 	********************** -->
+	
+	
+	 <section class="aw-content  js-content">
+          <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+
+          <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+              <div class="p-text-center">
+                  <h:graphicImage library="senac/images" name="loading-17.gif"  />
+              </div>
+          </p:dialog>
+          <ui:insert name="content" />
+      </section>
+
+        	
+	
+<!-- 	************* -->
+	
+	
+	
+<!-- 	<ui:insert name="content" /> -->
 
 	<footer class="footer"> © Trabalho conclusão de curso Senac Santa Catarina </footer>
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.quiz.webservice;
+package br.com.quiz.service;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;

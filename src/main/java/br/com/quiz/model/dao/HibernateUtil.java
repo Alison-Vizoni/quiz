@@ -28,8 +28,8 @@ public class HibernateUtil {
     static {
         try {
             Configuration cfg = new Configuration();
-            cfg.addAnnotatedClass(Categoria.class);
             cfg.addAnnotatedClass(Pergunta.class);
+            cfg.addAnnotatedClass(Categoria.class);
             cfg.addAnnotatedClass(Alternativa.class);
             cfg.addAnnotatedClass(Quiz.class);
             cfg.addAnnotatedClass(AplicacaoQuiz.class);

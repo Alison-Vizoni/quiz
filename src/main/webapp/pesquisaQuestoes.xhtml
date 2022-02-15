@@ -6,11 +6,102 @@
                 template="/WEB-INF/templates/layout.xhtml">
 
     <ui:define name="content">
+    
+   				<!-- HEADER --> 
+		        <p:panel id="combo_busca_questao" styleClass="color"  >
+			        	<h:form id="formCategoria">		        
+							<p:selectOneMenu value="#{perguntaC.categoria.id}"
+		                                     id="comboCategoria"                                                             
+		                                     requiredMessage="Categoria é obrigatório!" 
+		                                     filter="true" 
+		                                     filterMatchMode="startsWith"
+		                                     style="background: #f2f2f2; border-radius:5px">                                                       
+		
+		                        <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" />
+		                        <f:selectItems value="#{categoriaC.comboCategorias}" />
+		                        <p:ajax listener="#{perguntaC.setaCategoria()}" />
+		                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
+		                    </p:selectOneMenu>
+			                      
+						    <div class="seletor_busca_questao">
+					       		<p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2">
+					       			<p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
+					       		</p:inputText>
+						    </div>       
+			        	</h:form>
+		        </p:panel>
+			
+			<!-- TABELA -->
+			
+			<h:form id="form">			
+				<p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
+	                         paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+	                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+	                         selectionMode="single" selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
+	                <p:column headerText="PERGUNTAS">
+	                    <h:outputText value="#{pergunta.texto}" />
+	                </p:column>
+	                
+	                 <f:facet name="footer" >
+	                 	<div style="display: flex; justify-content: space-around">
+			                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
+			                                 value="Visualizar Questão"
+			                                 oncomplete="PF('productDialog').show()"  />
+			                                 
+			                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-eye"
+			                                 value="Visualizar Quiz"
+			                                 oncomplete="PF('productDialog').show()"  />
+			                                 
+			                <p:commandButton process="tabela" update=":form:tabela" icon="pi pi-save"
+			                                 value="Cadastrar Quiz"  action="final" >			                                 
+			                	<p:confirm header="Confirmação" message="Encerrar inclusão de questões ?" icon="pi pi-info-circle"/>
+			                </p:commandButton>
+		                </div>
+		            </f:facet>
+	            </p:dataTable>
+	            
+	            <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
+			    
+			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes ui-button-flat">
+                    		<p:ajax listener="#{quizC.preparaQuiz()}"  />
+                    </p:commandButton>
+                    <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" update="tabela" process="tabela"/>
+                </p:confirmDialog>		
 
-        <p:panel id="painel_conteudo" styleClass="color" header="Projeto TCS">
-            <h1>TODO página de busca de questões</h1>
-        </p:panel> 
-
+    
+			    <!--  MODAL --> 
+			    
+			    <p:dialog header="PERGUNTA" widgetVar="productDialog" modal="true" showEffect="fade"
+			              hideEffect="fade" resizable="false" id="modal">			              		                            
+			        <p:outputPanel id="productDetail" style="text-align:center; width: 88vw; height: 80vh">
+			            <p:column rendered="#{not empty perguntaC.pergunta}">
+			                <div class="product">
+			                    <div class="product-grid-item card" style="margin-bottom: 0">
+			                        <div class="product-grid-item-top">
+			                            <div id="texto_pergunta_modal" >
+			                                <span class="product-category">#{perguntaC.pergunta.texto}</span>
+			                            </div>
+			                        </div>
+			                    </div>
+			                        
+		                        <div class="product-grid-item-content">
+		                            <div style="text-align: left; margin: 10px 0; font-size: 1.2rem; font-weight: bolder">ALTERNATIVAS</div>
+                                    <p:dataList value="#{perguntaC.pergunta.alternativas}" var="alt" type="ordered">
+                                       <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-left: 8px; float: left "/>
+                                    </p:dataList>
+								</div>
+			                </div>
+			            </p:column>
+			        </p:outputPanel>
+			        <div id="botao_seleciona_questao">
+				        <p:commandButton value="Usar questão" icon="pi pi-plus" actionListener="#{quizC.incluiPergunta(perguntaC.pergunta)}" update="modal">
+	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />	                         
+	                     </p:commandButton>
+                    </div>
+			    </p:dialog>			    
+			</h:form>    
     </ui:define>
-
 </ui:composition>
