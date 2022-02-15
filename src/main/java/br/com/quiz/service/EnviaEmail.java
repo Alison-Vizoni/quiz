@@ -16,8 +16,8 @@ public class EnviaEmail {
 	
 //	private final Logger logger = LoggerFactory.logger(getClass());
 	
-	public static final String EMAIL_REMETENTE = "usoparatestes2@gmail.com";
-	public static final String EMAIL_SENHA_REMETENTE = "senhateste";
+	public static final String EMAIL_REMETENTE = "";
+	public static final String EMAIL_SENHA_REMETENTE = "";
 	public static final String EMAIL_SERVIDOR_GMAIL = "smtp.gmail.com";
 	public static final int EMAIL_PORTA_GMAIL = 465;
 	
