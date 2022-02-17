@@ -7,6 +7,10 @@
 
     <ui:define name="content">
     
+    			<p:messages id="messages" showDetail="true" closable="true" style="margin:0 auto; width: 90%">
+					<p:autoUpdate />
+				</p:messages>
+				
    				<!-- HEADER --> 
 		        <p:panel id="combo_busca_questao" styleClass="color"  >
 			        	<h:form id="formCategoria">		        
@@ -46,18 +50,17 @@
 	                
 	                 <f:facet name="footer" >
 	                 	<div style="display: flex; justify-content: space-around">
-			                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-search"
+			                <p:commandButton process="tabela" update=":form:panelPergunta" icon="pi pi-search"
 			                                 value="Visualizar Questão"
-			                                 oncomplete="PF('productDialog').show()"  />
+			                                 oncomplete="PF('modalPergunta').show()"  />
 			                                 
-			                <p:commandButton process="tabela" update=":form:productDetail" icon="pi pi-eye"
+			                <p:commandButton process="tabela" update=":form:panelPergunta" icon="pi pi-eye"
 			                                 value="Visualizar Quiz"
-			                                 oncomplete="PF('productDialog').show()"  />
+			                                 oncomplete="PF('modalPergunta').show()"  />
 			                                 
-			                <p:commandButton process="tabela" update=":form:tabela" icon="pi pi-save"
-			                                 value="Cadastrar Quiz"  action="final" >			                                 
-			                	<p:confirm header="Confirmação" message="Encerrar inclusão de questões ?" icon="pi pi-info-circle"/>
-			                </p:commandButton>
+			                <p:commandButton action="final" actionListener="#{quizC.salvarQuiz()}" icon="pi pi-save" value="Cadastrar Quiz" />			                			                                 
+<!-- 			                	<p:confirm header="Confirmação" message="Encerrar inclusão de questões ?" icon="pi pi-info-circle"/> -->
+<!-- 			                </p:commandButton> -->
 		                </div>
 		            </f:facet>
 	            </p:dataTable>
@@ -65,18 +68,16 @@
 	            <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
 			    
 			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
-                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes ui-button-flat">
-                    		<p:ajax listener="#{quizC.preparaQuiz()}"  />
-                    </p:commandButton>
-                    <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" update="tabela" process="tabela"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes ui-button-flat" />                    		
+                    <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" />
                 </p:confirmDialog>		
 
     
 			    <!--  MODAL --> 
 			    
-			    <p:dialog header="PERGUNTA" widgetVar="productDialog" modal="true" showEffect="fade"
+			    <p:dialog header="PERGUNTA" widgetVar="modalPergunta" modal="true" showEffect="fade"
 			              hideEffect="fade" resizable="false" id="modal">			              		                            
-			        <p:outputPanel id="productDetail" style="text-align:center; width: 88vw; height: 80vh">
+			        <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 80vh">
 			            <p:column rendered="#{not empty perguntaC.pergunta}">
 			                <div class="product">
 			                    <div class="product-grid-item card" style="margin-bottom: 0">
@@ -101,7 +102,7 @@
 	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />	                         
 	                     </p:commandButton>
                     </div>
-			    </p:dialog>			    
+			    </p:dialog>			    		    
 			</h:form>    
     </ui:define>
 </ui:composition>

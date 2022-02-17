@@ -21,54 +21,67 @@ import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.service.EnviaEmail;
 
 /**
-*
-* @author alf_a
-*/
+ *
+ * @author alf_a
+ */
 @ManagedBean(name = "emailC")
 @ViewScoped
-public class EmailConvidadoController implements Serializable{
-	
+public class EmailConvidadoController implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private final Logger logger = LoggerFactory.logger(getClass());
-	
+
 	private DataModel<String> modelEmails;
 	private List<String> listaEmailConvidado;
 	private String emailConvidado;
-	
+
 	private Session sessao;
-	
+
 	public EmailConvidadoController() {
 		if (listaEmailConvidado == null) {
 			listaEmailConvidado = new ArrayList<>();
 		}
-		
+
 	}
-	
+
 	public void salvarListaEmails() {
 		listaEmailConvidado.add(emailConvidado);
 		modelEmails = new ListDataModel<>(listaEmailConvidado);
-		emailConvidado = null;		
-		
+		emailConvidado = null;
+
 		logger.info(listaEmailConvidado.size());
-		
+
 	}
-	
+
 	public void enviaEmail() {
 		logger.info("método - enviaEmail()");
-		
+
 		try {
-                    sessao = HibernateUtil.abrirSessao();
-                    
-                    String[] emails = listaEmailConvidado.toArray(new String[0]);
-                    
-                    EnviaEmail.enviaEmail( emails, "titulo teste", " Texto de teste");
-                    Mensagem.sucesso("Envio finalizado!");
+			sessao = HibernateUtil.abrirSessao();
+			String[] emails = listaEmailConvidado.toArray(new String[0]);
+			verificaListaEmail(emails);
 		} catch (HibernateException | IOException | URISyntaxException e) {
-                    Mensagem.erro("Falha no envio !");
-                    logger.error("Erro ao enviaEmail - " + e.getMessage());
+			Mensagem.erro("Falha no envio !");
+			logger.error("Erro ao enviaEmail - " + e.getMessage());
 		} finally {
-                    sessao.close();
+			sessao.close();
+		}
+	}
+
+	/**
+	 * Confere se a lista de emails não está vazia
+	 * 
+	 * @param emails
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
+	private void verificaListaEmail(String[] emails) throws IOException, URISyntaxException {
+		if (emails.length > 0) {
+			EnviaEmail.enviaEmail(emails, "titulo teste", " Texto de teste");
+			Mensagem.sucesso("Envio finalizado!");				
+		} else {
+			Mensagem.erro("Ops, parece que você esqueceu de adicionar os emails!");
 		}
 	}
 
@@ -95,5 +108,5 @@ public class EmailConvidadoController implements Serializable{
 	public void setEmailConvidado(String emailConvidado) {
 		this.emailConvidado = emailConvidado;
 	}
-	
+
 }
