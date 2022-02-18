@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.SimpleEmail;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
-import org.jboss.logging.Logger;
 
 /**
 *
@@ -14,13 +12,11 @@ import org.jboss.logging.Logger;
 */
 public class EnviaEmail {
 	
-//	private final Logger logger = LoggerFactory.logger(getClass());
-	
-	public static final String EMAIL_REMETENTE = "";
-	public static final String EMAIL_SENHA_REMETENTE = "";
-	public static final String EMAIL_SERVIDOR_GMAIL = "smtp.gmail.com";
-	public static final int EMAIL_PORTA_GMAIL = 465;
-	
+	private static final String EMAIL_REMETENTE = "";
+	private static final String EMAIL_SENHA_REMETENTE = "";
+	private static final String EMAIL_SERVIDOR_GMAIL = "smtp.gmail.com";
+	private static final int EMAIL_PORTA_GMAIL = 465;
+
 	
 	/**
 	 * Realiza envio de email

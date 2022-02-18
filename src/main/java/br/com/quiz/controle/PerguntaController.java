@@ -61,8 +61,7 @@ public class PerguntaController implements Serializable{
 
     public PerguntaController() {
     	logger.info("entrou na PerguntaController");
-        perguntaDao = new PerguntaDaoImpl();
-       
+        perguntaDao = new PerguntaDaoImpl();       
     }
        
     public String onFlowProcess(FlowEvent event) {
