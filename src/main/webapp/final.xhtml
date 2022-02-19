@@ -19,8 +19,9 @@
 					<span id="titulo_content_quiz">Insira o email de quem irá responder seu Quiz</span>
 					<div style="display: flex; margin-bottom: 15px">
 
-						<p:inputText id="email_cadastrado"
-							value="#{emailC.emailConvidado}" style="width:90%" />
+						<p:inputText id="email_cadastrado" value="#{emailC.emailConvidado}" style="width:90%" validatorMessage="Formato de email incorreto!">
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</p:inputText>
 						<p:commandButton value="Incluir"
 							update="email_cadastrado tabela_email"
 							action="#{emailC.salvarListaEmails()}" style="margin-left:5px" />

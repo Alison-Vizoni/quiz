@@ -38,6 +38,7 @@ public class QuizController implements Serializable {
 	private Pergunta pergunta;
 
 	private Session sessao;
+	private String fluxo;
 
 	public QuizController() {
 		if (quiz == null) {
@@ -65,8 +66,9 @@ public class QuizController implements Serializable {
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			preparaQuiz();
-			quizDao.salvarOuAlterar(quiz, sessao);
+			if (preparaQuiz()) {
+				quizDao.salvarOuAlterar(quiz, sessao);				
+			}
 
 		} catch (HibernateException e) {
 			logger.error("Erro ao salvar - " + e.getMessage());
@@ -75,19 +77,32 @@ public class QuizController implements Serializable {
 		}
 	}
 	
-	public void preparaQuiz() {
+	private boolean preparaQuiz() {
 		logger.info("método - preparaQuiz()");
 		
+		boolean quizValido = false;		
 		quiz.setPerguntas(perguntas);
 		if (null ==  quiz.getPerguntas() || quiz.getPerguntas().size() == 0) {
 			Mensagem.erro("Sem perguntas para adicionar ao Quiz!");
 			logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
+			
 		} else {
 			Date criacao = new Date(System.currentTimeMillis());
 			quiz.setDataCriacao(criacao);
-			quiz.setCategoria(perguntas.get(0).getCategoria().getNome());				
+			quiz.setCategoria(perguntas.get(0).getCategoria().getNome());
+			quizValido = true;
 		}
-
+		return quizValido;
+	}
+	
+	public String defineFluxo() {
+		logger.info("entrou no defineFluxo()");
+		if (quiz.getPerguntas().size() < 1) {
+			fluxo = "";
+		} else {
+			fluxo = "final";
+		}
+		return fluxo;
 	}
 
 	/* * GETTERS AND SETTERS * */
@@ -121,5 +136,13 @@ public class QuizController implements Serializable {
 	public void setPergunta(Pergunta pergunta) {
 		this.pergunta = pergunta;
 	}
+
+	public String getFluxo() {
+		return fluxo;
+	}
+
+	public void setFluxo(String fluxo) {
+		this.fluxo = fluxo;
+	}	
 
 }
