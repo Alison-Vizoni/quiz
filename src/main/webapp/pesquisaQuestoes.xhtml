@@ -51,28 +51,30 @@
 	                 <f:facet name="footer" >
 	                 	<div style="display: flex; justify-content: space-around">
 			                <p:commandButton process="tabela" update=":form:panelPergunta" icon="pi pi-search"
-			                                 value="Visualizar Questão"
+			                                 value="Visualizar Questão" styleClass="rounded-button ui-button-outlined"
 			                                 oncomplete="PF('modalPergunta').show()"  />
 			                                 
 			                <p:commandButton process="tabela" update=":form:panelPergunta" icon="pi pi-eye"
-			                                 value="Visualizar Quiz"
+			                                 value="Visualizar Quiz" styleClass="rounded-button ui-button-outlined"
 			                                 oncomplete="PF('modalPergunta').show()"  />
-			                                 
-			                <p:commandButton action="final" actionListener="#{quizC.salvarQuiz()}" icon="pi pi-save" value="Cadastrar Quiz" />			                			                                 
-<!-- 			                	<p:confirm header="Confirmação" message="Encerrar inclusão de questões ?" icon="pi pi-info-circle"/> -->
-<!-- 			                </p:commandButton> -->
+			                
+			                <p:commandButton icon="pi pi-save" value="Cadastrar Quiz" 
+                                             actionListener="#{quizC.salvarQuiz()}" action="#{quizC.defineFluxo()}"
+                                             styleClass="rounded-button ui-button-outlined" update=":form:panelPergunta">
+<!--                                 <p:confirm header="Confirmação" message="Finalizar adição de questões?" icon="pi pi-info-circle"/> -->
+                            </p:commandButton>
+			                
+				            <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
+						    
+						    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+			                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+			                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+			                </p:confirmDialog>
+			                	
 		                </div>
 		            </f:facet>
 	            </p:dataTable>
 	            
-	            <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
-			    
-			    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
-                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes ui-button-flat" />                    		
-                    <p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no" />
-                </p:confirmDialog>		
-
-    
 			    <!--  MODAL --> 
 			    
 			    <p:dialog header="PERGUNTA" widgetVar="modalPergunta" modal="true" showEffect="fade"
@@ -100,7 +102,7 @@
 			        <div id="botao_seleciona_questao">
 				        <p:commandButton value="Usar questão" icon="pi pi-plus" actionListener="#{quizC.incluiPergunta(perguntaC.pergunta)}" update="modal">
 	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />	                         
-	                     </p:commandButton>
+	                    </p:commandButton>
                     </div>
 			    </p:dialog>			    		    
 			</h:form>    

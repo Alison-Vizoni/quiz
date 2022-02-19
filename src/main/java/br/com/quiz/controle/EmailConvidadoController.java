@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -19,6 +18,7 @@ import org.jboss.logging.Logger;
 
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.service.EnviaEmail;
+import br.com.quiz.util.Utils;
 
 /**
  *
@@ -42,16 +42,20 @@ public class EmailConvidadoController implements Serializable {
 		if (listaEmailConvidado == null) {
 			listaEmailConvidado = new ArrayList<>();
 		}
-
 	}
-
+	
+	/**
+	 * Adiciona emails na lista de remessa
+	 */
 	public void salvarListaEmails() {
-		listaEmailConvidado.add(emailConvidado);
-		modelEmails = new ListDataModel<>(listaEmailConvidado);
-		emailConvidado = null;
-
-		logger.info(listaEmailConvidado.size());
-
+		logger.info("método - salvarListaEmails()");
+		if (Utils.stringValida(emailConvidado)) {
+			listaEmailConvidado.add(emailConvidado);
+			modelEmails = new ListDataModel<>(listaEmailConvidado);
+			emailConvidado = null;			
+		} else {
+			Mensagem.erro("Não há email para incluir!");
+		}
 	}
 
 	public void enviaEmail() {
