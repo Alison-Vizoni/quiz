@@ -54,14 +54,14 @@
 			                                 value="Visualizar Questão" styleClass="rounded-button ui-button-outlined"
 			                                 oncomplete="PF('modalPergunta').show()"  />
 			                                 
-			                <p:commandButton process="tabela" update=":form:panelPergunta" icon="pi pi-eye"
+			                <p:commandButton process="tabela" update=":form:panelQuiz" icon="pi pi-eye"
 			                                 value="Visualizar Quiz" styleClass="rounded-button ui-button-outlined"
-			                                 oncomplete="PF('modalPergunta').show()"  />
+			                                 oncomplete="PF('modalVisualizaQuiz').show()"  />
 			                
 			                <p:commandButton icon="pi pi-save" value="Cadastrar Quiz" 
                                              actionListener="#{quizC.salvarQuiz()}" action="#{quizC.defineFluxo()}"
                                              styleClass="rounded-button ui-button-outlined" update=":form:panelPergunta">
-<!--                                 <p:confirm header="Confirmação" message="Finalizar adição de questões?" icon="pi pi-info-circle"/> -->
+                                <p:confirm header="Confirmação" message="Finalizar adição de questões?" icon="pi pi-info-circle"/>
                             </p:commandButton>
 			                
 				            <!-- CONFIRMA INCLUSÃO DE QUIZ  -->
@@ -75,7 +75,7 @@
 		            </f:facet>
 	            </p:dataTable>
 	            
-			    <!--  MODAL --> 
+			    <!--  MODAL VER QUESTÃO --> 
 			    
 			    <p:dialog header="PERGUNTA" widgetVar="modalPergunta" modal="true" showEffect="fade"
 			              hideEffect="fade" resizable="false" id="modal">			              		                            
@@ -104,7 +104,27 @@
 	                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />	                         
 	                    </p:commandButton>
                     </div>
-			    </p:dialog>			    		    
+			    </p:dialog>	
+			    
+			    <!--  MODAL VISUALIZA QUIZ -->			    
+
+				<p:dialog header="QUIZ" widgetVar="modalVisualizaQuiz" modal="true" showEffect="fade"
+		              hideEffect="fade" resizable="false" id="modalQuiz">
+			        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 70vh">
+			            <p:column rendered="#{not empty quizC.modelperguntas}">
+			                <div class="product">               
+								<p:dataList value="#{quizC.modelperguntas}" var="questao" type="ordered">
+									<h:outputText value="#{questao.texto}" styleClass="outputLabel" style="margin-left: 8px; float: left; font-weight:bolder "/>
+									<p:dataList value="#{questao.alternativas}" var="alt" type="ordered">
+										<p:panel>
+		                                	<h:outputText value="#{alt.texto}" styleClass="outputLabel" style="justify-content: left; float: left"/>
+		                                </p:panel> 
+                                  	</p:dataList>
+                                </p:dataList>
+			                </div>
+			            </p:column>
+			        </p:outputPanel>			        
+		    	</p:dialog>			    		    		    
 			</h:form>    
     </ui:define>
 </ui:composition>
