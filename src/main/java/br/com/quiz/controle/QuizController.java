@@ -38,8 +38,9 @@ public class QuizController implements Serializable {
 	private Quiz quiz;
 
 	private List<Pergunta> perguntas = new ArrayList<>();
-	 private DataModel<Pergunta> modelperguntas;
+	private DataModel<Pergunta> modelperguntas;
 	private Pergunta pergunta;
+	private Pergunta perguntaSelecionada;
 
 	private Session sessao;
 	private String fluxo;
@@ -50,6 +51,20 @@ public class QuizController implements Serializable {
 		}		
 		quizDao = new QuizDaoImpl();
 	}
+	
+	/**
+	 * Retira questao da modal de visualizar Quiz
+	 * 
+	 * @param pergunta
+	 */
+	public void retiraQuestaoVisualizacao() {
+		logger.info("método - retiraQuestaoVisualizacao()");
+		perguntas.remove(perguntaSelecionada);
+		logger.info("lista tem : " + perguntas.size());
+		logger.info("modelperguntas tem : " + modelperguntas.getRowCount());
+		
+	}
+	
 
 	/* * CRUD * */
 
@@ -159,6 +174,14 @@ public class QuizController implements Serializable {
 
 	public void setModelperguntas(DataModel<Pergunta> modelperguntas) {
 		this.modelperguntas = modelperguntas;
+	}
+
+	public Pergunta getPerguntaSelecionada() {
+		return perguntaSelecionada;
+	}
+
+	public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
+		this.perguntaSelecionada = perguntaSelecionada;
 	}	
 
 }

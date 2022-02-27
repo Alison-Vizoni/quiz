@@ -79,7 +79,7 @@
 			    
 			    <p:dialog header="PERGUNTA" widgetVar="modalPergunta" modal="true" showEffect="fade"
 			              hideEffect="fade" resizable="false" id="modal">			              		                            
-			        <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 80vh">
+			        <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
 			            <p:column rendered="#{not empty perguntaC.pergunta}">
 			                <div class="product">
 			                    <div class="product-grid-item card" style="margin-bottom: 0">
@@ -109,22 +109,51 @@
 			    <!--  MODAL VISUALIZA QUIZ -->			    
 
 				<p:dialog header="QUIZ" widgetVar="modalVisualizaQuiz" modal="true" showEffect="fade"
-		              hideEffect="fade" resizable="false" id="modalQuiz">
-			        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 70vh">
-			            <p:column rendered="#{not empty quizC.modelperguntas}">
+		              hideEffect="fade" resizable="false" id="modalQuiz" style="overflow: hidden">
+		              
+		            <!-- REMOVE QUESTÃO DO MODAL E DA LISTA -->
+					<p:panelGrid  style="position: fixed; width: 100vw; display: block" columns="1">
+
+			        	<p:commandButton icon="pi pi-trash" value="Remover questão" 
+	                                     actionListener="#{quizC.retiraQuestaoVisualizacao()}"
+	                                     styleClass="rounded-button ui-button-outlined" update=":form:panelQuiz">
+	                        <p:confirm header="Confirmação" message="Descartar questão?" icon="pi pi-info-circle" />
+	                    </p:commandButton>
+	                </p:panelGrid>
+	                
+				    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+	                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+	                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+	                </p:confirmDialog>
+	                
+                    <!-- QUESTÕES DA LISTA DO QUIZ -->
+                    
+			        <p:dataTable id="panelQuiz" var="questao" value="#{quizC.modelperguntas}"
+                     					 rowKey="#{questao.id}"	selection="#{quizC.perguntaSelecionada}" selectionMode="single" 
+			        								style="text-align:center; width: 88vw; height: 70vh">
+			        										            
+			            <p:column rendered="#{not empty quizC.modelperguntas}" style="margin-top: 20px; ">
 			                <div class="product">               
-								<p:dataList value="#{quizC.modelperguntas}" var="questao" type="ordered">
-									<h:outputText value="#{questao.texto}" styleClass="outputLabel" style="margin-left: 8px; float: left; font-weight:bolder "/>
-									<p:dataList value="#{questao.alternativas}" var="alt" type="ordered">
-										<p:panel>
-		                                	<h:outputText value="#{alt.texto}" styleClass="outputLabel" style="justify-content: left; float: left"/>
-		                                </p:panel> 
-                                  	</p:dataList>
-                                </p:dataList>
+								<h:outputText value="#{questao.texto}" styleClass="outputLabel"
+												style="margin-left: 8px; float: left; font-weight:bolder "/>
+								<p:dataList value="#{questao.alternativas}" var="alt" type="ordered">
+									<p:panel>
+	                                	<h:outputText value="#{alt.texto}" styleClass="outputLabel" 
+	                                			style="justify-content: left; float: left"/>
+	                                </p:panel> 
+                              	</p:dataList>
 			                </div>
 			            </p:column>
-			        </p:outputPanel>			        
-		    	</p:dialog>			    		    		    
-			</h:form>    
+			        </p:dataTable>
+			        
+			        
+			        
+			        
+			        		        
+		    	</p:dialog>
+
+			</h:form>			
     </ui:define>
 </ui:composition>
+
+
