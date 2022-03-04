@@ -92,6 +92,7 @@ public class QuizController implements Serializable {
 			if (preparaQuiz()) {
 				quizDao.salvarOuAlterar(quiz, sessao);				
 			}
+			defineFluxo();
 
 		} catch (HibernateException e) {
 			logger.error("Erro ao salvar - " + e.getMessage());
@@ -121,9 +122,9 @@ public class QuizController implements Serializable {
 	public String defineFluxo() {
 		logger.info("entrou no defineFluxo()");
 		if (quiz.getPerguntas().size() < 1) {
-			fluxo = "";
+			this.fluxo = "";
 		} else {
-			fluxo = "final";
+			this.fluxo = "final";
 		}
 		return fluxo;
 	}
