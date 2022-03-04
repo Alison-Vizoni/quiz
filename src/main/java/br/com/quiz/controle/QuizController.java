@@ -61,7 +61,7 @@ public class QuizController implements Serializable {
 		logger.info("método - retiraQuestaoVisualizacao()");
 		perguntas.remove(perguntaSelecionada);
 		logger.info("lista tem : " + perguntas.size());
-		logger.info("modelperguntas tem : " + modelperguntas.getRowCount());
+//		logger.info("modelperguntas tem : " + modelperguntas.getRowCount());
 		
 	}
 	
@@ -76,7 +76,7 @@ public class QuizController implements Serializable {
 				perguntas.add(pergunta);
 				modelperguntas = new ListDataModel<>(perguntas);
 				logger.info("lista tem : " + perguntas.size());
-				logger.info("modelperguntas tem : " + modelperguntas.getRowCount());				
+//				logger.info("modelperguntas tem : " + modelperguntas.getRowCount());			
 			}
 
 		} catch (HibernateException e) {
