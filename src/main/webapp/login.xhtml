@@ -12,15 +12,15 @@
                 <div class="container">
                     <div class="user signinBx">
                         <div class="imgBx">
-                            <img class="img-login" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
+                            <img class="imgBx" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
                         </div>
                         <div class="formBx">
-                            <h:form>
+                            <h:form class="form-primeface">
                                 <h2 class="login-title">Bem Vindo</h2>
                                 <p:inputText type="text" placeholder="Usuário"/>
                                 <p:inputText type="password" placeholder="Senha"/>
                                 <p:commandButton type="submit" value='Entrar'
-                                		  action="inicio" actionListener="#{loginC.iniciaSessao()}"/>
+                                                 action="inicio" actionListener="#{loginC.iniciaSessao()}" style="width: 100px; margin-top: 2rem"/>
                                 <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
                             </h:form>
                         </div>
