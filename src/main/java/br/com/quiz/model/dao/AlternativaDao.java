@@ -4,11 +4,18 @@
  */
 package br.com.quiz.model.dao;
 
+import java.util.List;
+
+import org.hibernate.Session;
+
 import br.com.quiz.model.entidade.Alternativa;
+import br.com.quiz.model.entidade.Pergunta;
 
 /**
  *
  * @author alison
  */
 public interface AlternativaDao extends BaseDao<Alternativa, Long>{
+
+	List<Alternativa> pesquisarPorPergunta(Pergunta pergunta, Session sessao);
 }

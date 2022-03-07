@@ -13,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
  * @author alison.vizoni
  */
 
-public class GeradorTabela{
+public class GeradorTabela {
     public static void main(String[] args){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("quizPU");
         emf.close();

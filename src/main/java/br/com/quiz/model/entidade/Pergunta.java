@@ -7,7 +7,20 @@ package br.com.quiz.model.entidade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -20,6 +33,7 @@ public class Pergunta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pergunta")
     private Long id;
     
     private String assunto;
@@ -39,8 +53,15 @@ public class Pergunta implements Serializable {
     @JoinColumn(name = "id_usuario_proprietario")
     private Usuario usuarioProprietario;
     
-    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
-    private List<Alternativa> alternativas; 
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Alternativa> alternativas;
+    
+//    @ManyToMany
+//    @JoinTable(name = "pergunta_quiz", 
+//    			joinColumns = @JoinColumn(name = "id_quiz"),
+//    			inverseJoinColumns = @JoinColumn(name = "id_pergunta"))
+//    			
+//    private List<Quiz> quiz;
     
     public Pergunta() {
     }
@@ -116,7 +137,15 @@ public class Pergunta implements Serializable {
         this.alternativas = alternativas;
     }
 
-    @Override
+//    public List<Quiz> getQuiz() {
+//        return quiz;
+//    }
+//
+//    public void setQuiz(List<Quiz> quiz) {
+//        this.quiz = quiz;
+//    }
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
