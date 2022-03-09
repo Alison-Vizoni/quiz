@@ -107,7 +107,7 @@ body {
    font-family: 'Poppins', sans-serif;
     position: relative;
     min-height: 100vh;
-    background: red;
+    background: #557085;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,6 +230,13 @@ body {
     color: #577eff;
 }
 
+.form-primeface {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
 .principal .container .signupBx .formBx {
     top: 100%;
     transition: 0.5s;
@@ -242,6 +249,7 @@ body {
 }
 
 .principal .container .signupBx .imgBx {
+    width: 50%;
     top: -100%;
     transition: 0.5s;
 }
@@ -271,6 +279,12 @@ body {
     top: 100%;
     transition: 0.5s;
 }
+
+.signup-button {
+   width: 100px;
+}
+
+
 
 @media screen and (max-width: 991px){
     .principal .container {
@@ -643,6 +657,11 @@ i{
     
     .membro h1 {
         font-size: 14px;
+    }
+    
+    
+    .formBx {
+        height: 500px !important;
     }
     
     .membro {
