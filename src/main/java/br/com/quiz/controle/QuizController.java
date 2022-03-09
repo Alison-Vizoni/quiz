@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,6 +18,7 @@ import org.jboss.logging.Logger;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.QuizDao;
 import br.com.quiz.model.dao.QuizDaoImpl;
+import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
 
@@ -35,7 +38,9 @@ public class QuizController implements Serializable {
 	private Quiz quiz;
 
 	private List<Pergunta> perguntas = new ArrayList<>();
+	private DataModel<Pergunta> modelperguntas;
 	private Pergunta pergunta;
+	private Pergunta perguntaSelecionada;
 
 	private Session sessao;
 	private String fluxo;
@@ -46,6 +51,20 @@ public class QuizController implements Serializable {
 		}		
 		quizDao = new QuizDaoImpl();
 	}
+	
+	/**
+	 * Retira questao da modal de visualizar Quiz
+	 * 
+	 * @param pergunta
+	 */
+	public void retiraQuestaoVisualizacao() {
+		logger.info("método - retiraQuestaoVisualizacao()");
+		perguntas.remove(perguntaSelecionada);
+		logger.info("lista tem : " + perguntas.size());
+//		logger.info("modelperguntas tem : " + modelperguntas.getRowCount());
+		
+	}
+	
 
 	/* * CRUD * */
 
@@ -53,8 +72,12 @@ public class QuizController implements Serializable {
 		logger.info("método - incluiPergunta()");
 
 		try {
-			perguntas.add(pergunta);
-			logger.info("lista tem : " + perguntas.size());
+			if (null != pergunta.getId()) {
+				perguntas.add(pergunta);
+				modelperguntas = new ListDataModel<>(perguntas);
+				logger.info("lista tem : " + perguntas.size());
+//				logger.info("modelperguntas tem : " + modelperguntas.getRowCount());			
+			}
 
 		} catch (HibernateException e) {
 			logger.error("Erro ao incluiPergunta - " + e.getMessage());
@@ -69,6 +92,7 @@ public class QuizController implements Serializable {
 			if (preparaQuiz()) {
 				quizDao.salvarOuAlterar(quiz, sessao);				
 			}
+			defineFluxo();
 
 		} catch (HibernateException e) {
 			logger.error("Erro ao salvar - " + e.getMessage());
@@ -98,9 +122,9 @@ public class QuizController implements Serializable {
 	public String defineFluxo() {
 		logger.info("entrou no defineFluxo()");
 		if (quiz.getPerguntas().size() < 1) {
-			fluxo = "";
+			this.fluxo = "";
 		} else {
-			fluxo = "final";
+			this.fluxo = "final";
 		}
 		return fluxo;
 	}
@@ -143,6 +167,22 @@ public class QuizController implements Serializable {
 
 	public void setFluxo(String fluxo) {
 		this.fluxo = fluxo;
+	}
+
+	public DataModel<Pergunta> getModelperguntas() {
+		return modelperguntas;
+	}
+
+	public void setModelperguntas(DataModel<Pergunta> modelperguntas) {
+		this.modelperguntas = modelperguntas;
+	}
+
+	public Pergunta getPerguntaSelecionada() {
+		return perguntaSelecionada;
+	}
+
+	public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
+		this.perguntaSelecionada = perguntaSelecionada;
 	}	
 
 }

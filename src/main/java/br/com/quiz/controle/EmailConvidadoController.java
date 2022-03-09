@@ -105,7 +105,7 @@ public class EmailConvidadoController implements Serializable {
 		this.modelEmails = modelEmails;
 	}
 
-	public String getEmailConvidado() {
+	public String getEmailConvidado() {		
 		return emailConvidado;
 	}
 
