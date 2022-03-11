@@ -24,9 +24,10 @@ body {
     position: relative;
 }
 
-#panel_cadastro_content, #painel_conteudo_content{
-    border:none;
+.aw-content {
+    height: 100vh
 }
+
 
 /* #painel_conteudo_header { */
 /*     height: 215px; */
@@ -98,7 +99,7 @@ body {
     align-items: center;
     font-size: 16px;
     color:#eaeaea;
-    position: absolute;
+    position: relative;
     bottom: 0;
     z-index: 0;
 }
@@ -642,6 +643,61 @@ i{
     transform: scale(1.1);
 }
 
+.container_perfil {
+    height: 100vh;
+    font-family: 'Poppins', sans-serif; 
+}
+
+.container_perfil_top {
+    height: 20vh;
+    display: flex;
+}
+
+.container__perfil_side {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
+}
+
+.container__perfil_image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    background-image: url('https://www.pngkey.com/png/full/72-729716_user-avatar-png-graphic-free-download-icon.png');
+    background-size: 100%;
+    margin: 2rem;
+}
+
+.container__perfil_side label {
+    font-size: 32px;
+}
+
+.container__perfil__actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    align-items: center;
+}
+
+.container__perfil__actions div {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.container__perfil__actions div span:first-child{
+    font-size: 18px;
+    margin:10px;
+}
+
+.container__perfil__actions div span:last-child {
+    font-size: 24px;
+    color:#8a8a8a;
+}
 @media (max-width: 1150px) {
     .membro {
         font-size: 14px;
@@ -715,7 +771,7 @@ ui-panel-content ui-widget-content{
 body .ui-panel .ui-panel-content{
 	background: white;
 	border: none;
-	width: 100vw;
+        width: 100%;
 }
 
 @media (max-width: 650px) {
