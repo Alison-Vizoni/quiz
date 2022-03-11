@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 
+
 /**
  *
  * @author alf_a
@@ -51,7 +52,7 @@ public class AlternativaController implements Serializable {
      * Insere alternativas na tabela
      */
     public void populaListaAlternativa() {
-        if (!alternativa.getTexto().isBlank()) {
+        if (alternativa.getTexto() != null && alternativa.getTexto().trim().length() != 0) {
             alternativa.setId(contadorId++);
             listaAlternativas.add(alternativa);
             apresentaTabela();
@@ -60,7 +61,7 @@ public class AlternativaController implements Serializable {
             Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
         }
     }
-
+    
     /**
      * Apresenta na tela as alternativas cadastradas
      */
