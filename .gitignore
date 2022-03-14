@@ -14,3 +14,4 @@ nbproject/
 .settings
 /target/
 bin/
+nb-configuration.xml
