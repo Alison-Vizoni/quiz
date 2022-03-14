@@ -23,7 +23,7 @@
 
                         <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" />
                         <f:selectItems value="#{categoriaC.comboCategorias}" />
-                        <p:ajax listener="#{perguntaC.setaCategoria()}" />
+                        <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}" />
                         <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
                     </p:selectOneMenu>
 	                      

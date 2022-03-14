@@ -30,6 +30,7 @@ import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Pergunta;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -76,15 +77,13 @@ public class PerguntaController implements Serializable{
     
     /**
      * Vincula a categoria selecionada no comboBox com a pergunta
+     * @param comboCategorias
      */
-    public void setaCategoria(){
-        try {
-            sessao = HibernateUtil.abrirSessao();   
-            categoria = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
-        } catch (HibernateException e) {
-        	logger.error("Erro ao vincular categoria na pergunta - " + e.getMessage());
-        } finally {
-            sessao.close();
+    public void setCategoriaVinculadaPergunta(List<SelectItem> comboCategorias){
+        for (SelectItem comboCategoria : comboCategorias) {
+            if(comboCategoria.getValue() == categoria.getId()){
+                categoria.setNome(comboCategoria.getLabel());
+            }
         }
     }
     
