@@ -50,58 +50,40 @@
 
                             <p:wizard flowListener="#{perguntaC.onFlowProcess}">
 
-                                <!--      PERGUNTAS     -->
+                                <!--      PERGUNTAS  E CATEGORIAS   -->
 
                                 <p:tab id="tab_pergunta" title="Pergunta">
                                     <p:messages for="Pergunta" closable="true" showIcon="false"/>
                                     <p:panel header="Cadastro de Pergunta">                                        
                                         <p:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto">                                            
+                                            <p:outputLabel value="Digite sua pergunta" for="Pergunta"/>
                                             <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}" 
                                                          required="true" 
                                                          label=" " 
                                                          maxlength="255"
                                                          style="width:100%"
                                                          placeholder="Digite a pergunta *">
-                                                <f:validateLength minimum="2"/>                                                
-                                            </p:inputText>                        
-                                        </p:panelGrid>
-                                    </p:panel>
-                                </p:tab>
-
-                                <!--      CATEGORIAS     -->
-
-                                <p:tab id="tab_categoria" title="Categoria" >
-                                    <p:messages closable="true"/>
-                                    <p:panel header="Defina a categoria" >
-                                        <p:messages/>
-                                        <h:panelGrid columns="1" columnClasses="label, value" style="margin:0 auto" >
-                                            <h:outputText value=" "/>
-
-                                            <p:selectOneMenu value="#{perguntaC.categoria.id}"
-                                                             id="categoria"                                                             
+                                                <f:validateLength minimum="2"/>    
+                                            </p:inputText>
+                                            
+                                            <p:outputLabel value="Selecione a categoria" for="categoria"/>
+                                            <p:selectOneMenu value="#{perguntaC.categoria.id}"                                                             
+                                                             id="categoria"
                                                              requiredMessage="Categoria é obrigatório!" 
-                                                             filter="true" 
-                                                             filterMatchMode="startsWith">                                                       
+                                                             filter="true"
+                                                             required="true">                                                       
 
                                                 <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
                                                 <f:selectItems value="#{categoriaC.comboCategorias}" />
-                                                <p:ajax listener="#{perguntaC.setaCategoria()}" update="tab_categoria categoria"/>
+                                                <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}" 
+                                                        update="tab_pergunta categoria"/>
                                             </p:selectOneMenu>
-
-                                            <br></br> 
-
-                                            <h:outputText value="Não encontrou a categoria desejada?"/>
-                                            <p:inputText value="#{perguntaC.pergunta.categoria}" 
-                                                         label="Categoria"
-                                                         placeholder="Cadastre aqui sua categoria"
-                                                         maxlength="255"
-                                                         style="width:100%" />
-
-                                        </h:panelGrid>
+                                                                    
+                                        </p:panelGrid>
                                     </p:panel>
                                 </p:tab>
-
-								<!--     ALTERNATIVAS      -->
+                                
+				<!--     ALTERNATIVAS      -->
                                                                 
                                 <p:tab id="tab_alternativas" title="Alternativas">
                                     <p:messages id="messages" showDetail="true" closable="true" >
