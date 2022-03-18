@@ -1,7 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/layout.xhtml">
 
@@ -13,42 +12,42 @@
                     <label>#{loginC.login.usuario.nome}</label>
                 </div>
                 <div class="container__perfil__actions">
-                    <div>
-                        <span>Quizz feitos</span>
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span>Perguntas feitas</span>
-                        <span>0</span>
-                    </div>
-                    <div>
-                        <span>Quizz respondidos</span>
-                        <span>0</span>
-                    </div>
                 </div>
             </div>
+            <nav class="menu_perfil">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="Contéudo">
+                            <p:menuitem value="Quizz respondidos"/>
+                            <p:menuitem value="Quizz elaboradas"/>
+                            <p:menuitem value="Perguntas elaboradas"/>
+                        </p:submenu>
+                        <p:submenu label="Perfil">
+                            <p:menuitem value="Configuração"/>
+                        </p:submenu>
+                    </p:menu>
 
-
-            <p:repeat value="#{quizC.quizzes}" var="quiz">
+                </h:form>
+            </nav>
+                <!--Quiz elaborados quiz respondidos-->
+<!--            <p:repeat value="#{quizC.quizzes}" var="quiz">
                 <p:card style="width: 25rem; margin-bottom: 2em">
                     <f:facet name="title">
-                        #{quiz.categoria}
-                    </f:facet>
-                    <div class="product">
-                        <div class="product-list-item border-1 p-p-5">
-                            <div class="product-list-detail">            
-                                <div class="product-name">#{quiz.categoria}</div>
-                            </div>
+            #{quiz.categoria}
+        </f:facet>
+        <div class="product">
+            <div class="product-list-item border-1 p-p-5">
+                <div class="product-list-detail">            
+                    <div class="product-name">#{quiz.categoria}</div>
+                </div>
 
-                        </div>
-                    </div>
-                </p:card>
-            </p:repeat>
+            </div>
+        </div>
+    </p:card>
+</p:repeat>-->
 
 
         </section>
 
-
     </ui:define>
-
 </ui:composition>
