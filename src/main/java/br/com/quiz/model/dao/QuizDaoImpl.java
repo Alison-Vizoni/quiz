@@ -6,8 +6,13 @@ package br.com.quiz.model.dao;
 
 import br.com.quiz.model.entidade.Quiz;
 import java.io.Serializable;
+import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
+import org.jboss.logging.Logger;
 
 /**
  *
@@ -15,13 +20,22 @@ import org.hibernate.Session;
  */
 public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long> 
         implements QuizDao, Serializable{
-
+	private final Logger logger = LoggerFactory.logger(getClass());
 	private static final long serialVersionUID = 1L;
 
-	@Override
+    @Override
     public Quiz pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (Quiz) sessao.get(Quiz.class, id);
     }
+
+    public List<Quiz> buscarQuizPorUsuario(Session sessao, int i) {
+        logger.info("método buscarQuizPorUsuario()");
+        Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id");
+        consulta.setParameter("id", i);
+        return consulta.list();
+
+    }
+   
     
 }

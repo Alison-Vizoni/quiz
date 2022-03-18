@@ -27,6 +27,25 @@
                     </div>
                 </div>
             </div>
+
+
+            <p:repeat value="#{quizC.quizzes}" var="quiz">
+                <p:card style="width: 25rem; margin-bottom: 2em">
+                    <f:facet name="title">
+                        #{quiz.categoria}
+                    </f:facet>
+                    <div class="product">
+                        <div class="product-list-item border-1 p-p-5">
+                            <div class="product-list-detail">            
+                                <div class="product-name">#{quiz.categoria}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </p:card>
+            </p:repeat>
+
+
         </section>
 
 

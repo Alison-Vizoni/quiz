@@ -5,10 +5,14 @@
 package br.com.quiz.model.dao;
 
 import br.com.quiz.model.entidade.Quiz;
+import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
  * @author alison
  */
 public interface QuizDao extends BaseDao<Quiz, Long>{
+
+    public List<Quiz> buscarQuizPorUsuario(Session sessao, int i);
 }
