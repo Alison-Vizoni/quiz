@@ -14,5 +14,5 @@ import org.hibernate.Session;
  */
 public interface QuizDao extends BaseDao<Quiz, Long>{
 
-    public List<Quiz> buscarQuizPorUsuario(Session sessao, int i);
+    public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i);
 }

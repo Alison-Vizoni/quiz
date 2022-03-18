@@ -18,8 +18,10 @@ import br.com.quiz.model.entidade.Pergunta;
  */
 public interface PerguntaDao extends BaseDao<Pergunta, Long>{
 
-	List<Pergunta> buscaTodasPerguntas(Session sessao);
+    List<Pergunta> buscaTodasPerguntas(Session sessao);
 
-	List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao);
+    List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao);
+
+    List<Pergunta> buscarPerguntasElaboradosPeloUsuario(Long idUsuarioLogado, Session sessao);
 
 }

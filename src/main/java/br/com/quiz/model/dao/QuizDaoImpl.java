@@ -29,7 +29,7 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
         return (Quiz) sessao.get(Quiz.class, id);
     }
 
-    public List<Quiz> buscarQuizPorUsuario(Session sessao, int i) {
+    public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i) {
         logger.info("método buscarQuizPorUsuario()");
         Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id");
         consulta.setParameter("id", i);
@@ -37,5 +37,5 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
 
     }
    
-    
+
 }

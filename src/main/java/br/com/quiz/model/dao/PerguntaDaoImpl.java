@@ -46,5 +46,13 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 		consulta.setParameter("categoria", categoria);
 		return consulta.list();
 	}
+
+    @Override
+    public List<Pergunta> buscarPerguntasElaboradosPeloUsuario(Long idUsuarioLogado, Session sessao) {
+        logger.info("método buscaPerguntasPorCategoria()");
+        Query consulta = sessao.createQuery("FROM Pergunta WHERE usuarioProprietario = :idUsuarioLogado");
+        consulta.setParameter("idUsuarioLogado", idUsuarioLogado);
+        return consulta.list();
+    }
     
 }

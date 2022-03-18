@@ -48,7 +48,7 @@ public class PerguntaController implements Serializable{
     private Pergunta pergunta;
     
     private DataModel<Pergunta> modelPerguntas;
-    private List<Pergunta> perguntas;
+    private List<Pergunta> perguntas = new ArrayList<>();
     
     private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private Categoria categoria;
@@ -80,11 +80,9 @@ public class PerguntaController implements Serializable{
      * @param comboCategorias
      */
     public void setCategoriaVinculadaPergunta(List<SelectItem> comboCategorias){
-        for (SelectItem comboCategoria : comboCategorias) {
-            if(comboCategoria.getValue() == categoria.getId()){
-                categoria.setNome(comboCategoria.getLabel());
-            }
-        }
+        comboCategorias.stream()
+                .filter(comboCategoria -> (comboCategoria.getValue() == categoria.getId()))
+                .forEachOrdered(comboCategoria -> {categoria.setNome(comboCategoria.getLabel());});
     }
     
     /**
@@ -128,28 +126,36 @@ public class PerguntaController implements Serializable{
         } finally {
             sessao.close();
         }
-    } 
+    }
     
     
     public void buscaPerguntasPorCategoria() {
     	logger.info("método - buscaPerguntaPorCategoria()");
-    	
-    	Pergunta p;
-    	List<Pergunta> listaPerguntas = new ArrayList<>();
-		sessao = HibernateUtil.abrirSessao();
-	    try {
-		    perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
-		    for (Pergunta perg : perguntas) {
-		    	p = new Pergunta();
-				p = perg ;
-				listaPerguntas.add(p);
-			}
-		    modelPerguntas = new ListDataModel<>(listaPerguntas);
-	    } catch (HibernateException e) {
-	        logger.error("erro na busca - " + e.getMessage());
-	    } finally {
-	        sessao.close();
-	    }
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por categoria " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public void buscarPerguntasElaboradasPeloUsuario(){
+        logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
+        
+        Long idUsuarioLogado = 1L;
+        
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado, sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por usuario " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
     }
     
     // GETTERS AND SETTERS

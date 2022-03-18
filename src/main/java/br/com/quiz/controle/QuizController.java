@@ -72,7 +72,7 @@ public class QuizController implements Serializable {
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-                        quizzes = quizDao.buscarQuizPorUsuario(sessao, 1);
+                        quizzes = quizDao.buscarQuizPorUsuario(sessao, 1L);
                          logger.info(quizzes);
 
 		} catch (HibernateException e) {
@@ -146,6 +146,21 @@ public class QuizController implements Serializable {
 		}
 		return fluxo;
 	}
+        
+        public void pesquisarQuizElaboradoPeloUsuario(){
+            logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
+            
+            Long idUsuarioLogado = 1L;
+            
+            try{
+                sessao = HibernateUtil.abrirSessao();
+                quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
+            } catch(HibernateException e){
+                logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
+        }
 
 	/* * GETTERS AND SETTERS * */
 
