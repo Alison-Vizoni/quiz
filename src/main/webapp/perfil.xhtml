@@ -5,49 +5,70 @@
                 template="/WEB-INF/templates/layout.xhtml">
 
     <ui:define name="content">
-        <section class="container_perfil">
+
+        <section name="perfil" class="container_perfil">
             <div class="container_perfil_top">
-                <div class="container__perfil_side">
-                    <div class="container__perfil_image"/>
-                    <label>#{loginC.login.usuario.nome}</label>
-                </div>
-                <div class="container__perfil__actions">
-                </div>
-            </div>
-            <nav class="menu_perfil">
-                <h:form>
-                    <p:menu>
-                        <p:submenu label="Contéudo">
-                            <p:menuitem value="Quizz respondidos"/>
-                            <p:menuitem value="Quizz elaboradas"/>
-                            <p:menuitem value="Perguntas elaboradas"/>
-                        </p:submenu>
-                        <p:submenu label="Perfil">
-                            <p:menuitem value="Configuração"/>
-                        </p:submenu>
-                    </p:menu>
+                <nav class="menu_perfil">
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Contéudo">
+                                <p:menuitem styleClass="quizRespondidos" value="Quizz respondidos"/>
+                                <p:menuitem styleClass="quizElaborados" value="Quizz elaboradas"/>
+                                <p:menuitem styleClass="perguntasElaboradas" value="Perguntas elaboradas"/>
+                            </p:submenu>
+                            <p:submenu label="Perfil">
+                                <p:menuitem styleClass="configucoesPerfil" value="Configuração"/>
+                            </p:submenu>
+                        </p:menu>
 
-                </h:form>
-            </nav>
-                <!--Quiz elaborados quiz respondidos-->
-<!--            <p:repeat value="#{quizC.quizzes}" var="quiz">
-                <p:card style="width: 25rem; margin-bottom: 2em">
-                    <f:facet name="title">
-            #{quiz.categoria}
-        </f:facet>
-        <div class="product">
-            <div class="product-list-item border-1 p-p-5">
-                <div class="product-list-detail">            
-                    <div class="product-name">#{quiz.categoria}</div>
-                </div>
-
+                    </h:form>
+                </nav>
+                <img class="container__perfil_side" src="./resources/senac/images/perfil_banner.jpg"/>
             </div>
-        </div>
-    </p:card>
-</p:repeat>-->
+            <div class="actions"></div>
 
 
         </section>
+        <footer class="footer">
+            © Trabalho conclusão de curso Senac Santa Catarina  
+        </footer>
+        <script >
 
+            document.addEventListener('DOMContentLoaded', function (event) {
+
+                //Path dos arquivos 
+                let quizRespondidos = `<ui:include id="include" src="./Perfil/quizRespondidos.xhtml"/>`;
+                let quizElaborados = `<ui:include id="include" src="./Perfil/quizElaborados.xhtml"/>`;
+                let perguntasElaboradas = `<ui:include id="include" src="./Perfil/perguntasElaboradas.xhtml"/>`;
+                let configuracao = `<ui:include id="include" src="./Perfil/configuracoesPerfil.xhtml"/>`;
+                let actions = document.querySelector('.actions');
+                
+                //Pegando as class das tags
+                let classQuizRespondidos = document.querySelector('.quizRespondidos');
+                let classQuizElaborados = document.querySelector('.quizElaborados');
+                let classPerguntasElaboradas = document.querySelector('.perguntasElaboradas');
+                let classConfigucoesPerfil = document.querySelector('.configucoesPerfil');
+
+                //Inserindo os arquivos dependendo do click
+                
+                classQuizRespondidos.addEventListener('click', function (e) {
+                    actions.innerHTML = quizRespondidos;
+                });
+                classQuizElaborados.addEventListener('click', function (e) {
+                    actions.innerHTML = quizElaborados;
+                });
+                classPerguntasElaboradas.addEventListener('click', function (e) {
+                    actions.innerHTML = perguntasElaboradas;
+                });
+
+                classConfigucoesPerfil.addEventListener('click', function (e) {
+                    actions.innerHTML = configuracao;
+                });
+
+            });
+
+        </script>
     </ui:define>
+
+
 </ui:composition>
