@@ -6,19 +6,14 @@ package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  *
  * @author alison
  */
 @Entity
+@Table(name = "sub_categoria")
 public class SubCategoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
