@@ -46,8 +46,8 @@ public class Pergunta implements Serializable {
     private Date dataCriacao;
     
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    @JoinColumn(name = "id_sub_categoria")
+    private SubCategoria subCategoria;
     
     @ManyToOne
     @JoinColumn(name = "id_usuario_proprietario")
@@ -113,12 +113,12 @@ public class Pergunta implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public SubCategoria getSubCategoria() {
+        return subCategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
     }
 
     public Usuario getUsuarioProprietario() {

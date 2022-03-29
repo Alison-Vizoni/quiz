@@ -40,8 +40,16 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 	@Override
 	public List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao) {
 		logger.info("método buscaPerguntasPorCategoria()");
-		Query consulta = sessao.createQuery("FROM Pergunta WHERE categoria = :categoria");
-		consulta.setParameter("categoria", categoria);
+		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_categoria = :id_categoria");
+		consulta.setParameter("id_categoria", categoria.getId());
+		return consulta.list();
+	}
+        
+        @Override
+	public List<Pergunta> buscaPerguntasPorSubCategoria(Long idSubCategoria, Session sessao) {
+		logger.info("método buscaPerguntasPorCategoria()");
+		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_sub_categoria = :id_sub_categoria");
+		consulta.setParameter("id_sub_categoria", idSubCategoria);
 		return consulta.list();
 	}
     

@@ -12,6 +12,7 @@ import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.SubCategoria;
 import br.com.quiz.model.entidade.Usuario;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -36,6 +37,7 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(AplicacaoQuizResultado.class);
             cfg.addAnnotatedClass(Usuario.class);
             cfg.addAnnotatedClass(Login.class);
+            cfg.addAnnotatedClass(SubCategoria.class);
 
             cfg.configure("/META-INF/hibernate.cfg.xml");
             StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
