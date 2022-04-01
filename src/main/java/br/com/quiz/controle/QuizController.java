@@ -131,7 +131,7 @@ public class QuizController implements Serializable {
 		} else {
 			Date criacao = new Date(System.currentTimeMillis());
 			quiz.setDataCriacao(criacao);
-			quiz.setCategoria(perguntas.get(0).getCategoria().getNome());
+			quiz.setCategoria(perguntas.get(0).getSubCategoria().getNome());
 			quizValido = true;
 		}
 		return quizValido;

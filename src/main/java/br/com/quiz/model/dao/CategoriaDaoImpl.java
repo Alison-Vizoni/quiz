@@ -46,8 +46,7 @@ public class CategoriaDaoImpl extends BaseDaoImpl<Categoria, Long>
     public Categoria buscaNomeEspecifico(String nome, Session sessao) {
         Query query = sessao.createQuery("FROM Categoria WHERE nome = :nome");
         query.setMaxResults(1);
-        Categoria cat = (Categoria) query.uniqueResult();
-        return cat;
+        return (Categoria) query.uniqueResult();
     }
     
 }
