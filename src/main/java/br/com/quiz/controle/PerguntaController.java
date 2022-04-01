@@ -41,11 +41,11 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class PerguntaController implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	
-	private final Logger logger = LoggerFactory.logger(getClass());
-	
-	private PerguntaDao perguntaDao;
+    private static final long serialVersionUID = 1L;
+
+    private final Logger logger = LoggerFactory.logger(getClass());
+
+    private PerguntaDao perguntaDao;
     private Pergunta pergunta;
     
     private DataModel<Pergunta> modelPerguntas;
