@@ -20,8 +20,10 @@ public interface PerguntaDao extends BaseDao<Pergunta, Long>{
 
     List<Pergunta> buscaTodasPerguntas(Session sessao);
 
-	List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao);
-	
-        List<Pergunta> buscaPerguntasPorSubCategoria(Long idSubCategoria, Session sessao);
+    List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao);
+
+    List<Pergunta> buscaPerguntasPorSubCategoria(Long idSubCategoria, Session sessao);
+    
+    List<Pergunta> buscarPerguntasElaboradosPeloUsuario(Long idSubCategoria, Session sessao);
 
 }
