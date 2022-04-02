@@ -38,9 +38,7 @@ public class CategoriaController implements Serializable{
         populaComboCategorias();
     }
     
-    // CRUD
-    
-        
+    // CRUD        
     
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'

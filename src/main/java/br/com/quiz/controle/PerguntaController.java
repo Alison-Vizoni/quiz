@@ -45,18 +45,14 @@ public class PerguntaController implements Serializable{
 
     private final Logger logger = LoggerFactory.logger(getClass());
 
-    private PerguntaDao perguntaDao;
-    private Pergunta pergunta;
-    
-    private DataModel<Pergunta> modelPerguntas;
-    private List<Pergunta> perguntas = new ArrayList<>();
-    
-    private CategoriaDao categoriaDao = new CategoriaDaoImpl();
-    private Categoria categoria;
-    private SubCategoria subCategoria;
-    
     private List<Alternativa> listaAlternativas = new ArrayList<>();
-    
+    private CategoriaDao categoriaDao = new CategoriaDaoImpl();
+    private List<Pergunta> perguntas = new ArrayList<>();
+    private DataModel<Pergunta> modelPerguntas;
+    private SubCategoria subCategoria;
+    private PerguntaDao perguntaDao;
+    private Categoria categoria;
+    private Pergunta pergunta;    
     private Login login;
     
     private Session sessao;

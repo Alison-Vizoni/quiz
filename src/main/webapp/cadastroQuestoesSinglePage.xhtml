@@ -32,7 +32,7 @@
                 <div style="display: flex; justify-content: space-around; margin: 25px 0">
                 	<div style="width: 50vw">
 	                	<p:outputLabel value="Categoria" for="categoria" style="font-weight: bold"/>
-		                <p:selectOneMenu value="{perguntaC.categoria.id}"                                                             
+		                <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
 		                                 id="categoria"
 		                                 requiredMessage="Categoria é obrigatório!" 
 		                                 filter="true"
@@ -40,8 +40,9 @@
 		
 		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
 		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
-		                    <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}" 
-		                            update="categoria"/>
+		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+<!-- 		                    <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}"  -->
+<!-- 		                            update="categoria"/> -->
 		                </p:selectOneMenu>
 	                </div>
 	                
@@ -49,16 +50,15 @@
 	             	
 	             	<div style="width: 50vw">
 	                	<p:outputLabel value="Subcategoria" for="sub_categoria" style="font-weight: bold"/>	                
-		                <p:selectOneMenu value="{perguntaC.categoria.id}"                                                             
+		                <p:selectOneMenu value="{subcategoriaC.subcategoria.id}"                                                             
 		                                 id="sub_categoria"
 		                                 requiredMessage="Subcategoria é obrigatório!" 
 		                                 filter="true"
 		                                 required="true" style="width: 50vw">                                                       
 		
 		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
-		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
-		                    <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}" 
-		                            update="sub_categoria"/>
+		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+		                    <p:ajax update="sub_categoria"/>
 		                </p:selectOneMenu>
 	                </div>
 				</div>
