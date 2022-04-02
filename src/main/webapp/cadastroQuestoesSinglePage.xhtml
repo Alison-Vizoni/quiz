@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/layout.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<ui:define name="content">
+		<p:panel id="painel_conteudo" styleClass="color" header="Projeto TCS">
+			<h:form id="formCadQuestao">
+				
+				
+				<!--     ALTERNATIVAS      -->
+				
+				<p:dataTable var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10"
+							 selection="#{alternativa}"
+							 rowKey="#{alternativa.id}">
+							 
+					<p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate />
+                    </p:messages>
+                    
+                    <p:outputLabel for="alternativa" value="" />
+                    <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}" placeholder="Digite suas alternativas *" />
+                    <p:commandButton value="Cadastrar Alternativa"
+                                     update="tabela alternativa" 
+                                     action="#{alternativaC.populaListaAlternativa()}" />
+
+					<p:column selectionMode="single" style="width:16px; text-align:center" />
+
+					<p:column headerText="Alternativas Incluídas">
+                        <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
+                    </p:column>
+
+					<p:column headerText="Excluir" style="width: 9%; margin-left: 0">
+						<p:commandButton icon="pi pi-trash" title="Excluir"
+										 process="@this" actionListener="#{alternativaC.excluir()}"
+										 update="tabela" styleClass="rounded-button ui-button-outlined">
+
+							<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
