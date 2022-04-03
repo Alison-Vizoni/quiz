@@ -58,7 +58,7 @@ public class SubcategoriaController implements Serializable {
 			});
 
 		} catch (HibernateException e) {
-			logger.error("método - populaComboSubCategorias(); \n Erro ao popular combo [" + e.getMessage() + "]");
+			logger.error("Erro ao popular combo [" + e.getMessage() + "]");
 		} finally {
 			sessao.close();
 		}

@@ -1,5 +1,19 @@
 package br.com.quiz.controle;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
+
 import br.com.quiz.model.dao.AlternativaDao;
 import br.com.quiz.model.dao.AlternativaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
@@ -7,18 +21,6 @@ import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Pergunta;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
-import org.jboss.logging.Logger;
-
 
 /**
  *
@@ -29,160 +31,177 @@ import org.jboss.logging.Logger;
 public class AlternativaController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private final Logger logger = LoggerFactory.logger(getClass());
-	
+
 	private List<Alternativa> listaAlternativas = new ArrayList<>();
-    private DataModel<Alternativa> modelAlternativas;
-    private AlternativaDao alternativaDao;
-    private Alternativa alternativa;
-    private Alternativa alter;
-    
-    private PerguntaDao perguntaDao;
-    
-    private Long contadorId = 0L;
-    private Pergunta pergunta;
-    private Session sessao;
+	private DataModel<Alternativa> modelAlternativas;
+	private Alternativa alternativaCorreta;
+	private AlternativaDao alternativaDao;
+	private Alternativa alternativa;
+	private Alternativa alter;
 
-    public AlternativaController() {        
-        alternativaDao = new AlternativaDaoImpl();       
-    }
+	private PerguntaDao perguntaDao;
 
-    /**
-     * Insere alternativas na tabela
-     */
-    public void populaListaAlternativa() {
-        if (alternativa.getTexto() != null && alternativa.getTexto().trim().length() != 0) {
-            alternativa.setId(contadorId++);
-            listaAlternativas.add(alternativa);
-            apresentaTabela();
-            alternativa = null;
-        } else {
-            Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
-        }
-    }
-    
-    /**
-     * Apresenta na tela as alternativas cadastradas
-     */
-    public void apresentaTabela() {
-        try {
-            modelAlternativas = new ListDataModel<>(listaAlternativas);
-        } catch (HibernateException e) {
-        	logger.error("Método apresentaTabela() - " + e.getMessage());
-        }
-    }
+	private Long contadorId = 0L;
+	private Pergunta pergunta;
+	private Session sessao;
 
-    /**
-     * Exclui alternativa da tabela
-     */
-    public void excluir() {
-        alter = new Alternativa();
-        alter = modelAlternativas.getRowData();
-        listaAlternativas.removeIf(alt -> alt.equals(alter));
-    }
+	public AlternativaController() {
+		alternativaDao = new AlternativaDaoImpl();
+	}
 
-    // CRUD
-    
-    public void salvar(Long id){
-    	logger.info("método salvar()");
-    	
-        try {
-            perguntaDao = new PerguntaDaoImpl();
-            sessao = HibernateUtil.abrirSessao();
-            pergunta = perguntaDao.pesquisarPorID(id, sessao);
-            
-            for (Alternativa altern : listaAlternativas) {
-             altern.setPergunta(pergunta);
-             altern.setId(null);
-             alternativaDao.salvarOuAlterar(altern, sessao);
-            }
+	/**
+	 * Insere alternativas na tabela
+	 */
+	public void populaListaAlternativa() {
+		if (alternativa.getTexto() != null && alternativa.getTexto().trim().length() != 0) {
+			alternativa.setId(contadorId++);
+			listaAlternativas.add(alternativa);
+			apresentaTabela();
+			alternativa = null;
+		} else {
+			Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
+		}
+	}
 
-        } catch (HibernateException e) {
-        	logger.error("método salvar() - " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-    }
-    
-    public void buscaAlternativasPorPergunta(Pergunta pergunta) {
-    	logger.info("método buscaAlternativasPorPergunta()");
-    	
-    	try {
-            perguntaDao = new PerguntaDaoImpl();
-            sessao = HibernateUtil.abrirSessao();
-            listaAlternativas = alternativaDao.pesquisarPorPergunta(pergunta, sessao);            
+	/**
+	 * Apresenta na tela as alternativas cadastradas
+	 */
+	public void apresentaTabela() {
+		try {
+			modelAlternativas = new ListDataModel<>(listaAlternativas);
+		} catch (HibernateException e) {
+			logger.error("Método apresentaTabela() - " + e.getMessage());
+		}
+	}
 
-        } catch (HibernateException e) {
-        	logger.error("método buscaAlternativasPorPergunta() - " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-    	
-    }
-    
-    // GETTERS AND SETTERS
-    public Alternativa getAlternativa() {
-        if (alternativa == null) {
-            alternativa = new Alternativa();
-        }
-        return alternativa;
-    }
+	/**
+	 * Exclui alternativa da tabela
+	 */
+	public void excluir() {
+		alter = new Alternativa();
+		alter = modelAlternativas.getRowData();
+		listaAlternativas.removeIf(alt -> alt.equals(alter));
+	}
 
-    public void setAlternativa(Alternativa alternativa) {
-        this.alternativa = alternativa;
-    }
+	// CRUD
 
-    public List<Alternativa> getListaAlternativas() {
-        return listaAlternativas;
-    }
+	public void salvar(Long id) {
+		logger.info("método salvar()");
 
-    public void setListaAlternativas(List<Alternativa> listaAlternativas) {
-        this.listaAlternativas = listaAlternativas;
-    }
+		try {
+			perguntaDao = new PerguntaDaoImpl();
+			sessao = HibernateUtil.abrirSessao();
+			pergunta = perguntaDao.pesquisarPorID(id, sessao);
 
-    public AlternativaDao getAlternativaDao() {
-        return alternativaDao;
-    }
+			for (Alternativa altern : listaAlternativas) {
+				if (altern.getId() == alternativaCorreta.getId()) {
+					altern.setStatusCorreta(true);
+				} else {
+					altern.setStatusCorreta(false);
+				}
+				altern.setPergunta(pergunta);
+				altern.setId(null);
+				alternativaDao.salvarOuAlterar(altern, sessao);
+			}
 
-    public void setAlternativaDao(AlternativaDao alternativaDao) {
-        this.alternativaDao = alternativaDao;
-    }
+		} catch (HibernateException e) {
+			logger.error("método salvar() - " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+	}
 
-    public Session getSessao() {
-        return sessao;
-    }
+	public void buscaAlternativasPorPergunta(Pergunta pergunta) {
+		logger.info("método buscaAlternativasPorPergunta()");
 
-    public void setSessao(Session sessao) {
-        this.sessao = sessao;
-    }
+		try {
+			perguntaDao = new PerguntaDaoImpl();
+			sessao = HibernateUtil.abrirSessao();
+			listaAlternativas = alternativaDao.pesquisarPorPergunta(pergunta, sessao);
 
-    public DataModel<Alternativa> getModelAlternativas() {
-        return modelAlternativas;
-    }
+		} catch (HibernateException e) {
+			logger.error("método buscaAlternativasPorPergunta() - " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
 
-    public void setModelAlternativas(DataModel<Alternativa> modelAlternativas) {
-        this.modelAlternativas = modelAlternativas;
-    }
+	}
 
-    public Alternativa getAlter() {
-        return alter;
-    }
+	// GETTERS AND SETTERS
+	public Alternativa getAlternativa() {
+		if (alternativa == null) {
+			alternativa = new Alternativa();
+		}
+		return alternativa;
+	}
 
-    public void setAlter(Alternativa alter) {
-        this.alter = alter;
-    }
+	public void setAlternativa(Alternativa alternativa) {
+		this.alternativa = alternativa;
+	}
 
-    public Pergunta getPergunta() {
-        
-        if (pergunta == null) {
-            pergunta = new Pergunta();
-        }
-        return pergunta;
-    }
+	public Alternativa getAlternativaCorreta() {
+		if (null == alternativaCorreta) {
+			alternativaCorreta = new Alternativa();
+		}
+		return alternativaCorreta;
+	}
 
-    public void setPergunta(Pergunta pergunta) {
-        this.pergunta = pergunta;
-    }    
+	public void setAlternativaCorreta(Alternativa alternativaCorreta) {
+		this.alternativaCorreta = alternativaCorreta;
+	}
+
+	public List<Alternativa> getListaAlternativas() {
+		return listaAlternativas;
+	}
+
+	public void setListaAlternativas(List<Alternativa> listaAlternativas) {
+		this.listaAlternativas = listaAlternativas;
+	}
+
+	public AlternativaDao getAlternativaDao() {
+		return alternativaDao;
+	}
+
+	public void setAlternativaDao(AlternativaDao alternativaDao) {
+		this.alternativaDao = alternativaDao;
+	}
+
+	public Session getSessao() {
+		return sessao;
+	}
+
+	public void setSessao(Session sessao) {
+		this.sessao = sessao;
+	}
+
+	public DataModel<Alternativa> getModelAlternativas() {
+		return modelAlternativas;
+	}
+
+	public void setModelAlternativas(DataModel<Alternativa> modelAlternativas) {
+		this.modelAlternativas = modelAlternativas;
+	}
+
+	public Alternativa getAlter() {
+		return alter;
+	}
+
+	public void setAlter(Alternativa alter) {
+		this.alter = alter;
+	}
+
+	public Pergunta getPergunta() {
+
+		if (pergunta == null) {
+			pergunta = new Pergunta();
+		}
+		return pergunta;
+	}
+
+	public void setPergunta(Pergunta pergunta) {
+		this.pergunta = pergunta;
+	}
 
 }

@@ -41,8 +41,6 @@
 		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
 		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
 		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-<!-- 		                    <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}"  -->
-<!-- 		                            update="categoria"/> -->
 		                </p:selectOneMenu>
 	                </div>
 	                
@@ -50,7 +48,7 @@
 	             	
 	             	<div style="width: 50vw">
 	                	<p:outputLabel value="Subcategoria" for="sub_categoria" style="font-weight: bold"/>	                
-		                <p:selectOneMenu value="{subcategoriaC.subcategoria.id}"                                                             
+		                <p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
 		                                 id="sub_categoria"
 		                                 requiredMessage="Subcategoria é obrigatório!" 
 		                                 filter="true"
@@ -58,7 +56,7 @@
 		
 		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
 		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
-		                    <p:ajax update="sub_categoria"/>
+		                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
 		                </p:selectOneMenu>
 	                </div>
 				</div>
@@ -75,10 +73,10 @@
                 </div>
 				
 				<p:dataTable id="tabela" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10"
-							 selection="#{alternativa}"
+							 selection="#{alternativaC.alternativaCorreta.id}"
 							 rowKey="#{alternativa.id}">					               
-
-					<p:column selectionMode="single" style="width:16px; text-align:center" />					
+					
+					<p:column selectionMode="single" style="width:16px; text-align:center" />											
 					
 					<p:column headerText="Alternativas Incluídas">
                         <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
@@ -103,11 +101,12 @@
                 <br></br>
                 <h:outputText value="Conteúdo Privado: "/>
                 <p:selectBooleanCheckbox id="visibilidade_privada" value="#{perguntaC.pergunta.visibilidadePrivada}" >
-                    <p:ajax update="visibilidade_privada" listener="#{perguntaC.defineStatusVisibilidade()}" />
+                    <p:ajax update="visibilidade_privada"  />
                 </p:selectBooleanCheckbox>
 
-                <p:commandButton value="Cadastrar Questão" actionListener="#{perguntaC.salvar()}" action="#{alternativaC.salvar(perguntaC.pergunta.id)}" 
-                                 update="formCadQuestao" process="@this" style="float: right"/>
+                <p:commandButton value="Cadastrar Questão" actionListener="#{perguntaC.salvar(categoriaC.categoria)}"
+                				action="#{alternativaC.salvar(perguntaC.pergunta.id)}"	 
+                                update="formCadQuestao" process="@this" style="float: right"/>
                 
 			</h:form>
 		</p:panel>
