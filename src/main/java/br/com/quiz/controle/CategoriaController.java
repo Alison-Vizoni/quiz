@@ -22,26 +22,35 @@ import br.com.quiz.model.entidade.Categoria;
  */
 @ManagedBean(name = "categoriaC")
 @ViewScoped
-public class CategoriaController implements Serializable{
+public class CategoriaController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Categoria categoria;
+    private static final long serialVersionUID = 1L;
+
+    private Categoria categoria;
     private CategoriaDao categoriaDao;
     private Session sessao;
 
     private List<Categoria> categorias;
     private List<SelectItem> comboCategorias;
-    
+
     public CategoriaController() {
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();
     }
-    
+
     // CRUD
-    
-        
-    
+    public String pesquisarPorId(long id) {
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            categoria = categoriaDao.pesquisarPorID(id, sessao);
+        } catch (HibernateException e) {
+            System.err.println("método - populaComboCategorias(); \n Erro ao popular combo categorias [" + e.getMessage() + "]");
+        } finally {
+            sessao.close();
+        }
+        return categoria.getNome();
+    }
+
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
      */
@@ -61,7 +70,7 @@ public class CategoriaController implements Serializable{
             sessao.close();
         }
     }
-    
+
     // GETTERS AND SETTERS
     public Categoria getCategoria() {
         if (categoria == null) {

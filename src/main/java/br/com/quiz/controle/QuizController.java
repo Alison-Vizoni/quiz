@@ -52,6 +52,8 @@ public class QuizController implements Serializable {
 		}		
 		quizDao = new QuizDaoImpl();
                 buscaQuizBanco();
+                pesquisarQuizElaboradoPeloUsuario();
+                
 	}
 	
 	/**

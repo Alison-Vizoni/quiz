@@ -935,9 +935,9 @@ body .ui-panel .ui-panel-content{
 }
 
 
-/* PERFIL QUIZ RESPONDIDOS */
+/* PERFIL QUIZ ELABORADOS */
 
-.quiz_respondidos {
+.quiz_elaborados {
     height: 60vh;
     width: 70%;
     position: relative;
@@ -950,7 +950,7 @@ body .ui-panel .ui-panel-content{
 
 }
 
-.quiz_respondidos_container {
+.quiz_elaborados_container {
     width:  290px;
     height: 300px;
     margin:10px;
@@ -963,7 +963,7 @@ body .ui-panel .ui-panel-content{
     box-shadow: 4px 5px 14px -3px rgba(0,0,0,0.84), 4px 5px 12px -3px rgba(0,0,0,0.67);
 }
 
-.quiz_respondidos_info {
+.quiz_elaborados_info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -980,13 +980,15 @@ body .ui-panel .ui-panel-content{
 }
 
 
-.quiz_respondidos_info h2{
+.quiz_elaborados_info h2{
     font-size: 18px;
     text-align: center;
     margin: 10px;
+    width: 250px;
+
 }
 
-.button_ver_quiz {
+/*.button_ver_quiz {
     padding: 5px;
     border:none;
     cursor:pointer;
@@ -998,10 +1000,10 @@ body .ui-panel .ui-panel-content{
     justify-content: center;
     margin: 2rem;
 
-}
+}*/
 
-/* PERFIL QUIZ ELABORADOS*/
-.quiz_elaborados {
+/* PERFIL QUIZ RESPONDIDOS*/
+.quiz_respondidos {
     height: 60vh;
     width: 70%;
     background: green;

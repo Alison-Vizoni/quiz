@@ -12,8 +12,8 @@
                     <h:form>
                         <p:menu>
                             <p:submenu label="Contéudo">
+                                <p:menuitem styleClass="quizElaborados" value="Quizz elaborados"/>
                                 <p:menuitem styleClass="quizRespondidos" value="Quizz respondidos"/>
-                                <p:menuitem styleClass="quizElaborados" value="Quizz elaboradas"/>
                                 <p:menuitem styleClass="perguntasElaboradas" value="Perguntas elaboradas"/>
                             </p:submenu>
                             <p:submenu label="Perfil">
@@ -29,9 +29,6 @@
 
 
         </section>
-        <footer class="footer">
-            © Trabalho conclusão de curso Senac Santa Catarina  
-        </footer>
         <script >
 
             document.addEventListener('DOMContentLoaded', function (event) {
@@ -42,7 +39,7 @@
                 let perguntasElaboradas = `<ui:include id="include" src="./Perfil/perguntasElaboradas.xhtml"/>`;
                 let configuracao = `<ui:include id="include" src="./Perfil/configuracoesPerfil.xhtml"/>`;
                 let actions = document.querySelector('.actions');
-                
+
                 //Pegando as class das tags
                 let classQuizRespondidos = document.querySelector('.quizRespondidos');
                 let classQuizElaborados = document.querySelector('.quizElaborados');
@@ -50,7 +47,7 @@
                 let classConfigucoesPerfil = document.querySelector('.configucoesPerfil');
 
                 //Inserindo os arquivos dependendo do click
-                
+
                 classQuizRespondidos.addEventListener('click', function (e) {
                     actions.innerHTML = quizRespondidos;
                 });

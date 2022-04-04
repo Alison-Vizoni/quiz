@@ -5,3 +5,7 @@ $(function () {
     });
 });
 
+function openModal(quiz) {
+    console.log(quiz);
+}
+
