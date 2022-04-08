@@ -46,6 +46,7 @@ public class PerguntaController implements Serializable{
     private final Logger logger = LoggerFactory.logger(getClass());
 
     private List<Alternativa> listaAlternativas = new ArrayList<>();
+//    private AlternativaController alternativaController = new AlternativaController();
 //    private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private List<Pergunta> perguntas = new ArrayList<>();
     private DataModel<Pergunta> modelPerguntas;
@@ -95,11 +96,12 @@ public class PerguntaController implements Serializable{
 //            pergunta.setUsuarioProprietario(login.getUsuario());
             Date criacao =  new Date(System.currentTimeMillis());            
             pergunta.setDataCriacao(criacao); 
-            perguntaDao.salvarOuAlterar(pergunta, sessao);           
+            perguntaDao.salvarOuAlterar(pergunta, sessao);
+//            alternativaController.salvar(pergunta.getId());	 
 
         } catch (HibernateException e) {
         	logger.error("Erro ao salvar - " + e.getMessage());
-        } finally {
+        } finally {        	
             sessao.close();
         }
     }
@@ -151,6 +153,11 @@ public class PerguntaController implements Serializable{
             sessao.close();
         }
     }
+    
+    public void limpaCachePergunta() {
+		pergunta = null;
+		
+	}
     
     // GETTERS AND SETTERS
     
@@ -244,6 +251,6 @@ public class PerguntaController implements Serializable{
 
 	public void setListaAlternativas(List<Alternativa> listaAlternativas) {
 		this.listaAlternativas = listaAlternativas;
-	}
+	}	
 	
 }

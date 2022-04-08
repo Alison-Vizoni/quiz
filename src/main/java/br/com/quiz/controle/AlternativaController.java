@@ -41,6 +41,7 @@ public class AlternativaController implements Serializable {
 	private Alternativa alternativa;
 	private Alternativa alter;
 
+	private PerguntaController perguntaController = new PerguntaController();
 	private PerguntaDao perguntaDao;
 
 	private Long contadorId = 0L;
@@ -109,6 +110,9 @@ public class AlternativaController implements Serializable {
 		} catch (HibernateException e) {
 			logger.error("método salvar() - " + e.getMessage());
 		} finally {
+			listaAlternativas.removeAll(listaAlternativas);
+			modelAlternativas = null;
+			perguntaController.limpaCachePergunta();
 			sessao.close();
 		}
 	}
