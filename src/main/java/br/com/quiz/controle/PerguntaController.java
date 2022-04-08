@@ -155,7 +155,7 @@ public class PerguntaController implements Serializable{
     }
     
     public void limpaCachePergunta() {
-		pergunta = null;
+		this.pergunta = null;
 		
 	}
     

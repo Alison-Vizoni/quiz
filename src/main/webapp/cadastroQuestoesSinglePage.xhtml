@@ -106,7 +106,7 @@
 
                 <p:commandButton value="Cadastrar Questão" actionListener="#{perguntaC.salvar(categoriaC.categoria)}"
                 				action="#{alternativaC.salvar(perguntaC.pergunta.id)}"
-                                update="formCadQuestao" process="@all" style="float: right"/>
+                                update="@all" process="@all" style="float: right"/>
                 
 			</h:form>
 		</p:panel>
