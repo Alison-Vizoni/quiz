@@ -21,6 +21,7 @@ import br.com.quiz.model.dao.QuizDaoImpl;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import java.util.Set;
 
 /**
  *
@@ -113,7 +114,7 @@ public class QuizController implements Serializable {
 		} else {
 			Date criacao = new Date(System.currentTimeMillis());
 			quiz.setDataCriacao(criacao);
-			quiz.setCategoria(perguntas.get(0).getSubCategoria().getNome());
+                        quiz.setCategorias(Set.of(perguntas.get(0).getSubCategoria().getCategoria()));
 			quizValido = true;
 		}
 		return quizValido;
