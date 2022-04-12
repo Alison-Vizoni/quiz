@@ -6,7 +6,6 @@ package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -14,31 +13,28 @@ import javax.persistence.*;
  * @author alison
  */
 @Entity
-@Table(name = "categoria")
-public class Categoria implements Serializable {
+@Table(name = "sub_categoria")
+public class SubCategoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false)
     private String nome;
     
-    @OneToMany(mappedBy = "categoria")
-    private List<SubCategoria> subCategorias;
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
     
-    @ManyToMany
-    @JoinTable(name = "categoria_quiz",
-        joinColumns = @JoinColumn(name = "id_categoria"),
-        inverseJoinColumns = @JoinColumn(name = "id_quiz"))
-    private Set<Quiz> quizzes;
+    @OneToMany(mappedBy = "subCategoria")
+    private List<Pergunta> perguntas;
 
-    public Categoria() {
+    public SubCategoria() {
     }
 
-    public Categoria(String nome) {
+    public SubCategoria(Long id, String nome) {
+        this.id = id;
         this.nome = nome;
     }
 
@@ -54,26 +50,26 @@ public class Categoria implements Serializable {
         return nome;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public List<SubCategoria> getSubCategorias() {
-        return subCategorias;
-    }
-
-    public void setSubCategorias(List<SubCategoria> subCategorias) {
-        this.subCategorias = subCategorias;
-    }
     
-    public Set<Quiz> getQuizzes() {
-        return quizzes;
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
     }
 
-    public void setQuizzes(Set<Quiz> quizzes) {
-        this.quizzes = quizzes;
+    public void setPerguntas(List<Pergunta> perguntas) {
+        this.perguntas = perguntas;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -84,10 +80,10 @@ public class Categoria implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categoria)) {
+        if (!(object instanceof SubCategoria)) {
             return false;
         }
-        Categoria other = (Categoria) object;
+        SubCategoria other = (SubCategoria) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +92,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.quiz.entidade.Categoria[ id=" + id + " ]";
+        return "br.com.quiz.model.entidade.SubCategoria[ id=" + id + " ]";
     }
     
 }

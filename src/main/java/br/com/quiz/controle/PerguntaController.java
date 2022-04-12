@@ -30,6 +30,7 @@ import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Pergunta;
+import br.com.quiz.model.entidade.SubCategoria;
 import javax.faces.model.SelectItem;
 
 /**
@@ -52,6 +53,7 @@ public class PerguntaController implements Serializable{
     
     private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private Categoria categoria;
+    private SubCategoria subCategoria;
     
     private List<Alternativa> listaAlternativas = new ArrayList<>();
     
@@ -117,7 +119,7 @@ public class PerguntaController implements Serializable{
     	
         try {
             sessao = HibernateUtil.abrirSessao();
-            pergunta.setCategoria(categoria);
+            pergunta.setSubCategoria(subCategoria);
 //            pergunta.setUsuarioProprietario(login.getUsuario());
             Date criacao =  new Date(System.currentTimeMillis());            
             pergunta.setDataCriacao(criacao); 
@@ -128,8 +130,7 @@ public class PerguntaController implements Serializable{
         } finally {
             sessao.close();
         }
-    } 
-    
+    }
     
     public void buscaPerguntasPorCategoria() {
     	logger.info("método - buscaPerguntaPorCategoria()");
@@ -150,6 +151,20 @@ public class PerguntaController implements Serializable{
 	    } finally {
 	        sessao.close();
 	    }
+    }
+    
+    public void buscarPerguntasPorSubCategoria(){
+        logger.info("método - buscaPerguntaPorSubCategoria()");
+        
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            perguntas = perguntaDao.buscaPerguntasPorSubCategoria(subCategoria.getId(), sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por sub categoria " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
     }
     
     // GETTERS AND SETTERS
@@ -190,6 +205,17 @@ public class PerguntaController implements Serializable{
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public SubCategoria getSubCategoria() {
+        if(subCategoria == null){
+            subCategoria = new SubCategoria();
+        }
+        return subCategoria;
+    }
+
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
     }
 
     public Session getSessao() {
