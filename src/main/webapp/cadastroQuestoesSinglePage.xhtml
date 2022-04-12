@@ -104,10 +104,11 @@
                     <p:ajax update="visibilidade_privada"  />
                 </p:selectBooleanCheckbox>
 
-                <p:commandButton value="Cadastrar Questão" actionListener="#{perguntaC.salvar(categoriaC.categoria)}"
+                <p:commandButton value="Cadastrar Questão"
+                				actionListener="#{perguntaC.salvar(categoriaC.categoria)}"
                 				action="#{alternativaC.salvar(perguntaC.pergunta.id)}"
-                                update="@all" process="@all" style="float: right"/>
-                
+                                update="@all" process="@all" style="float: right" />                
+               
 			</h:form>
 		</p:panel>
 	</ui:define>

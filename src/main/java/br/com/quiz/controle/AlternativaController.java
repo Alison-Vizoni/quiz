@@ -41,7 +41,7 @@ public class AlternativaController implements Serializable {
 	private Alternativa alternativa;
 	private Alternativa alter;
 
-	private PerguntaController perguntaController = new PerguntaController();
+//	private PerguntaController perguntaController = new PerguntaController();
 	private PerguntaDao perguntaDao;
 
 	private Long contadorId = 0L;
@@ -88,9 +88,9 @@ public class AlternativaController implements Serializable {
 
 	// CRUD
 
-	public void salvar(Long id) {
+	public void salvar(Long id, List<Alternativa> listaAlternativas) {
 		logger.info("método salvar()");
-
+		
 		try {
 			perguntaDao = new PerguntaDaoImpl();
 			sessao = HibernateUtil.abrirSessao();
@@ -112,7 +112,7 @@ public class AlternativaController implements Serializable {
 		} finally {
 			listaAlternativas.removeAll(listaAlternativas);
 			modelAlternativas = null;
-			perguntaController.limpaCachePergunta();
+//			perguntaController.limpaCachePergunta();
 			sessao.close();
 		}
 	}

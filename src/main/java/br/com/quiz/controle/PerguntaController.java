@@ -46,7 +46,7 @@ public class PerguntaController implements Serializable{
     private final Logger logger = LoggerFactory.logger(getClass());
 
     private List<Alternativa> listaAlternativas = new ArrayList<>();
-//    private AlternativaController alternativaController = new AlternativaController();
+    private AlternativaController alternativaController = new AlternativaController();
 //    private CategoriaDao categoriaDao = new CategoriaDaoImpl();
     private List<Pergunta> perguntas = new ArrayList<>();
     private DataModel<Pergunta> modelPerguntas;
@@ -90,6 +90,7 @@ public class PerguntaController implements Serializable{
     	logger.info("método - salvar()"); 
     	
         try {
+
             sessao = HibernateUtil.abrirSessao();
             subCategoria.setCategoria(categoria);
             pergunta.setSubCategoria(subCategoria);
@@ -97,7 +98,6 @@ public class PerguntaController implements Serializable{
             Date criacao =  new Date(System.currentTimeMillis());            
             pergunta.setDataCriacao(criacao); 
             perguntaDao.salvarOuAlterar(pergunta, sessao);
-//            alternativaController.salvar(pergunta.getId());	 
 
         } catch (HibernateException e) {
         	logger.error("Erro ao salvar - " + e.getMessage());
