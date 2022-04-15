@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>A B A</title>
+        <title>A B A - Quiz</title>
 
         <f:facet name="first">
             <meta charset="UTF-8" />
@@ -38,7 +38,7 @@
                 <div id="image_logo">
                     <img id="img_logo" src="./resources/senac/images/logoCerto.png" />
                 </div>
-                <div id="nome_logo" class=""><h1>A B A</h1></div>
+                <div id="nome_logo" class=""><h1>A B A - Quiz</h1></div>
             </div>
             <div id="container_menu_header">
 
@@ -53,10 +53,10 @@
                     <p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
                         <p:submenu label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
                                    style="background-color: white; border-radius: 10%" >
-                            <p:menuitem value="Login" outcome="login" icon="pi pi-fw pi-sign-in" />
+                            <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
                             <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
                                         ajax="false" process="@all" action="inicio" />
-                            <p:menuitem rendered="#{loginC.login.id != null }" outcome="perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
+                            <p:menuitem rendered="#{loginC.login.id != null }" outcome="logado/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
                                         ajax="false" process="@all" />
 
                         </p:submenu>

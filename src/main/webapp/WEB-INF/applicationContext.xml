@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:b="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/security
+                            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http auto-config="false" use-expressions="true" access-denied-page="/login.xhtml?negado=true" >
+        <intercept-url pattern="/logado/**" access="hasRole('ROLE_ADMIN')"/>       
+        <intercept-url pattern="/comum/**" access="hasAnyRole('ROLE_ADMIN, ROLE_COMUM')"/>
+        <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?erro=true"/>
+        <intercept-url pattern="/resources/**" access="permitAll"/>
+        <logout invalidate-session="true" logout-success-url="/login.xhtml" logout-url="/logout" delete-cookies="JSESSIONID"/>
+       
+    </http>
+    
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+               users-by-username-query="SELECT login, senha, 'true' as enable FROM usuario WHERE login = ?"
+               authorities-by-username-query="SELECT login, p.nome FROM perfil p join usuario u on p.id = u.idPerfil WHERE login = ?"
+            />
+        </authentication-provider>
+    </authentication-manager>
+
+    <!--local-->
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <b:property name="url" value="jdbc:mysql://localhost:3306/correntista?autoReconnect=true&amp;useTimezone=true&amp;serverTimezone=America/Sao_Paulo&amp;zeroDateTimeBehavior=convertToNull" />
+        <!-- <b:property name="url" value="jdbc:mysql://localhost:3306/senac_security"/> -->
+        <b:property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <b:property name="username" value="root" />
+        <b:property name="password" value="root" />
+    </b:bean>
+
+</b:beans>
