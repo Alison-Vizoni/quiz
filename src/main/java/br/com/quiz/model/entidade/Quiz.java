@@ -37,11 +37,9 @@ public class Quiz implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_quiz")
     private Long id;
     
-    private String categoria;
-    private String assunto;
+    private String titulo;
     
     @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
@@ -63,13 +61,15 @@ public class Quiz implements Serializable {
         joinColumns = @JoinColumn(name = "id_quiz"),
         inverseJoinColumns = @JoinColumn(name = "id_pergunta"))
     private List<Pergunta> perguntas;
-
+    
+    @ManyToMany(mappedBy = "quizzes", cascade = CascadeType.PERSIST)
+    private Set<Categoria> categorias;
+    
     public Quiz() {
     }
 
-    public Quiz(String categoria, String assunto, boolean visibilidadePrivada, Date dataCriacao) {
-        this.categoria = categoria;
-        this.assunto = assunto;
+    public Quiz(String titulo, boolean visibilidadePrivada, Date dataCriacao) {
+        this.titulo = titulo;
         this.visibilidadePrivada = visibilidadePrivada;
         this.dataCriacao = dataCriacao;
     }
@@ -82,20 +82,12 @@ public class Quiz implements Serializable {
         this.id = id;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getAssunto() {
-        return assunto;
-    }
-
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public boolean isVisibilidadePrivada() {
@@ -136,6 +128,14 @@ public class Quiz implements Serializable {
 
     public void setPerguntas(List<Pergunta> perguntas) {
         this.perguntas = perguntas;
+    }
+    
+    public Set<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Set<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
 	@Override
