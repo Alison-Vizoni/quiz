@@ -22,10 +22,14 @@ public class LoginController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Login login;
+	
+	FacesContext context;
+	HttpServletRequest request;
 
 
 	public LoginController() {
-		login =  (Login) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal(); 
+//		login =  (Login) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+		
 
 	}
 
