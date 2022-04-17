@@ -55,7 +55,7 @@
                                    style="background-color: white; border-radius: 10%" >
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
                             <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
-                                        ajax="false" process="@all" action="inicio" />
+                                        ajax="false" process="@all" action="inicio" url="j_spring_security_logout"/>
                             <p:menuitem rendered="#{loginC.login.id != null }" outcome="logado/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
                                         ajax="false" process="@all" />
 

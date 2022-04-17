@@ -15,12 +15,15 @@
                             <img class="imgBx" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
                         </div>
                         <div class="formBx">
-                            <h:form class="form-primeface">
+                            <h:form class="form-primeface" prependId="false">
+                            	
+                            	<p:messages id="messages" closable="true" autoUpdate="true"/>
+                            
                                 <h2 class="login-title">Bem Vindo</h2>
-                                <p:inputText type="text" placeholder="Usuário"/>
-                                <p:inputText type="password" placeholder="Senha"/>
-                                <p:commandButton type="submit" value='Entrar'
-                                                 action="inicio" actionListener="#{loginC.iniciaSessao()}" style="width: 100px; margin-top: 2rem"/>
+                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.login.login}" id="j_username" />
+                                <p:inputText type="password" placeholder="Senha" value="#{loginC.login.senha}" id="j_password" />
+                                <p:commandButton type="submit" value='Entrar' actionListener="#{loginC.iniciaSessao()}"
+                                					ajax="false" style="width: 100px; margin-top: 2rem"/>
                                 <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
                             </h:form>
                         </div>

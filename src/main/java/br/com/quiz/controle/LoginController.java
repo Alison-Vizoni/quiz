@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Usuario;
 
@@ -23,27 +25,28 @@ public class LoginController implements Serializable{
 
 
 	public LoginController() {
+		login =  (Login) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal(); 
 
 	}
 
 		
 	public void iniciaSessao() {
 		System.out.println("Entrou no inicia sessão");
-		login = new Login();
-		login.setId(1L);
-		login.setLogin("log");
-		login.setSenha("sen");
-		login.setUsuario(new Usuario("João", "999.999.999-99", "joao@gmail.com", "(48) 99999-9999"));
-		System.out.println("iniciaSessao - " + login.toString());
+//		login = new Login();
+//		login.setId(1L);
+//		login.setLogin("log");
+//		login.setSenha("sen");
+//		login.setUsuario(new Usuario("João", "999.999.999-99", "joao@gmail.com", "(48) 99999-9999"));
+//		System.out.println("iniciaSessao - " + login.toString());
 	}
 	
 
 	public void encerraSessao() {
 		System.out.println("Entrou no encerra sessão");
 		
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		
-		System.out.println("iniciaSessao - " + login.toString());
+		System.out.println("encerra - " + login.toString());
 		
 	}
 	
