@@ -17,12 +17,12 @@
 <!--         <intercept-url pattern="/inicio.xhtml" access="isAuthenticated()"/>        -->
         <intercept-url pattern="/logado/**" access="isAuthenticated()"/>      
 <!--         <intercept-url pattern="/pesquisaQuiz" access="hasAnyRole('ADM', 'USER')"/>       -->
-        <intercept-url pattern="/Perfil/**" access="hasAnyRole('ADM')"/>
+        <intercept-url pattern="/Perfil/**" access="isAuthenticated()"/>
 <!--     	<intercept-url pattern="/**" access="denyAll"/> -->
         <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?erro=true" default-target-url="/" always-use-default-target="true" />
-        <logout logout-url="/j_spring_security_logout" invalidate-session="true" />
+<!--         <logout logout-url="/j_spring_security_logout" invalidate-session="true" logout-success-url="/inicio" delete-cookies="JSESSIONID"/> -->
         <intercept-url pattern="/resources/**" access="permitAll"/>
-<!--         <logout invalidate-session="true" logout-success-url="/login.xhtml" logout-url="/logout" delete-cookies="JSESSIONID"/> -->
+        <logout invalidate-session="true" logout-success-url="/login.xhtml" logout-url="/inicio" delete-cookies="JSESSIONID"/>
        
     </http>
     
