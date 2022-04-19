@@ -386,3 +386,4 @@ INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES
 
 
 -- QUIZZES
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2020-05-30", "Aprender mais sobre as coisas", FALSE, 1);
