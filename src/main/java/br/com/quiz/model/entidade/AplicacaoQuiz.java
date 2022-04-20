@@ -27,6 +27,12 @@ public class AplicacaoQuiz implements Serializable {
     private Date dataAplicacao;
 
     private String descricao;
+    
+    @ElementCollection
+    @CollectionTable(name = "emails_aplicacao_quiz", joinColumns = {
+        @JoinColumn(name = "id_aplicacao_quiz")
+    })
+    private Set<String> emails;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario_aplicador")
@@ -93,6 +99,14 @@ public class AplicacaoQuiz implements Serializable {
 
     public void setQuizResultado(Set<AplicacaoQuizResultado> quizResultado) {
         this.quizResultado = quizResultado;
+    }
+
+    public Set<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(Set<String> emails) {
+        this.emails = emails;
     }
 
     @Override
