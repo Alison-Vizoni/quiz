@@ -5,77 +5,96 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.hibernate.Session;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
+import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dao.LoginDao;
+import br.com.quiz.model.dao.LoginDaoImpl;
 import br.com.quiz.model.entidade.Login;
-import br.com.quiz.model.entidade.Usuario;
 
 /**
-*
-* @author alf_a
-*/
+ *
+ * @author alf_a
+ */
 @ManagedBean(name = "loginC")
 @SessionScoped
-public class LoginController implements Serializable{
-	
+public class LoginController implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
-	private Login login;
-	FacesContext context;
-	HttpServletRequest request;
-	HttpServletResponse response;
+	private final Logger logger = LoggerFactory.logger(getClass());
 
+	private Session sessao;
+	private LoginDao loginDao;
+	private Login logado;
 
 	public LoginController() throws ServletException, IOException {
-		context = FacesContext.getCurrentInstance();
-		request =  (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-	
 
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context instanceof SecurityContext) {
+			Authentication authentication = context.getAuthentication();
+			if (authentication instanceof Authentication) {
+				loginDao = new LoginDaoImpl();
+				sessao =HibernateUtil.abrirSessao();
+				try{
+					String login = (String) authentication.getPrincipal();
+					pesquisaPorLogin(login);					
+					
+				}catch(Exception e) {
+					System.out.println("errado "+e.getMessage());
+				}
+			}
+		}
+	}
+
+	private void pesquisaPorLogin(String login) {
+		logger.info("método pesquisaPorLogin");
+		logado = loginDao.buscaPorLogin(login, sessao);
+
+		try {
+			sessao = HibernateUtil.abrirSessao();
+		} catch (Exception e) {
+			logger.error(e);
+		} finally{
+			sessao.close();
+		}
+		
 	}
 
 	public void iniciaSessao() throws ServletException, IOException {
 		System.out.println("Entrou no inicia sessão");
-		
-//		login =  (Login) FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-		
-		if (!response.isCommitted()){
-			RequestDispatcher dispatcher = request.getRequestDispatcher("j_spring_security_check");
-			   dispatcher.forward(this.request, this.response); 
-			}
-		
-		context.responseComplete();	
+
 	}
-	
 
 	public void encerraSessao() {
 		System.out.println("Entrou no encerra sessão");
-		
+
 //		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		
-		System.out.println("encerra - " + login.toString());
-		
+
+		System.out.println("encerra - " + logado.toString());
+
 	}
-	
+
 	/* GETTERS AND SETTERS */
-	
+
 	public Login getLogin() {
-		if (login == null) {
-			login = new Login();
-			
+		if (logado == null) {
+			logado = new Login();
+
 		}
-		return login;
+		return logado;
 	}
 
 	public void setLogin(Login login) {
-		this.login = login;
+		this.logado = login;
 	}
-	
-	
+
 }
