@@ -51,12 +51,11 @@
 
                 <h:form id="menuForm">
                     <p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
-                        <p:submenu label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
-                                   style="background-color: white; border-radius: 10%" >
+                        <p:submenu label="#{usuarioLogadoC.usuarioLogado.id == null ? ' Entrar ' : {usuarioLogadoC.usuarioLogado.nome}}" style="background-color: white; border-radius: 10%" >
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
+                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
                                         ajax="false" process="@all" action="inicio" url="j_spring_security_logout"/>
-                            <p:menuitem rendered="#{loginC.login.id != null }" outcome="logado/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
+                            <p:menuitem rendered="#{usuarioLogadoC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
                                         ajax="false" process="@all" />
 
                         </p:submenu>

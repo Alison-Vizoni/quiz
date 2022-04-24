@@ -7,31 +7,31 @@
                             http://www.springframework.org/schema/security
                             http://www.springframework.org/schema/security/spring-security-3.2.xsd">                            
    
-<!--  	<b:bean id="usuarioLogado" class=" br.com.quiz.secutity.AppUserDetailService" /> -->
 	
 	<http pattern ="/login.xhtml" security="none" />
+	
+	
 
-    <http auto-config="false" use-expressions="true" >
+    <http auto-config="false" use-expressions="true" access-denied-page="/login.xhtml?negado=true" >
 <!--         <intercept-url pattern="/inicio.xhtml" access="isAuthenticated()"/>        -->
-        <intercept-url pattern="/logado/**" access="isAuthenticated()"/>      
 <!--         <intercept-url pattern="/pesquisaQuiz" access="hasAnyRole('ADM', 'USER')"/>       -->
-        <intercept-url pattern="/Perfil/**" access="isAuthenticated()"/>
-<!--     	<intercept-url pattern="/**" access="denyAll"/> -->
-        <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?erro=true" />
+<!--     	 <intercept-url pattern="/**" access="denyAll"/> -->
 <!--         <logout logout-url="/j_spring_security_logout" invalidate-session="true" logout-success-url="/inicio" delete-cookies="JSESSIONID"/> -->
-<!--         <intercept-url pattern="/resources/**" access="permitAll"/> -->
-        <logout invalidate-session="true" logout-success-url="/login.xhtml" logout-url="/inicio" delete-cookies="JSESSIONID"/>
+        <intercept-url pattern="/resources/senac/images/**" access="permitAll"/>
+        <intercept-url pattern="/resources/senac/**" access="permitAll"/>
+        <intercept-url pattern="/logado/**" access="hasRole('ROLE_ADMIN')"/>      
+        <intercept-url pattern="/Perfil/**" access="hasRole('ROLE_ADMIN')"/>
+        <form-login login-page="/login.xhtml" authentication-failure-url="/login.xhtml?erro=true" />
+        <logout invalidate-session="true" logout-success-url="/quiz/" logout-url="/inicio" delete-cookies="JSESSIONID"/>
        
     </http>
     
     <authentication-manager>
         <authentication-provider>
-<!--             <jdbc-user-service data-source-ref="dataSource" -->
-<!--                users-by-username-query="SELECT login, senha, 'true' as enable FROM login WHERE login = ?"  -->
-<!--                authorities-by-username-query="SELECT tipo FROM role_db WHERE id = 1"/> -->
-			<user-service>
-	            <user name="abc" password="123" authorities="ROLE_USER" />
-	        </user-service>
+            <jdbc-user-service data-source-ref="dataSource"
+               users-by-username-query="SELECT login, senha, 'true' as enable FROM usuario WHERE login = ?"
+               authorities-by-username-query="SELECT login, tipo FROM perfil p join usuario u on p.id = u.id_perfil WHERE login = ?" />
+			
 
         </authentication-provider>
     </authentication-manager>
