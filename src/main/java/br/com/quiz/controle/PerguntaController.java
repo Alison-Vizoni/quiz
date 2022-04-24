@@ -25,7 +25,6 @@ import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
-import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.SubCategoria;
 
@@ -54,12 +53,13 @@ public class PerguntaController implements Serializable {
 	private PerguntaDao perguntaDao;
 	private Categoria categoria;
 	private Pergunta pergunta;
-	private Login login;
 
 	private Long contadorId = 0L;
 	private Session sessao;
 
 	public PerguntaController() {
+		//alex
+		logger.info("\nlogado" +  UsuarioLogado.usuarioLogado());
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
 	}
@@ -134,13 +134,15 @@ public class PerguntaController implements Serializable {
 			pergunta.setSubCategoria(subCategoria);
 			Date criacao = new Date(System.currentTimeMillis());
 			pergunta.setDataCriacao(criacao);
+			pergunta.setUsuarioProprietario(UsuarioLogado.usuarioLogado());
 			
 			if(validaDados(categoria)) {
 				perguntaDao.salvarOuAlterar(pergunta, sessao);
 				selecionaAlternativaCorreta(pergunta.getId());
-				listaAlternativas.removeAll(listaAlternativas);
-				modelAlternativas = null;
-				pergunta = null;
+				this.listaAlternativas.removeAll(listaAlternativas);
+				this.alternativaCorreta = null;
+				this.modelAlternativas = null;
+				this.pergunta = null;
 			} else {
 				throw new Exception("Dados obrigatórios não preenchidos");
 			}
@@ -296,16 +298,16 @@ public class PerguntaController implements Serializable {
 		this.alternativa = alternativa;
 	}
 
-	public Login getLogin() {
-		if (login == null) {
-			login = new Login();
-		}
-		return login;
-	}
-
-	public void setLogin(Login login) {
-		this.login = login;
-	}
+//	public Login getLogin() {
+//		if (login == null) {
+//			login = new Login();
+//		}
+//		return login;
+//	}
+//
+//	public void setLogin(Login login) {
+//		this.login = login;
+//	}
 
 	public List<Pergunta> getPerguntas() {
 		return perguntas;

@@ -42,4 +42,12 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long>
         return consulta.list();
     }
     
+    @Override
+	public Usuario buscaPorLogin(String login, Session sessao) {
+		Query consulta = sessao.createQuery("FROM Usuario WHERE login = :login");
+		consulta.setParameter("login", login);
+		consulta.setMaxResults(1);
+		return (Usuario) consulta.uniqueResult();
+	}
+    
 }

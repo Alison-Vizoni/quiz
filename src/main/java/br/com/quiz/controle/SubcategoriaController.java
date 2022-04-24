@@ -40,7 +40,7 @@ public class SubcategoriaController implements Serializable {
 
 	public SubcategoriaController() {
 		logger.info("entrou na SubcategoriaController");
-		subCategoriaDao = new SubCategoriaDaoImpl();		
+		subCategoriaDao = new SubCategoriaDaoImpl();
 	}
 
 	/**
@@ -65,9 +65,8 @@ public class SubcategoriaController implements Serializable {
 	}
 
 	// GETTERS AND SETTERS
-		
 
-	public SubCategoria getSubCategoria() {		
+	public SubCategoria getSubCategoria() {
 		if (null == subCategoria) {
 			subCategoria = new SubCategoria();
 		}
@@ -77,7 +76,7 @@ public class SubcategoriaController implements Serializable {
 	public void setSubCategoria(SubCategoria subCategoria) {
 		this.subCategoria = subCategoria;
 	}
-	
+
 	public List<SelectItem> getComboSubcategorias() {
 		return comboSubcategorias;
 	}
@@ -112,6 +111,5 @@ public class SubcategoriaController implements Serializable {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
 
 }

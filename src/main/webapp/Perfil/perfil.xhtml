@@ -23,7 +23,7 @@
 
                     </h:form>
                 </nav>
-                <img class="container__perfil_side" src="./resources/senac/images/perfil_banner.jpg"/>
+                <img class="container__perfil_side" src="../resources/senac/images/perfil_banner.jpg"/>
             </div>
             <div class="actions"></div>
 
@@ -37,10 +37,10 @@
             document.addEventListener('DOMContentLoaded', function (event) {
 
                 //Path dos arquivos 
-                let quizRespondidos = `<ui:include id="include" src="./Perfil/quizRespondidos.xhtml"/>`;
-                let quizElaborados = `<ui:include id="include" src="./Perfil/quizElaborados.xhtml"/>`;
-                let perguntasElaboradas = `<ui:include id="include" src="./Perfil/perguntasElaboradas.xhtml"/>`;
-                let configuracao = `<ui:include id="include" src="./Perfil/configuracoesPerfil.xhtml"/>`;
+                let quizRespondidos = `<ui:include id="include" src="/Perfil/quizRespondidos.xhtml"/>`;
+                let quizElaborados = `<ui:include id="include" src="/Perfil/quizElaborados.xhtml"/>`;
+                let perguntasElaboradas = `<ui:include id="include" src="/Perfil/perguntasElaboradas.xhtml"/>`;
+                let configuracao = `<ui:include id="include" src="/Perfil/configuracoesPerfil.xhtml"/>`;
                 let actions = document.querySelector('.actions');
                 
                 //Pegando as class das tags

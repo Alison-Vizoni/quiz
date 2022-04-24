@@ -4,16 +4,16 @@
  */
 package br.com.quiz.model.dao;
 
-import org.hibernate.Session;
-
-import br.com.quiz.model.entidade.Login;
-
-/**
- *
- * @author ahgora
- */
-public interface LoginDao extends BaseDao<Login, Long>{
-
-	Login buscaPorLogin(String login, Session sessao);
-    
-}
+//import org.hibernate.Session;
+//
+//import br.com.quiz.model.entidade.Login;
+//
+///**
+// *
+// * @author ahgora
+// */
+//public interface LoginDao extends BaseDao<Login, Long>{
+//
+//	Login buscaPorLogin(String login, Session sessao);
+//    
+//}

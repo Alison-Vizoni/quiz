@@ -1,12 +1,5 @@
 package br.com.quiz.secutity;
 
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-
-import br.com.quiz.model.entidade.Login;
-
 /**
  * 
  * @author alf_a
