@@ -27,6 +27,11 @@ public class Usuario implements Serializable {
     private String email;
     private String telefone;
     
+    @Column(nullable = false)
+    private String login;
+    @Column(nullable = false)
+    private String senha;
+    
     @OneToMany(mappedBy = "usuarioProprietario")
     private List<Pergunta> pergunta;
     
@@ -34,13 +39,14 @@ public class Usuario implements Serializable {
     private List<Quiz> quizzes;
     
     @OneToMany(mappedBy = "usuarioAplicador")
-    private Set<AplicacaoQuiz> aplicacoesQuizzes;
-    
-    @OneToOne(mappedBy = "usuario")
-    private Login login;
+    private Set<AplicacaoQuiz> aplicacoesQuizzes; 
     
     @OneToMany(mappedBy = "usuario")
     private Set<AplicacaoQuizResultado> quizResultados;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_perfil")
+    private Perfil perfil;
 
     public Usuario() {
     }
@@ -50,89 +56,105 @@ public class Usuario implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public List<Pergunta> getPergunta() {
-        return pergunta;
-    }
-
-    public void setPergunta(List<Pergunta> pergunta) {
-        this.pergunta = pergunta;
-    }
-
-    public List<Quiz> getQuizzes() {
-        return quizzes;
-    }
-
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
-
-    public Set<AplicacaoQuiz> getAplicacoesQuizzes() {
-        return aplicacoesQuizzes;
-    }
-
-    public void setAplicacoesQuizzes(Set<AplicacaoQuiz> aplicacoesQuizzes) {
-        this.aplicacoesQuizzes = aplicacoesQuizzes;
-    }
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-
-    public Set<AplicacaoQuizResultado> getQuizResultados() {
-        return quizResultados;
-    }
-
-    public void setQuizResultados(Set<AplicacaoQuizResultado> quizResultados) {
-        this.quizResultados = quizResultados;
-    }
+    }    
     
-    @Override
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public List<Pergunta> getPergunta() {
+		return pergunta;
+	}
+
+	public void setPergunta(List<Pergunta> pergunta) {
+		this.pergunta = pergunta;
+	}
+
+	public List<Quiz> getQuizzes() {
+		return quizzes;
+	}
+
+	public void setQuizzes(List<Quiz> quizzes) {
+		this.quizzes = quizzes;
+	}
+
+	public Set<AplicacaoQuiz> getAplicacoesQuizzes() {
+		return aplicacoesQuizzes;
+	}
+
+	public void setAplicacoesQuizzes(Set<AplicacaoQuiz> aplicacoesQuizzes) {
+		this.aplicacoesQuizzes = aplicacoesQuizzes;
+	}
+
+	public Set<AplicacaoQuizResultado> getQuizResultados() {
+		return quizResultados;
+	}
+
+	public void setQuizResultados(Set<AplicacaoQuizResultado> quizResultados) {
+		this.quizResultados = quizResultados;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

@@ -37,20 +37,9 @@ public class CategoriaController implements Serializable {
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();
     }
-
-    // CRUD
-    public String pesquisarPorId(long id) {
-        try {
-            sessao = HibernateUtil.abrirSessao();
-            categoria = categoriaDao.pesquisarPorID(id, sessao);
-        } catch (HibernateException e) {
-            System.err.println("método - populaComboCategorias(); \n Erro ao popular combo categorias [" + e.getMessage() + "]");
-        } finally {
-            sessao.close();
-        }
-        return categoria.getNome();
-    }
-
+    
+    // CRUD        
+    
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
      */
