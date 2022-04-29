@@ -24,7 +24,7 @@
                         <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" />
                         <f:selectItems value="#{categoriaC.comboCategorias}" />
                         <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}" />
-                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
+                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="@all"/>
                     </p:selectOneMenu>
 	                      
 				    <div class="seletor_busca_questao">

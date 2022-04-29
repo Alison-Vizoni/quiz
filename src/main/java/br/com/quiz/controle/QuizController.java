@@ -40,6 +40,7 @@ public class QuizController implements Serializable {
 
 	private List<Pergunta> perguntas = new ArrayList<>();
 	private DataModel<Pergunta> modelperguntas;
+        private List<Quiz> quizzes = new ArrayList<>();
 	private Pergunta pergunta;
 	private Pergunta perguntaSelecionada;
 
@@ -51,6 +52,7 @@ public class QuizController implements Serializable {
 			quiz = new Quiz();
 		}		
 		quizDao = new QuizDaoImpl();
+                buscaQuizBanco();
 	}
 	
 	/**
@@ -65,6 +67,22 @@ public class QuizController implements Serializable {
 //		logger.info("modelperguntas tem : " + modelperguntas.getRowCount());
 		
 	}
+        
+        public void buscaQuizBanco(){
+            logger.info("método - buscaQuizBanco()");
+
+		try {
+			sessao = HibernateUtil.abrirSessao();
+                        quizzes = quizDao.buscarQuizPorUsuario(sessao, 1L);
+                         logger.info(quizzes);
+
+		} catch (HibernateException e) {
+			logger.error("Erro ao salvar - " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+	}
+        
 	
 
 	/* * CRUD * */
@@ -129,17 +147,40 @@ public class QuizController implements Serializable {
 		}
 		return fluxo;
 	}
+        
+        public void pesquisarQuizElaboradoPeloUsuario(){
+            logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
+            
+            Long idUsuarioLogado = 1L;
+            
+            try{
+                sessao = HibernateUtil.abrirSessao();
+                quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
+            } catch(HibernateException e){
+                logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
+        }
 
 	/* * GETTERS AND SETTERS * */
 
 	public Quiz getQuiz() {
 		return quiz;
 	}
-
+        
 	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
 	}
 
+        public List<Quiz> getQuizzes() {
+            return quizzes;
+        }
+
+        public void setQuizzes(List<Quiz> quizzes) {
+            this.quizzes = quizzes;
+        }
+        
 	public List<Pergunta> getPerguntas() {
 		if (perguntas == null) {
 			perguntas = new ArrayList<>();

@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/layout.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<ui:define name="content">
+		<p:panel id="painel" styleClass="" header="CADASTRO DE QUESTÕES">
+			<h:form id="formCadQuestao">				
+				
+				<!--  PERGUNTA  -->
+
+                <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate />
+                </p:messages>     
+                
+                <p:outputLabel value="Pergunta" for="Pergunta" style="font-weight: bold"/>
+                <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}" 
+                             required="true" 
+                             label=" " 
+                             maxlength="255"
+                             style="width:100%"
+                             placeholder="Digite a pergunta *">
+                    <f:validateLength minimum="2"/>    
+                </p:inputText>
+                 
+                <!--  CATEGORIA  -->
+                                
+                <div style="display: flex; justify-content: space-around; margin: 25px 0">
+                	<div style="width: 50vw">
+	                	<p:outputLabel value="Categoria" for="categoria" style="font-weight: bold"/>
+		                <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+		                                 id="categoria"
+		                                 requiredMessage="Categoria é obrigatório!" 
+		                                 filter="true"
+		                                 required="true" style="width: 45vw">                                                       
+		
+		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
+		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+		                </p:selectOneMenu>
+	                </div>
+	                
+	             <!--  SUB-CATEGORIA  -->
+	             	
+	             	<div style="width: 50vw">
+	                	<p:outputLabel value="Subcategoria" for="sub_categoria" style="font-weight: bold"/>	                
+		                <p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
+		                                 id="sub_categoria"
+		                                 requiredMessage="Subcategoria é obrigatório!" 
+		                                 filter="true"
+		                                 required="true" style="width: 50vw">                                                       
+		
+		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+		                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+		                </p:selectOneMenu>
+	                </div>
+				</div>
+				
+				<!--     ALTERNATIVAS      -->
+				
+				<p:outputLabel for="alternativa" value="Alternativa *" style="font-weight: bold"/>
+				<div style="display: flex; justify-content: space-around;">
+	                <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}" placeholder="Digite suas alternativas *" 
+	                				style="width:93vw"/>
+	                <p:commandButton value="+"
+	                                 update="radioDT alternativa" 
+	                                 action="#{alternativaC.populaListaAlternativa()}" style="font-weight: bold;"/>
+                </div>
+				
+				<p:dataTable id="radioDT" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10"
+							 selection="#{alternativaC.alternativaCorreta}"
+							 rowKey="#{alternativa.id}">					               
+					
+					<p:column selectionMode="single" style="width:16px; text-align:center" />											
+					
+					<p:column headerText="Alternativas Incluídas">
+                        <p:inputText value="#{alternativa.texto}" style="width: 100%"/>
+                    </p:column>
+
+					<p:column headerText="Excluir" style="width: 9%; margin-left: 0">
+						<p:commandButton icon="pi pi-trash" title="Excluir"
+										 process="@all" actionListener="#{alternativaC.excluir()}"
+										 update="radioDT" styleClass="rounded-button ui-button-outlined">
+
+							<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                   <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                   <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
+                
+                <br></br>
+                <h:outputText value="Conteúdo Privado: "/>
+                <p:selectBooleanCheckbox id="visibilidade_privada" value="#{perguntaC.pergunta.visibilidadePrivada}" >
+                    <p:ajax update="visibilidade_privada"  />
+                </p:selectBooleanCheckbox>
+
+                <p:commandButton value="Cadastrar Questão" actionListener="#{perguntaC.salvar(categoriaC.categoria)}"
+                				action="#{alternativaC.salvar(perguntaC.pergunta.id)}"
+                                update="@all" process="@all" style="float: right"/>
+                
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
