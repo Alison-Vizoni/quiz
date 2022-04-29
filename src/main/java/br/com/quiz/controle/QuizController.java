@@ -157,7 +157,7 @@ public class QuizController implements Serializable {
             
             try{
                 sessao = HibernateUtil.abrirSessao();
-                quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
+                quizzes = quizDao.buscarQuizPorUsuario(sessao, 2L);
             } catch(HibernateException e){
                 logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
             } finally {

@@ -55,7 +55,7 @@
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
                             <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
                                         ajax="false" process="@all" action="inicio" url="j_spring_security_logout"/>
-                            <p:menuitem rendered="#{usuarioLogadoC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
+                            <p:menuitem  outcome="/Perfil/perfil" value="Perfil" icon="pi pi-user" actionListener="#{usuarioLogadoC.encerraSessao()}" 
                                         ajax="false" process="@all" />
 
                         </p:submenu>

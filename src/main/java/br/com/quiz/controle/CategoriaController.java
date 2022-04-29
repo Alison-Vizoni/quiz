@@ -15,6 +15,8 @@ import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Quiz;
+import static br.com.quiz.util.Utils.isTodosElementosIguais;
 
 /**
  *
@@ -37,9 +39,8 @@ public class CategoriaController implements Serializable {
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();
     }
-    
+
     // CRUD        
-    
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
      */
@@ -58,6 +59,24 @@ public class CategoriaController implements Serializable {
         } finally {
             sessao.close();
         }
+    }
+
+    @SuppressWarnings("empty-statement")
+    public String validaCategoria(Quiz quiz) {
+         ArrayList<String> cat = new ArrayList<String>();
+        
+        if (quiz.getPerguntas().isEmpty()) {
+            return "nenhum";
+        };
+        for (int i = 0; i < quiz.getPerguntas().size(); i++) {
+            cat.add(quiz.getPerguntas().get(i).getSubCategoria().getCategoria().getNome());
+        }
+
+        if (isTodosElementosIguais(cat)) {
+            return cat.get(0).toLowerCase();
+        }
+
+        return "variedades";
     }
 
     // GETTERS AND SETTERS

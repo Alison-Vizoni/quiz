@@ -64,6 +64,7 @@ public class SubcategoriaController implements Serializable {
 		}
 	}
 
+       
 	// GETTERS AND SETTERS
 
 	public SubCategoria getSubCategoria() {

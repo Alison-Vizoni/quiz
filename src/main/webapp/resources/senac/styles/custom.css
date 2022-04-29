@@ -947,20 +947,30 @@ body .ui-panel .ui-panel-content{
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
+   
 
 }
 
 .quiz_elaborados_container {
-    width:  290px;
-    height: 300px;
-    margin:10px;
+    max-width: 200px;
+    height: 250px;
+    margin:20px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-around;
+    cursor: pointer;
     padding: 10px;
     -webkit-box-shadow: 4px 5px 14px -3px rgba(0,0,0,0.84), 4px 5px 12px -3px rgba(0,0,0,0.67);
     box-shadow: 4px 5px 14px -3px rgba(0,0,0,0.84), 4px 5px 12px -3px rgba(0,0,0,0.67);
+
+    
+
+}
+
+.quiz_elaborados_container:hover {
+    transform: scale(1.1);
+    transition: ease 0.5s all;
 }
 
 .quiz_elaborados_info {
@@ -975,8 +985,9 @@ body .ui-panel .ui-panel-content{
     width: 100%;
     height: 50%;
     display: flex;
-    object-fit: cover;
-    border-radius: 10px 10px 10px 10px;
+    object-fit: contain;
+    border-radius: 10px 10px 10px 10px
+
 }
 
 
@@ -988,25 +999,12 @@ body .ui-panel .ui-panel-content{
 
 }
 
-/*.button_ver_quiz {
-    padding: 5px;
-    border:none;
-    cursor:pointer;
-    background:  rgba(203,148,210,1);
-    color: white;
-    border-radius:10px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    margin: 2rem;
-
-}*/
 
 /* PERFIL QUIZ RESPONDIDOS*/
 .quiz_respondidos {
     height: 60vh;
     width: 70%;
-    background: green;
+    /*background: green;*/
     position: relative;
     margin: 2rem auto;
     overflow:hidden;
@@ -1017,14 +1015,9 @@ body .ui-panel .ui-panel-content{
 .perguntas_elaboradas{
     height: 60vh;
     width: 70%;
-    background: blue;
     position: relative;
     margin: 2rem auto;
     overflow:hidden;
     overflow-y: scroll
 }
-
-
-
-
 

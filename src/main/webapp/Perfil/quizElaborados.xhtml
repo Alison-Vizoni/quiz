@@ -4,16 +4,20 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <section class="quiz_elaborados">
+  
         <p:repeat value="#{quizC.quizzes}" var="quiz">
             <div class="quiz_elaborados_container">
-                <img class="image_categoria" src="./resources/senac/images/#{categoriaC.pesquisarPorId(quiz.categoria).toLowerCase()}.jpg" />
+                <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
                 <div class="quiz_elaborados_info">
-                    <h2>#{quiz.assunto}</h2>
+                    <h2>#{quiz.titulo}</h2>
                 </div>
             </div>
         </p:repeat>
- 
+
+
+     
     </section>
-
-
+    
+   
 </ui:composition>
+

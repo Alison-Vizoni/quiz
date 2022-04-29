@@ -39,12 +39,15 @@
                 let perguntasElaboradas = `<ui:include id="include" src="/Perfil/perguntasElaboradas.xhtml"/>`;
                 let configuracao = `<ui:include id="include" src="/Perfil/configuracoesPerfil.xhtml"/>`;
                 let actions = document.querySelector('.actions');
+                
+                
 
                 //Pegando as class das tags
                 let classQuizRespondidos = document.querySelector('.quizRespondidos');
                 let classQuizElaborados = document.querySelector('.quizElaborados');
                 let classPerguntasElaboradas = document.querySelector('.perguntasElaboradas');
                 let classConfigucoesPerfil = document.querySelector('.configucoesPerfil');
+                
 
                 //Inserindo os arquivos dependendo do click
 
@@ -63,6 +66,8 @@
                 });
 
             });
+            
+            
 
         </script>
     </ui:define>
