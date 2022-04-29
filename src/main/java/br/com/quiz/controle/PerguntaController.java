@@ -62,6 +62,7 @@ public class PerguntaController implements Serializable {
 		logger.info("\nlogado" +  UsuarioLogado.usuarioLogado());
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
+                buscarPerguntasElaboradasPeloUsuario();
 	}
 
 	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
@@ -218,7 +219,7 @@ public class PerguntaController implements Serializable {
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado, sessao);
+			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(2L, sessao);
 			modelPerguntas = new ListDataModel<>(perguntas);
 		} catch (HibernateException e) {
 			logger.error("erro na busca de perguntas por usuario " + e.getMessage());

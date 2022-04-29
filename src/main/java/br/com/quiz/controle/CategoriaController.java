@@ -63,6 +63,11 @@ public class CategoriaController implements Serializable {
 
     @SuppressWarnings("empty-statement")
     public String validaCategoria(Quiz quiz) {
+       
+        if(quiz == null){
+           return "";
+        }
+        
          ArrayList<String> cat = new ArrayList<String>();
         
         if (quiz.getPerguntas().isEmpty()) {

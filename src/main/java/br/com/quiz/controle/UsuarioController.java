@@ -46,12 +46,9 @@ public class UsuarioController implements Serializable{
         try {
             if (usuarioBO.existeEmail(usuario.getEmail(), sessao)) {
                 Mensagem.erro("Email já cadastrado");
-            } else {
-//                login.setUsuario(usuario);
-//                login.setLogin(usuario.getEmail());
-//                usuarioDao.salvarOuAlterar(usuario, sessao);
-//                loginDao.salvarOuAlterar(login, sessao);
-//                Mensagem.sucesso("Salvo com sucesso");
+            } else {    
+                usuario.setLogin(usuario.getEmail());
+                usuarioDao.salvarOuAlterar(usuario, sessao);
             }
 
         } catch (HibernateException e) {

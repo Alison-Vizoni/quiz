@@ -1,13 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
     <section class="quiz_elaborados">
-  
         <p:repeat value="#{quizC.quizzes}" var="quiz">
             <div class="quiz_elaborados_container">
                 <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
+                <div class="title__center">
+                    <span>#{categoriaC.validaCategoria(quiz)}</span>
+                </div>
                 <div class="quiz_elaborados_info">
                     <h2>#{quiz.titulo}</h2>
                 </div>

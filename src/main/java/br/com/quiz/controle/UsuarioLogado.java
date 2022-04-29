@@ -37,8 +37,7 @@ public class UsuarioLogado {
         if(context instanceof SecurityContext){
             Authentication authentication = context.getAuthentication();
             if(authentication instanceof Authentication){
- //               String login = ((User)authentication.getPrincipal()).getUsername();
-                String login = "asd";
+                String login = ((User)authentication.getPrincipal()).getUsername();
                 pesquisaUsuarioPorLogin(login);
             }
         }
