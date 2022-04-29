@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.SubCategoria;
 
 /**
@@ -49,4 +50,9 @@ public class SubCategoriaDaoImpl extends BaseDaoImpl<SubCategoria, Long>
         return (SubCategoria) query.uniqueResult();
     }
     
+    public List<SubCategoria> buscaPorCategoria(Categoria categoria, Session sessao) {
+    	Query query = sessao.createQuery("FROM SubCategoria WHERE categoria = :categoria");
+    	query.setParameter("categoria", categoria);
+    	return (List<SubCategoria>) query.list();
+    }
 }

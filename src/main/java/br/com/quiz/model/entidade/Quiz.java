@@ -55,7 +55,7 @@ public class Quiz implements Serializable {
     @OneToMany(mappedBy = "quiz")
     private Set<AplicacaoQuiz> quizzesAplicados;
     
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(
         name = "quiz_pergunta",
         joinColumns = @JoinColumn(name = "id_quiz"),

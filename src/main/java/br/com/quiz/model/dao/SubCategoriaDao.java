@@ -4,6 +4,7 @@
  */
 package br.com.quiz.model.dao;
 
+import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.SubCategoria;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -21,5 +22,7 @@ public interface SubCategoriaDao extends BaseDao<SubCategoria, Long>{
     List<SubCategoria> populaComboInicial(Session sessao);
     
     SubCategoria buscaNomeEspecifico(String nome, Session sessao);
+
+	List<SubCategoria> buscaPorCategoria(Categoria categoria, Session sessao);
     
 }

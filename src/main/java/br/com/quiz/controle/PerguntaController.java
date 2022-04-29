@@ -41,59 +41,31 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class PerguntaController implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	
-	private final Logger logger = LoggerFactory.logger(getClass());
-	
-	private PerguntaDao perguntaDao;
-    private Pergunta pergunta;
-    
-    private DataModel<Pergunta> modelPerguntas;
-    private List<Pergunta> perguntas;
-    
-    private CategoriaDao categoriaDao = new CategoriaDaoImpl();
-    private Categoria categoria;
-    private SubCategoria subCategoria;
-    
+    private static final long serialVersionUID = 1L;
+
+    private final Logger logger = LoggerFactory.logger(getClass());
+
     private List<Alternativa> listaAlternativas = new ArrayList<>();
-    
+//    private AlternativaController alternativaController = new AlternativaController();
+//    private CategoriaDao categoriaDao = new CategoriaDaoImpl();
+    private List<Pergunta> perguntas = new ArrayList<>();
+    private DataModel<Pergunta> modelPerguntas;
+    private SubCategoria subCategoria;
+    private PerguntaDao perguntaDao;
+    private Categoria categoria;
+    private Pergunta pergunta;    
     private Login login;
     
     private Session sessao;
-    private boolean skip;    
 
     public PerguntaController() {
     	logger.info("entrou na PerguntaController");
         perguntaDao = new PerguntaDaoImpl();       
-    }
+    }    
        
-    public String onFlowProcess(FlowEvent event) {
-        if (skip) {
-            skip = false; 
-            return "confirm";
-        }
-        else {
-            return event.getNewStep();
-        }
-    }
-    
-    /**
-     * Vincula a categoria selecionada no comboBox com a pergunta
-     * @param comboCategorias
-     */
-    public void setCategoriaVinculadaPergunta(List<SelectItem> comboCategorias){
-        for (SelectItem comboCategoria : comboCategorias) {
-            if(comboCategoria.getValue() == categoria.getId()){
-                categoria.setNome(comboCategoria.getLabel());
-            }
-        }
-    }
-    
-    /**
-     * Atualiza o status de visibilidade da questão
-     */
-    public void defineStatusVisibilidade(){
-        System.out.println("teste " + pergunta.isVisibilidadePrivada());
+    public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
+    	logger.info("método - vinculaSubcategoriaComPergunta()");
+    	this.subCategoria = subCategoria;
     }
     
     public void onRowSelect(SelectEvent<Pergunta> event) {
@@ -114,43 +86,58 @@ public class PerguntaController implements Serializable{
     
     // CRUD
     
-    public void salvar() {
-    	logger.info("método - salvar()");
+    public void salvar(Categoria categoria) {
+    	logger.info("método - salvar()"); 
     	
         try {
             sessao = HibernateUtil.abrirSessao();
+            subCategoria.setCategoria(categoria);
             pergunta.setSubCategoria(subCategoria);
 //            pergunta.setUsuarioProprietario(login.getUsuario());
             Date criacao =  new Date(System.currentTimeMillis());            
             pergunta.setDataCriacao(criacao); 
-            perguntaDao.salvarOuAlterar(pergunta, sessao);           
+            perguntaDao.salvarOuAlterar(pergunta, sessao);
+//            alternativaController.salvar(pergunta.getId());	 
 
         } catch (HibernateException e) {
         	logger.error("Erro ao salvar - " + e.getMessage());
-        } finally {
+        } finally {        	
             sessao.close();
         }
     }
     
-    public void buscaPerguntasPorCategoria() {
-    	logger.info("método - buscaPerguntaPorCategoria()");
-    	
-    	Pergunta p;
-    	List<Pergunta> listaPerguntas = new ArrayList<>();
-		sessao = HibernateUtil.abrirSessao();
-	    try {
-		    perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
-		    for (Pergunta perg : perguntas) {
-		    	p = new Pergunta();
-				p = perg ;
-				listaPerguntas.add(p);
-			}
-		    modelPerguntas = new ListDataModel<>(listaPerguntas);
-	    } catch (HibernateException e) {
-	        logger.error("erro na busca - " + e.getMessage());
-	    } finally {
-	        sessao.close();
-	    }
+    
+    
+    	// NÃO SERÁ MAIS FEITA BUSCA POR CATEGORIA ? OU SERÁ POR INTERMÉDIO DA SUBCATEGORIA
+    
+    
+//    public void buscaPerguntasPorCategoria() {
+//    	logger.info("método - buscaPerguntaPorCategoria()");
+//        try {
+//            sessao = HibernateUtil.abrirSessao();
+//            perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
+//            modelPerguntas = new ListDataModel<>(perguntas);
+//        } catch (HibernateException e) {
+//            logger.error("erro na busca de perguntas por categoria " + e.getMessage());
+//        } finally {
+//            sessao.close();
+//        }
+//    }
+    
+    public void buscarPerguntasElaboradasPeloUsuario(){
+        logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
+        
+        Long idUsuarioLogado = 1L;
+        
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado, sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por usuario " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
     }
     
     public void buscarPerguntasPorSubCategoria(){
@@ -167,6 +154,11 @@ public class PerguntaController implements Serializable{
         }
     }
     
+    public void limpaCachePergunta() {
+		this.pergunta = null;
+		
+	}
+    
     // GETTERS AND SETTERS
     
      public Pergunta getPergunta() {
@@ -178,14 +170,6 @@ public class PerguntaController implements Serializable{
 
     public void setPergunta(Pergunta pergunta) {
         this.pergunta = pergunta;
-    }
-    
-    public boolean isSkip() {
-        return skip;
-    }
-
-    public void setSkip(boolean skip) {
-        this.skip = skip;
     }
 
     public PerguntaDao getPerguntaDao() {
@@ -226,13 +210,13 @@ public class PerguntaController implements Serializable{
         this.sessao = sessao;
     }
 
-    public CategoriaDao getCategoriaDao() {
-        return categoriaDao;
-    }
-
-    public void setCategoriaDao(CategoriaDao categoriaDao) {
-        this.categoriaDao = categoriaDao;
-    }
+//    public CategoriaDao getCategoriaDao() {
+//        return categoriaDao;
+//    }
+//
+//    public void setCategoriaDao(CategoriaDao categoriaDao) {
+//        this.categoriaDao = categoriaDao;
+//    }
 
 	public Login getLogin() {
 		if (login == null) {
@@ -267,6 +251,6 @@ public class PerguntaController implements Serializable{
 
 	public void setListaAlternativas(List<Alternativa> listaAlternativas) {
 		this.listaAlternativas = listaAlternativas;
-	}
+	}	
 	
 }
