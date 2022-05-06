@@ -13,7 +13,7 @@
 		
  		<!-- HEADER --> 
         <p:panel id="combo_busca_questao" styleClass="color"  >
-	        	<h:form id="formCategoria">		        
+	        	<h:form id="formCategoria" method="post">		        
 					<p:selectOneMenu value="#{perguntaC.categoria.id}"
                                      id="comboCategoria"                                                             
                                      requiredMessage="Categoria é obrigatório!" 
@@ -37,7 +37,7 @@
 			
 		<!-- TABELA -->
 			
-		<h:form id="form">			
+		<h:form id="form" method="post">			
 			<p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
                          paginator="true" paginatorPosition="bottom"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

@@ -54,7 +54,7 @@
                         <p:submenu label="#{usuarioLogadoC.usuarioLogado.id == null ? ' Entrar ' : {usuarioLogadoC.usuarioLogado.nome}}" style="background-color: white; border-radius: 10%" >
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
                             <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
-                                        ajax="false" process="@all" action="inicio" url="j_spring_security_logout"/>
+                                        ajax="false" process="@all" action="inicio" url="/j_spring_security_logout"/>
                             <p:menuitem rendered="#{usuarioLogadoC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
                                         ajax="false" process="@all" />
 
