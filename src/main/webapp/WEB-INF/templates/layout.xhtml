@@ -36,7 +36,7 @@
         <header id="header">
             <div id="container_logo">
                 <div id="image_logo">
-                    <img id="img_logo" src="./resources/senac/images/logoCerto.png" />
+                    <img id="img_logo" src="../resources/senac/images/logoCerto.png" />
                 </div>
                 <div id="nome_logo" class=""><h1>A B A - Quiz</h1></div>
             </div>
@@ -53,10 +53,10 @@
                     <p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
                         <p:submenu label="#{usuarioLogadoC.usuarioLogado.id == null ? ' Entrar ' : {usuarioLogadoC.usuarioLogado.nome}}" style="background-color: white; border-radius: 10%" >
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
-                                        ajax="false" process="@all" action="inicio" url="/j_spring_security_logout"/>
-                            <p:menuitem rendered="#{usuarioLogadoC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{usuarioLogadoC.encerraSessao()}" 
-                                        ajax="false" process="@all" />
+                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" 
+                                        ajax="false" process="@all" action="inicio"  url="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout"/>
+                            <p:menuitem rendered="#{usuarioLogadoC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in"  
+                                        actionListener="#{usuarioLogadoC.encerraSessao()}"  ajax="false" process="@all" />
 
                         </p:submenu>
                     </p:menubar>
@@ -68,6 +68,10 @@
 
 
         <section class="aw-content  js-content">
+        
+        
+        	<p:outputLabel value="#{loginC.usuario}" />
+        
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">

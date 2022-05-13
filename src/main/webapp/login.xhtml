@@ -15,23 +15,38 @@
                             <img class="imgBx" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
                         </div>
                         <div class="formBx">
-                            <form class="form-primeface"  action="j_spring_security_check" method="post">
+<!--                             <h:form class="form-primeface"   method="post"> -->
                             	
-<!--                             	<p:messages id="messages" closable="true" autoUpdate="true"/> -->
+<!--                             	<p:messages id="messages" closable="true" autoUpdate="true"/> --> 
                             
-                                <h2 class="login-title">Bem Vindo</h2>
-                                <p:inputText type="text" placeholder="Usuário" id="j_username" />
-                                <p:inputText type="password" placeholder="Senha" id="j_password" />
-                                <p:commandButton type="submit" value='Entrar' 
-                                					 style="width: 100px; margin-top: 2rem"/>
-                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
-                            </form>
+<!--                                 <h2 class="login-title">Bem Vindo</h2> -->
+<!--                                 <p:inputText type="text" placeholder="Usuário" id="j_username" value="#{usuarioLogadoC.usuarioLogado.login}" /> -->
+<!--                                 <p:inputText type="password" placeholder="Senha" id="j_password" /> -->
+<!--                                 <p:commandButton type="submit" value='Entrar' actionListener="#{usuarioLogadoC.login(usuarioLogadoC.usuarioLogado.login)}" -->
+<!--                                 					 style="width: 100px; margin-top: 2rem"/> -->
+<!--                                 <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p> -->
+<!--                             </h:form> -->
+
+
+								<form class="form-primeface" action="j_spring_security_check"  method="post">
+                            	
+	<!--                             	<p:messages id="messages" closable="true" autoUpdate="true"/> -->
+	                            
+	                                <h2 class="login-title">Bem Vindo</h2>
+	                                <p:inputText type="text" placeholder="Usuário" id="j_username" value="#{usuarioLogadoC.usuarioLogado.login}" />
+	                                <p:inputText type="password" placeholder="Senha" id="j_password" />
+	                                <p:commandButton type="submit" value='Entrar' actionListener="#{usuarioLogadoC.login(usuarioLogadoC.usuarioLogado.login)}"
+	                                					 style="width: 100px; margin-top: 2rem"/>
+	                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
+	                            </form>
+
+
                         </div>
                     </div>
                     <div>
                         <div class="user signupBx">
                             <div class="formBx">
-                                <form>
+                                <form id="formTeste">
                                     <h2 class="login-title">Criar uma conta</h2>
                                     <p:inputText type="text" placeholder="Usuário"/>
                                     <p:inputText type="text" placeholder="Email"/>
@@ -47,6 +62,15 @@
                         </div>
                     </div>
                 </div>
+                
+                 <script>
+	                const toogle = () => {
+	                    let container = document.querySelector('.container');
+	                    let section = document.querySelector('section');
+	                    container.classList.toggle('active');
+	                    section.classList.toggle('active');
+	                }
+	             </script>
 
             </section>        
 

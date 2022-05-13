@@ -47,11 +47,11 @@ public class QuizController implements Serializable {
 	private String fluxo;
 
 	public QuizController() {
-		if (quiz == null) {
-			quiz = new Quiz();
-		}		
-		quizDao = new QuizDaoImpl();
-                buscaQuizBanco();
+//		if (quiz == null) {
+//			quiz = new Quiz();
+//		}		
+//		quizDao = new QuizDaoImpl();
+//        buscaQuizBanco();
 	}
 	
 	/**

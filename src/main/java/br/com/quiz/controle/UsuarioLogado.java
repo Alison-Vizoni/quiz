@@ -32,20 +32,42 @@ public class UsuarioLogado {
     private Session sessao;
 
 	public UsuarioLogado() {
+//		login();
+	}
+
+//	public void login() {
+//		usuarioDao = new UsuarioDaoImpl();
+//        SecurityContext context = SecurityContextHolder.getContext();
+//        if(context instanceof SecurityContext){
+//            Authentication authentication = context.getAuthentication();
+//            if(authentication instanceof Authentication){
+//            	try {
+//            		String login = ((User)authentication.getPrincipal()).getUsername();
+//            	// 	String login = "asd";
+//            		pesquisaUsuarioPorLogin(login);
+//            		
+//            	} catch(Exception e) {
+//            		logger.error(e.getMessage());
+//            	}
+//            }
+//        }
+//	}
+	
+	public void login(String login) {
 		usuarioDao = new UsuarioDaoImpl();
         SecurityContext context = SecurityContextHolder.getContext();
         if(context instanceof SecurityContext){
             Authentication authentication = context.getAuthentication();
             if(authentication instanceof Authentication){
             	try {
-            		String login = ((User)authentication.getPrincipal()).getUsername();
-            	//	String login = "asd";
+            	//	String login = ((User)authentication.getPrincipal()).getUsername();
+            	// 	String login = "asd";
             		pesquisaUsuarioPorLogin(login);
             		
             	} catch(Exception e) {
             		logger.error(e.getMessage());
             	}
-            }
+           }
         }
 	}
 
@@ -63,16 +85,11 @@ public class UsuarioLogado {
 
 	}
 
-	public void encerraSessao() {
-		System.out.println("Entrou no encerra sessão");
 
-//		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-
-		System.out.println("encerra - " + usuarioLogado.toString());
-
-	}
-//
 	public Usuario getUsuarioLogado() {
+		if (usuarioLogado == null) {
+			usuarioLogado = new Usuario();
+		}
         return usuarioLogado;
     }
     
