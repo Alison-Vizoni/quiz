@@ -20,7 +20,7 @@
 					 <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
 		                                 id="categoria"		                                 
 		                                 filter="true"
-		                                 style="width: 35vw">                                                       
+		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
 		
 		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
 		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
@@ -32,7 +32,7 @@
 					<p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
 		                                 id="sub_categoria"		                                
 		                                 filter="true"
-		                                 style="width: 35vw">                                                       
+		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
 		
 		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
 		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
@@ -50,7 +50,7 @@
 			
 		<!-- TABELA -->
 			
-		<h:form id="form" method="post">			
+		<h:form id="form">			
 			<p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
                          paginator="true" paginatorPosition="bottom"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

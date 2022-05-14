@@ -39,7 +39,7 @@ public class QuizController implements Serializable {
 
 	private List<Pergunta> perguntas = new ArrayList<>();
 	private DataModel<Pergunta> modelperguntas;
-        private List<Quiz> quizzes = new ArrayList<>();
+	private List<Quiz> quizzes = new ArrayList<>();
 	private Pergunta pergunta;
 	private Pergunta perguntaSelecionada;
 
@@ -53,7 +53,7 @@ public class QuizController implements Serializable {
 //		quizDao = new QuizDaoImpl();
 //        buscaQuizBanco();
 	}
-	
+
 	/**
 	 * Retira questao da modal de visualizar Quiz
 	 * 
@@ -63,16 +63,16 @@ public class QuizController implements Serializable {
 		logger.info("método - retiraQuestaoVisualizacao()");
 		perguntas.remove(perguntaSelecionada);
 		logger.info("lista tem : " + perguntas.size());
-		
+
 	}
-        
-        public void buscaQuizBanco(){
-            logger.info("método - buscaQuizBanco()");
+
+	public void buscaQuizBanco() {
+		logger.info("método - buscaQuizBanco()");
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-                        quizzes = quizDao.buscarQuizPorUsuario(sessao, 1L);
-                         logger.info(quizzes);
+			quizzes = quizDao.buscarQuizPorUsuario(sessao, 1L);
+			logger.info(quizzes);
 
 		} catch (HibernateException e) {
 			logger.error("Erro ao salvar - " + e.getMessage());
@@ -80,8 +80,6 @@ public class QuizController implements Serializable {
 			sessao.close();
 		}
 	}
-        
-	
 
 	/* * CRUD * */
 
@@ -99,14 +97,14 @@ public class QuizController implements Serializable {
 			logger.error("Erro ao incluiPergunta - " + e.getMessage());
 		}
 	}
-	
+
 	public void salvarQuiz() {
 		logger.info("método - salvarQuiz()");
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
 			if (preparaQuiz()) {
-				quizDao.salvarOuAlterar(quiz, sessao);				
+				quizDao.salvarOuAlterar(quiz, sessao);
 			}
 			defineFluxo();
 
@@ -116,16 +114,16 @@ public class QuizController implements Serializable {
 			sessao.close();
 		}
 	}
-	
+
 	private boolean preparaQuiz() {
 		logger.info("método - preparaQuiz()");
-		
-		boolean quizValido = false;		
+
+		boolean quizValido = false;
 		quiz.setPerguntas(perguntas);
-		if (null ==  quiz.getPerguntas() || quiz.getPerguntas().size() == 0) {
+		if (null == quiz.getPerguntas() || quiz.getPerguntas().size() == 0) {
 			Mensagem.erro("Sem perguntas para adicionar ao Quiz!");
 			logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
-			
+
 		} else {
 			Date criacao = new Date(System.currentTimeMillis());
 			quiz.setDataCriacao(criacao);
@@ -134,7 +132,7 @@ public class QuizController implements Serializable {
 		}
 		return quizValido;
 	}
-	
+
 	public String defineFluxo() {
 		logger.info("entrou no defineFluxo()");
 		if (quiz.getPerguntas().size() < 1) {
@@ -144,40 +142,40 @@ public class QuizController implements Serializable {
 		}
 		return fluxo;
 	}
-        
-        public void pesquisarQuizElaboradoPeloUsuario(){
-            logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
-            
-            Long idUsuarioLogado = 1L;
-            
-            try{
-                sessao = HibernateUtil.abrirSessao();
-                quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
-            } catch(HibernateException e){
-                logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
-            } finally {
-                sessao.close();
-            }
-        }
+
+	public void pesquisarQuizElaboradoPeloUsuario() {
+		logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
+
+		Long idUsuarioLogado = 1L;
+
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
+		} catch (HibernateException e) {
+			logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+	}
 
 	/* * GETTERS AND SETTERS * */
 
 	public Quiz getQuiz() {
 		return quiz;
 	}
-        
+
 	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
 	}
 
-        public List<Quiz> getQuizzes() {
-            return quizzes;
-        }
+	public List<Quiz> getQuizzes() {
+		return quizzes;
+	}
 
-        public void setQuizzes(List<Quiz> quizzes) {
-            this.quizzes = quizzes;
-        }
-        
+	public void setQuizzes(List<Quiz> quizzes) {
+		this.quizzes = quizzes;
+	}
+
 	public List<Pergunta> getPerguntas() {
 		if (perguntas == null) {
 			perguntas = new ArrayList<>();
@@ -222,6 +220,6 @@ public class QuizController implements Serializable {
 
 	public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
 		this.perguntaSelecionada = perguntaSelecionada;
-	}	
+	}
 
 }

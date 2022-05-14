@@ -207,9 +207,6 @@ public class PerguntaController implements Serializable {
 		
 	}
 
-	// NÃO SERÁ MAIS FEITA BUSCA POR CATEGORIA ? OU SERÁ POR INTERMÉDIO DA
-	// SUBCATEGORIA
-
     public void buscaPerguntasPorCategoria() {
     	logger.info("método - buscaPerguntaPorCategoria()");
         try {
