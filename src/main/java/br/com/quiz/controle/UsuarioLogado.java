@@ -35,41 +35,41 @@ public class UsuarioLogado {
 //		login();
 	}
 
-//	public void login() {
-//		usuarioDao = new UsuarioDaoImpl();
-//        SecurityContext context = SecurityContextHolder.getContext();
-//        if(context instanceof SecurityContext){
-//            Authentication authentication = context.getAuthentication();
-//            if(authentication instanceof Authentication){
-//            	try {
-//            		String login = ((User)authentication.getPrincipal()).getUsername();
-//            	// 	String login = "asd";
-//            		pesquisaUsuarioPorLogin(login);
-//            		
-//            	} catch(Exception e) {
-//            		logger.error(e.getMessage());
-//            	}
-//            }
-//        }
-//	}
-	
-	public void login(String login) {
+	public void login() {
 		usuarioDao = new UsuarioDaoImpl();
         SecurityContext context = SecurityContextHolder.getContext();
         if(context instanceof SecurityContext){
             Authentication authentication = context.getAuthentication();
             if(authentication instanceof Authentication){
             	try {
-            	//	String login = ((User)authentication.getPrincipal()).getUsername();
+            		String login = ((User)authentication.getPrincipal()).getUsername();
             	// 	String login = "asd";
             		pesquisaUsuarioPorLogin(login);
             		
             	} catch(Exception e) {
             		logger.error(e.getMessage());
             	}
-           }
+            }
         }
 	}
+	
+//	public void login(String login) {
+//		usuarioDao = new UsuarioDaoImpl();
+//        SecurityContext context = SecurityContextHolder.getContext();
+//        if(context instanceof SecurityContext){
+//            Authentication authentication = context.getAuthentication();
+//            if(authentication instanceof Authentication){
+//            	try {
+//            	//	String login = ((User)authentication.getPrincipal()).getUsername();
+//            	// 	String login = "asd";
+//            		pesquisaUsuarioPorLogin(login);
+//            		
+//            	} catch(Exception e) {
+//            		logger.error(e.getMessage());
+//            	}
+//           }
+//        }
+//	}
 
 	private void pesquisaUsuarioPorLogin(String login) {
 		logger.info("método pesquisaPorLogin");

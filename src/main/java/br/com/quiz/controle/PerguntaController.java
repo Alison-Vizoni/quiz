@@ -62,19 +62,19 @@ public class PerguntaController implements Serializable {
 
 	public PerguntaController() {
 		//alex
-		logger.info("\nlogado" +  UsuarioLogado.usuarioLogado());
+//		logger.info("\nlogado" +  UsuarioLogado.usuarioLogado());
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
-		colocaUsuarioSessao();
+//		colocaUsuarioSessao();
 	}
 
-	private void colocaUsuarioSessao() {
+//	private void colocaUsuarioSessao() {
 //		LoginController uc = new LoginController();
 //		this.usuario = uc.getUsuario().getLogin();
 		
-		this.usuario = UsuarioLogado.usuarioLogado();
+//		this.usuario = UsuarioLogado.usuarioLogado();
 		
-	}
+//	}
 
 	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
 		logger.info("método - vinculaSubcategoriaComPergunta()");
