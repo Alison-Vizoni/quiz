@@ -3,7 +3,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templates/layout.xhtml">
+                template="/WEB-INF/layout.xhtml">
 
     <ui:define name="content">      
 
@@ -15,38 +15,25 @@
                             <img class="imgBx" src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg"/>
                         </div>
                         <div class="formBx">
-<!--                             <h:form class="form-primeface"   method="post"> -->
-                            	
-<!--                             	<p:messages id="messages" closable="true" autoUpdate="true"/> --> 
+							<h:form class="form-primeface" method="post">                            	
+	                            <p:messages id="messages" showDetail="true" closable="true" >
+				                        <p:autoUpdate />
+				                </p:messages>
                             
-<!--                                 <h2 class="login-title">Bem Vindo</h2> -->
-<!--                                 <p:inputText type="text" placeholder="Usuário" id="j_username" value="{usuarioLogadoC.usuarioLogado.login}" /> -->
-<!--                                 <p:inputText type="password" placeholder="Senha" id="j_password" /> -->
-<!--                                 <p:commandButton type="submit" value='Entrar' actionListener="{usuarioLogadoC.login(usuarioLogadoC.usuarioLogado.login)}" -->
-<!--                                 					 style="width: 100px; margin-top: 2rem"/> -->
-<!--                                 <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p> -->
-<!--                             </h:form> -->
-
-
-								<form class="form-primeface" action="j_spring_security_check"  method="post">
-                            	
-	<!--                             	<p:messages id="messages" closable="true" autoUpdate="true"/> -->
-	                            
-	                                <h2 class="login-title">Bem Vindo</h2>
-	                                <p:inputText type="text" placeholder="Usuário" id="j_username" />
-	                                <p:inputText type="password" placeholder="Senha" id="j_password" />
-	                                <input type="submit" value='Entrar' 
-	                                					 style="width: 100px; margin-top: 2rem"/>
-	                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
-	                            </form>
-
+                                <h2 class="login-title">Bem Vindo</h2>
+                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}"/>
+                                <p:inputText type="password" placeholder="Senha"  value="#{loginC.usuario.senha}" />
+                                <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
+                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
+                                
+                            </h:form>
 
                         </div>
                     </div>
                     <div>
                         <div class="user signupBx">
                             <div class="formBx">
-                                <form id="formTeste">
+                                <h:form id="formTeste">
                                     <h2 class="login-title">Criar uma conta</h2>
                                     <p:inputText type="text" placeholder="Usuário"/>
                                     <p:inputText type="text" placeholder="Email"/>
@@ -54,7 +41,7 @@
                                     <p:inputText type="password" placeholder="Confirmar Senha"/>
                                     <h:commandButton type="submit" value='Entrar'/>
                                     <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
-                                </form>
+                                </h:form>
                             </div>
                             <div class="imgBx">
                                 <img src="https://images.pexels.com/photos/315658/pexels-photo-315658.jpeg"/>
@@ -70,6 +57,7 @@
 	                    container.classList.toggle('active');
 	                    section.classList.toggle('active');
 	                }
+	                
 	             </script>
 
             </section>        

@@ -61,20 +61,9 @@ public class PerguntaController implements Serializable {
 	Usuario usuario;
 
 	public PerguntaController() {
-		//alex
-//		logger.info("\nlogado" +  UsuarioLogado.usuarioLogado());
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
-//		colocaUsuarioSessao();
 	}
-
-//	private void colocaUsuarioSessao() {
-//		LoginController uc = new LoginController();
-//		this.usuario = uc.getUsuario().getLogin();
-		
-//		this.usuario = UsuarioLogado.usuarioLogado();
-		
-//	}
 
 	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
 		logger.info("método - vinculaSubcategoriaComPergunta()");
@@ -146,7 +135,7 @@ public class PerguntaController implements Serializable {
 			pergunta.setSubCategoria(subCategoria);
 			Date criacao = new Date(System.currentTimeMillis());
 			pergunta.setDataCriacao(criacao);
-			pergunta.setUsuarioProprietario(UsuarioLogado.usuarioLogado());
+			pergunta.setUsuarioProprietario(LoginController.usuarioSessao());
 			
 			if(validaDados(categoria)) {
 				perguntaDao.salvarOuAlterar(pergunta, sessao);
@@ -327,17 +316,6 @@ public class PerguntaController implements Serializable {
 	public void setAlternativa(Alternativa alternativa) {
 		this.alternativa = alternativa;
 	}
-
-//	public Login getLogin() {
-//		if (login == null) {
-//			login = new Login();
-//		}
-//		return login;
-//	}
-//
-//	public void setLogin(Login login) {
-//		this.login = login;
-//	}
 
 	public List<Pergunta> getPerguntas() {
 		return perguntas;
