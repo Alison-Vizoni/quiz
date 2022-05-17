@@ -37,22 +37,47 @@ public class LoginController implements Serializable {
 		usuarioDao = new UsuarioDaoImpl();
 	}
 
+//	public String logar() {
+//		logger.info("método logar");
+//
+//		pesquisaUsuarioPorLogin(usuario.getLogin());
+//
+//		if (usuario.getLogin().equals(usuarioLogado.getLogin())
+//				&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
+//
+//			return "/Perfil/perfil.xhtml?faces-redirect=true";
+//
+//		} else {
+//			FacesContext context = FacesContext.getCurrentInstance();
+//			context.addMessage(null,
+//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+//			return null;
+//		}
+//	}
+	
 	public String logar() {
 		logger.info("método logar");
-
-		pesquisaUsuarioPorLogin(usuario.getLogin());
-
-		if (usuario.getLogin().equals(usuarioLogado.getLogin())
-				&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
-
-			return "/Perfil/perfil.xhtml?faces-redirect=true";
-
-		} else {
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+		try {
+			pesquisaUsuarioPorLogin(usuario.getLogin());
+			if (usuario.getLogin().equals(usuarioLogado.getLogin())
+					&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
+				
+				return "/Perfil/perfil.xhtml?faces-redirect=true";
+				
+			} else {
+//				FacesContext context = FacesContext.getCurrentInstance();
+//				context.addMessage(null,
+//						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+				Mensagem.erro("Usuário e/ou Senha incorretos(s)");
+				return null;
+			}
+			
+		} catch (Exception e) {
+			logger.info("Erro na autenticação de usuário - "+e.getMessage());
 			return null;
 		}
+
+
 	}
 
 	public String logout() {
