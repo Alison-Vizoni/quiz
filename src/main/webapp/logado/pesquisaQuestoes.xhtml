@@ -3,7 +3,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templates/layout.xhtml">
+                template="/WEB-INF/layout.xhtml">
 
     <ui:define name="content">
     
@@ -13,18 +13,31 @@
 		
  		 HEADER  
         <p:panel id="combo_busca_questao" styleClass="color"  >
-	        	<h:form id="formCategoria">		        
-					<p:selectOneMenu value="#{perguntaC.categoria.id}"
-                                     id="comboCategoria"                                                             
-                                     requiredMessage="Categoria é obrigatório!" 
-                                     filter="true" 
-                                     filterMatchMode="startsWith"
-                                     style="background: #f2f2f2; border-radius:5px">                                                       
-
-                        <f:selectItem itemLabel="Escolha uma categoria..." itemValue="" />
-                        <f:selectItems value="#{categoriaC.comboCategorias}" />
-                        <p:ajax listener="#{perguntaC.setCategoriaVinculadaPergunta(categoriaC.comboCategorias)}" />
-                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="@all"/>
+	        	<h:form id="formCategoria" method="post">
+	        	
+	        		<!-- CATEGORIA -->
+	        			        
+					 <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+		                                 id="categoria"		                                 
+		                                 filter="true"
+		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+		
+		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
+		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+		                </p:selectOneMenu>
+                    
+					<!-- SUB-CATEGORIA -->
+					
+					<p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
+		                                 id="sub_categoria"		                                
+		                                 filter="true"
+		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+		
+		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+		                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                        	<p:ajax listener="#{perguntaC.buscaPerguntasPorSubCategoria()}" update="form:tabela"/>
                     </p:selectOneMenu>
 	                      
 				    <div class="seletor_busca_questao">

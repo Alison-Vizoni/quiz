@@ -39,6 +39,7 @@ public class UsuarioController implements Serializable{
         usuarioDao = new UsuarioDaoImpl();
  //       loginDao = new LoginDaoImpl();
     }
+     
 
     public void salvar() {
         sessao = HibernateUtil.abrirSessao();

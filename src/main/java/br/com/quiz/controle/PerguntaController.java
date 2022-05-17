@@ -27,6 +27,7 @@ import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.SubCategoria;
+import br.com.quiz.model.entidade.Usuario;
 
 /**
  *
@@ -56,10 +57,10 @@ public class PerguntaController implements Serializable {
 
 	private Long contadorId = 0L;
 	private Session sessao;
+	
+	Usuario usuario;
 
 	public PerguntaController() {
-		//alex
-		logger.info("\nlogado" +  UsuarioLogado.usuarioLogado());
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
                 buscarPerguntasElaboradasPeloUsuario();
@@ -135,7 +136,7 @@ public class PerguntaController implements Serializable {
 			pergunta.setSubCategoria(subCategoria);
 			Date criacao = new Date(System.currentTimeMillis());
 			pergunta.setDataCriacao(criacao);
-			pergunta.setUsuarioProprietario(UsuarioLogado.usuarioLogado());
+			pergunta.setUsuarioProprietario(LoginController.usuarioSessao());
 			
 			if(validaDados(categoria)) {
 				perguntaDao.salvarOuAlterar(pergunta, sessao);
@@ -196,21 +197,31 @@ public class PerguntaController implements Serializable {
 		
 	}
 
-	// NÃO SERÁ MAIS FEITA BUSCA POR CATEGORIA ? OU SERÁ POR INTERMÉDIO DA
-	// SUBCATEGORIA
-
-//    public void buscaPerguntasPorCategoria() {
-//    	logger.info("método - buscaPerguntaPorCategoria()");
-//        try {
-//            sessao = HibernateUtil.abrirSessao();
-//            perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
-//            modelPerguntas = new ListDataModel<>(perguntas);
-//        } catch (HibernateException e) {
-//            logger.error("erro na busca de perguntas por categoria " + e.getMessage());
-//        } finally {
-//            sessao.close();
-//        }
-//    }
+    public void buscaPerguntasPorCategoria() {
+    	logger.info("método - buscaPerguntaPorCategoria()");
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por categoria " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    }
+    
+    public void buscaPerguntasPorSubCategoria() {
+    	logger.info("método - buscaPerguntasPorSubCategoria()");
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            perguntas = perguntaDao.buscaPerguntasPorSubCategoria(subCategoria.getId(), sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por subCategoria " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    }
 
 	public void buscarPerguntasElaboradasPeloUsuario() {
 		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
@@ -243,12 +254,20 @@ public class PerguntaController implements Serializable {
 	}
 
 	// GETTERS AND SETTERS
-
+	
 	public Pergunta getPergunta() {
 		if (pergunta == null) {
 			pergunta = new Pergunta();
 		}
 		return pergunta;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public void setPergunta(Pergunta pergunta) {
@@ -298,17 +317,6 @@ public class PerguntaController implements Serializable {
 	public void setAlternativa(Alternativa alternativa) {
 		this.alternativa = alternativa;
 	}
-
-//	public Login getLogin() {
-//		if (login == null) {
-//			login = new Login();
-//		}
-//		return login;
-//	}
-//
-//	public void setLogin(Login login) {
-//		this.login = login;
-//	}
 
 	public List<Pergunta> getPerguntas() {
 		return perguntas;

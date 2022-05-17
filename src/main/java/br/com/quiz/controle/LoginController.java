@@ -1,100 +1,135 @@
 package br.com.quiz.controle;
 
-//import java.io.IOException;
-//import java.io.Serializable;
+import java.io.Serializable;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.hibernate.Session;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
+
+import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dao.UsuarioDao;
+import br.com.quiz.model.dao.UsuarioDaoImpl;
+import br.com.quiz.model.entidade.Usuario;
+
+/**
+ *
+ * @author alf_a
+ */
+@ManagedBean(name = "loginC")
+@SessionScoped
+public class LoginController implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private final Logger logger = LoggerFactory.logger(getClass());
+
+	private static Usuario usuarioLogado;
+	private UsuarioDao usuarioDao;
+	private Usuario usuario;
+	private Session sessao;
+
+	public LoginController() {
+		usuarioDao = new UsuarioDaoImpl();
+	}
+
+//	public String logar() {
+//		logger.info("método logar");
 //
-//import javax.faces.bean.ManagedBean;
-//import javax.faces.bean.SessionScoped;
-//import javax.servlet.ServletException;
+//		pesquisaUsuarioPorLogin(usuario.getLogin());
 //
-//import org.hibernate.Session;
-//import org.hibernate.annotations.common.util.impl.LoggerFactory;
-//import org.jboss.logging.Logger;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContext;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.User;
+//		if (usuario.getLogin().equals(usuarioLogado.getLogin())
+//				&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
 //
-//import br.com.quiz.model.dao.HibernateUtil;
-//import br.com.quiz.model.dao.LoginDao;
-//import br.com.quiz.model.dao.LoginDaoImpl;
-//import br.com.quiz.model.entidade.Login;
+//			return "/Perfil/perfil.xhtml?faces-redirect=true";
 //
-///**
-// *
-// * @author alf_a
-// */
-//@ManagedBean(name = "loginC")
-//@SessionScoped
-//public class LoginController implements Serializable {
-//
-//	private static final long serialVersionUID = 1L;
-//	
-//	private final Logger logger = LoggerFactory.logger(getClass());
-//
-//	private Session sessao;
-//	private LoginDao loginDao;
-//	private Login logado;
-//
-//	public LoginController() throws ServletException, IOException {
-//
-//		SecurityContext context = SecurityContextHolder.getContext();
-//		if (context instanceof SecurityContext) {
-//			Authentication authentication = context.getAuthentication();
-//			if (authentication instanceof Authentication) {
-//				loginDao = new LoginDaoImpl();
-//				sessao =HibernateUtil.abrirSessao();
-//				try{
-//					String login = (String) authentication.getPrincipal();
-//					pesquisaPorLogin(login);					
-//					
-//				}catch(Exception e) {
-//					System.out.println("errado "+e.getMessage());
-//				}
-//			}
+//		} else {
+//			FacesContext context = FacesContext.getCurrentInstance();
+//			context.addMessage(null,
+//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+//			return null;
 //		}
 //	}
-//
-//	private void pesquisaPorLogin(String login) {
-//		logger.info("método pesquisaPorLogin");
-//		logado = loginDao.buscaPorLogin(login, sessao);
-//
-//		try {
-//			sessao = HibernateUtil.abrirSessao();
-//		} catch (Exception e) {
-//			logger.error(e);
-//		} finally{
-//			sessao.close();
-//		}
-//		
-//	}
-//
-//	public void iniciaSessao() throws ServletException, IOException {
-//		System.out.println("Entrou no inicia sessão");
-//
-//	}
-//
-//	public void encerraSessao() {
-//		System.out.println("Entrou no encerra sessão");
-//
-////		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-//
-//		System.out.println("encerra - " + logado.toString());
-//
-//	}
-//
-//	/* GETTERS AND SETTERS */
-//
-//	public Login getLogin() {
-//		if (logado == null) {
-//			logado = new Login();
-//
-//		}
-//		return logado;
-//	}
-//
-//	public void setLogin(Login login) {
-//		this.logado = login;
-//	}
-//
-//}
+	
+	public String logar() {
+		logger.info("método logar");
+		try {
+			pesquisaUsuarioPorLogin(usuario.getLogin());
+			if (usuario.getLogin().equals(usuarioLogado.getLogin())
+					&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
+				
+				return "/Perfil/perfil.xhtml?faces-redirect=true";
+				
+			} else {
+//				FacesContext context = FacesContext.getCurrentInstance();
+//				context.addMessage(null,
+//						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+				Mensagem.erro("Usuário e/ou Senha incorretos(s)");
+				return null;
+			}
+			
+		} catch (Exception e) {
+			logger.info("Erro na autenticação de usuário - "+e.getMessage());
+			return null;
+		}
+
+
+	}
+
+	public String logout() {
+		logger.info("método logout");
+
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		usuario = null;
+		usuarioLogado = null;
+		return "/inicio?faces-redirect=true";
+
+	}
+
+	private void pesquisaUsuarioPorLogin(String login) {
+		logger.info("método pesquisaPorLogin");
+
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			usuarioLogado = usuarioDao.buscaPorLogin(login, sessao);
+		} catch (Exception e) {
+			logger.error("Erro na busca de usuário por login - " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+
+	}
+
+	// GETTER AND SETTER
+
+	public Usuario getUsuario() {
+		if (usuario == null) {
+			usuario = new Usuario();
+		}
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuarioLogado() {
+		if (usuarioLogado == null) {
+			usuarioLogado = new Usuario();
+		}
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLog) {
+		usuarioLogado = usuarioLog;
+	}
+	
+	public static Usuario usuarioSessao() {
+		return usuarioLogado;
+	}
+
+}
