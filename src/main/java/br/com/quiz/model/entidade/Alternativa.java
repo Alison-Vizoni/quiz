@@ -26,94 +26,104 @@ import javax.persistence.Table;
 @Table(name = "alternativa")
 public class Alternativa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String texto;
-    
-    @Column(name = "status_correta")
-    private boolean statusCorreta;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pergunta")
-    private Pergunta pergunta;
-    
-    @OneToMany(mappedBy = "alternativa", cascade = CascadeType.ALL)
-    private Set<AplicacaoQuizResultado> aplicacaoQuizResultado;
-    
-    public Alternativa() {
-    }
+	private String texto;
 
-    public Alternativa(String texto, boolean statusCorreta) {
-        this.texto = texto;
-        this.statusCorreta = statusCorreta;
-    }
+	@Column(name = "status_correta")
+	private boolean statusCorreta;
 
-    public Long getId() {
-        return id;
-    }
+	private Boolean statusAtivo = true;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "id_pergunta")
+	private Pergunta pergunta;
 
-    public String getTexto() {
-        return texto;
-    }
+	@OneToMany(mappedBy = "alternativa", cascade = CascadeType.ALL)
+	private Set<AplicacaoQuizResultado> aplicacaoQuizResultado;
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
+	public Alternativa() {
+	}
 
-    public boolean isStatusCorreta() {
-        return statusCorreta;
-    }
+	public Alternativa(String texto, boolean statusCorreta) {
+		this.texto = texto;
+		this.statusCorreta = statusCorreta;
+	}
 
-    public void setStatusCorreta(boolean statusCorreta) {
-        this.statusCorreta = statusCorreta;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Pergunta getPergunta() {
-        return pergunta;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setPergunta(Pergunta pergunta) {
-        this.pergunta = pergunta;
-    }
+	public String getTexto() {
+		return texto;
+	}
 
-    public Set<AplicacaoQuizResultado> getAplicacaoQuizResultado() {
-        return aplicacaoQuizResultado;
-    }
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
 
-    public void setAplicacaoQuizResultado(Set<AplicacaoQuizResultado> aplicacaoQuizResultado) {
-        this.aplicacaoQuizResultado = aplicacaoQuizResultado;
-    }
+	public boolean isStatusCorreta() {
+		return statusCorreta;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public void setStatusCorreta(boolean statusCorreta) {
+		this.statusCorreta = statusCorreta;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Alternativa)) {
-            return false;
-        }
-        Alternativa other = (Alternativa) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	public Pergunta getPergunta() {
+		return pergunta;
+	}
 
-    @Override
-    public String toString() {
-        return "br.com.quiz.entidade.Alternativa[ id=" + id + " ]";
-    }
-    
+	public void setPergunta(Pergunta pergunta) {
+		this.pergunta = pergunta;
+	}
+
+	public Set<AplicacaoQuizResultado> getAplicacaoQuizResultado() {
+		return aplicacaoQuizResultado;
+	}
+
+	public void setAplicacaoQuizResultado(Set<AplicacaoQuizResultado> aplicacaoQuizResultado) {
+		this.aplicacaoQuizResultado = aplicacaoQuizResultado;
+	}
+
+	public Boolean getStatusAtivo() {
+		return statusAtivo;
+	}
+
+	public void setStatusAtivo(Boolean statusAtivo) {
+		this.statusAtivo = statusAtivo;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Alternativa)) {
+			return false;
+		}
+		Alternativa other = (Alternativa) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "br.com.quiz.entidade.Alternativa[ id=" + id + " ]";
+	}
+
 }
