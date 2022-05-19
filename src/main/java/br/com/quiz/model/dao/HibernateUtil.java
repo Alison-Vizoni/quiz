@@ -14,7 +14,6 @@ import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.AplicacaoQuizResultado;
 import br.com.quiz.model.entidade.Categoria;
-import br.com.quiz.model.entidade.Perfil;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
 import br.com.quiz.model.entidade.SubCategoria;
@@ -38,7 +37,6 @@ public class HibernateUtil {
 			cfg.addAnnotatedClass(Quiz.class);
 			cfg.addAnnotatedClass(AplicacaoQuiz.class);
 			cfg.addAnnotatedClass(AplicacaoQuizResultado.class);
-			cfg.addAnnotatedClass(Perfil.class);
 			cfg.addAnnotatedClass(Usuario.class);
 
 			cfg.configure("/META-INF/hibernate.cfg.xml");

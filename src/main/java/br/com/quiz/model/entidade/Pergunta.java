@@ -8,7 +8,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -18,133 +31,141 @@ import javax.persistence.*;
 @Table(name = "pergunta")
 public class Pergunta implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(length = 500)
-    private String texto;
-    
-    @Column(name = "visibilidade_privada")
-    private boolean visibilidadePrivada;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(name = "data_criacao")
-    private Date dataCriacao;
-    
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_sub_categoria")
-    private SubCategoria subCategoria;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_usuario_proprietario")
-    private Usuario usuarioProprietario;
-    
-    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Alternativa> alternativas;
-    
-    @ManyToMany(mappedBy = "perguntas", fetch = FetchType.LAZY)	
-    private List<Quiz> quiz;
-    
-    public Pergunta() {
-    }
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Pergunta(String texto, boolean visibilidadePrivada, Date dataCriacao) {
-        this.texto = texto;
-        this.visibilidadePrivada = visibilidadePrivada;
-        this.dataCriacao = dataCriacao;
-    }
+	@Column(length = 500)
+	private String texto;
 
-    public Long getId() {
-        return id;
-    }
+	private Boolean statusAtivo = true;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "visibilidade_privada")
+	private boolean visibilidadePrivada;
 
-    public String getTexto() {
-        return texto;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_criacao")
+	private Date dataCriacao;
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id_sub_categoria")
+	private SubCategoria subCategoria;
 
-    public boolean isVisibilidadePrivada() {
-        return visibilidadePrivada;
-    }
+	@ManyToOne
+	@JoinColumn(name = "id_usuario_proprietario")
+	private Usuario usuarioProprietario;
 
-    public void setVisibilidadePrivada(boolean visibilidadePrivada) {
-        this.visibilidadePrivada = visibilidadePrivada;
-    }
+	@OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Alternativa> alternativas;
 
-    public Date getDataCriacao() {
-        return dataCriacao;
-    }
+	@ManyToMany(mappedBy = "perguntas", fetch = FetchType.LAZY)
+	private List<Quiz> quiz;
 
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
+	public Pergunta() {
+	}
 
-    public SubCategoria getSubCategoria() {
-        return subCategoria;
-    }
+	public Pergunta(String texto, boolean visibilidadePrivada, Date dataCriacao) {
+		this.texto = texto;
+		this.visibilidadePrivada = visibilidadePrivada;
+		this.dataCriacao = dataCriacao;
+	}
 
-    public void setSubCategoria(SubCategoria subCategoria) {
-        this.subCategoria = subCategoria;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Usuario getUsuarioProprietario() {
-        return usuarioProprietario;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setUsuarioProprietario(Usuario usuarioProprietario) {
-        this.usuarioProprietario = usuarioProprietario;
-    }
+	public String getTexto() {
+		return texto;
+	}
 
-    public List<Alternativa> getAlternativas() {
-        return alternativas;
-    }
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
 
-    public void setAlternativas(List<Alternativa> alternativas) {
-        this.alternativas = alternativas;
-    }
+	public boolean isVisibilidadePrivada() {
+		return visibilidadePrivada;
+	}
 
-    public List<Quiz> getQuiz() {
-        return quiz;
-    }
+	public void setVisibilidadePrivada(boolean visibilidadePrivada) {
+		this.visibilidadePrivada = visibilidadePrivada;
+	}
 
-    public void setQuiz(List<Quiz> quiz) {
-        this.quiz = quiz;
-    }
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public SubCategoria getSubCategoria() {
+		return subCategoria;
+	}
+
+	public void setSubCategoria(SubCategoria subCategoria) {
+		this.subCategoria = subCategoria;
+	}
+
+	public Usuario getUsuarioProprietario() {
+		return usuarioProprietario;
+	}
+
+	public void setUsuarioProprietario(Usuario usuarioProprietario) {
+		this.usuarioProprietario = usuarioProprietario;
+	}
+
+	public List<Alternativa> getAlternativas() {
+		return alternativas;
+	}
+
+	public void setAlternativas(List<Alternativa> alternativas) {
+		this.alternativas = alternativas;
+	}
+
+	public List<Quiz> getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(List<Quiz> quiz) {
+		this.quiz = quiz;
+	}
+
+	public Boolean getStatusAtivo() {
+		return statusAtivo;
+	}
+
+	public void setStatusAtivo(Boolean statusAtivo) {
+		this.statusAtivo = statusAtivo;
+	}
 
 	@Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pergunta)) {
-            return false;
-        }
-        Pergunta other = (Pergunta) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Pergunta)) {
+			return false;
+		}
+		Pergunta other = (Pergunta) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "br.com.quiz.entidade.Pergunta[ id=" + id + " ]";
-    }
+	@Override
+	public String toString() {
+		return "br.com.quiz.entidade.Pergunta[ id=" + id + " ]";
+	}
 
-
-    
 }
