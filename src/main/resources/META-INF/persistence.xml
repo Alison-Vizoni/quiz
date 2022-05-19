@@ -4,7 +4,7 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>br.com.quiz.model.entidade.Pergunta</class>
     <class>br.com.quiz.model.entidade.Categoria</class>
-    <class>br.com.quiz.model.entidade.Login</class>
+    <class>br.com.quiz.model.entidade.Perfil</class>
     <class>br.com.quiz.model.entidade.Usuario</class>
     <class>br.com.quiz.model.entidade.AplicacaoQuizResultado</class>
     <class>br.com.quiz.model.entidade.Alternativa</class>

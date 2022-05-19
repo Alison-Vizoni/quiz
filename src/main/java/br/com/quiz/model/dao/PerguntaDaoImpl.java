@@ -57,8 +57,8 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 
     @Override
     public List<Pergunta> buscarPerguntasElaboradosPeloUsuario(Long idUsuarioLogado, Session sessao) {
-        logger.info("método buscaPerguntasPorCategoria()");
-        Query consulta = sessao.createQuery("FROM Pergunta WHERE usuarioProprietario = :idUsuarioLogado");
+        logger.info("método buscarPerguntasElaboradosPeloUsuario()");
+        Query consulta = sessao.createQuery("FROM Pergunta WHERE usuarioProprietario.id = :idUsuarioLogado");
         consulta.setParameter("idUsuarioLogado", idUsuarioLogado);
         return consulta.list();
     }

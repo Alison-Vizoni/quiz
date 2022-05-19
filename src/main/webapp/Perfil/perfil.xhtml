@@ -2,7 +2,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templates/layout.xhtml">
+                template="/WEB-INF/layout.xhtml">
 
     <ui:define name="content">
 
@@ -12,8 +12,8 @@
                     <h:form>
                         <p:menu>
                             <p:submenu label="Contéudo">
+                                <p:menuitem styleClass="quizElaborados" value="Quizz elaborados"/>
                                 <p:menuitem styleClass="quizRespondidos" value="Quizz respondidos"/>
-                                <p:menuitem styleClass="quizElaborados" value="Quizz elaboradas"/>
                                 <p:menuitem styleClass="perguntasElaboradas" value="Perguntas elaboradas"/>
                             </p:submenu>
                             <p:submenu label="Perfil">
@@ -23,34 +23,34 @@
 
                     </h:form>
                 </nav>
-                <img class="container__perfil_side" src="./resources/senac/images/perfil_banner.jpg"/>
+                <img class="container__perfil_side" src="../resources/senac/images/perfil_banner.jpg"/>
             </div>
             <div class="actions"></div>
 
 
         </section>
-        <footer class="footer">
-            © Trabalho conclusão de curso Senac Santa Catarina  
-        </footer>
         <script >
 
             document.addEventListener('DOMContentLoaded', function (event) {
 
                 //Path dos arquivos 
-                let quizRespondidos = `<ui:include id="include" src="./Perfil/quizRespondidos.xhtml"/>`;
-                let quizElaborados = `<ui:include id="include" src="./Perfil/quizElaborados.xhtml"/>`;
-                let perguntasElaboradas = `<ui:include id="include" src="./Perfil/perguntasElaboradas.xhtml"/>`;
-                let configuracao = `<ui:include id="include" src="./Perfil/configuracoesPerfil.xhtml"/>`;
+                let quizRespondidos = `<ui:include id="include" src="/Perfil/quizRespondidos.xhtml"/>`;
+                let quizElaborados = `<ui:include id="include" src="/Perfil/quizElaborados.xhtml"/>`;
+                let perguntasElaboradas = `<ui:include id="include" src="/Perfil/perguntasElaboradas.xhtml"/>`;
+                let configuracao = `<ui:include id="include" src="/Perfil/configuracoesPerfil.xhtml"/>`;
                 let actions = document.querySelector('.actions');
                 
+                
+
                 //Pegando as class das tags
                 let classQuizRespondidos = document.querySelector('.quizRespondidos');
                 let classQuizElaborados = document.querySelector('.quizElaborados');
                 let classPerguntasElaboradas = document.querySelector('.perguntasElaboradas');
                 let classConfigucoesPerfil = document.querySelector('.configucoesPerfil');
+                
 
                 //Inserindo os arquivos dependendo do click
-                
+
                 classQuizRespondidos.addEventListener('click', function (e) {
                     actions.innerHTML = quizRespondidos;
                 });
@@ -66,6 +66,8 @@
                 });
 
             });
+            
+            
 
         </script>
     </ui:define>

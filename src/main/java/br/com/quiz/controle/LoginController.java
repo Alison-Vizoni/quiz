@@ -2,64 +2,134 @@ package br.com.quiz.controle;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.quiz.model.entidade.Login;
+import org.hibernate.Session;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
+
+import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dao.UsuarioDao;
+import br.com.quiz.model.dao.UsuarioDaoImpl;
 import br.com.quiz.model.entidade.Usuario;
 
 /**
-*
-* @author alf_a
-*/
+ *
+ * @author alf_a
+ */
 @ManagedBean(name = "loginC")
 @SessionScoped
-public class LoginController implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
-	private Login login;
+public class LoginController implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
+	private final Logger logger = LoggerFactory.logger(getClass());
+
+	private static Usuario usuarioLogado;
+	private UsuarioDao usuarioDao;
+	private Usuario usuario;
+	private Session sessao;
 
 	public LoginController() {
-
+		usuarioDao = new UsuarioDaoImpl();
 	}
 
-		
-	public void iniciaSessao() {
-		System.out.println("Entrou no inicia sessão");
-		login = new Login();
-		login.setId(1L);
-		login.setLogin("log");
-		login.setSenha("sen");
-		login.setUsuario(new Usuario("João", "999.999.999-99", "joao@gmail.com", "(48) 99999-9999"));
-		System.out.println("iniciaSessao - " + login.toString());
-	}
+//	public String logar() {
+//		logger.info("método logar");
+//
+//		pesquisaUsuarioPorLogin(usuario.getLogin());
+//
+//		if (usuario.getLogin().equals(usuarioLogado.getLogin())
+//				&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
+//
+//			return "/Perfil/perfil.xhtml?faces-redirect=true";
+//
+//		} else {
+//			FacesContext context = FacesContext.getCurrentInstance();
+//			context.addMessage(null,
+//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+//			return null;
+//		}
+//	}
 	
-
-	public void encerraSessao() {
-		System.out.println("Entrou no encerra sessão");
-		
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		
-		System.out.println("iniciaSessao - " + login.toString());
-		
-	}
-	
-	/* GETTERS AND SETTERS */
-	
-	public Login getLogin() {
-		if (login == null) {
-			login = new Login();
+	public String logar() {
+		logger.info("método logar");
+		try {
+			pesquisaUsuarioPorLogin(usuario.getLogin());
+			if (usuario.getLogin().equals(usuarioLogado.getLogin())
+					&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
+				
+				return "/Perfil/perfil.xhtml?faces-redirect=true";
+				
+			} else {
+//				FacesContext context = FacesContext.getCurrentInstance();
+//				context.addMessage(null,
+//						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
+				Mensagem.erro("Usuário e/ou Senha incorretos(s)");
+				return null;
+			}
 			
+		} catch (Exception e) {
+			logger.info("Erro na autenticação de usuário - "+e.getMessage());
+			return null;
 		}
-		return login;
+
+
 	}
 
-	public void setLogin(Login login) {
-		this.login = login;
+	public String logout() {
+		logger.info("método logout");
+
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		usuario = null;
+		usuarioLogado = null;
+		return "/inicio?faces-redirect=true";
+
+	}
+
+	private void pesquisaUsuarioPorLogin(String login) {
+		logger.info("método pesquisaPorLogin");
+
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			usuarioLogado = usuarioDao.buscaPorLogin(login, sessao);
+		} catch (Exception e) {
+			logger.error("Erro na busca de usuário por login - " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+
+	}
+
+	// GETTER AND SETTER
+
+	public Usuario getUsuario() {
+		if (usuario == null) {
+			usuario = new Usuario();
+		}
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuarioLogado() {
+		if (usuarioLogado == null) {
+			usuarioLogado = new Usuario();
+		}
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLog) {
+		usuarioLogado = usuarioLog;
 	}
 	
-	
+	public static Usuario usuarioSessao() {
+		return usuarioLogado;
+	}
+
 }

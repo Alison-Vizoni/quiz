@@ -1,21 +1,29 @@
 package br.com.quiz.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class Utils {
-	
-	/**
-	 * Método para verificar se uma String não é nula nem vazia
-	 * 
-	 * @param string Campo a ser verificado
-	 * @return true se a String for válida
-	 */
-	public static boolean stringValida(String string) {
-		boolean retorno = false;
-		if (null != string && !string.trim().isEmpty()) {
-			retorno = true;			
-		}
-		return retorno;
-	}
-	
+
+    /**
+     * Método para verificar se uma String não é nula nem vazia
+     *
+     * @param string Campo a ser verificado
+     * @return true se a String for válida
+     */
+    public static boolean stringValida(String string) {
+        boolean retorno = false;
+        if (null != string && !string.trim().isEmpty()) {
+            retorno = true;
+        }
+        return retorno;
+    }
+
+    public static boolean isTodosElementosIguais(ArrayList lista) {
+        return new HashSet<String>(lista).size() == 1;
+    }
+
 //	public static boolean dataValida(LocalDate data) {
 //		boolean retorno = false;
 //		LocalDate dataAtual = LocalDate.now();
@@ -24,7 +32,6 @@ public class Utils {
 //		}
 //		return retorno;		
 //	}
-	
 //	/**
 //	 * Método para verificar se alguma "Alternativa" deixou de ser preenchida pelo usuário
 //	 * 
@@ -47,19 +54,19 @@ public class Utils {
 //		}
 //		return retorno;		
 //	}
-	
-	/**
-	 * 
-	 * Utiliza os métodos trim() e replaceAll() da classe String para formatar texto
-	 * 
-	 * @param texto
-	 * @return String formatada com no máximo 1 espaço entre as palavras e sem espaços em branco no início e no fim do texto.
-	 */
-	public static String formataEspacoUnico(String texto) {
-		
-		return texto.replaceAll("\\s+", " ").trim();
-		
-	}
-	
-}
+    /**
+     *
+     * Utiliza os métodos trim() e replaceAll() da classe String para formatar
+     * texto
+     *
+     * @param texto
+     * @return String formatada com no máximo 1 espaço entre as palavras e sem
+     * espaços em branco no início e no fim do texto.
+     */
+    public static String formataEspacoUnico(String texto) {
 
+        return texto.replaceAll("\\s+", " ").trim();
+
+    }
+
+}
