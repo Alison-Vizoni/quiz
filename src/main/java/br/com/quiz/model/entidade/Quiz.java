@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,6 +40,8 @@ public class Quiz implements Serializable {
     private Long id;
     
     private String titulo;
+    
+    private Boolean statusAtivo = true;
     
     @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
@@ -137,6 +139,16 @@ public class Quiz implements Serializable {
     public void setCategorias(Set<Categoria> categorias) {
         this.categorias = categorias;
     }
+    
+    
+
+	public Boolean getStatusAtivo() {
+		return statusAtivo;
+	}
+
+	public void setStatusAtivo(Boolean statusAtivo) {
+		this.statusAtivo = statusAtivo;
+	}
 
 	@Override
     public int hashCode() {

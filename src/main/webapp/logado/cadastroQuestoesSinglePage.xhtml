@@ -3,7 +3,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/layout.xhtml"
+	template="/WEB-INF/layout.xhtml"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
@@ -15,15 +15,14 @@
 
                 <p:messages id="messages" showDetail="true" closable="true" >
                         <p:autoUpdate />
-                </p:messages>     
+                </p:messages>
                 
                 <p:outputLabel value="Pergunta" for="Pergunta" style="font-weight: bold"/>
-                <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}" 
-                             required="true" 
+                <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}"                             
                              label=" " 
                              maxlength="255"
                              style="width:100%"
-                             placeholder="Digite a pergunta *">
+                             placeholder="Digite sua pergunta *">
                     <f:validateLength minimum="2"/>    
                 </p:inputText>
                  
@@ -33,10 +32,9 @@
                 	<div style="width: 50vw">
 	                	<p:outputLabel value="Categoria" for="categoria" style="font-weight: bold"/>
 		                <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
-		                                 id="categoria"
-		                                 requiredMessage="Categoria é obrigatório!" 
+		                                 id="categoria"		                                 
 		                                 filter="true"
-		                                 required="true" style="width: 45vw">                                                       
+		                                 style="width: 45vw">                                                       
 		
 		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
 		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
@@ -49,10 +47,9 @@
 	             	<div style="width: 50vw">
 	                	<p:outputLabel value="Subcategoria" for="sub_categoria" style="font-weight: bold"/>	                
 		                <p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
-		                                 id="sub_categoria"
-		                                 requiredMessage="Subcategoria é obrigatório!" 
+		                                 id="sub_categoria"		                                
 		                                 filter="true"
-		                                 required="true" style="width: 50vw">                                                       
+		                                 style="width: 50vw">                                                       
 		
 		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
 		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
@@ -65,15 +62,15 @@
 				
 				<p:outputLabel for="alternativa" value="Alternativa *" style="font-weight: bold"/>
 				<div style="display: flex; justify-content: space-around;">
-	                <p:inputText id="alternativa" value="#{alternativaC.alternativa.texto}" placeholder="Digite suas alternativas *" 
+	                <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *" 
 	                				style="width:93vw"/>
 	                <p:commandButton value="+"
 	                                 update="radioDT alternativa" 
-	                                 action="#{alternativaC.populaListaAlternativa()}" style="font-weight: bold;"/>
+	                                 action="#{perguntaC.populaListaAlternativa()}" style="font-weight: bold;"/>
                 </div>
 				
-				<p:dataTable id="radioDT" var="alternativa" value="#{alternativaC.modelAlternativas}" rows="10"
-							 selection="#{alternativaC.alternativaCorreta}"
+				<p:dataTable id="radioDT" var="alternativa" value="#{perguntaC.modelAlternativas}" rows="10"
+							 selection="#{perguntaC.alternativaCorreta}"
 							 rowKey="#{alternativa.id}">					               
 					
 					<p:column selectionMode="single" style="width:16px; text-align:center" />											
@@ -84,7 +81,7 @@
 
 					<p:column headerText="Excluir" style="width: 9%; margin-left: 0">
 						<p:commandButton icon="pi pi-trash" title="Excluir"
-										 process="@all" actionListener="#{alternativaC.excluir()}"
+										 process="@all" actionListener="#{perguntaC.excluir()}"
 										 update="radioDT" styleClass="rounded-button ui-button-outlined">
 
 							<p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle" />
@@ -104,10 +101,10 @@
                     <p:ajax update="visibilidade_privada"  />
                 </p:selectBooleanCheckbox>
 
-                <p:commandButton value="Cadastrar Questão" actionListener="#{perguntaC.salvar(categoriaC.categoria)}"
-                				action="#{alternativaC.salvar(perguntaC.pergunta.id)}"
-                                update="@all" process="@all" style="float: right"/>
-                
+                <p:commandButton value="Cadastrar Questão"
+                				actionListener="#{perguntaC.salvarPergunta(categoriaC.categoria)}"                				
+                                update="@all" process="@all" style="float: right" />                
+               
 			</h:form>
 		</p:panel>
 	</ui:define>

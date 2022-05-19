@@ -7,7 +7,14 @@ package br.com.quiz.model.entidade;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -17,144 +24,164 @@ import javax.persistence.*;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String nome;
-    private String cpf;
-    private String email;
-    private String telefone;
-    
-    @OneToMany(mappedBy = "usuarioProprietario")
-    private List<Pergunta> pergunta;
-    
-    @OneToMany(mappedBy = "usuarioProprietario")
-    private List<Quiz> quizzes;
-    
-    @OneToMany(mappedBy = "usuarioAplicador")
-    private Set<AplicacaoQuiz> aplicacoesQuizzes;
-    
-    @OneToOne(mappedBy = "usuario")
-    private Login login;
-    
-    @OneToMany(mappedBy = "usuario")
-    private Set<AplicacaoQuizResultado> quizResultados;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Usuario() {
-    }
+	private String nome;
+	private String cpf;
+	private String email;
+	private String telefone;
+	private Boolean statusAtivo = true;
 
-    public Usuario(String nome, String cpf, String email, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-    }
+	@Column(nullable = false)
+	private String login;
+	@Column(nullable = false)
+	private String senha;
 
-    public Long getId() {
-        return id;
-    }
+	@OneToMany(mappedBy = "usuarioProprietario")
+	private List<Pergunta> pergunta;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@OneToMany(mappedBy = "usuarioProprietario")
+	private List<Quiz> quizzes;
 
-    public String getNome() {
-        return nome;
-    }
+	@OneToMany(mappedBy = "usuarioAplicador")
+	private Set<AplicacaoQuiz> aplicacoesQuizzes;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	@OneToMany(mappedBy = "usuario")
+	private Set<AplicacaoQuizResultado> quizResultados;
 
-    public String getCpf() {
-        return cpf;
-    }
+	public Usuario() {
+	}
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+	public Usuario(String nome, String cpf, String email, String telefone, Boolean statusAtivo) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.telefone = telefone;
+		this.statusAtivo = statusAtivo;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public List<Pergunta> getPergunta() {
-        return pergunta;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public void setPergunta(List<Pergunta> pergunta) {
-        this.pergunta = pergunta;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public List<Quiz> getQuizzes() {
-        return quizzes;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public Set<AplicacaoQuiz> getAplicacoesQuizzes() {
-        return aplicacoesQuizzes;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public void setAplicacoesQuizzes(Set<AplicacaoQuiz> aplicacoesQuizzes) {
-        this.aplicacoesQuizzes = aplicacoesQuizzes;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public Login getLogin() {
-        return login;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public void setLogin(Login login) {
-        this.login = login;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-    public Set<AplicacaoQuizResultado> getQuizResultados() {
-        return quizResultados;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setQuizResultados(Set<AplicacaoQuizResultado> quizResultados) {
-        this.quizResultados = quizResultados;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
-            return false;
-        }
-        Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	public List<Pergunta> getPergunta() {
+		return pergunta;
+	}
 
-    @Override
-    public String toString() {
-        return "br.com.quiz.entidade.Usuario[ id=" + id + " ]";
-    }
-    
+	public void setPergunta(List<Pergunta> pergunta) {
+		this.pergunta = pergunta;
+	}
+
+	public List<Quiz> getQuizzes() {
+		return quizzes;
+	}
+
+	public void setQuizzes(List<Quiz> quizzes) {
+		this.quizzes = quizzes;
+	}
+
+	public Set<AplicacaoQuiz> getAplicacoesQuizzes() {
+		return aplicacoesQuizzes;
+	}
+
+	public void setAplicacoesQuizzes(Set<AplicacaoQuiz> aplicacoesQuizzes) {
+		this.aplicacoesQuizzes = aplicacoesQuizzes;
+	}
+
+	public Set<AplicacaoQuizResultado> getQuizResultados() {
+		return quizResultados;
+	}
+
+	public void setQuizResultados(Set<AplicacaoQuizResultado> quizResultados) {
+		this.quizResultados = quizResultados;
+	}
+
+	public Boolean getStatusAtivo() {
+		return statusAtivo;
+	}
+
+	public void setStatusAtivo(Boolean statusAtivo) {
+		this.statusAtivo = statusAtivo;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Usuario)) {
+			return false;
+		}
+		Usuario other = (Usuario) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "br.com.quiz.entidade.Usuario[ id=" + id + " ]";
+	}
+
 }

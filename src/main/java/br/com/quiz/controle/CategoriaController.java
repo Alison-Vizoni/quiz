@@ -15,6 +15,8 @@ import br.com.quiz.model.dao.CategoriaDao;
 import br.com.quiz.model.dao.CategoriaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Quiz;
+import static br.com.quiz.util.Utils.isTodosElementosIguais;
 
 /**
  *
@@ -22,24 +24,23 @@ import br.com.quiz.model.entidade.Categoria;
  */
 @ManagedBean(name = "categoriaC")
 @ViewScoped
-public class CategoriaController implements Serializable{
+public class CategoriaController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Categoria categoria;
+    private static final long serialVersionUID = 1L;
+
+    private Categoria categoria;
     private CategoriaDao categoriaDao;
     private Session sessao;
 
     private List<Categoria> categorias;
     private List<SelectItem> comboCategorias;
-    
+
     public CategoriaController() {
         categoriaDao = new CategoriaDaoImpl();
         populaComboCategorias();
     }
-    
+
     // CRUD        
-    
     /**
      * Popula o comboBox ao entrar no subItem 'categoria'
      */
@@ -59,7 +60,30 @@ public class CategoriaController implements Serializable{
             sessao.close();
         }
     }
-    
+
+    @SuppressWarnings("empty-statement")
+    public String validaCategoria(Quiz quiz) {
+       
+        if(quiz == null){
+           return "";
+        }
+        
+         ArrayList<String> cat = new ArrayList<String>();
+        
+        if (quiz.getPerguntas().isEmpty()) {
+            return "nenhum";
+        };
+        for (int i = 0; i < quiz.getPerguntas().size(); i++) {
+            cat.add(quiz.getPerguntas().get(i).getSubCategoria().getCategoria().getNome());
+        }
+
+        if (isTodosElementosIguais(cat)) {
+            return cat.get(0).toLowerCase();
+        }
+
+        return "variedades";
+    }
+
     // GETTERS AND SETTERS
     public Categoria getCategoria() {
         if (categoria == null) {

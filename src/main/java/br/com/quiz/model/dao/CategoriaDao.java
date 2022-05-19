@@ -21,5 +21,6 @@ public interface CategoriaDao extends BaseDao<Categoria, Long>{
     List<Categoria> populaComboInicial(Session sessao);
     
     Categoria buscaNomeEspecifico(String nome, Session sessao);
+   
     
 }

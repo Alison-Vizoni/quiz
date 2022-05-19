@@ -5,18 +5,19 @@
  */
 package br.com.quiz.model.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.AplicacaoQuizResultado;
 import br.com.quiz.model.entidade.Categoria;
-import br.com.quiz.model.entidade.Login;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
 import br.com.quiz.model.entidade.SubCategoria;
 import br.com.quiz.model.entidade.Usuario;
-import org.hibernate.*;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -24,33 +25,33 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory SESSION_FACTORY;
+	private static final SessionFactory SESSION_FACTORY;
 
-    static {
-        try {
-            Configuration cfg = new Configuration();
-            cfg.addAnnotatedClass(Pergunta.class);
-            cfg.addAnnotatedClass(Categoria.class);
-            cfg.addAnnotatedClass(Alternativa.class);
-            cfg.addAnnotatedClass(Quiz.class);
-            cfg.addAnnotatedClass(AplicacaoQuiz.class);
-            cfg.addAnnotatedClass(AplicacaoQuizResultado.class);
-            cfg.addAnnotatedClass(Usuario.class);
-            cfg.addAnnotatedClass(Login.class);
-            cfg.addAnnotatedClass(SubCategoria.class);
+	static {
+		try {
+			Configuration cfg = new Configuration();
+			cfg.addAnnotatedClass(Pergunta.class);
+			cfg.addAnnotatedClass(Categoria.class);
+			cfg.addAnnotatedClass(SubCategoria.class);
+			cfg.addAnnotatedClass(Alternativa.class);
+			cfg.addAnnotatedClass(Quiz.class);
+			cfg.addAnnotatedClass(AplicacaoQuiz.class);
+			cfg.addAnnotatedClass(AplicacaoQuizResultado.class);
+			cfg.addAnnotatedClass(Usuario.class);
 
-            cfg.configure("/META-INF/hibernate.cfg.xml");
-            StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties());
-            SESSION_FACTORY = cfg.buildSessionFactory(build.build());
+			cfg.configure("/META-INF/hibernate.cfg.xml");
+			StandardServiceRegistryBuilder build = new StandardServiceRegistryBuilder()
+					.applySettings(cfg.getProperties());
+			SESSION_FACTORY = cfg.buildSessionFactory(build.build());
 
-        } catch (Exception e) {
-            System.err.println("Erro ao abrir conexão HibernateUtil " + e.getMessage());
-            throw new ExceptionInInitializerError(e);
-        }
-    }
+		} catch (Exception e) {
+			System.err.println("Erro ao abrir conexão HibernateUtil " + e.getMessage());
+			throw new ExceptionInInitializerError(e);
+		}
+	}
 
-    public static Session abrirSessao() {
-        return SESSION_FACTORY.openSession();
-    }
+	public static Session abrirSessao() {
+		return SESSION_FACTORY.openSession();
+	}
 
 }

@@ -15,9 +15,9 @@ import org.hibernate.Session;
  */
 public interface UsuarioDao extends BaseDao<Usuario, Long>{
     
-    List<Usuario> pesquisarPorNome(String nome, Session sessao)
-            throws HibernateException;
+    List<Usuario> pesquisarPorNome(String nome, Session sessao) throws HibernateException;
     
-     List<Usuario> pesquisarPorEmail(String nome, Session sessao)
-            throws HibernateException;
+     List<Usuario> pesquisarPorEmail(String nome, Session sessao) throws HibernateException;
+     
+     Usuario buscaPorLogin(String login, Session sessao);
 }

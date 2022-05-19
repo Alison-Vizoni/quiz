@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>A B A</title>
+        <title>A B A - Quiz</title>
 
         <f:facet name="first">
             <meta charset="UTF-8" />
@@ -29,6 +29,8 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous" />
+            
+            
     </h:head>
 
     <h:body>
@@ -36,9 +38,9 @@
         <header id="header">
             <div id="container_logo">
                 <div id="image_logo">
-                    <img id="img_logo" src="./resources/senac/images/logoCerto.png" />
+					<h:graphicImage library="senac/images" name="logoCerto.png" width="70%" />
                 </div>
-                <div id="nome_logo" class=""><h1>A B A</h1></div>
+                <div id="nome_logo" class=""><h1>A B A - Quiz</h1></div>
             </div>
             <div id="container_menu_header">
 
@@ -51,13 +53,12 @@
 
                 <h:form id="menuForm">
                     <p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
-                        <p:submenu label="#{loginC.login.id == null ? ' Entrar ' : {loginC.login.usuario.nome}}"
-                                   style="background-color: white; border-radius: 10%" >
-                            <p:menuitem value="Login" outcome="login" icon="pi pi-fw pi-sign-in" />
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
-                                        ajax="false" process="@all" action="inicio" />
-                            <p:menuitem rendered="#{loginC.login.id != null }" outcome="perfil" value="Perfil" icon="pi pi-fw pi-sign-in" actionListener="#{loginC.encerraSessao()}" 
-                                        ajax="false" process="@all" />
+                        <p:submenu label="#{loginC.usuarioLogado.id == null ? ' Entrar ' : {loginC.usuarioLogado.nome}}" style="background-color: white; border-radius: 10%" >
+                            <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
+                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" 
+                                        ajax="false" process="@all" action="#{loginC.logout()}"/>
+                            <p:menuitem rendered="#{loginC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in"  
+                                        actionListener="#{loginC.logout()}"  ajax="false" process="@all" />
 
                         </p:submenu>
                     </p:menubar>
@@ -69,6 +70,7 @@
 
 
         <section class="aw-content  js-content">
+        
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">

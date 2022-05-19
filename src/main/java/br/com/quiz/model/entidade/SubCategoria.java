@@ -6,7 +6,15 @@ package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -16,83 +24,93 @@ import javax.persistence.*;
 @Table(name = "sub_categoria")
 public class SubCategoria implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String nome;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
-    
-    @OneToMany(mappedBy = "subCategoria")
-    private List<Pergunta> perguntas;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public SubCategoria() {
-    }
+	private String nome;
 
-    public SubCategoria(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
+	private Boolean statusAtivo = true;
 
-    public Long getId() {
-        return id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "id_categoria")
+	private Categoria categoria;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@OneToMany(mappedBy = "subCategoria")
+	private List<Pergunta> perguntas;
 
-    public String getNome() {
-        return nome;
-    }
+	public SubCategoria() {
+	}
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
+	public SubCategoria(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    public List<Pergunta> getPerguntas() {
-        return perguntas;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setPerguntas(List<Pergunta> perguntas) {
-        this.perguntas = perguntas;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public Categoria getCategoria() {
+		return categoria;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SubCategoria)) {
-            return false;
-        }
-        SubCategoria other = (SubCategoria) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
-    @Override
-    public String toString() {
-        return "br.com.quiz.model.entidade.SubCategoria[ id=" + id + " ]";
-    }
-    
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public List<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+
+	public void setPerguntas(List<Pergunta> perguntas) {
+		this.perguntas = perguntas;
+	}
+
+	public Boolean getStatusAtivo() {
+		return statusAtivo;
+	}
+
+	public void setStatusAtivo(Boolean statusAtivo) {
+		this.statusAtivo = statusAtivo;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof SubCategoria)) {
+			return false;
+		}
+		SubCategoria other = (SubCategoria) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "br.com.quiz.model.entidade.SubCategoria[ id=" + id + " ]";
+	}
+
 }
