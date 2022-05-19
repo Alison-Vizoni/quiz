@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.quiz.webservice;
+package br.com.quiz.service;
 
 import com.owlike.genson.Genson;
 import com.owlike.genson.GensonBuilder;

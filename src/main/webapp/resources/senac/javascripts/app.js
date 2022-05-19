@@ -4,3 +4,7 @@ $(function () {
         event.preventDefault();
     });
 });
+
+function openModal(quiz) {
+    console.log(quiz);
+}

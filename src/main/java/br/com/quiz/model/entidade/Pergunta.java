@@ -7,6 +7,7 @@ package br.com.quiz.model.entidade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -22,31 +23,34 @@ public class Pergunta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String assunto;
+    @Column(length = 500)
     private String texto;
     
     @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
     
     @Temporal(TemporalType.DATE)
+    @Column(name = "data_criacao")
     private Date dataCriacao;
     
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    @JoinColumn(name = "id_sub_categoria")
+    private SubCategoria subCategoria;
     
     @ManyToOne
     @JoinColumn(name = "id_usuario_proprietario")
     private Usuario usuarioProprietario;
     
-    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL)
-    private List<Alternativa> alternativas; 
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Alternativa> alternativas;
+    
+    @ManyToMany(mappedBy = "perguntas", fetch = FetchType.LAZY)	
+    private List<Quiz> quiz;
     
     public Pergunta() {
     }
 
-    public Pergunta(String assunto, String texto, boolean visibilidadePrivada, Date dataCriacao) {
-        this.assunto = assunto;
+    public Pergunta(String texto, boolean visibilidadePrivada, Date dataCriacao) {
         this.texto = texto;
         this.visibilidadePrivada = visibilidadePrivada;
         this.dataCriacao = dataCriacao;
@@ -58,14 +62,6 @@ public class Pergunta implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAssunto() {
-        return assunto;
-    }
-
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
     }
 
     public String getTexto() {
@@ -92,12 +88,12 @@ public class Pergunta implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public SubCategoria getSubCategoria() {
+        return subCategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
     }
 
     public Usuario getUsuarioProprietario() {
@@ -116,7 +112,15 @@ public class Pergunta implements Serializable {
         this.alternativas = alternativas;
     }
 
-    @Override
+    public List<Quiz> getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(List<Quiz> quiz) {
+        this.quiz = quiz;
+    }
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
@@ -140,5 +144,7 @@ public class Pergunta implements Serializable {
     public String toString() {
         return "br.com.quiz.entidade.Pergunta[ id=" + id + " ]";
     }
+
+
     
 }

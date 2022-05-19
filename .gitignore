@@ -9,3 +9,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 nbproject/
+.project
+.classpath
+.settings
+/target/
+bin/
+nb-configuration.xml

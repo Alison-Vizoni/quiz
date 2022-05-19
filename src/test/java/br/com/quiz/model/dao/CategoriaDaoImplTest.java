@@ -31,7 +31,8 @@ public class CategoriaDaoImplTest {
         categoriaDao = new CategoriaDaoImpl();
     }
     
-    @Test
+
+//    @Test
     public void testSalvar(){
         LOG.info("Test salvar categoria");
         
@@ -44,7 +45,7 @@ public class CategoriaDaoImplTest {
         assertNotNull(categoria.getId());
     }
 
-    @Test
+//    @Test
     public void testPesquisarPorID() {
         LOG.info("Test pesquisar por id categoria");
         buscarCategoriaNoBancoDeDados();
@@ -56,7 +57,7 @@ public class CategoriaDaoImplTest {
         assertNotNull(categoriaPorId);
     }
 
-    @Test
+ //   @Test
     public void testPesquisarPorNome() {
         LOG.info("Test pesquisar por nome categoria");
         
@@ -69,7 +70,7 @@ public class CategoriaDaoImplTest {
         assertFalse(categoriaPorNome.isEmpty());
     }
     
-    @Test
+//    @Test
     public void testAlterar(){
         LOG.info("test alterar categoria");
         buscarCategoriaNoBancoDeDados();
@@ -86,7 +87,7 @@ public class CategoriaDaoImplTest {
         assertEquals(categoria.getNome(), categoriaAlterada.getNome());
     }
     
-    @Test
+//    @Test
     public void testExcluir(){
         LOG.info("Test excluir categoria");
         

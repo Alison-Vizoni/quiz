@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <section class="perguntas_elaboradas">
+        <p:repeat value="#{perguntaC.perguntas}" var="pergunta">
+            <div class="perguntas_elaborados_container">
+                <div class="perguntas_elaborados_info">
+                    <div class="perguntas_elaboradas_card_topside">
+                        <span>#{pergunta.texto}</span>
+                    </div>
+                    <div class="perguntas_elaboradas_card_botside">
+                            <span>
+                                #{pergunta.subCategoria.nome}
+                            </span>
+                            <span>
+                                #{pergunta.visibilidadePrivada ? "Privada" : "Pública"}
+                            </span>
+                        </div>   
+                </div>
+            </div>
+        </p:repeat>
+    </section>
+
+</ui:composition>

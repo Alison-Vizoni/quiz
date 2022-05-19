@@ -2,15 +2,15 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="quizPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>br.com.quiz.util.GeradorTabela</class>
-    <class>br.com.quiz.model.entidade.Categoria</class>
     <class>br.com.quiz.model.entidade.Pergunta</class>
-    <class>br.com.quiz.model.entidade.Login</class>
+    <class>br.com.quiz.model.entidade.Categoria</class>
+    <class>br.com.quiz.model.entidade.Perfil</class>
     <class>br.com.quiz.model.entidade.Usuario</class>
     <class>br.com.quiz.model.entidade.AplicacaoQuizResultado</class>
     <class>br.com.quiz.model.entidade.Alternativa</class>
     <class>br.com.quiz.model.entidade.Quiz</class>
     <class>br.com.quiz.model.entidade.AplicacaoQuiz</class>
+    <class>br.com.quiz.model.entidade.SubCategoria</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quiz?useTimezone=true&amp;serverTimezone=America/Sao_Paulo&amp;zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

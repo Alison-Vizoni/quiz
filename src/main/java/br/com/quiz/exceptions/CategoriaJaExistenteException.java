@@ -10,7 +10,9 @@ package br.com.quiz.exceptions;
  */
 public class CategoriaJaExistenteException extends Exception{
 
-    public CategoriaJaExistenteException() {
+	private static final long serialVersionUID = 1L;
+
+	public CategoriaJaExistenteException() {
     }
     
     

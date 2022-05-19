@@ -6,6 +6,7 @@ package br.com.quiz.model.entidade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -26,7 +27,13 @@ public class Categoria implements Serializable {
     private String nome;
     
     @OneToMany(mappedBy = "categoria")
-    private List<Pergunta> perguntas;
+    private List<SubCategoria> subCategorias;
+    
+    @ManyToMany
+    @JoinTable(name = "categoria_quiz",
+        joinColumns = @JoinColumn(name = "id_categoria"),
+        inverseJoinColumns = @JoinColumn(name = "id_quiz"))
+    private Set<Quiz> quizzes;
 
     public Categoria() {
     }
@@ -51,14 +58,22 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
-    public List<Pergunta> getPerguntas() {
-        return perguntas;
+    public List<SubCategoria> getSubCategorias() {
+        return subCategorias;
     }
 
-    public void setPerguntas(List<Pergunta> perguntas) {
-        this.perguntas = perguntas;
+    public void setSubCategorias(List<SubCategoria> subCategorias) {
+        this.subCategorias = subCategorias;
+    }
+    
+    public Set<Quiz> getQuizzes() {
+        return quizzes;
     }
 
+    public void setQuizzes(Set<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
