@@ -126,8 +126,7 @@ public class PerguntaController implements Serializable {
 	// CRUD
 
 	public void salvarPergunta(Categoria categoria) {
-		logger.info("método - salvar()");
-		
+		logger.info("método - salvar()");		
 		
 		try {
 			
