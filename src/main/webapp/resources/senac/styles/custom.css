@@ -1024,7 +1024,6 @@ body .ui-panel .ui-panel-content{
     margin: 2rem auto;
     overflow:hidden;
     overflow-y: scroll;
-    flex-direction: column;
     display: flex;
     justify-content: start;
     flex-wrap: wrap;

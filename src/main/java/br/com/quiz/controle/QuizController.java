@@ -21,6 +21,7 @@ import br.com.quiz.model.dao.QuizDaoImpl;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
 import java.util.Set;
 
 /**
@@ -148,11 +149,11 @@ public class QuizController implements Serializable {
 	public void pesquisarQuizElaboradoPeloUsuario() {
 		logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
 
-		Long idUsuarioLogado = 1L;
+		Usuario idUsuarioLogado = LoginController.usuarioSessao();
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
+			quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado.getId());
 		} catch (HibernateException e) {
 			logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
 		} finally {

@@ -225,11 +225,11 @@ public class PerguntaController implements Serializable {
 	public void buscarPerguntasElaboradasPeloUsuario() {
 		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
 
-		Long idUsuarioLogado = 1L;
+		Usuario idUsuarioLogado = LoginController.usuarioSessao();
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(2L, sessao);
+			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado.getId(), sessao);
 			modelPerguntas = new ListDataModel<>(perguntas);
 		} catch (HibernateException e) {
 			logger.error("erro na busca de perguntas por usuario " + e.getMessage());
