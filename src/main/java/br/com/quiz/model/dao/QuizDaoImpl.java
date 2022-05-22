@@ -23,11 +23,6 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
 	private final Logger logger = LoggerFactory.logger(getClass());
 	private static final long serialVersionUID = 1L;
 
-    @Override
-    public Quiz pesquisarPorID(Long id, Session sessao) 
-            throws HibernateException {
-        return (Quiz) sessao.get(Quiz.class, id);
-    }
 
     public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i) {
         logger.info("método buscarQuizPorUsuario()");
@@ -36,6 +31,17 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
         return consulta.list();
 
     }
-   
+
+    @Override
+    public List<Quiz> pesquisarPorIdQuiz(Session sessao, Long idQuiz) throws HibernateException{
+        Query consulta = sessao.createQuery("FROM Quiz WHERE id = :id");
+        consulta.setParameter("id", idQuiz);
+        return consulta.list();
+    }
+
+    @Override
+    public Quiz pesquisarPorID(Long id, Session sessao) throws HibernateException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
