@@ -53,7 +53,6 @@ public class QuizController implements Serializable {
             quiz = new Quiz();
         }
         quizDao = new QuizDaoImpl();
-        buscaQuizBanco(null);
     }
 
     /**
@@ -72,7 +71,7 @@ public class QuizController implements Serializable {
 
         logger.info("método - buscaQuizBanco()");
         boolean isSucess = false; //Valida se o quiz foi encontrado com sucesso ou não
-        Long idUsuarioLogado = idQuiz != null ? idQuiz : LoginController.usuarioSessao().getId();
+        Long idUsuarioLogado =  LoginController.usuarioSessao().getId();
         try {
             sessao = HibernateUtil.abrirSessao();
             quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
