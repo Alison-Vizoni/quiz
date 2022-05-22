@@ -53,11 +53,11 @@
 
                 <h:form id="menuForm">
                     <p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
-                        <p:submenu label="#{loginC.usuarioLogado.id == null ? ' Entrar ' : {loginC.usuarioLogado.nome}}" style="background-color: white; border-radius: 10%" >
+                        <p:submenu label="#{loginC.usuarioLogado.id == null ? ' Entrar ' : loginC.usuarioLogado.nome}" style="background-color: white; border-radius: 10px; width: 150px" >
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" 
+                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" 
                                         ajax="false" process="@all" action="#{loginC.logout()}"/>
-                            <p:menuitem rendered="#{loginC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in"  
+                            <p:menuitem rendered="#{loginC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-user"  
                                         actionListener="#{loginC.logout()}"  ajax="false" process="@all" />
 
                         </p:submenu>
