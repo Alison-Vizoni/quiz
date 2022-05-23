@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 
@@ -25,5 +24,7 @@ public interface PerguntaDao extends BaseDao<Pergunta, Long>{
     List<Pergunta> buscaPerguntasPorSubCategoria(Long idSubCategoria, Session sessao);
     
     List<Pergunta> buscarPerguntasElaboradosPeloUsuario(Long idSubCategoria, Session sessao);
+
+	List<Pergunta> buscaPerguntasComFiltro(Long id, Session sessao);
 
 }

@@ -32,8 +32,8 @@ public class EmailConvidadoController implements Serializable {
 
 	private final Logger logger = LoggerFactory.logger(getClass());
 
-	private DataModel<String> modelEmails;
 	private List<String> listaEmailConvidado;
+	private DataModel<String> modelEmails;
 	private String emailConvidado;
 
 	private Session sessao;
