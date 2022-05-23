@@ -2,7 +2,6 @@ package br.com.quiz.controle;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -62,7 +61,8 @@ public class LoginController implements Serializable {
 			if (usuario.getLogin().equals(usuarioLogado.getLogin())
 					&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
 				
-				return "/Perfil/perfil.xhtml?faces-redirect=true";
+//				return "/Perfil/perfil.xhtml?faces-redirect=true";
+				return "/inicio.xhtml?faces-redirect=true";
 				
 			} else {
 //				FacesContext context = FacesContext.getCurrentInstance();

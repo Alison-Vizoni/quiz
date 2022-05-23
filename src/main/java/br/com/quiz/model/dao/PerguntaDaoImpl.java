@@ -4,8 +4,6 @@
  */
 package br.com.quiz.model.dao;
 
-import br.com.quiz.model.entidade.Categoria;
-import br.com.quiz.model.entidade.Pergunta;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +12,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
+
+import br.com.quiz.model.entidade.Categoria;
+import br.com.quiz.model.entidade.Pergunta;
 
 /**
  *
@@ -47,7 +48,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 		return consulta.list();
 	}
         
-        @Override
+    @Override
 	public List<Pergunta> buscaPerguntasPorSubCategoria(Long idSubCategoria, Session sessao) {
 		logger.info("método buscaPerguntasPorCategoria()");
 		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_sub_categoria = :id_sub_categoria");
@@ -62,5 +63,12 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
         consulta.setParameter("idUsuarioLogado", idUsuarioLogado);
         return consulta.list();
     }
+
+	@Override
+	public List<Pergunta> buscaPerguntasComFiltro(Long id, Session sessao) {
+		// TODO Auto-generated method stub
+		return null;
+	}  
+    
     
 }
