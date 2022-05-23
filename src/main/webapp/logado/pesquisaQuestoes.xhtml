@@ -41,8 +41,8 @@
                     </p:selectOneMenu>
 	                      
 				    <div class="seletor_busca_questao">
-			       		<p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2">
-			       			<p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
+			       		<p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2" filter="true">
+			       			<p:ajax listener="#{perguntaC.buscaPerguntasComFiltro()}" update="form:tabela"/>
 			       		</p:inputText>
 				    </div>       
 	        	</h:form>

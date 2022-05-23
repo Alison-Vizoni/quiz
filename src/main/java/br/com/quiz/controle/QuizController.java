@@ -3,7 +3,9 @@ package br.com.quiz.controle;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -15,13 +17,14 @@ import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 
+import br.com.quiz.model.dao.AplicacaoQuizDao;
+import br.com.quiz.model.dao.AplicacaoQuizDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.QuizDao;
 import br.com.quiz.model.dao.QuizDaoImpl;
-import br.com.quiz.model.entidade.Alternativa;
+import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
-import java.util.Set;
 
 /**
  *
@@ -39,20 +42,23 @@ public class QuizController implements Serializable {
 	private Quiz quiz;
 
 	private List<Pergunta> perguntas = new ArrayList<>();
-	private DataModel<Pergunta> modelperguntas;
 	private List<Quiz> quizzes = new ArrayList<>();
-	private Pergunta pergunta;
+	private DataModel<Pergunta> modelperguntas;
 	private Pergunta perguntaSelecionada;
+	private AplicacaoQuiz aplicacaoQuiz;
+	private AplicacaoQuizDao aplicacaoQuizDao;
+	private Pergunta pergunta;
 
 	private Session sessao;
 	private String fluxo;
+	private static Long idQuiz;
 
 	public QuizController() {
 		if (quiz == null) {
 			quiz = new Quiz();
-		}		
+		}
 		quizDao = new QuizDaoImpl();
-        buscaQuizBanco();
+		buscaQuizBanco();
 	}
 
 	/**
@@ -82,7 +88,26 @@ public class QuizController implements Serializable {
 		}
 	}
 
-	/* * CRUD * */
+	public void cadastraAplicacaoQuiz(DataModel<String> emails) {
+		logger.info("método - cadastraAplicacaoQuiz()");
+		List<String> emailList = new ArrayList<>();
+		emails.forEach(email -> emailList.add(email));
+				
+		try {
+			aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
+			sessao = HibernateUtil.abrirSessao();
+			aplicacaoQuiz = new AplicacaoQuiz();
+			aplicacaoQuiz.setDataAplicacao(new Date());
+			aplicacaoQuiz.setQuiz(quizDao.pesquisarPorID(idQuiz, sessao));
+			aplicacaoQuiz.setUsuarioAplicador(LoginController.usuarioSessao());
+			aplicacaoQuiz.setEmails(new HashSet<>(emailList));
+			aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
+			
+		} catch (Exception e) {
+			logger.error("Erro ao salvar aplicação quiz - " + e.getMessage());
+		}
+		
+	}
 
 	public void incluiPergunta(Pergunta pergunta) {
 		logger.info("método - incluiPergunta()");
@@ -99,13 +124,19 @@ public class QuizController implements Serializable {
 		}
 	}
 
-	public void salvarQuiz() {
+	/* * CRUD * */
+
+	public String salvarQuiz() {
 		logger.info("método - salvarQuiz()");
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
+			quiz.setUsuarioProprietario(LoginController.usuarioSessao());
 			if (preparaQuiz()) {
 				quizDao.salvarOuAlterar(quiz, sessao);
+				idQuiz = quiz.getId();
+//				idQuiz = new AplicacaoQuizDaoImpl().salvarRetornaId(quiz, sessao);
+//				logger.error("Id retornado - " + idQuiz);
 			}
 			defineFluxo();
 
@@ -114,6 +145,7 @@ public class QuizController implements Serializable {
 		} finally {
 			sessao.close();
 		}
+		return "/final.xhtml?faces-redirect=true";
 	}
 
 	private boolean preparaQuiz() {
@@ -128,7 +160,7 @@ public class QuizController implements Serializable {
 		} else {
 			Date criacao = new Date(System.currentTimeMillis());
 			quiz.setDataCriacao(criacao);
-                        quiz.setCategorias(Set.of(perguntas.get(0).getSubCategoria().getCategoria()));
+			quiz.setCategorias(Set.of(perguntas.get(0).getSubCategoria().getCategoria()));
 			quizValido = true;
 		}
 		return quizValido;
@@ -221,6 +253,17 @@ public class QuizController implements Serializable {
 
 	public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
 		this.perguntaSelecionada = perguntaSelecionada;
+	}
+
+	public AplicacaoQuiz getAplicacaoQuiz() {
+		if (null == aplicacaoQuiz) {
+			aplicacaoQuiz = new AplicacaoQuiz();
+		}
+		return aplicacaoQuiz;
+	}
+
+	public void setAplicacaoQuiz(AplicacaoQuiz aplicacaoQuiz) {
+		this.aplicacaoQuiz = aplicacaoQuiz;
 	}
 
 }

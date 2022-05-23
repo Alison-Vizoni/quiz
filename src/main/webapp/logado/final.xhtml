@@ -14,6 +14,7 @@
 
 		<h:form id="form_quiz">
 			<div id="container_finaliza_quiz">
+			
 
 				<div id="content_email_quiz">
 					<span id="titulo_content_quiz">Insira o email de quem irá responder seu Quiz</span>
@@ -50,6 +51,7 @@
 					<div id="content_encerra_quiz">
 						<p:commandButton value="Enviar Quiz"
 							action="#{emailC.enviaEmail()}"
+							actionListener="#{quizC.cadastraAplicacaoQuiz(emailC.modelEmails)}"
 							update="email_cadastrado tabela_email" style="width:100%" />
 					</div>
 				</div>
