@@ -14,7 +14,7 @@
 		        <div class="carousel-item active" id="teste">
 		          <div class="banner">
 		            <div class="container_image">
-		              <h:graphicImage library="senac/images" name="ban_1.png" />
+		              <h:graphicImage class="img_banner" library="senac/images" name="ban_1.png" />
 		            </div>
 		            <div>
 		              <h1>Otimize seu tempo</h1>
@@ -29,7 +29,7 @@
 		        <div class="carousel-item">
 		          <div class="banner">
 		            <div class="container_image">
-		              <h:graphicImage library="senac/images" name="ban_2.png"  />
+		              <h:graphicImage class="img_banner" library="senac/images" name="ban_2.png"  />
 		            </div>
 		            <div>
 		              <h1>Acesso rápido e simples</h1>
@@ -44,7 +44,7 @@
 		        <div class="carousel-item">
 		          <div class="banner">
 		            <div class="container_image">
-		              <h:graphicImage library="senac/images" name="ban_3.png"  />
+		              <h:graphicImage class="img_banner" library="senac/images" name="ban_3.png"  />
 		            </div>
 		            <div>
 		              <h1>Mande seu quiz para quem você quiser</h1>
@@ -66,14 +66,35 @@
          <div class="cards_home">
              <h1>Responder Quiz</h1>
              <p>
-<!--                  Cadastre suas questões uma vez e pronto! Agora toda vez que precisar, elas estão -->
-<!--                  prontas para usar.  -->
-				 Recebeu o código para responder um Quiz? Então é só clicar no link abaixo, inserir o 
+				 Recebeu o código para responder um Quiz? Então clique no link abaixo, insira o 
 				 código de acesso e pronto.
              </p>
              <div class="cards_link">
-<!--                  <p:link  outcome="logado/cadastroQuestoesSinglePage" value="Cadastrar Questões" /> -->
 					<p:link  outcome="logado/questionario" value="Responder Quiz" />
+             </div>	
+         </div>
+         
+         <div class="cards_home">
+         	
+             <h1>Explorar Conteúdo</h1>
+             <p>
+                 Faça uma pesquisa em nosso conteúdo e descubra como pode ser
+                 fácil criar seu questionário ou Quiz.
+             </p>
+             
+             <div class="cards_link">
+                 <p:link  outcome="pesquisaQuiz" value="Explorar Conteúdo" />
+             </div>	
+         </div>
+         
+         <div class="cards_home">
+             <h1>Cadastrar Questão</h1>
+             <p>
+                 Cadastre suas questões uma vez e pronto! Agora toda vez que precisar, elas estão
+                 prontas para usar. 
+             </p>
+             <div class="cards_link">
+                 <p:link  outcome="logado/cadastroQuestoesSinglePage" value="Cadastrar Questões" />
              </div>	
          </div>
 
@@ -87,19 +108,7 @@
                  <p:link  outcome="logado/pesquisaQuestoes" value="Cadastrar Quiz" />
              </div>	
          </div>
-
-         <div class="cards_home">
-         	
-             <h1>Explorar Conteúdo</h1>
-             <p>
-                 Faça uma pesquisa em nosso conteúdo e descubra como pode ser
-                 fácil criar seu questionário ou Quiz.
-             </p>
-             
-             <div class="cards_link">
-                 <p:link  outcome="pesquisaQuiz" value="Explorar Conteúdo" />
-             </div>	
-         </div>
+         
        </div>  
     </ui:define>
 </ui:composition>

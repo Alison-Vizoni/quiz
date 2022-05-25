@@ -51,7 +51,8 @@ public class QuizController implements Serializable {
 
 	private Session sessao;
 	private String fluxo;
-	private static Long idQuiz;
+	public static Long idQuiz;
+	public static Long idAplicacaoQuiz;
 
 	public QuizController() {
 		if (quiz == null) {
@@ -102,6 +103,8 @@ public class QuizController implements Serializable {
 			aplicacaoQuiz.setUsuarioAplicador(LoginController.usuarioSessao());
 			aplicacaoQuiz.setEmails(new HashSet<>(emailList));
 			aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
+			idAplicacaoQuiz = aplicacaoQuiz.getId();
+			logger.info("idAplicacaoQuiz -> " + idAplicacaoQuiz);
 			
 		} catch (Exception e) {
 			logger.error("Erro ao salvar aplicação quiz - " + e.getMessage());
