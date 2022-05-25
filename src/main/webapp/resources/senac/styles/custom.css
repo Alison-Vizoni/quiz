@@ -839,6 +839,7 @@ body .ui-panel .ui-panel-content{
 }
 
 #container_finaliza_quiz{
+	margin-top:90px;
     display: flex;
     justify-content: space-around;
     padding: 10px;
