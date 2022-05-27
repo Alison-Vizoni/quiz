@@ -13,39 +13,39 @@
 
         <!-- HEADER --> 
         <p:panel id="combo_busca_questao" styleClass="color"  >
-            <h:form id="formCategoria">
-
-                <!-- CATEGORIA -->
-
-                <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
-                                 id="categoria"		                                 
-                                 filter="true"
-                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
-
-                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-                    <f:selectItems value="#{categoriaC.comboCategorias}" />
-                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-                </p:selectOneMenu>
-
-                <!-- SUB-CATEGORIA -->
-
-                <p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
-                                 id="sub_categoria"		                                
-                                 filter="true"
-                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
-
-                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
-                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
-                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
-                    <p:ajax listener="#{perguntaC.buscaPerguntasPorSubCategoria()}" update="form:tabela"/>
-                </p:selectOneMenu>
-
-                <div class="seletor_busca_questao">
-                    <p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2">
-                        <p:ajax listener="#{perguntaC.buscaPerguntasPorCategoria()}" update="form:tabela"/>
-                    </p:inputText>
-                </div>       
-            </h:form>
+	        	<h:form id="formCategoria">
+	        	
+	        		<!-- CATEGORIA -->
+	        			        
+					 <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+		                                 id="categoria"		                                 
+		                                 filter="true"
+		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+		
+		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
+		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+		                </p:selectOneMenu>
+                    
+					<!-- SUB-CATEGORIA -->
+					
+					<p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
+		                                 id="sub_categoria"		                                
+		                                 filter="true"
+		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+		
+		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+		                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                        	<p:ajax listener="#{perguntaC.buscaPerguntasPorSubCategoria()}" update="form:tabela"/>
+                    </p:selectOneMenu>
+	                      
+				    <div class="seletor_busca_questao">
+			       		<p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2" filter="true">
+			       			<p:ajax listener="#{perguntaC.buscaPerguntasComFiltro()}" update="form:tabela"/>
+			       		</p:inputText>
+				    </div>       
+	        	</h:form>
         </p:panel>
 
         <!-- TABELA -->
@@ -134,44 +134,44 @@
                     <p:commandButton value="Usar questão" icon="pi pi-plus" actionListener="#{quizC.incluiPergunta(perguntaC.pergunta)}" update="modal">
                         <f:setPropertyActionListener value="#{perguntaC.pergunta}" target="#{perguntaC.pergunta}" />	                         
                     </p:commandButton>
-                </div>
-            </p:dialog>	
+                   </div>
+		    </p:dialog>	
+			    
+		    <!--  MODAL VISUALIZA QUIZ -->			    
 
-            <!--  MODAL VISUALIZA QUIZ -->			    
+			<p:dialog header="QUIZ" widgetVar="modalVisualizaQuiz" modal="true" showEffect="fade"
+	              hideEffect="fade" resizable="false" id="modalQuiz" style="overflow: hidden">
+		              
+		        <!-- REMOVE QUESTÃO DO MODAL E DA LISTA -->
 
-            <p:dialog header="QUIZ" widgetVar="modalVisualizaQuiz" modal="true" showEffect="fade"
-                      hideEffect="fade" resizable="false" id="modalQuiz" style="overflow: hidden">
-
-                <!-- REMOVE QUESTÃO DO MODAL E DA LISTA -->
-
-                <p:toolbar>
-                    <p:toolbarGroup>					                
-                        <p:commandButton icon="pi pi-trash" value="Remover questão" 
-                                         actionListener="#{quizC.retiraQuestaoVisualizacao()}"
-                                         styleClass="rounded-button ui-button-outlined" update=":form:panelQuiz"> 
-                        </p:commandButton>
-                    </p:toolbarGroup>		            
-                </p:toolbar>
-
-
-                <p:dataTable id="panelQuiz" var="questao" value="#{quizC.modelperguntas}"
-                             rowKey="#{questao.id}"	selection="#{quizC.perguntaSelecionada}" selectionMode="single"
-                             style="text-align:center; width: 88vw; height: 70vh">
-
-                    <p:column rendered="#{not empty quizC.modelperguntas}" style="margin-top: 20px; ">
-                        <div class="product"> 
-                            <h:outputText value="#{questao.texto}" styleClass="outputLabel"
-                                          style="margin-left: 8px; float: left; font-weight:bolder "/>
-                            <p:dataList value="#{questao.alternativas}" var="alt" type="ordered">
-                                <p:panel>
-                                    <h:outputText value="#{alt.texto}" styleClass="outputLabel" 
-                                                  style="justify-content: left; float: left"/>
-                                </p:panel> 
-                            </p:dataList>
-                        </div>
-                    </p:column> 
-                </p:dataTable>			        		        
-            </p:dialog>
-        </h:form>			
+		        <p:toolbar>
+		            <p:toolbarGroup>					                
+						<p:commandButton icon="pi pi-trash" value="Remover questão" 
+	                                     actionListener="#{quizC.retiraQuestaoVisualizacao()}"
+ 	                                     styleClass="rounded-button ui-button-outlined" update=":form:panelQuiz"> 
+                   			</p:commandButton>
+		            </p:toolbarGroup>		            
+		        </p:toolbar>
+					        
+					        
+		        <p:dataTable id="panelQuiz" var="questao" value="#{quizC.modelperguntas}"
+                  			 rowKey="#{questao.id}"	selection="#{quizC.perguntaSelecionada}" selectionMode="single"
+        					 style="text-align:left; width: 88vw; height: 70vh">
+       										            
+		            <p:column rendered="#{not empty quizC.modelperguntas}" style="margin-top: 20px; ">
+		                <div class="product"> 
+							<h:outputLabel value="#{questao.texto}" styleClass="outputLabel"
+											style="float: left; font-weight:bolder " /><br></br>
+							<ui:repeat value="#{questao.alternativas}" var="alt" varStatus="status">
+								
+                                	<p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+                                			style="justify-content: left; float: left; margin-left: 10px;"> - #{alt.texto}</p:outputLabel><br></br>
+                                
+                            </ui:repeat>
+		                </div>
+		            </p:column> 
+		        </p:dataTable>			        		        
+	    	</p:dialog>
+		</h:form>			
     </ui:define>
 </ui:composition>

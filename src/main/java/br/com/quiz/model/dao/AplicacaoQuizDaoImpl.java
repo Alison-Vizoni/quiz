@@ -24,6 +24,6 @@ public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long>
     public AplicacaoQuiz pesquisarPorID(Long id, Session sessao) 
             throws HibernateException {
         return (AplicacaoQuiz) sessao.get(AplicacaoQuiz.class, id);
-    }
+    }	
     
 }

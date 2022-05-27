@@ -369,6 +369,33 @@ body {
     font-weight: bolder;
 }
 
+@media (max-width: 450px) {
+    #header {
+        display: flex;
+        align-content: center;
+    }
+    #header container_logo {
+        display: flex;        
+        margin: auto;
+    }
+    #img_logo {
+        display: flex;
+        width: 70%;
+        align-content: center;
+        padding: 5px;
+    }
+    #container_menu_header {
+        display: flex;
+        width: 70%;
+        justify-content: space-evenly;
+        align-content: center;
+        margin: auto;
+    }
+    #nome_logo {
+    	display: none;
+    }
+}
+
 
 /* HOME */
 
@@ -476,12 +503,36 @@ body {
     height: 40vh;
 
 }
+@media (max-width: 650px) {
+    .img_banner {
+        width: 95%;
+        height: 35vh;        
+        margin: auto;
+    }   
+}
+
+@media (max-width: 450px) {
+    .img_banner {
+        width: 90%;
+        height: 35vh;
+        margin: auto;
+    }   
+}
 
 .container__home {
     height: 100vh;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
+    #container_cards {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 1050px) {
 
     #image_logo{
         display:block;
@@ -788,6 +839,7 @@ body .ui-panel .ui-panel-content{
 }
 
 #container_finaliza_quiz{
+	margin-top:90px;
     display: flex;
     justify-content: space-around;
     padding: 10px;

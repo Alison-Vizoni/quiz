@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.SimpleEmail;
+import org.apache.commons.mail.HtmlEmail;
 
 /**
 *
@@ -12,12 +12,16 @@ import org.apache.commons.mail.SimpleEmail;
 */
 public class EnviaEmail {
 	
-	private static final String EMAIL_REMETENTE = "";
-	private static final String EMAIL_SENHA_REMETENTE = "";
-	private static final String EMAIL_SERVIDOR_GMAIL = "smtp.gmail.com";
-	private static final int EMAIL_PORTA_GMAIL = 465;
-
+	private static String nomeUsuario;
+	private static Long codQuiz;
 	
+	private static final String EMAIL_REMETENTE = "usoparatestes2@gmail.com";
+	private static final String EMAIL_SENHA_REMETENTE = "ftfz uvaf iisv vawm";
+	
+	private static final String EMAIL_SERVIDOR_GMAIL = "smtp.gmail.com";
+	private static final int EMAIL_PORTA_GMAIL = 587;
+	
+		
 	/**
 	 * Realiza envio de email
 	 * 
@@ -28,11 +32,17 @@ public class EnviaEmail {
 	 * @throws URISyntaxException
 	 * @throws IOException
 	 */
-	public static boolean enviaEmail(String[] destinatarios, String titulo, String texto)
+	public static boolean enviaEmail(String[] destinatarios, Long idAplicacaoQuiz, String usuario)
 			throws IOException, URISyntaxException {
 		
-		String temp = "Teste de envio deu certo!";
-		SimpleEmail email = new SimpleEmail();
+		nomeUsuario = usuario;
+		codQuiz = idAplicacaoQuiz;
+		
+		String BODY_EMAIL = TemplateSimples.montaTemplate(nomeUsuario, codQuiz);
+		String TITLE_EMAIL = nomeUsuario + " está esperando suas respostas";
+		
+		
+		HtmlEmail email = new HtmlEmail();
 		boolean envioFinalizado = true;
 		email.setHostName(EMAIL_SERVIDOR_GMAIL);
 		email.setSmtpPort(EMAIL_PORTA_GMAIL);
@@ -41,8 +51,8 @@ public class EnviaEmail {
 		try {
 			System.out.println("Enviando email...");
 			email.setFrom(EMAIL_REMETENTE);
-			email.setSubject(titulo);
-			email.setMsg(temp);
+			email.setSubject(TITLE_EMAIL);
+			email.setMsg(BODY_EMAIL);
 			email.addTo(destinatarios);
 			email.setSSLOnConnect(true);
 			email.setSSLCheckServerIdentity(true);

@@ -4,15 +4,16 @@
  */
 package br.com.quiz.model.dao;
 
-import br.com.quiz.model.entidade.Quiz;
 import java.io.Serializable;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
-import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
 import org.jboss.logging.Logger;
+
+import br.com.quiz.model.entidade.Quiz;
 
 /**
  *
@@ -43,5 +44,10 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
     public Quiz pesquisarPorID(Long id, Session sessao) throws HibernateException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+        
+    public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {		
+		 
+		return (Long) sessao.save(entidade);
+	}
 
 }

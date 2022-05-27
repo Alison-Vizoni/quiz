@@ -18,13 +18,17 @@
                 </p:messages>
                 
                 <p:outputLabel value="Pergunta" for="Pergunta" style="font-weight: bold"/>
-                <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}"                             
-                             label=" " 
-                             maxlength="255"
-                             style="width:100%"
-                             placeholder="Digite sua pergunta *">
+                <p:inputTextarea id="Pergunta" rows="2" cols="33" value="#{perguntaC.pergunta.texto}" placeholder="Digite sua pergunta *" style="width:100%">
                     <f:validateLength minimum="2"/>    
-                </p:inputText>
+                </p:inputTextarea>
+<!--                 <p:outputLabel value="Pergunta" for="Pergunta" style="font-weight: bold"/> -->
+<!--                 <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}"                              -->
+<!--                              label=" "  -->
+<!--                              maxlength="255" -->
+<!--                              style="width:100%" -->
+<!--                              placeholder="Digite sua pergunta *"> -->
+<!--                     <f:validateLength minimum="2"/>     -->
+<!--                 </p:inputText> -->
                  
                 <!--  CATEGORIA  -->
                                 
@@ -62,8 +66,13 @@
 				
 				<p:outputLabel for="alternativa" value="Alternativa *" style="font-weight: bold"/>
 				<div style="display: flex; justify-content: space-around;">
-	                <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *" 
-	                				style="width:93vw"/>
+<!-- 	                <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *"  -->
+<!-- 	                				style="width:93vw"/> -->
+
+					<p:inputTextarea id="alternativa" rows="2" cols="33" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *" style="width:100%">
+	                    <f:validateLength minimum="2"/>    
+	                </p:inputTextarea>
+		
 	                <p:commandButton value="+"
 	                                 update="radioDT alternativa" 
 	                                 action="#{perguntaC.populaListaAlternativa()}" style="font-weight: bold;"/>
