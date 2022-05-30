@@ -6,6 +6,32 @@
     padding:0;
 }
 
+#load{
+	border: 25px solid #e487dd;
+	border-left-color: #b649b3;
+	border-radius: 100%;
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+	0%{
+		transform: rotate(0);
+	}
+	100%{
+		transform: rotate(360deg);
+	
+	}
+	
+}
+
+#modal_loader{
+	background-size:cover;
+	background-color: blue;
+}
+
 
 body {
     margin: 0;
@@ -788,7 +814,9 @@ body .ui-panel .ui-panel-content{
     width: 100%;
 }
 
-@media (max-width: 650px) {
+
+
+@media (max-width: 665px) {
     #combo_busca_questao {
         display: flex;
         flex-direction: column;
@@ -805,12 +833,121 @@ body .ui-panel .ui-panel-content{
         align-content: space-between;
         justify-content: center;
     }
-
+    
+    #filtros_questao{
+    	display: flex;
+    	flex-direction: column; 	
+    	
+    	 
+    }    
+    
+    #combo_categoria{
+   		display: flex;
+    	width: 95%;
+    	margin-bottom: 5px;
+    	margin-right: 8px;   	
+    	    	 
+    }
+    
+    body .ui-selectonemenu{
+    	flex-grow: 1;
+    }
+    
+    #combo_SubCategoria{
+    	display: flex;
+    	width: 95%;
+    	margin-bottom: 5px;
+    	margin-right: 8px; 	
+    	    	 
+    }
+    
+    body .ui-selectonemenu{
+    	flex-grow: 1;
+    	 
+    }
+    
+    #refina_busca{
+    	display: flex;
+    	width: 95%;
+    	margin-bottom: 5px;
+    	margin-right: 8px;
+    }
+    
+    .ui-inputfield{
+    	flex-grow: 1;
+    }
+    
     .seletor_busca_questao{
         margin: 10px auto;
+        width: 95vw;
     }
 
 }
+
+
+
+
+@media (max-width: 520px) {
+
+	#combo_busca_questao {
+        margin-right: 10px;
+    }
+       
+    #combo_categoria{
+   		display: flex;
+    	width: 95%;
+    	margin-bottom: 5px;
+    	margin-right: 5px;   	
+    	    	 
+    }
+    
+    body .ui-selectonemenu{
+    	flex-grow: 1;
+    	margin-right: 5px;
+    }
+    
+    #combo_SubCategoria{
+    	display: flex;
+    	width: 95%;
+    	margin-bottom: 5px;
+    	margin-right: 5px; 	
+    	    	 
+    }
+    
+    body .ui-selectonemenu{
+    	flex-grow: 1;
+    	margin-right: 5px;
+    	 
+    }
+    
+    #refina_busca{
+    	display: flex;
+    	width: 95%;
+    	margin-bottom: 5px;
+    	margin-right: 10px;
+    }
+    
+    .ui-inputfield{
+    	flex-grow: 1;
+    	margin-right: 10px;
+    }
+    
+    titulo_quiz{
+    	flex-grow: 1;
+    	margin-right: 10px;
+    }
+    
+
+}
+
+
+
+
+
+
+
+
+
 
 /* MODAL BUSCA DE QUEST�ES */
 
