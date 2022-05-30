@@ -238,19 +238,19 @@ public class PerguntaController implements Serializable {
 		}
 	}
 
-	public void buscaPerguntasComFiltro() {
-		logger.info("método - buscaPerguntasComFiltro()");
-
-		try {
-			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscaPerguntasComFiltro(subCategoria.getId(), sessao);
-			modelPerguntas = new ListDataModel<>(perguntas);
-		} catch (HibernateException e) {
-			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-		} finally {
-			sessao.close();
-		}
-	}
+//	public void buscaPerguntasComFiltro() {
+//		logger.info("método - buscaPerguntasComFiltro()");
+//
+//		try {
+//			sessao = HibernateUtil.abrirSessao();
+//			perguntas = perguntaDao.buscaPerguntasComFiltro(subCategoria.getId(), sessao);
+//			modelPerguntas = new ListDataModel<>(perguntas);
+//		} catch (HibernateException e) {
+//			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+//		} finally {
+//			sessao.close();
+//		}
+//	}
 
 	// GETTERS AND SETTERS
 	

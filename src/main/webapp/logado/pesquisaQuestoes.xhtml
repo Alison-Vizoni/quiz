@@ -14,37 +14,48 @@
  		<!-- HEADER --> 
         <p:panel id="combo_busca_questao" styleClass="color"  >
 	        	<h:form id="formCategoria">
-	        	
-	        		<!-- CATEGORIA -->
-	        			        
-					 <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
-		                                 id="categoria"		                                 
-		                                 filter="true"
-		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
-		
-		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
-		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-		                </p:selectOneMenu>
-                    
-					<!-- SUB-CATEGORIA -->
+	        		
+		        	<div style="width:100vw; display: flex; flex-direction: column;">
+			        	<div id="filtros_questao" style="display: flex; justify-content: space-between;">
+			        		<!-- CATEGORIA -->
+			        		<div id="combo_categoria" style="margin-right: 5px">	        
+								 <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+					                                 id="categoria"		                                 
+					                                 filter="true"
+					                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
 					
-					<p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
-		                                 id="sub_categoria"		                                
-		                                 filter="true"
-		                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
-		
-		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
-		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
-		                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
-                        	<p:ajax listener="#{perguntaC.buscaPerguntasPorSubCategoria()}" update="form:tabela"/>
-                    </p:selectOneMenu>
-	                      
-				    <div class="seletor_busca_questao">
-			       		<p:inputText value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2" filter="true">
-			       			<p:ajax listener="#{perguntaC.buscaPerguntasComFiltro()}" update="form:tabela"/>
-			       		</p:inputText>
-				    </div>       
+					                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+					                    <f:selectItems value="#{categoriaC.comboCategorias}" />
+					                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+					            </p:selectOneMenu>
+		                    </div>
+							<!-- SUB-CATEGORIA -->
+							<div id="combo_SubCategoria" style="margin-right: 5px">
+								<p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
+					                                 id="sub_categoria"		                                
+					                                 filter="true"
+					                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+					
+					                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+					                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+					                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+			                        	<p:ajax listener="#{perguntaC.buscaPerguntasPorSubCategoria()}" update="form:tabela"/>
+			                    </p:selectOneMenu>
+			                </div>     
+						    <div id="refina_busca" >
+					       		<p:inputText id="text_busca" value="#{perguntaC.pergunta.texto}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
+		<!-- 			       			<p:ajax listener="{perguntaC.buscaPerguntasComFiltro()}" update="form:tabela"/> -->
+					       		</p:inputText>
+						    </div>
+						</div>
+						<div style="display:grid;">
+							
+				        		<p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
+						       			<p:ajax listener="#{quizC.quiz.titulo}"/>
+						       	</p:inputText>
+			        		
+						</div>
+					</div>     
 	        	</h:form>
         </p:panel>
 			
@@ -57,7 +68,7 @@
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                          rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
                          selectionMode="single" selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
-                <p:column headerText="PERGUNTAS">
+                <p:column headerText="PERGUNTAS" style="word-wrap: break-word">
                     <h:outputText value="#{pergunta.texto}" />
                 </p:column>
                 
@@ -116,16 +127,20 @@
 		                    <div class="product-grid-item card" style="margin-bottom: 0">
 		                        <div class="product-grid-item-top">
 		                            <div id="texto_pergunta_modal" >
-		                                <span class="product-category">#{perguntaC.pergunta.texto}</span>
+		                                <span class="product-category" style="word-wrap: break-word;">#{perguntaC.pergunta.texto}</span>
 		                            </div>
 		                        </div>
 		                    </div>
 		                        
 	                        <div class="product-grid-item-content">
 	                            <div style="text-align: left; margin: 10px 0; font-size: 1.2rem; font-weight: bolder">ALTERNATIVAS</div>
-                                   <p:dataList value="#{perguntaC.pergunta.alternativas}" var="alt" type="ordered">
-                                      <h:outputText value="#{alt.texto}" styleClass="outputLabel" style="margin-left: 8px; float: left "/>
-                                   </p:dataList>
+									
+									<ui:repeat value="#{perguntaC.pergunta.alternativas}" var="alt" varStatus="status">								
+		                                	<p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+		                                			style="text-align: left; float: left; margin-left: 10px; margin-bottom: 15px"> - #{alt.texto}</p:outputLabel><br></br>
+		                                
+		                            </ui:repeat>									
+
 							</div>
 		                </div>
 		            </p:column>
@@ -165,7 +180,9 @@
 							<ui:repeat value="#{questao.alternativas}" var="alt" varStatus="status">
 								
                                 	<p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
-                                			style="justify-content: left; float: left; margin-left: 10px;"> - #{alt.texto}</p:outputLabel><br></br>
+                                			style="justify-content: left; float: left; margin-left: 10px; margin-top: 15px">
+                                			 - #{alt.texto}
+                                	</p:outputLabel><br></br>
                                 
                             </ui:repeat>
 		                </div>
