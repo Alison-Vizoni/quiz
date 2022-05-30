@@ -10,16 +10,10 @@
         <div class="container_responder_inicio">
             <h:form >
                 <div class="container_responder_card">
-                    <h1>Olá #{loginC.usuarioLogado.email}</h1>
-                    <h2>quiz sobre a amazonia</h2>
-                    <h3>Alexsandro esqueci teu sobrenome</h3>
-                    <h:outputLink
-                        value="listaPerguntasQuiz.xhtml?id=#{request.getParameter('id')}"
-                        style="width: 252px; height: 54px; font-size: 24px; font-weight: bold; background-color: #B37AC7; border:none"
-                        styleClass="rounded-button ui-button-help" 
-                        
-                        >Iniciar</outputLink>
-                       
+                    <h1>Olá #{loginC.usuarioLogado.nome}</h1>
+                    <h2>Digite o código do quiz</h2>
+                    <p:inputText placeholder="Código" value="#{quizC.quiz.id}" />
+                        <h:commandButton style=""  action="#{aplicacaoQuizC.validaAcessoQuiz}"  value="Entrar"/>
                 </div>
             </h:form>
         </div>
