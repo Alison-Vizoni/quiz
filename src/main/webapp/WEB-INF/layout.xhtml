@@ -73,12 +73,16 @@
         
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
-            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                <div class="p-text-center">
-                    <h:graphicImage library="senac/images" name="loader.gif"  />
+            <p:dialog id="modal_loader" widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+            			 showHeader="true" header="Aguarde..."  >
+                <div class="p-text-center" style="display: flex; width:80vw; height: 80vh; background-size:cover;
+                	align-items: center; justify-content: center;">
+<!--                     <h:graphicImage library="senac/images" name="loader.gif"  /> -->
+					<div id="load"></div>
+										
                 </div>
             </p:dialog>
-            <ui:insert name="content" />
+            <ui:insert name="content" />s
 
         </section>
 

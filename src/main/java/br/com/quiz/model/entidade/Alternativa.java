@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 /**
  *
  * @author alison
@@ -31,6 +33,7 @@ public class Alternativa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(columnDefinition = "Text")
 	private String texto;
 
 	@Column(name = "status_correta")
