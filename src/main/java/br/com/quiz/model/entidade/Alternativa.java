@@ -56,6 +56,13 @@ public class Alternativa implements Serializable {
 		this.statusCorreta = statusCorreta;
 	}
 
+	public Alternativa(String texto, boolean statusCorreta, Boolean statusAtivo) {
+		super();
+		this.texto = texto;
+		this.statusCorreta = statusCorreta;
+		this.statusAtivo = statusAtivo;
+	}
+
 	public Long getId() {
 		return id;
 	}

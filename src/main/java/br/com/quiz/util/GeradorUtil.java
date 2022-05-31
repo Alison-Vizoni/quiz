@@ -40,14 +40,6 @@ public class GeradorUtil {
         return value;
     }
     
-    public static String gerarCnpj(){
-        return formatField(gerarNumero(14), "##.###.###/####-##");
-    }
-    
-    public static String gerarCartaoCredito() {
-        return formatField(gerarNumero(12), "####-####-####-####");
-    }
-    
     public static String gerarCidade() {
         String cidade;
         int indice;

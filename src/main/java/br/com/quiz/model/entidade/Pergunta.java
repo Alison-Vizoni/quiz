@@ -72,6 +72,14 @@ public class Pergunta implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
+	public Pergunta(String texto, Boolean statusAtivo, boolean visibilidadePrivada, Date dataCriacao) {
+		super();
+		this.texto = texto;
+		this.statusAtivo = statusAtivo;
+		this.visibilidadePrivada = visibilidadePrivada;
+		this.dataCriacao = dataCriacao;
+	}
+
 	public Long getId() {
 		return id;
 	}
