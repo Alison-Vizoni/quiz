@@ -42,9 +42,15 @@ public class SubCategoria implements Serializable {
 
 	public SubCategoria() {
 	}
-
-	public SubCategoria(Long id, String nome) {
+	
+	public SubCategoria(Long id, String nome, Boolean statusAtivo) {
+		super();
 		this.id = id;
+		this.nome = nome;
+		this.statusAtivo = statusAtivo;
+	}
+
+	public SubCategoria(String nome) {
 		this.nome = nome;
 	}
 

@@ -90,4 +90,10 @@ public class GeradorUtil {
         int indice = (int) (Math.random() * nomes.length);
         return nomes[indice].toString();
     }
+    
+    public static String gerarNomeSubCategoria(){
+        String[] nomes = {"SubCategoriaUtil123", "SubCategoriaTest45", "SubCategoriaValendo", "SubCategoriaNome", "SubGerarNomeCategoria"};
+        int indice = (int) (Math.random() * nomes.length);
+        return nomes[indice].toString();
+    }
 }
