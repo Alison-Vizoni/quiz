@@ -135,6 +135,7 @@ public class QuizController implements Serializable {
 		try {
 			sessao = HibernateUtil.abrirSessao();
 			quiz.setUsuarioProprietario(LoginController.usuarioSessao());
+//			quiz.setTitulo(fluxo);
 			if (preparaQuiz()) {
 				quizDao.salvarOuAlterar(quiz, sessao);
 				idQuiz = quiz.getId();
