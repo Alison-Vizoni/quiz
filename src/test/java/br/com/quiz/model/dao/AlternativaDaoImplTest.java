@@ -21,7 +21,7 @@ public class AlternativaDaoImplTest {
 	private Pergunta pergunta;
 	private Alternativa alternativa;
 	private AlternativaDao alternativaDao;
-	private final Logger LOG = Logger.getLogger(SubCategoriaDaoImpl.class.getName());
+	private final Logger LOG = Logger.getLogger(AlternativaDaoImplTest.class.getName());
 	
 	public AlternativaDaoImplTest() {
 		alternativaDao = new AlternativaDaoImpl();

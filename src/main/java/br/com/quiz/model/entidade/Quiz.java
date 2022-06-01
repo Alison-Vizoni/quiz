@@ -76,7 +76,15 @@ public class Quiz implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
-    public Long getId() {
+    public Quiz(String titulo, Boolean statusAtivo, boolean visibilidadePrivada, Date dataCriacao) {
+		super();
+		this.titulo = titulo;
+		this.statusAtivo = statusAtivo;
+		this.visibilidadePrivada = visibilidadePrivada;
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Long getId() {
         return id;
     }
 

@@ -26,7 +26,7 @@ public class PerguntaDaoImplTest {
 	private PerguntaDao perguntaDao;
 	private Pergunta pergunta;
 	private Usuario usuario;
-	private final Logger LOG = Logger.getLogger(SubCategoriaDaoImpl.class.getName());
+	private final Logger LOG = Logger.getLogger(PerguntaDaoImplTest.class.getName());
 	
 	public PerguntaDaoImplTest() {
 		perguntaDao = new PerguntaDaoImpl();
