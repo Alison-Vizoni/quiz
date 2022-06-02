@@ -28,7 +28,7 @@ public class AplicacaoQuizResultado implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @EmbeddedId
-    private AplicacaoQuizResultadoPK id;
+    private AplicacaoQuizResultadoPK id = new AplicacaoQuizResultadoPK();
     
     @Column(name = "data_resolucao")
     @Temporal(TemporalType.DATE)

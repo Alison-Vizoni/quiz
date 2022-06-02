@@ -23,7 +23,7 @@ public class CategoriaDaoImpl extends BaseDaoImpl<Categoria, Long>
 	private static final long serialVersionUID = 1L;
 
 	@Override
-    public Categoria pesquisarPorID(Long id, Session sessao) 
+    public Categoria pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (Categoria) sessao.get(Categoria.class, id);
     }
