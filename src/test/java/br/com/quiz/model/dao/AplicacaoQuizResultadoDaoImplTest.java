@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AplicacaoQuizResultadoDaoImplTest {
 	
 	public AplicacaoQuizResultadoDaoImplTest() {
 		aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
-		buscarUsuario();
+		criarUsuario();
 		buscarAlternativa();
 		buscarAplicacaoQuiz();
 	}
@@ -48,8 +49,8 @@ public class AplicacaoQuizResultadoDaoImplTest {
         
         aplicacaoQuizResultado = new AplicacaoQuizResultado(Date.from(Instant.now()));
         
-        aplicacaoQuizResultado.setAplicacaoQuiz(aplicacaoQuiz);
         aplicacaoQuizResultado.setUsuario(usuario);
+        aplicacaoQuizResultado.setAplicacaoQuiz(aplicacaoQuiz);
         aplicacaoQuizResultado.setAlternativa(alternativa);
         
         sessao = HibernateUtil.abrirSessao();
@@ -59,59 +60,67 @@ public class AplicacaoQuizResultadoDaoImplTest {
         assertNotNull(aplicacaoQuizResultado.getId());
     }
 	
-// TODO verificar soluções para o pesquisar por id
-//    @Test
-//    public void testPesquisarPorID() {
-//        LOG.info("Test pesquisar por id aplicacao quiz resultado");
-//        buscarAplicacaoQuizResultadoNoBancoDeDados();
-//        
-//        sessao = HibernateUtil.abrirSessao();
-//        AplicacaoQuizResultado aplicacaoQuizResultadoPorId = aplicacaoQuizResultadoDao.pesquisarPorID(aplicacaoQuizResultado.getId(), sessao);
-//        sessao.close();
-//        
-//        assertNotNull(aplicacaoQuizResultadoPorId);
-//    }
-//    
-//    @Test
-//    public void testAlterar(){
-//        LOG.info("test alterar aplicacao quiz resultado");
-//        buscarAplicacaoQuizResultadoNoBancoDeDados();
-//        aplicacaoQuizResultado.setDataResolucao(Date.from(Instant.now()));
-//        
-//        sessao = HibernateUtil.abrirSessao();
-//        aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
-//        sessao.close();
-//        
-//        sessao = HibernateUtil.abrirSessao();
-//        AplicacaoQuizResultado aplicacaoQuizResultadoAlterada = aplicacaoQuizResultadoDao.pesquisarPorID(aplicacaoQuizResultado.getId(), sessao);
-//        sessao.close();
-//        
-//        assertEquals(aplicacaoQuizResultado.getDataResolucao(), aplicacaoQuizResultadoAlterada.getDataResolucao());
-//    }
-//    
-//    @Test
-//    public void testExcluir(){
-//        LOG.info("Test excluir aplicacao quiz resultado");
-//        
-//        aplicacaoQuiz = new AplicacaoQuiz(
-//        		Date.from(Instant.now()),
-//        		gerarCaracter(20));
-//        
-//        aplicacaoQuiz.setQuiz(quiz);
-//        aplicacaoQuiz.setUsuarioAplicador(usuario);
-//        
-//        sessao = HibernateUtil.abrirSessao();
-//        aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
-//        sessao.close();
-//        
-//        sessao = HibernateUtil.abrirSessao();
-//        aplicacaoQuizDao.excluir(aplicacaoQuiz, sessao);
-//        
-//        AplicacaoQuizResultado aplicacaoQuizExcluido = aplicacaoQuizDao.pesquisarPorID(aplicacaoQuiz.getId(), sessao);
-//        sessao.close();
-//        
-//        assertNull(aplicacaoQuizExcluido);
-//    }
+    @Test
+    public void testPesquisarPorID() {
+        LOG.info("Test pesquisar por id aplicacao quiz resultado");
+        buscarAplicacaoQuizResultadoNoBancoDeDados();
+        
+        sessao = HibernateUtil.abrirSessao();
+        AplicacaoQuizResultado aplicacaoQuizResultadoPorId = aplicacaoQuizResultadoDao.pesquisarPorId(
+        		aplicacaoQuizResultado.getAplicacaoQuiz().getId(),
+        		aplicacaoQuizResultado.getUsuario().getId(),
+        		aplicacaoQuizResultado.getAlternativa().getId(), sessao);
+        sessao.close();
+        
+        assertNotNull(aplicacaoQuizResultadoPorId);
+    }
+    
+    @Test
+    public void testAlterar(){
+        LOG.info("test alterar aplicacao quiz resultado");
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy--MM-dd");
+        buscarAplicacaoQuizResultadoNoBancoDeDados();
+        aplicacaoQuizResultado.setDataResolucao(Date.from(Instant.now()));
+        
+        sessao = HibernateUtil.abrirSessao();
+        aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
+        sessao.close();
+        
+        sessao = HibernateUtil.abrirSessao();
+        AplicacaoQuizResultado aplicacaoQuizResultadoAlterada = aplicacaoQuizResultadoDao.pesquisarPorId(
+        		aplicacaoQuizResultado.getAplicacaoQuiz().getId(),
+        		aplicacaoQuizResultado.getUsuario().getId(),
+        		aplicacaoQuizResultado.getAlternativa().getId(), sessao);
+        sessao.close();
+        
+        assertEquals(formatador.format(aplicacaoQuizResultado.getDataResolucao()), formatador.format(aplicacaoQuizResultadoAlterada.getDataResolucao()));
+    }
+    
+    @Test
+    public void testExcluir(){
+        LOG.info("Test excluir aplicacao quiz resultado");
+        
+        aplicacaoQuizResultado = new AplicacaoQuizResultado(Date.from(Instant.now()));
+        
+        aplicacaoQuizResultado.setUsuario(usuario);
+        aplicacaoQuizResultado.setAplicacaoQuiz(aplicacaoQuiz);
+        aplicacaoQuizResultado.setAlternativa(alternativa);
+        
+        sessao = HibernateUtil.abrirSessao();
+        aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
+        sessao.close();
+        
+        sessao = HibernateUtil.abrirSessao();
+        aplicacaoQuizResultadoDao.excluir(aplicacaoQuizResultado, sessao);
+        
+        AplicacaoQuizResultado aplicacaoQuizResultadoExcluido = aplicacaoQuizResultadoDao.pesquisarPorId(
+        		aplicacaoQuizResultado.getAplicacaoQuiz().getId(),
+        		aplicacaoQuizResultado.getUsuario().getId(),
+        		aplicacaoQuizResultado.getAlternativa().getId(), sessao);
+        sessao.close();
+        
+        assertNull(aplicacaoQuizResultadoExcluido);
+    }
     
     public AplicacaoQuizResultado buscarAplicacaoQuizResultadoNoBancoDeDados(){
         sessao = HibernateUtil.abrirSessao();
@@ -128,9 +137,11 @@ public class AplicacaoQuizResultadoDaoImplTest {
         return aplicacaoQuizResultado;
     }
     
-    public void buscarUsuario() {
-    	UsuarioDaoImplTest usuarioDaoImplTest = new UsuarioDaoImplTest();
-    	usuario = usuarioDaoImplTest.buscarUsuarioNoBancoDeDados();
+    public void criarUsuario() {
+    	String nome = gerarNome();
+		usuario = new Usuario(nome, String.valueOf(gerarNumero(11)),
+				nome + "@ex.com", gerarTeleCeluar(), true,
+				nome, nome);
     }
     
     public void buscarAlternativa() {

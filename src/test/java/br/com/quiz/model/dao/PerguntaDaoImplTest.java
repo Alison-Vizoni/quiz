@@ -60,7 +60,7 @@ public class PerguntaDaoImplTest {
         buscarPerguntaNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        Pergunta perguntaPorId = perguntaDao.pesquisarPorID(pergunta.getId(), sessao);
+        Pergunta perguntaPorId = perguntaDao.pesquisarPorId(pergunta.getId(), sessao);
         sessao.close();
         
         assertNotNull(perguntaPorId);
@@ -77,7 +77,7 @@ public class PerguntaDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        Pergunta perguntaAlterada = perguntaDao.pesquisarPorID(pergunta.getId(), sessao);
+        Pergunta perguntaAlterada = perguntaDao.pesquisarPorId(pergunta.getId(), sessao);
         sessao.close();
         
         assertEquals(pergunta.getTexto(), perguntaAlterada.getTexto());
@@ -103,7 +103,7 @@ public class PerguntaDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         perguntaDao.excluir(pergunta, sessao);
         
-        Pergunta perguntaExcluida = perguntaDao.pesquisarPorID(pergunta.getId(), sessao);
+        Pergunta perguntaExcluida = perguntaDao.pesquisarPorId(pergunta.getId(), sessao);
         sessao.close();
         
         assertNull(perguntaExcluida);

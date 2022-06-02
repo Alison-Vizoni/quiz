@@ -4,6 +4,8 @@
  */
 package br.com.quiz.model.dao;
 
+import org.hibernate.Session;
+
 import br.com.quiz.model.entidade.AplicacaoQuiz;
 
 /**
@@ -11,4 +13,6 @@ import br.com.quiz.model.entidade.AplicacaoQuiz;
  * @author alison
  */
 public interface AplicacaoQuizDao extends BaseDao<AplicacaoQuiz, Long>{
+	
+	AplicacaoQuiz pesquisarPorId(Long id, Session sessao);
 }

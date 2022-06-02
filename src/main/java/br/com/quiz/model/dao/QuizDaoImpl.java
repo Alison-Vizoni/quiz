@@ -25,7 +25,7 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
 	private static final long serialVersionUID = 1L;
 
     @Override
-    public Quiz pesquisarPorID(Long id, Session sessao) 
+    public Quiz pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (Quiz) sessao.get(Quiz.class, id);
     }
@@ -35,7 +35,6 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
         Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id");
         consulta.setParameter("id", i);
         return consulta.list();
-
     }
     
     public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {		

@@ -62,7 +62,7 @@ public class AplicacaoQuizDaoImplTest {
         buscarAplicacaoQuizNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        AplicacaoQuiz aplicacaoQuizPorId = aplicacaoQuizDao.pesquisarPorID(aplicacaoQuiz.getId(), sessao);
+        AplicacaoQuiz aplicacaoQuizPorId = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
         sessao.close();
         
         assertNotNull(aplicacaoQuizPorId);
@@ -79,7 +79,7 @@ public class AplicacaoQuizDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        AplicacaoQuiz aplicacaoQuizAlterada = aplicacaoQuizDao.pesquisarPorID(aplicacaoQuiz.getId(), sessao);
+        AplicacaoQuiz aplicacaoQuizAlterada = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
         sessao.close();
         
         assertEquals(aplicacaoQuiz.getDescricao(), aplicacaoQuizAlterada.getDescricao());
@@ -103,7 +103,7 @@ public class AplicacaoQuizDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         aplicacaoQuizDao.excluir(aplicacaoQuiz, sessao);
         
-        AplicacaoQuiz aplicacaoQuizExcluido = aplicacaoQuizDao.pesquisarPorID(aplicacaoQuiz.getId(), sessao);
+        AplicacaoQuiz aplicacaoQuizExcluido = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
         sessao.close();
         
         assertNull(aplicacaoQuizExcluido);

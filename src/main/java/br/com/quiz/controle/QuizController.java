@@ -99,7 +99,7 @@ public class QuizController implements Serializable {
 			sessao = HibernateUtil.abrirSessao();
 			aplicacaoQuiz = new AplicacaoQuiz();
 			aplicacaoQuiz.setDataAplicacao(new Date());
-			aplicacaoQuiz.setQuiz(quizDao.pesquisarPorID(idQuiz, sessao));
+			aplicacaoQuiz.setQuiz(quizDao.pesquisarPorId(idQuiz, sessao));
 			aplicacaoQuiz.setUsuarioAplicador(LoginController.usuarioSessao());
 			aplicacaoQuiz.setEmails(new HashSet<>(emailList));
 			aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);

@@ -64,7 +64,7 @@ public class QuizDaoImplTest {
         buscarQuizNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        Quiz quizPorId = quizDao.pesquisarPorID(quiz.getId(), sessao);
+        Quiz quizPorId = quizDao.pesquisarPorId(quiz.getId(), sessao);
         sessao.close();
         
         assertNotNull(quizPorId);
@@ -81,7 +81,7 @@ public class QuizDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        Quiz quizAlterada = quizDao.pesquisarPorID(quiz.getId(), sessao);
+        Quiz quizAlterada = quizDao.pesquisarPorId(quiz.getId(), sessao);
         sessao.close();
         
         assertEquals(quiz.getTitulo(), quizAlterada.getTitulo());
@@ -106,7 +106,7 @@ public class QuizDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         quizDao.excluir(quiz, sessao);
         
-        Quiz quizExcluido = quizDao.pesquisarPorID(quiz.getId(), sessao);
+        Quiz quizExcluido = quizDao.pesquisarPorId(quiz.getId(), sessao);
         sessao.close();
         
         assertNull(quizExcluido);

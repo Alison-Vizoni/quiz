@@ -21,7 +21,7 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario, Long>
 	private static final long serialVersionUID = 1L;
 
 	@Override
-    public Usuario pesquisarPorID(Long id, Session sessao) 
+    public Usuario pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (Usuario) sessao.get(Usuario.class, id);
     }

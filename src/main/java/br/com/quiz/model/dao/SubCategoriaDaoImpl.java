@@ -24,7 +24,7 @@ public class SubCategoriaDaoImpl extends BaseDaoImpl<SubCategoria, Long>
     private static final long serialVersionUID = 1L;
 
 	@Override
-    public SubCategoria pesquisarPorID(Long id, Session sessao) 
+    public SubCategoria pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (SubCategoria) sessao.get(SubCategoria.class, id);
     }

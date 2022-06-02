@@ -52,7 +52,7 @@ public class AlternativaDaoImplTest {
         buscarAlternativaNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        Alternativa alternativaPorId = alternativaDao.pesquisarPorID(alternativa.getId(), sessao);
+        Alternativa alternativaPorId = alternativaDao.pesquisarPorId(alternativa.getId(), sessao);
         sessao.close();
         
         assertNotNull(alternativaPorId);
@@ -69,7 +69,7 @@ public class AlternativaDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        Alternativa alternativaAlterada = alternativaDao.pesquisarPorID(alternativa.getId(), sessao);
+        Alternativa alternativaAlterada = alternativaDao.pesquisarPorId(alternativa.getId(), sessao);
         sessao.close();
         
         assertEquals(alternativa.getTexto(), alternativaAlterada.getTexto());
@@ -93,7 +93,7 @@ public class AlternativaDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         alternativaDao.excluir(alternativa, sessao);
         
-        Alternativa alternativaExcluida = alternativaDao.pesquisarPorID(alternativa.getId(), sessao);
+        Alternativa alternativaExcluida = alternativaDao.pesquisarPorId(alternativa.getId(), sessao);
         sessao.close();
         
         assertNull(alternativaExcluida);

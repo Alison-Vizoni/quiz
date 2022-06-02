@@ -50,7 +50,7 @@ public class CategoriaDaoImplTest {
         buscarCategoriaNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        Categoria categoriaPorId = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
+        Categoria categoriaPorId = categoriaDao.pesquisarPorId(categoria.getId(), sessao);
         sessao.close();
         
         assertNotNull(categoriaPorId);
@@ -80,7 +80,7 @@ public class CategoriaDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        Categoria categoriaAlterada = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
+        Categoria categoriaAlterada = categoriaDao.pesquisarPorId(categoria.getId(), sessao);
         sessao.close();
         
         assertEquals(categoria.getNome(), categoriaAlterada.getNome());
@@ -99,7 +99,7 @@ public class CategoriaDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         categoriaDao.excluir(categoria, sessao);
         
-        Categoria categoriaExcluida = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
+        Categoria categoriaExcluida = categoriaDao.pesquisarPorId(categoria.getId(), sessao);
         sessao.close();
         
         assertNull(categoriaExcluida);

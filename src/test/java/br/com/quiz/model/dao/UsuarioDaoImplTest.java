@@ -49,7 +49,7 @@ public class UsuarioDaoImplTest {
         buscarUsuarioNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        Usuario usuarioPorId = usuarioDao.pesquisarPorID(usuario.getId(), sessao);
+        Usuario usuarioPorId = usuarioDao.pesquisarPorId(usuario.getId(), sessao);
         sessao.close();
         
         assertNotNull(usuarioPorId);
@@ -79,7 +79,7 @@ public class UsuarioDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        Usuario usuarioAlterada = usuarioDao.pesquisarPorID(usuario.getId(), sessao);
+        Usuario usuarioAlterada = usuarioDao.pesquisarPorId(usuario.getId(), sessao);
         sessao.close();
         
         assertEquals(usuario.getNome(), usuarioAlterada.getNome());
@@ -101,7 +101,7 @@ public class UsuarioDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         usuarioDao.excluir(usuario, sessao);
         
-        Usuario usuarioExcluida = usuarioDao.pesquisarPorID(usuario.getId(), sessao);
+        Usuario usuarioExcluida = usuarioDao.pesquisarPorId(usuario.getId(), sessao);
         sessao.close();
         
         assertNull(usuarioExcluida);
