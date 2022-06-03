@@ -30,7 +30,7 @@ public class AplicacaoQuizResultado implements Serializable {
     @EmbeddedId
     private AplicacaoQuizResultadoPK id = new AplicacaoQuizResultadoPK();
     
-    @Column(name = "data_resolucao")
+    @Column(name = "data_resolucao", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataResolucao;
     

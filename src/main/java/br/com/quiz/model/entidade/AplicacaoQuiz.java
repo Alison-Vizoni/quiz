@@ -22,7 +22,7 @@ public class AplicacaoQuiz implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "data_aplicacao")
+    @Column(name = "data_aplicacao", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataAplicacao;
 

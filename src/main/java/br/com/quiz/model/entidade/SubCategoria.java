@@ -7,6 +7,7 @@ package br.com.quiz.model.entidade;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,8 +30,10 @@ public class SubCategoria implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	private String nome;
 
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@ManyToOne

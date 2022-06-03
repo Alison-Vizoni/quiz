@@ -39,14 +39,16 @@ public class Quiz implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false)
     private String titulo;
     
+    @Column(name = "status_ativo")
     private Boolean statusAtivo = true;
     
     @Column(name = "visibilidade_privada")
     private boolean visibilidadePrivada;
     
-    @Column(name = "data_criacao")
+    @Column(name = "data_criacao", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataCriacao;
     
