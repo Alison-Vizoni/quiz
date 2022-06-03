@@ -29,14 +29,23 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(nullable = false)
 	private String nome;
+	
+	@Column(nullable = false)
 	private String cpf;
+	
+	@Column(nullable = false)
 	private String email;
+	
 	private String telefone;
+	
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@Column(nullable = false)
 	private String login;
+	
 	@Column(nullable = false)
 	private String senha;
 

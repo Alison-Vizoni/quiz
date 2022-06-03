@@ -33,12 +33,13 @@ public class Alternativa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(columnDefinition = "Text")
+	@Column(columnDefinition = "Text", nullable = false)
 	private String texto;
 
 	@Column(name = "status_correta")
 	private boolean statusCorreta;
 
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@ManyToOne

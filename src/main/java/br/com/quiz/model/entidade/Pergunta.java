@@ -37,16 +37,17 @@ public class Pergunta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(columnDefinition = "Text")	
+	@Column(columnDefinition = "Text", nullable = false)	
 	private String texto;
-
+	
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@Column(name = "visibilidade_privada")
 	private boolean visibilidadePrivada;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_criacao")
+	@Column(name = "data_criacao", nullable = false)
 	private Date dataCriacao;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
