@@ -1342,7 +1342,6 @@ body .ui-panel .ui-panel-content{
     height: 74px;
     border-radius: 20px;
     margin-left: 10px;
-    background: red;
 }
 
 .card_quiz_texto {
@@ -1351,7 +1350,7 @@ body .ui-panel .ui-panel-content{
     width: 700px;
     font-weight: bold;
     padding: 10px;
-    white-space: wrap;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1395,21 +1394,7 @@ body .ui-panel .ui-panel-content{
     overflow: hidden;
 }
 
-.quadrado1 {
-    height: 200px;
-    width: 50%;
-    padding: 0;
-    background-color: red;
-}
-
-.quadrado2 {
-    height: 200px;
-    width: 50%;
-    background-color:blue;
-}
-
-.quadrado3{
-    height: 200px;
-    width: 50%;
-    background-color:green;
+.disabled {
+    backdrop-filter: brightness(0.5);
+    cursor: default;
 }
