@@ -36,6 +36,7 @@ public class Categoria implements Serializable {
 	@Column(nullable = false)
 	private String nome;
 
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@OneToMany(mappedBy = "categoria")
@@ -50,6 +51,13 @@ public class Categoria implements Serializable {
 
 	public Categoria(String nome) {
 		this.nome = nome;
+	}
+
+	public Categoria(Long id, String nome, Boolean statusAtivo) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.statusAtivo = statusAtivo;
 	}
 
 	public Long getId() {

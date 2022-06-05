@@ -40,14 +40,6 @@ public class GeradorUtil {
         return value;
     }
     
-    public static String gerarCnpj(){
-        return formatField(gerarNumero(14), "##.###.###/####-##");
-    }
-    
-    public static String gerarCartaoCredito() {
-        return formatField(gerarNumero(12), "####-####-####-####");
-    }
-    
     public static String gerarCidade() {
         String cidade;
         int indice;
@@ -87,6 +79,12 @@ public class GeradorUtil {
     
     public static String gerarNomeCategoria(){
         String[] nomes = {"CategoriaUtil123", "CategoriaTest45", "CategoriaValendo", "CategoriaNome", "GerarNomeCategoria"};
+        int indice = (int) (Math.random() * nomes.length);
+        return nomes[indice].toString();
+    }
+    
+    public static String gerarNomeSubCategoria(){
+        String[] nomes = {"SubCategoriaUtil123", "SubCategoriaTest45", "SubCategoriaValendo", "SubCategoriaNome", "SubGerarNomeCategoria"};
         int indice = (int) (Math.random() * nomes.length);
         return nomes[indice].toString();
     }

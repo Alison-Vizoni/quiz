@@ -20,8 +20,8 @@ public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long>
 
     private static final long serialVersionUID = 1L;
 
-    @Override
-    public AplicacaoQuiz pesquisarPorID(Long id, Session sessao)
+	@Override
+    public AplicacaoQuiz pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (AplicacaoQuiz) sessao.get(AplicacaoQuiz.class, id);
     }

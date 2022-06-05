@@ -30,9 +30,8 @@ public class CategoriaDaoImplTest {
     public CategoriaDaoImplTest() {
         categoriaDao = new CategoriaDaoImpl();
     }
-    
 
-//    @Test
+    @Test
     public void testSalvar(){
         LOG.info("Test salvar categoria");
         
@@ -45,19 +44,19 @@ public class CategoriaDaoImplTest {
         assertNotNull(categoria.getId());
     }
 
-//    @Test
+    @Test
     public void testPesquisarPorID() {
         LOG.info("Test pesquisar por id categoria");
         buscarCategoriaNoBancoDeDados();
         
         sessao = HibernateUtil.abrirSessao();
-        Categoria categoriaPorId = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
+        Categoria categoriaPorId = categoriaDao.pesquisarPorId(categoria.getId(), sessao);
         sessao.close();
         
         assertNotNull(categoriaPorId);
     }
 
- //   @Test
+    @Test
     public void testPesquisarPorNome() {
         LOG.info("Test pesquisar por nome categoria");
         
@@ -70,7 +69,7 @@ public class CategoriaDaoImplTest {
         assertFalse(categoriaPorNome.isEmpty());
     }
     
-//    @Test
+    @Test
     public void testAlterar(){
         LOG.info("test alterar categoria");
         buscarCategoriaNoBancoDeDados();
@@ -81,13 +80,13 @@ public class CategoriaDaoImplTest {
         sessao.close();
         
         sessao = HibernateUtil.abrirSessao();
-        Categoria categoriaAlterada = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
+        Categoria categoriaAlterada = categoriaDao.pesquisarPorId(categoria.getId(), sessao);
         sessao.close();
         
         assertEquals(categoria.getNome(), categoriaAlterada.getNome());
     }
     
-//    @Test
+    @Test
     public void testExcluir(){
         LOG.info("Test excluir categoria");
         
@@ -100,7 +99,7 @@ public class CategoriaDaoImplTest {
         sessao = HibernateUtil.abrirSessao();
         categoriaDao.excluir(categoria, sessao);
         
-        Categoria categoriaExcluida = categoriaDao.pesquisarPorID(categoria.getId(), sessao);
+        Categoria categoriaExcluida = categoriaDao.pesquisarPorId(categoria.getId(), sessao);
         sessao.close();
         
         assertNull(categoriaExcluida);

@@ -28,7 +28,7 @@ public class AlternativaDaoImpl extends BaseDaoImpl<Alternativa, Long>
 	private final Logger logger = LoggerFactory.logger(getClass());
 
 	@Override
-    public Alternativa pesquisarPorID(Long id, Session sessao) 
+    public Alternativa pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (Alternativa) sessao.get(Alternativa.class, id);
     }

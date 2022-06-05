@@ -24,13 +24,17 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
 	private final Logger logger = LoggerFactory.logger(getClass());
 	private static final long serialVersionUID = 1L;
 
+    @Override
+    public Quiz pesquisarPorId(Long id, Session sessao) 
+            throws HibernateException {
+        return (Quiz) sessao.get(Quiz.class, id);
+    }
 
     public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i) {
         logger.info("método buscarQuizPorUsuario()");
         Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id");
         consulta.setParameter("id", i);
         return consulta.list();
-
     }
 
     @Override
