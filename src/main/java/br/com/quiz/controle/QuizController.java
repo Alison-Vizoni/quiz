@@ -51,7 +51,8 @@ public class QuizController implements Serializable {
 
 	private Session sessao;
 	private String fluxo;
-	private static Long idQuiz;
+	public static Long idQuiz;
+	public static Long idAplicacaoQuiz;
 
 	public QuizController() {
 		if (quiz == null) {
@@ -98,10 +99,12 @@ public class QuizController implements Serializable {
 			sessao = HibernateUtil.abrirSessao();
 			aplicacaoQuiz = new AplicacaoQuiz();
 			aplicacaoQuiz.setDataAplicacao(new Date());
-			aplicacaoQuiz.setQuiz(quizDao.pesquisarPorID(idQuiz, sessao));
+			aplicacaoQuiz.setQuiz(quizDao.pesquisarPorId(idQuiz, sessao));
 			aplicacaoQuiz.setUsuarioAplicador(LoginController.usuarioSessao());
 			aplicacaoQuiz.setEmails(new HashSet<>(emailList));
 			aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
+			idAplicacaoQuiz = aplicacaoQuiz.getId();
+			logger.info("idAplicacaoQuiz -> " + idAplicacaoQuiz);
 			
 		} catch (Exception e) {
 			logger.error("Erro ao salvar aplicação quiz - " + e.getMessage());
@@ -132,6 +135,7 @@ public class QuizController implements Serializable {
 		try {
 			sessao = HibernateUtil.abrirSessao();
 			quiz.setUsuarioProprietario(LoginController.usuarioSessao());
+//			quiz.setTitulo(fluxo);
 			if (preparaQuiz()) {
 				quizDao.salvarOuAlterar(quiz, sessao);
 				idQuiz = quiz.getId();

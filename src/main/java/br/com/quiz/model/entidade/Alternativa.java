@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 /**
  *
  * @author alison
@@ -31,11 +33,13 @@ public class Alternativa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(columnDefinition = "Text", nullable = false)
 	private String texto;
 
 	@Column(name = "status_correta")
 	private boolean statusCorreta;
 
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@ManyToOne
@@ -51,6 +55,13 @@ public class Alternativa implements Serializable {
 	public Alternativa(String texto, boolean statusCorreta) {
 		this.texto = texto;
 		this.statusCorreta = statusCorreta;
+	}
+
+	public Alternativa(String texto, boolean statusCorreta, Boolean statusAtivo) {
+		super();
+		this.texto = texto;
+		this.statusCorreta = statusCorreta;
+		this.statusAtivo = statusAtivo;
 	}
 
 	public Long getId() {

@@ -53,11 +53,11 @@
 
                 <h:form id="menuForm">
                     <p:menubar style="background-color: #84509c; color: white; margin-right:10px; border: none">
-                        <p:submenu label="#{loginC.usuarioLogado.id == null ? ' Entrar ' : {loginC.usuarioLogado.nome}}" style="background-color: white; border-radius: 10%" >
+                        <p:submenu label="#{loginC.usuarioLogado.id == null ? ' Entrar ' : loginC.usuarioLogado.nome}" style="background-color: white; border-radius: 10%" >
                             <p:menuitem value="Login" outcome="/login" icon="pi pi-fw pi-sign-in" />
-                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-in" 
+                            <p:menuitem value="Logout" icon="pi pi-fw pi-sign-out" 
                                         ajax="false" process="@all" action="#{loginC.logout()}"/>
-                            <p:menuitem rendered="#{loginC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-sign-in"  
+                            <p:menuitem rendered="#{loginC.usuarioLogado.nome != null }" outcome="/Perfil/perfil" value="Perfil" icon="pi pi-fw pi-user"  
                                         actionListener="#{loginC.logout()}"  ajax="false" process="@all" />
 
                         </p:submenu>
@@ -66,16 +66,20 @@
             </div>
         </header>
 
-        <!-- 	********************** -->
+        <!-- Responder Quiz	********************** -->
 
 
         <section class="aw-content  js-content">
         
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
 
-            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                <div class="p-text-center">
-                    <h:graphicImage library="senac/images" name="loader.gif"  />
+            <p:dialog id="modal_loader" widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false"
+            			 showHeader="true" header="Aguarde..."  >
+                <div class="p-text-center" style="display: flex; width:80vw; height: 80vh; background-size:cover;
+                	align-items: center; justify-content: center;">
+                     <!--<h:graphicImage library="senac/images" name="loader.gif"  />--> 
+					<div id="load"></div>
+										
                 </div>
             </p:dialog>
             <ui:insert name="content" />

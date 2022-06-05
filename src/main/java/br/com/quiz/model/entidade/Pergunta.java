@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -36,16 +37,17 @@ public class Pergunta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(length = 500)
+	@Column(columnDefinition = "Text", nullable = false)	
 	private String texto;
-
+	
+	@Column(name = "status_ativo")
 	private Boolean statusAtivo = true;
 
 	@Column(name = "visibilidade_privada")
 	private boolean visibilidadePrivada;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_criacao")
+	@Column(name = "data_criacao", nullable = false)
 	private Date dataCriacao;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -67,6 +69,14 @@ public class Pergunta implements Serializable {
 
 	public Pergunta(String texto, boolean visibilidadePrivada, Date dataCriacao) {
 		this.texto = texto;
+		this.visibilidadePrivada = visibilidadePrivada;
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Pergunta(String texto, Boolean statusAtivo, boolean visibilidadePrivada, Date dataCriacao) {
+		super();
+		this.texto = texto;
+		this.statusAtivo = statusAtivo;
 		this.visibilidadePrivada = visibilidadePrivada;
 		this.dataCriacao = dataCriacao;
 	}

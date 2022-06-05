@@ -82,7 +82,7 @@ public class EmailConvidadoController implements Serializable {
 	 */
 	private void verificaListaEmail(String[] emails) throws IOException, URISyntaxException {
 		if (emails.length > 0) {
-			EnviaEmail.enviaEmail(emails, "titulo teste", " Texto de teste");
+			EnviaEmail.enviaEmail(emails, QuizController.idAplicacaoQuiz , LoginController.usuarioSessao().getNome());
 			Mensagem.sucesso("Envio finalizado!");				
 		} else {
 			Mensagem.erro("Ops, parece que você esqueceu de adicionar os emails!");

@@ -27,7 +27,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 	private final Logger logger = LoggerFactory.logger(getClass());
 
 	@Override
-    public Pergunta pesquisarPorID(Long id, Session sessao) 
+    public Pergunta pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
                   logger.info("método pesquisarPorID()");
         return (Pergunta) sessao.get(Pergunta.class, id);

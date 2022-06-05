@@ -63,7 +63,7 @@ public class PerguntaController implements Serializable {
 	public PerguntaController() {
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
-                buscarPerguntasElaboradasPeloUsuario();
+//                buscarPerguntasElaboradasPeloUsuario();
 	}
 
 	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
@@ -225,11 +225,11 @@ public class PerguntaController implements Serializable {
 	public void buscarPerguntasElaboradasPeloUsuario() {
 		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
 
-		Long idUsuarioLogado = 1L;
+		Usuario idUsuarioLogado = LoginController.usuarioSessao();
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(2L, sessao);
+			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado.getId(), sessao);
 			modelPerguntas = new ListDataModel<>(perguntas);
 		} catch (HibernateException e) {
 			logger.error("erro na busca de perguntas por usuario " + e.getMessage());
@@ -238,19 +238,19 @@ public class PerguntaController implements Serializable {
 		}
 	}
 
-	public void buscaPerguntasComFiltro() {
-		logger.info("método - buscaPerguntasComFiltro()");
-
-		try {
-			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscaPerguntasComFiltro(subCategoria.getId(), sessao);
-			modelPerguntas = new ListDataModel<>(perguntas);
-		} catch (HibernateException e) {
-			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-		} finally {
-			sessao.close();
-		}
-	}
+//	public void buscaPerguntasComFiltro() {
+//		logger.info("método - buscaPerguntasComFiltro()");
+//
+//		try {
+//			sessao = HibernateUtil.abrirSessao();
+//			perguntas = perguntaDao.buscaPerguntasComFiltro(subCategoria.getId(), sessao);
+//			modelPerguntas = new ListDataModel<>(perguntas);
+//		} catch (HibernateException e) {
+//			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+//		} finally {
+//			sessao.close();
+//		}
+//	}
 
 	// GETTERS AND SETTERS
 	

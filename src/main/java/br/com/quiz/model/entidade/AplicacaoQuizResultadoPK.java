@@ -17,13 +17,13 @@ public class AplicacaoQuizResultadoPK implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario", nullable = false)
     private Long idUsuario;
     
-    @Column(name = "id_alternativa")
+    @Column(name = "id_alternativa", nullable = false)
     private Long idAlternativa;
     
-    @Column(name = "id_aplicacao_quiz")
+    @Column(name = "id_aplicacao_quiz", nullable = false)
     private Long idAplicacaoQuiz;
 
     public AplicacaoQuizResultadoPK() {
