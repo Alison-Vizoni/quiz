@@ -1342,6 +1342,7 @@ body .ui-panel .ui-panel-content{
     height: 74px;
     border-radius: 20px;
     margin-left: 10px;
+    background: red;
 }
 
 .card_quiz_texto {

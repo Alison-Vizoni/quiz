@@ -14,8 +14,14 @@
                 </div>
                 <div class="container_pergunta_alternativas">
                     <div class="alternativas">
-                        <p:repeat value="#{aplicacaoQuizC.pergunta.alternativas}" var="alternativas" varStatus="card">
-                            <h:commandButton  value="#{alternativas.texto}" style="text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold; height: 200px; width: 50%;background: #{aplicacaoQuizC.random_rgba(card.index)}"/>
+                        <p:repeat value="#{aplicacaoQuizC.pergunta.alternativas}" var="alternativa" varStatus="card">
+                            <h:commandButton
+                                value="#{alternativa.texto}"
+                                style="text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold;
+                                height: 200px; width: 50%;background: #{aplicacaoQuizC.random_rgba(card.index)}"
+                                action="#{aplicacaoQuizC.enviarResposta(alternativa)}"
+                                />
+                                              
                         </p:repeat>
                        
                     </div>

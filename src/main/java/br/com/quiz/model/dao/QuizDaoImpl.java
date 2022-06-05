@@ -44,7 +44,6 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
         return consulta.list();
     }
 
-    @Override
     public Quiz pesquisarPorID(Long id, Session sessao) throws HibernateException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

@@ -8,12 +8,17 @@
 
     <ui:define name="content">
         <div class="container_responder_inicio">
+
             <h:form >
                 <div class="container_responder_card">
+                    
                     <h1>Olá #{loginC.usuarioLogado.nome}</h1>
                     <h2>Digite o código do quiz</h2>
                     <p:inputText placeholder="Código" value="#{aplicacaoQuizC.aplicacaoQuiz.id}" />
-                        <h:commandButton action="#{aplicacaoQuizC.validaAcessoQuiz}" value="Entrar"/>
+                    <h:commandButton action="#{aplicacaoQuizC.validaAcessoQuiz}" value="Entrar"/>
+                    <p:messages style="width: 100%" id="messages"  showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
                 </div>
             </h:form>
         </div>
