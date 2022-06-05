@@ -1,0 +1,26 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <div class="container_responder_final">
+            <h:form >
+                <div class="container_pergunta_texto">
+                    <h1>#{aplicacaoQuizC.pergunta.texto}</h1>
+                </div>
+                <div class="container_pergunta_alternativas">
+                    <div class="alternativas">
+                        <p:repeat value="#{aplicacaoQuizC.pergunta.alternativas}" var="alternativas" varStatus="card">
+                            <h:commandButton  value="#{alternativas.texto}" style="text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold; height: 200px; width: 50%;background: #{aplicacaoQuizC.random_rgba(card.index)}"/>
+                        </p:repeat>
+                       
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

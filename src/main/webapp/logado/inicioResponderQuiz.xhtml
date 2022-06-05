@@ -12,8 +12,8 @@
                 <div class="container_responder_card">
                     <h1>Olá #{loginC.usuarioLogado.nome}</h1>
                     <h2>Digite o código do quiz</h2>
-                    <p:inputText placeholder="Código" value="#{quizC.quiz.id}" />
-                        <h:commandButton style=""  action="#{aplicacaoQuizC.validaAcessoQuiz}"  value="Entrar"/>
+                    <p:inputText placeholder="Código" value="#{aplicacaoQuizC.aplicacaoQuiz.id}" />
+                        <h:commandButton action="#{aplicacaoQuizC.validaAcessoQuiz}" value="Entrar"/>
                 </div>
             </h:form>
         </div>

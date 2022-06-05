@@ -6,24 +6,26 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content" >
-        <div class="container_responder_quiz" onloadstart="#{quizC.pesquisaQuiz(request.getParameter('id'))}">
+        <div class="container_responder_quiz">
            
-                <div class="container_responder_card_quiz">
+            <div class="container_responder_card_quiz" onloadstart="#{aplicacaoQuizC.pesquisaQuiz()}">
                     <h:form id="form_responder" >
-                        <p:repeat value="#{quizC.quizzes[0].perguntas}" var="pergunta" varStatus="card">
+                        <p:repeat value="#{aplicacaoQuizC.aplicacaoQuiz.quiz.perguntas}" var="pergunta" varStatus="card">
                             <div class="card_quiz" >
                                 <img class="card_quiz_image" src="../resources/senac/images/#{pergunta.subCategoria.categoria.nome.toLowerCase()}.jpg"/>
                                 <div class="card_quiz_texto">
                                     <p>#{pergunta.texto}</p>
                                 </div>       
                                 <div style="width: 150px; height: 100%; display: flex; justify-content: center; margin: 10px; align-items: center">
-                                    #{card.index > -1 ? '' : 'concluido' }
-                                    <h:outputLink
+                                   
+                                    <h:commandButton
                                         rendered="#{card.index > -1}"
-                                        style="height: 40px"
-                                        styleClass="ui-button-raised ui-button-help" 
-                                        value="responderQuiz.xhtml?id=#{pergunta.id}"
-                                        >Teste</h:outputLink>
+                                        style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold; color:white; background-color: rgba(130,75,173,1)"
+                                        value="RESPONDER"
+                                        action="ResponderQuiz"
+                                        actionListener="#{aplicacaoQuizC.responderPergunta(pergunta.id)}"
+                                        >
+                                    </h:commandButton>
                                 </div>              
                             </div>
 
