@@ -64,7 +64,7 @@ public class PerguntaController implements Serializable {
 	public PerguntaController() {
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
-                buscarPerguntasElaboradasPeloUsuario();
+//                buscarPerguntasElaboradasPeloUsuario();
 	}
 
 	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
@@ -225,12 +225,13 @@ public class PerguntaController implements Serializable {
 
 	public void buscarPerguntasElaboradasPeloUsuario() {
 		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
-
-		Long idUsuarioLogado = 1L;
+		
+		// TODO implementar metodo
+		Long idUsuarioLogado = 2L;
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(2L, sessao);
+			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado, sessao);
 			modelPerguntas = new ListDataModel<>(perguntas);
 		} catch (HibernateException e) {
 			logger.error("erro na busca de perguntas por usuario " + e.getMessage());
@@ -244,7 +245,7 @@ public class PerguntaController implements Serializable {
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscaPerguntasComFiltro(categoria.getId(), subCategoria.getId(), refinaBusca, sessao);
+			perguntas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
 			modelPerguntas = new ListDataModel<>(perguntas);
 		} catch (HibernateException e) {
 			logger.error("erro na busca de perguntas com filtro " + e.getMessage());

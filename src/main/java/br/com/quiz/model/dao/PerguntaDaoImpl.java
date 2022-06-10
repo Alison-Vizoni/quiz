@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 
+import antlr.StringUtils;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 
@@ -68,10 +69,21 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 	public List<Pergunta> buscaPerguntasComFiltro(Long idCategoria, Long idSubCategoria, String refinarBusca, Session sessao) {
 		logger.info("método buscarPerguntasElaboradosPeloUsuario()");
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT p, a FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
-		sql.append(" WHERE (cat.id = :idCategoria OR 1 = 1) ");
-		sql.append(" AND (sub.id = :idSubCategoria OR 1 = 1) ");
-		sql.append(" AND ((p.texto = :refinarBusca OR 1 = 1) OR (a.texto = :refinarBusca OR 1 = 1))");
+		sql.append("SELECT p FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
+		sql.append(" WHERE 1=1 ");
+		
+		if (idCategoria != null) {			
+			sql.append(" AND cat.id = :idCategoria ");
+		}
+		
+		if (idSubCategoria != null) {
+			sql.append(" AND sub.id = :idSubCategoria ");
+		}
+		
+		if (refinarBusca != null && !refinarBusca.isBlank()) {
+			sql.append(" AND p.texto LIKE :refinarBusca ");
+		}
+		
 		Query consulta = sessao.createQuery(sql.toString());
 		
 		if (idCategoria != null) {
@@ -82,7 +94,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			consulta.setParameter("idSubCategoria", idSubCategoria);
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isEmpty() && !refinarBusca.isBlank()) {
+		if (refinarBusca != null && !refinarBusca.isBlank()) {
 			consulta.setParameter("refinarBusca", "%" + refinarBusca + "%");
 		}
 		
