@@ -54,6 +54,7 @@ public class PerguntaController implements Serializable {
 	private PerguntaDao perguntaDao;
 	private Categoria categoria;
 	private Pergunta pergunta;
+	private String refinaBusca;
 
 	private Long contadorId = 0L;
 	private Session sessao;
@@ -238,19 +239,19 @@ public class PerguntaController implements Serializable {
 		}
 	}
 
-//	public void buscaPerguntasComFiltro() {
-//		logger.info("método - buscaPerguntasComFiltro()");
-//
-//		try {
-//			sessao = HibernateUtil.abrirSessao();
-//			perguntas = perguntaDao.buscaPerguntasComFiltro(subCategoria.getId(), sessao);
-//			modelPerguntas = new ListDataModel<>(perguntas);
-//		} catch (HibernateException e) {
-//			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-//		} finally {
-//			sessao.close();
-//		}
-//	}
+	public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
+		logger.info("método - buscaPerguntasComFiltro()");
+
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			perguntas = perguntaDao.buscaPerguntasComFiltro(categoria.getId(), subCategoria.getId(), refinaBusca, sessao);
+			modelPerguntas = new ListDataModel<>(perguntas);
+		} catch (HibernateException e) {
+			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+	}
 
 	// GETTERS AND SETTERS
 	
@@ -355,6 +356,14 @@ public class PerguntaController implements Serializable {
 
 	public void setAlter(Alternativa alter) {
 		this.alter = alter;
+	}
+
+	public String getRefinaBusca() {
+		return refinaBusca;
+	}
+
+	public void setRefinaBusca(String refinaBusca) {
+		this.refinaBusca = refinaBusca;
 	}
 
 }

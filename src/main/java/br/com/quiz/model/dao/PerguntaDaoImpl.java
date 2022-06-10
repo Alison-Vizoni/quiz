@@ -65,10 +65,29 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
     }
 
 	@Override
-	public List<Pergunta> buscaPerguntasComFiltro(Long id, Session sessao) {
-		// TODO Auto-generated method stub
-		return null;
-	}  
+	public List<Pergunta> buscaPerguntasComFiltro(Long idCategoria, Long idSubCategoria, String refinarBusca, Session sessao) {
+		logger.info("método buscarPerguntasElaboradosPeloUsuario()");
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT p, a FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
+		sql.append(" WHERE (cat.id = :idCategoria OR 1 = 1) ");
+		sql.append(" AND (sub.id = :idSubCategoria OR 1 = 1) ");
+		sql.append(" AND ((p.texto = :refinarBusca OR 1 = 1) OR (a.texto = :refinarBusca OR 1 = 1))");
+		Query consulta = sessao.createQuery(sql.toString());
+		
+		if (idCategoria != null) {
+			consulta.setParameter("idCategoria", idCategoria);
+		}
+		
+		if (idSubCategoria != null) {
+			consulta.setParameter("idSubCategoria", idSubCategoria);
+		}
+		
+		if (refinarBusca != null && !refinarBusca.isEmpty() && !refinarBusca.isBlank()) {
+			consulta.setParameter("refinarBusca", "%" + refinarBusca + "%");
+		}
+		
+        return consulta.list();
+	}
     
     
 }
