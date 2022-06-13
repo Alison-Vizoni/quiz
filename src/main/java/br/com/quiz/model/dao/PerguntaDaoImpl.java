@@ -69,7 +69,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 	public List<Pergunta> buscaPerguntasComFiltro(Long idCategoria, Long idSubCategoria, String refinarBusca, Session sessao) {
 		logger.info("método buscarPerguntasElaboradosPeloUsuario()");
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT p FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
+		sql.append("SELECT DISTINCT p FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
 		sql.append(" WHERE 1=1 ");
 		
 		if (idCategoria != null) {			
@@ -80,8 +80,8 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			sql.append(" AND sub.id = :idSubCategoria ");
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isBlank()) {
-			sql.append(" AND p.texto LIKE :refinarBusca ");
+		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+			sql.append(" AND (p.texto LIKE :refinarBusca OR a.texto LIKE :refinarBusca) ");
 		}
 		
 		Query consulta = sessao.createQuery(sql.toString());
@@ -94,7 +94,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			consulta.setParameter("idSubCategoria", idSubCategoria);
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isBlank()) {
+		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
 			consulta.setParameter("refinarBusca", "%" + refinarBusca + "%");
 		}
 		

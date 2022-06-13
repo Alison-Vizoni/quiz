@@ -27,12 +27,12 @@
 					                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
 					                    <f:selectItems value="#{categoriaC.comboCategorias}" />
 					                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-					                    <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+					                    <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria"/>
 					            </p:selectOneMenu>
 		                    </div>
 							<!-- SUB-CATEGORIA -->
 							<div id="combo_SubCategoria" style="margin-right: 5px">
-								<p:selectOneMenu value="#{perguntaC.subCategoria.id}"
+								<p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
 					                                 id="sub_categoria"
 					                                 filter="true"
 					                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">
@@ -44,7 +44,7 @@
 			                    </p:selectOneMenu>
 			                </div>
 						    <div id="refina_busca" >
-					       		<p:inputText id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
+					       		<p:inputText disabled="#{categoriaC.categoria.id == null ? true : false}" id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
 					       			<f:validateLength minimum="3"/>
 					       			<p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
 					       		</p:inputText>
