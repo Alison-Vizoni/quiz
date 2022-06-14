@@ -36,11 +36,21 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
         consulta.setParameter("id", i);
         return consulta.list();
     }
-    
+
+    @Override
+    public List<Quiz> pesquisarPorIdQuiz(Session sessao, Long idQuiz) throws HibernateException{
+        Query consulta = sessao.createQuery("FROM Quiz WHERE id = :id");
+        consulta.setParameter("id", idQuiz);
+        return consulta.list();
+    }
+
+    public Quiz pesquisarPorID(Long id, Session sessao) throws HibernateException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+        
     public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {		
 		 
 		return (Long) sessao.save(entidade);
 	}
-   
 
 }

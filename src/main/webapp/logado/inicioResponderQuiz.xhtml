@@ -1,0 +1,27 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <div class="container_responder_inicio">
+
+            <h:form >
+                <div class="container_responder_card">
+                    <p:messages style="width: 80%" id="messages"  showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+                    <h1>Olá #{loginC.usuarioLogado.nome}</h1>
+                    <h2>Digite o código do quiz</h2>
+                    <p:inputText placeholder="Código" value="#{aplicacaoQuizC.aplicacaoQuiz.id}" />
+                    <h:commandButton action="#{aplicacaoQuizC.validaAcessoQuiz}"
+                        style="height: 60px; width:180px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1)" value="Entrar"/>
+                    
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

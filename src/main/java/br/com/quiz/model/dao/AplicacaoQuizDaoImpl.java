@@ -15,15 +15,15 @@ import br.com.quiz.model.entidade.AplicacaoQuiz;
  *
  * @author alison
  */
-public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long> 
-        implements AplicacaoQuizDao, Serializable{
+public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long>
+        implements AplicacaoQuizDao, Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 	@Override
     public AplicacaoQuiz pesquisarPorId(Long id, Session sessao) 
             throws HibernateException {
         return (AplicacaoQuiz) sessao.get(AplicacaoQuiz.class, id);
-    }	
-    
+    }
+
 }
