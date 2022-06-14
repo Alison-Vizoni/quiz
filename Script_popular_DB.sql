@@ -139,249 +139,249 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT PERFECT SIMPLE",
 
 
 -- USUÁRIO
-INSERT INTO usuario (nome, cpf, email, telefone) VALUES 
-("Ian Benedito Almeida", "506.726.137-43", "ian_benedito_almeida@coldblock.com.br", "(43) 99120-3042");
-INSERT INTO usuario (nome, cpf, email, telefone) VALUES 
-("Valentina Lavínia Isabelle Castro", "254.100.896-18", "valentina_castro@teravida.com.br", "(41) 2749-0455");
-INSERT INTO usuario (nome, cpf, email, telefone) VALUES 
-("José Danilo dos Santos", "046.349.843-77", "jose-dossantos70@aspadvocacia.com", "(79) 99773-0287");
-INSERT INTO usuario (nome, cpf, email, telefone) VALUES 
-("André Leonardo Jesus", "738.161.742-05", "andre_leonardo_jesus@stilomovelaria.com.br", "(48) 98446-0449");
+INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
+("Ian Benedito Almeida", "506.726.137-43", "ian_benedito_almeida@coldblock.com.br", "(43) 99120-3042", "ian", "ian", TRUE);
+INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
+("Valentina Lavínia Isabelle Castro", "254.100.896-18", "valentina_castro@teravida.com.br", "(41) 2749-0455", "valentina", "valentina", TRUE);
+INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
+("José Danilo dos Santos", "046.349.843-77", "jose-dossantos70@aspadvocacia.com", "(79) 99773-0287", "jose", "jose", TRUE);
+INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
+("André Leonardo Jesus", "738.161.742-05", "andre_leonardo_jesus@stilomovelaria.com.br", "(48) 98446-0449", "andre", "andre", TRUE);
 
 -- PERGUNTAS E ALTERNATIVAS
 -- IAN, GEOGRAFIA, HIDROGRAFIA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("Assinale a alternativa abaixo que NÃO representa uma das características gerais da hidrografia brasileira.", FALSE, "2020-05-05", 1, 
-(SELECT id FROM sub_categoria WHERE nome = "HIDROGRAFIA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "HIDROGRAFIA"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A maior parte dos rios brasileiros é abastecida por um regime pluvial, praticamente não havendo indícios de regimes de abastecimento nivais ou glaciais.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A maioria dos rios do Brasil é perene e a minoria é intermitente.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A hidrografia brasileira é rica em rios e pobre em lagos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Os rios do Brasil são exorreicos e deságuam quase sempre no Oceano Atlântico.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Alguns rios brasileiros são muito usados para a navegação, a exemplo do Rio Amazonas.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Assinale a alternativa abaixo que NÃO representa%"), TRUE);
 
 -- IAN, HISTÓRIA, FEUDALISMO
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(Fatec-SP) – Uma das características a ser reconhecida no feudalismo europeu é:", FALSE, "2021-06-04", 1, 
-(SELECT id FROM sub_categoria WHERE nome = "FEUDALISMO")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "FEUDALISMO"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A sociedade feudal era semelhante ao sistema de castas.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Os ideais de honra e fidelidade vieram das instituições dos hunos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Vilões e servos estavam presos a várias obrigações, entre elas, o pagamento anual de capitação, talha e banalidades.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A economia do feudo era dinâmica, estando voltada para o comércio dos feudos vizinhos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("As relações de produção eram escravocratas.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%Uma das características a ser reconhecida no feudalismo europeu é%"), TRUE);
 
 -- IAN, MATEMÁTICA, TRIGONOMETRIA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(Cefet/MG - 2017) Em um triângulo retângulo, a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5, o valor do seno desse mesmo ângulo é", FALSE, "2022-01-05", 1, 
-(SELECT id FROM sub_categoria WHERE nome = "TRIGONOMETRIA"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "TRIGONOMETRIA"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("4/5", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("√5/4", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("√5/5", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("2√5/5", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND texto LIKE "%a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5%"), TRUE);
 
 
 -- VALENTINA, PORTUGUÊS, LITERATURA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(UFRN) A obra de Gregório de Matos – autor que se destaca na literatura barroca brasileira – compreende:", FALSE, "2019-11-20", 2, 
-(SELECT id FROM sub_categoria WHERE nome = "LITERATURA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "LITERATURA"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Poesia épico-amorosa e obras dramáticas.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Poesia satírica e contos burlescos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Poesia lírica, de caráter religioso e amoroso, e poesia satírica.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Poesia confessional e autos religiosos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Poesia lírica e teatro de costumes.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFRN) A obra de Gregório de Matos – autor que se destaca%"), TRUE);
 
 -- VALENTINA, BIOLOGIA, GENÉTICA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("Sobre a recombinação gênica é correto afirmar que:", FALSE, "2012-06-05", 2, 
-(SELECT id FROM sub_categoria WHERE nome = "GENÉTICA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "GENÉTICA"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A recombinação gênica pode ser homóloga ou heteróloga.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A principal diferença entre os tipos de recombinação é que ocorrem em etapas diferentes da mitose.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A recombinação gênica é classificada em homóloga e não-homóloga.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Enquanto um tipo de recombinação permite a variabilidade, o outro tipo apresenta limitações.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%Sobre a recombinação gênica é correto afirmar que:%"), TRUE);
 
 -- VALENTINA, QUIMICA, TERMOQUÍMICA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações químicas, pode-se afirmar:", FALSE, "2015-07-06", 2, 
-(SELECT id FROM sub_categoria WHERE nome = "TERMOQUÍMICA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "TERMOQUÍMICA"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A queima da parafina de uma vela exemplifica um processo endotérmico.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A vaporização da água de uma piscina pela ação da luz solar exemplifica um processo endotérmico.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A combustão do álcool hidratado em motores de automóveis exemplifica um processo endotérmico.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("A formação de um iceberg a partir da água do mar exemplifica um processo endotérmico.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O valor de ΔH de uma transformação depende exclusivamente do estado físico dos reagentes.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND texto LIKE "%(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações%"), TRUE);
 
 
 -- jOSÉ, FISICA, TERMODINÂMICA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico. Sobre a energia cinética média e sobre a velocidade média das moléculas de cada gás, pode-se concluir que:", FALSE, "2018-03-27", 3, 
-(SELECT id FROM sub_categoria WHERE nome = "TERMODINÂMICA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "TERMODINÂMICA"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("as moléculas de H2  e N2  tem a mesma energia cinética média e a mesma velocidade média.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ambas tem a mesma velocidade média, mas as moléculas de N2 tem maior energia cinética média.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ambas tem a mesma velocidade média, mas as moléculas de H2 tem maior energia cinética média.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ambas tem a mesma energia cinética média, mas as moléculas de N2 tem maior velocidade média.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ambas tem a mesma energia cinética média, mas as moléculas de H2 tem maior velocidade média.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico%"), TRUE);
 
 -- jOSÉ, EDUCAÇÃO FISICA, GINÁSTICA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("Quais são as ginásticas competitivas?", FALSE, "2015-09-10", 3, 
-(SELECT id FROM sub_categoria WHERE nome = "GINÁSTICA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "GINÁSTICA"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Contorcionismo, ginástica cerebral, ginástica laboral e hidroginástica.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ginástica de trampolim, ginástica rítmica, ginástica artística e ginástica acrobática", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ginástica cerebral, ginástica artística, ginástica laboral e ginástica de trampolim.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Contorcionismo,ginástica rítmica, ginástica cerebral.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Ginástica rítmica, ginástica artística e ginástica acrobática.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%Quais são as ginásticas competitivas?%"), TRUE);
 
 -- jOSÉ, ARTES, BARROCO
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII. Na arte e na economia suas expressões foram respectivamente:", FALSE, "2019-05-06", 3, 
-(SELECT id FROM sub_categoria WHERE nome = "BARROCO")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "BARROCO"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("rococó e liberalismo.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("renascentismo e capitalismo.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("barroco e mercantilismo.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("maneirismo e colonialismo.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("classicismo e economicismo.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND texto LIKE "%(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII.%"), TRUE);
 
 
 -- ANDRÉ, SOCIOLOGIA, INTRODUÇÃO A SOCIOLOGIA
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental na constituição da sociologia como ramo científico. Sobre essa corrente de pensamento, que reunia autores como Augusto Comte e Herbert Spencer, assinale o que for correto.", FALSE, "2011-02-17", 4, 
-(SELECT id FROM sub_categoria WHERE nome = "INTRODUÇÃO A SOCIOLOGIA")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "INTRODUÇÃO A SOCIOLOGIA"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O evolucionismo define que as estruturas, naturais ou sociais, passam por processo de diferenciação e integração que levam ao seu aprimoramento.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O evolucionismo propõe que a evolução das sociedades ocorre em estágios sucessivos de racionalização. ", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O evolucionismo considera o Estado Militar como a forma mais evoluída de organização social, fundamentada na cooperação interna e obrigatória. ", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O evolucionismo rejeita o modelo político e econômico liberal, baseado na livre iniciativa e no laissez-faire, considerando-o uma orientação contrária à evolução social.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O evolucionismo defende a unidade biológica e cognitiva da espécie humana, independente de variações particulares.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental%"), TRUE);
 
 -- ANDRÉ, FILOSOFIA, SÓCRATES
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental, contribuindo para compreender o mundo e a sua complexidade.Sócrates, um dos seus filósofos mais conhecidos:", FALSE, "2016-05-19", 4, 
-(SELECT id FROM sub_categoria WHERE nome = "SÓCRATES")); 
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "SÓCRATES"), TRUE); 
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Defendeu a existência da democracia e a organização de uma Assembleia Popular para definir o governo ateniense.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Polemizou com os filósofos sofistas que defendiam princípios religiosos diferentes dos princípios gregos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Teve muitas das suas teorias incorporadas ao pensamento idealista de Platão, outro grande pensador grego.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Foi contra as reformas políticas defendidas por Aristóteles, pois era favorável à existência de um governo democrático.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Propagou a necessidade do fortalecimento militar de Atenas, para evitar os ataques dos inimigos asiáticos.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental,%"), TRUE);
 
 -- ANDRÉ, INGLÊS, VERB TO BE
-INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria) VALUES 
+INSERT INTO pergunta (texto, visibilidade_privada, data_criacao, id_usuario_proprietario, id_sub_categoria, status_ativo) VALUES 
 ("Em relação à frase Is it that difficult? é correto afirmar que:", FALSE, "2013-09-13", 4, 
-(SELECT id FROM sub_categoria WHERE nome = "VERB TO BE"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM sub_categoria WHERE nome = "VERB TO BE"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O verbo to be está no passado.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("O verbo to be está na primeira pessoa.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Pode ser respondida com yes, it is.", TRUE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"));
-INSERT INTO alternativa (texto, status_correta, id_pergunta) VALUES 
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"), TRUE);
+INSERT INTO alternativa (texto, status_correta, id_pergunta, status_ativo) VALUES 
 ("Pode ser respondida com no, it is.", FALSE, 
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"));
+(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND texto LIKE "%Em relação à frase Is it that difficult? é correto afirmar que:%"), TRUE);
 
 
 -- QUIZZES

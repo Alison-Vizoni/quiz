@@ -54,6 +54,7 @@ public class PerguntaController implements Serializable {
 	private PerguntaDao perguntaDao;
 	private Categoria categoria;
 	private Pergunta pergunta;
+	private String refinaBusca;
 
 	private Long contadorId = 0L;
 	private Session sessao;
@@ -63,7 +64,7 @@ public class PerguntaController implements Serializable {
 	public PerguntaController() {
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
-                buscarPerguntasElaboradasPeloUsuario();
+//                buscarPerguntasElaboradasPeloUsuario();
 	}
 
 	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
@@ -224,12 +225,13 @@ public class PerguntaController implements Serializable {
 
 	public void buscarPerguntasElaboradasPeloUsuario() {
 		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
-
-		Long idUsuarioLogado = 1L;
+		
+		// TODO implementar metodo
+		Long idUsuarioLogado = 2L;
 
 		try {
 			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(2L, sessao);
+			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(idUsuarioLogado, sessao);
 			modelPerguntas = new ListDataModel<>(perguntas);
 		} catch (HibernateException e) {
 			logger.error("erro na busca de perguntas por usuario " + e.getMessage());
@@ -238,19 +240,24 @@ public class PerguntaController implements Serializable {
 		}
 	}
 
-//	public void buscaPerguntasComFiltro() {
-//		logger.info("método - buscaPerguntasComFiltro()");
-//
-//		try {
-//			sessao = HibernateUtil.abrirSessao();
-//			perguntas = perguntaDao.buscaPerguntasComFiltro(subCategoria.getId(), sessao);
-//			modelPerguntas = new ListDataModel<>(perguntas);
-//		} catch (HibernateException e) {
-//			logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-//		} finally {
-//			sessao.close();
-//		}
-//	}
+	public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
+		logger.info("método - buscaPerguntasComFiltro()");
+
+		if (id_categoria != null) {
+			try {
+				sessao = HibernateUtil.abrirSessao();
+				perguntas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
+				modelPerguntas = new ListDataModel<>(perguntas);
+			} catch (HibernateException e) {
+				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+			} finally {
+				sessao.close();
+			}
+		} else {
+			perguntas = null;
+			modelPerguntas = new ListDataModel<>(perguntas);
+		}
+	}
 
 	// GETTERS AND SETTERS
 	
@@ -355,6 +362,14 @@ public class PerguntaController implements Serializable {
 
 	public void setAlter(Alternativa alter) {
 		this.alter = alter;
+	}
+
+	public String getRefinaBusca() {
+		return refinaBusca;
+	}
+
+	public void setRefinaBusca(String refinaBusca) {
+		this.refinaBusca = refinaBusca;
 	}
 
 }

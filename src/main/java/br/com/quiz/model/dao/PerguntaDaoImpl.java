@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 
+import antlr.StringUtils;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 
@@ -65,10 +66,40 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
     }
 
 	@Override
-	public List<Pergunta> buscaPerguntasComFiltro(Long id, Session sessao) {
-		// TODO Auto-generated method stub
-		return null;
-	}  
+	public List<Pergunta> buscaPerguntasComFiltro(Long idCategoria, Long idSubCategoria, String refinarBusca, Session sessao) {
+		logger.info("método buscarPerguntasElaboradosPeloUsuario()");
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT DISTINCT p FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
+		sql.append(" WHERE 1=1 ");
+		
+		if (idCategoria != null) {			
+			sql.append(" AND cat.id = :idCategoria ");
+		}
+		
+		if (idSubCategoria != null) {
+			sql.append(" AND sub.id = :idSubCategoria ");
+		}
+		
+		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+			sql.append(" AND (p.texto LIKE :refinarBusca OR a.texto LIKE :refinarBusca) ");
+		}
+		
+		Query consulta = sessao.createQuery(sql.toString());
+		
+		if (idCategoria != null) {
+			consulta.setParameter("idCategoria", idCategoria);
+		}
+		
+		if (idSubCategoria != null) {
+			consulta.setParameter("idSubCategoria", idSubCategoria);
+		}
+		
+		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+			consulta.setParameter("refinarBusca", "%" + refinarBusca + "%");
+		}
+		
+        return consulta.list();
+	}
     
     
 }
