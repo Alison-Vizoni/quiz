@@ -15,4 +15,8 @@ import br.com.quiz.model.entidade.AplicacaoQuiz;
 public interface AplicacaoQuizDao extends BaseDao<AplicacaoQuiz, Long>{
 	
 	AplicacaoQuiz pesquisarPorId(Long id, Session sessao);
+
+	boolean verificarPermissaoParaResponderAplicacaoQuiz(Long idAplicacaoQuiz, String email, Session sessao);
+
+	boolean usuarioJaRespondeuQuiz(Long idAplicacaoQuiz, Long idUsuario, Session sessao);
 }
