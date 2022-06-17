@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,7 @@ public class AplicacaoQuizDaoImplTest {
     @Test
     public void testAlterar(){
         LOG.info("test alterar aplicacao quiz");
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         buscarAplicacaoQuizNoBancoDeDados();
         aplicacaoQuiz.setDataAplicacao(Date.from(Instant.now()));
         
@@ -80,7 +82,7 @@ public class AplicacaoQuizDaoImplTest {
         AplicacaoQuiz aplicacaoQuizAlterada = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
         sessao.close();
         
-        assertEquals(aplicacaoQuiz.getDataAplicacao(), aplicacaoQuizAlterada.getDataAplicacao());
+        assertEquals(formatador.format(aplicacaoQuiz.getDataAplicacao()), aplicacaoQuizAlterada.getDataAplicacao().toString());
     }
     
     @Test
