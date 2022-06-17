@@ -29,17 +29,14 @@ public class UsuarioController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Usuario usuario;
-//    private Login login;
     private UsuarioBO usuarioBO;
-//    private LoginDao loginDao;
     private UsuarioDao usuarioDao;
     private Session sessao;
+    private String confirmarSenha;
 
     public UsuarioController() {
         usuarioDao = new UsuarioDaoImpl();
- //       loginDao = new LoginDaoImpl();
     }
-     
 
     public void salvar() {
         sessao = HibernateUtil.abrirSessao();
@@ -47,11 +44,15 @@ public class UsuarioController implements Serializable{
         try {
             if (usuarioBO.existeEmail(usuario.getEmail(), sessao)) {
                 Mensagem.erro("Email já cadastrado");
-            } else {    
-                usuario.setLogin(usuario.getEmail());
+            } else if (!this.validarSenha()){
+            	Mensagem.erro("Senha incorreta");
+            } else {
+            	usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
+            	// TODO criar campo de nome, cpf e telefone ao cadastrar
+            	usuario.setCpf("14785236985");
+            	usuario.setNome("Alison Vizoni");
                 usuarioDao.salvarOuAlterar(usuario, sessao);
             }
-
         } catch (HibernateException e) {
             System.err.println("Erro ao salvar " + e.getMessage());
         } finally {
@@ -59,7 +60,14 @@ public class UsuarioController implements Serializable{
         }
     }
 
-    public Usuario getUsuario() {
+	private boolean validarSenha() {
+		if (confirmarSenha != null && confirmarSenha.equals(usuario.getSenha())) {
+			return true;
+		}
+		return false;
+	}
+
+	public Usuario getUsuario() {
         usuario = usuario == null ? new Usuario() : usuario;
         return usuario;
     }
@@ -68,13 +76,11 @@ public class UsuarioController implements Serializable{
         this.usuario = usuario;
     }
 
-//    public Login getLogin() {
-//        login = login == null ? new Login() : login;
-//        return login;
-//    }
-//
-//    public void setLogin(Login login) {
-//        this.login = login;
-//    }
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
 
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
+	}
 }

@@ -17,31 +17,31 @@
                         </div>
                         <div class="formBx">
 							<h:form class="form-primeface" >                            	
+	                            <p:focus context="panel_entrar"/>
 	                            <p:messages id="messages" showDetail="true" closable="true" >
 				                        <p:autoUpdate />
 				                </p:messages>
-                            
-                                <h2 class="login-title">Bem Vindo</h2>
-                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}"/>
-                                <p:inputText type="password" placeholder="Senha"  value="#{loginC.usuario.senha}" />
-                                <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
-                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
-                                
+                            	<h:panelGrid id="panel_entrar">
+	                                <h2 class="login-title">Bem Vindo</h2>
+	                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}" required="true"/>
+	                                <p:inputText type="password" placeholder="Senha" value="#{loginC.usuario.senha}" required="true"/>
+	                                <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
+	                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
+                                </h:panelGrid>
                             </h:form>
-
                         </div>
                     </div>
                     <div>
                         <div class="user signupBx">
                             <div class="formBx">
                                 <h:form id="formTeste">
-                                    <h2 class="login-title">Criar uma conta</h2>
-                                    <p:inputText type="text" placeholder="Usuário"/>
-                                    <p:inputText type="text" placeholder="Email"/>
-                                    <p:inputText type="password" placeholder="Senha"/>
-                                    <p:inputText type="password" placeholder="Confirmar Senha"/>
-                                    <h:commandButton type="submit" value='Entrar'/>
-                                    <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
+	                                <h2 class="login-title">Criar uma conta</h2>
+	                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}" required="true"/>
+	                                <p:inputText type="text" placeholder="Email" value="#{usuarioC.usuario.email}" required="true"/>
+	                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" required="true"/>
+	                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}" required="true"/>
+	                                <h:commandButton action="#{usuarioC.salvar()}" type="submit" value='Cadastrar'/>
+	                                <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
                                 </h:form>
                             </div>
                             <div class="imgBx">

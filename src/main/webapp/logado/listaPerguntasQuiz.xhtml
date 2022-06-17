@@ -22,27 +22,20 @@
                             </div>       
                             <div style="width: 150px; height: 100%; display: flex; justify-content: center; margin: 10px; align-items: center">
 
-                                <h:commandButton
-
-                                    style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold;
+                                <h:commandButton style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold;
                                     color:white; background-color: #{pergunta.statusAtivo ? 'rgba(130,75,173,1)' : 'rgb(114 100 124)'}"
                                     value="RESPONDER"
                                     action="#{aplicacaoQuizC.responderPergunta(pergunta.id)}"
-                                    disabled="#{!pergunta.statusAtivo}"
-                                    >
+                                    disabled="#{!pergunta.statusAtivo}">
                                 </h:commandButton>
                             </div>
-
                         </div>
-
                     </p:repeat>
                     <button
                         type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                        style="height: 60px; width:180px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1)"
-
+                        style="height: 60px; width:180px; border-radius: 10px;
+                        font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1)"
                         >FINALIZAR QUIZ</button>
-                   
-                   	               
 
                     <!-- MODAL CONFIRMA INCLUSÃO DE QUIZ  -->
 
@@ -57,13 +50,10 @@
                                 <div class="modal-footer" style="display:flex; justify-content: space-around;">
                                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" style="border-radius: 20px; padding: 7px 25px">
                                         Continuar
-
                                     </button>
                                     <p:commandButton value="Finalizar Quiz" 
                                                      action="#{aplicacaoQuizC.finalizarQuiz()}"
-                                                     styleClass="rounded-button ui-button-outline/"
-                                                     
-                                                     >
+                                                     styleClass="rounded-button ui-button-outline/">
                                     </p:commandButton>
                                 </div>
                             </div>

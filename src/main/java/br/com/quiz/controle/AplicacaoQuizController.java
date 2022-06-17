@@ -95,7 +95,6 @@ public class AplicacaoQuizController implements Serializable {
                     perguntas.get(i).setStatusAtivo(false);
                 }
             }
-
         }
     }
 
@@ -135,11 +134,9 @@ public class AplicacaoQuizController implements Serializable {
             for (AplicacaoQuizResultado resultado : resultados) {
                 if (perguntas.get(i).getId() == resultado.getAlternativa().getPergunta().getId()) {
                     perguntas.remove(i);
-
                 }
             }
         }
-
     }
 
     public Alternativa salvaAlternativaErrada(List<Alternativa> alternativas) {
@@ -151,7 +148,6 @@ public class AplicacaoQuizController implements Serializable {
                 break;
             }
         }
-
         return alternativaErrada;
     }
 
@@ -164,20 +160,16 @@ public class AplicacaoQuizController implements Serializable {
             if (perguntas.get(i).getStatusAtivo()) {
                 foiFinalizado = false;
                 break;
-
             }
         }
         return foiFinalizado;
     }
 
-    ;
     public String responderPergunta(int idPergunta) {
         logger.info("entrou no responderPergunta()");
 
         if (validaPerguntaResponder(idPergunta)) {
-            FacesContext
-                    .getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Pergunta já foi respondida", "Está pergunta já foi respondida"));
+            Mensagem.erro("Está pergunta já foi respondida");
             return "";
         } else {
             for (int i = 0; i < perguntas.size(); i++) {
@@ -188,7 +180,6 @@ public class AplicacaoQuizController implements Serializable {
             }
             return "responderQuiz";
         }
-
     }
 
     public String enviarResposta(Alternativa alternativa) {
@@ -219,12 +210,12 @@ public class AplicacaoQuizController implements Serializable {
     private boolean validaQuizInicio(AplicacaoQuiz aplicacao) {
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
         sessao = HibernateUtil.abrirSessao();
-        List<AplicacaoQuizResultado> aplicacaoQuizResultado = aplicacaoQuizResultadoDao.pesquisarPorId(aplicacao.getId(), LoginController.usuarioSessao().getId(), sessao);
+        List<AplicacaoQuizResultado> aplicacaoQuizResultado = aplicacaoQuizResultadoDao.pesquisarPorId(
+        		aplicacao.getId(), LoginController.usuarioSessao().getId(), sessao);
         sessao.close();
         return aplicacaoQuizResultado.size() == aplicacao.getQuiz().getPerguntas().size();
     }
 
-//	
     public AplicacaoQuizDaoImpl getAplicacaoQuizDao() {
         return AplicacaoQuizDao;
     }
