@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -42,9 +43,7 @@ public class AplicacaoQuizDaoImplTest {
 	public void testSalvar(){
         LOG.info("Test salvar aplicacao quiz");
         
-        aplicacaoQuiz = new AplicacaoQuiz(
-        		Date.from(Instant.now()),
-        		gerarCaracter(20));
+        aplicacaoQuiz = new AplicacaoQuiz(Date.from(Instant.now()));
         
         aplicacaoQuiz.setQuiz(quiz);
         aplicacaoQuiz.setUsuarioAplicador(usuario);
@@ -71,8 +70,9 @@ public class AplicacaoQuizDaoImplTest {
     @Test
     public void testAlterar(){
         LOG.info("test alterar aplicacao quiz");
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         buscarAplicacaoQuizNoBancoDeDados();
-        aplicacaoQuiz.setDescricao(gerarCaracter(20));
+        aplicacaoQuiz.setDataAplicacao(Date.from(Instant.now()));
         
         sessao = HibernateUtil.abrirSessao();
         aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
@@ -82,16 +82,14 @@ public class AplicacaoQuizDaoImplTest {
         AplicacaoQuiz aplicacaoQuizAlterada = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
         sessao.close();
         
-        assertEquals(aplicacaoQuiz.getDescricao(), aplicacaoQuizAlterada.getDescricao());
+        assertEquals(formatador.format(aplicacaoQuiz.getDataAplicacao()), aplicacaoQuizAlterada.getDataAplicacao().toString());
     }
     
     @Test
     public void testExcluir(){
         LOG.info("Test excluir aplicacao quiz");
         
-        aplicacaoQuiz = new AplicacaoQuiz(
-        		Date.from(Instant.now()),
-        		gerarCaracter(20));
+        aplicacaoQuiz = new AplicacaoQuiz(Date.from(Instant.now()));
         
         aplicacaoQuiz.setQuiz(quiz);
         aplicacaoQuiz.setUsuarioAplicador(usuario);

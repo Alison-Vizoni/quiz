@@ -7,6 +7,7 @@ package br.com.quiz.model.dao;
 import java.io.Serializable;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.quiz.model.entidade.AplicacaoQuiz;
@@ -26,4 +27,39 @@ public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long>
         return (AplicacaoQuiz) sessao.get(AplicacaoQuiz.class, id);
     }
 
+	@Override
+	public boolean verificarPermissaoParaResponderAplicacaoQuiz(Long idAplicacaoQuiz, String email, Session sessao) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT DISTINCT ap FROM AplicacaoQuiz ap JOIN ap.emails em ");
+		sql.append(" WHERE ap.id = :idAplicacaoQuiz ");
+		sql.append(" AND em = :email ");
+		
+		Query consulta = sessao.createQuery(sql.toString());
+		
+		consulta.setParameter("idAplicacaoQuiz", idAplicacaoQuiz);
+		consulta.setParameter("email", email);
+		
+		if (consulta.list().isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean usuarioJaRespondeuQuiz(Long idAplicacaoQuiz, Long idUsuario, Session sessao) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT DISTINCT ap FROM AplicacaoQuizResultado ap ");
+		sql.append(" WHERE ap.id.idAplicacaoQuiz = :idAplicacaoQuiz ");
+		sql.append(" AND ap.id.idUsuario = :idUsuario ");
+		
+		Query consulta = sessao.createQuery(sql.toString());
+		
+		consulta.setParameter("idAplicacaoQuiz", idAplicacaoQuiz);
+		consulta.setParameter("idUsuario", idUsuario);
+		
+		if (consulta.list().isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 }
