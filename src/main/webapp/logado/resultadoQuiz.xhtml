@@ -8,16 +8,16 @@
 
     <ui:define name="content">
         <div class="container_responder_inicio">
+
             <h:form >
                 <div class="container_responder_card">
                     <p:messages style="width: 80%" id="messages"  showDetail="true" closable="true">
                         <p:autoUpdate/>
                     </p:messages>
-                    <h1>Olá #{loginC.usuarioLogado.nome}</h1>
-                    <h2>Digite o código do quiz</h2>
-                    <p:inputText placeholder="Código" value="#{aplicacaoQuizC.aplicacaoQuiz.id}" />
-                    <h:commandButton action="#{aplicacaoQuizC.validaAcessoQuiz}"
-                        style="height: 60px; width:180px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1)" value="Entrar"/>
+                    <h1>Essa é sua pontuação #{loginC.usuarioLogado.nome}</h1>
+                    <h2>#{aplicacaoQuizC.resultadoFinal()}</h2>
+                    <h:commandButton action="inicioResponderQuiz"
+                        style="height: 60px; width:180px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1)" value="Voltar ao início"/>
                     
                 </div>
             </h:form>
