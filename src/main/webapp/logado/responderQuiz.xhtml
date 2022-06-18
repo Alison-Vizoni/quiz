@@ -7,9 +7,19 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
             
     <ui:define name="content">
-        <div class="container_responder_final">
+        <div class="container_responder_final" onloadstart="#{aplicacaoQuizC.validaPerguntaResponderRedirect(aplicacaoQuizC.pergunta.id)}">
             <h:form >
                 <div class="container_pergunta_texto">
+                    <div style="display: flex;justify-content: space-evenly;position: absolute; left: 3%; top: 10%; padding: 5px;width: 100px;cursor: pointer;">
+                        <p:commandButton
+    
+                            value="Voltar"
+                            icon="pi pi-arrow-left" 
+                            style="color: white"
+                            styleClass="rounded-button ui-button-outlined"
+                            action="#{aplicacaoQuizC.voltaListaPerguntas()}"
+                            />
+                    </div>
                     <h1>#{aplicacaoQuizC.pergunta.texto}</h1>
                 </div>
                 <div class="container_pergunta_alternativas">
@@ -17,7 +27,7 @@
                         <p:repeat value="#{aplicacaoQuizC.pergunta.alternativas}" var="alternativa" varStatus="card">
                             <h:commandButton
                                 value="#{alternativa.texto}"
-                                style="text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold;
+                                style="font-size: 22px;color:black;text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold;
                                 height: 200px; width: 50%;background: #{aplicacaoQuizC.random_rgba(card.index)}"
                                 action="#{aplicacaoQuizC.enviarResposta(alternativa)}"
                                 />
