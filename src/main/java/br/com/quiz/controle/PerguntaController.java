@@ -257,6 +257,16 @@ public class PerguntaController implements Serializable {
 			modelPerguntas = new ListDataModel<>(perguntas);
 		}
 	}
+        
+        
+        public void buscaPerguntaPorId(Long idPergunta){
+            logger.info("método - buscaPerguntaPorId()");
+            sessao = HibernateUtil.abrirSessao();
+            pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
+            System.out.println(pergunta);
+            sessao.close();
+            
+        }
 
 	// GETTERS AND SETTERS
 	

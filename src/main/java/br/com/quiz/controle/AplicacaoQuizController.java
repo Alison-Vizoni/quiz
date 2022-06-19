@@ -79,8 +79,15 @@ public class AplicacaoQuizController implements Serializable {
     public void pesquisaQuiz() {
         logger.info("entrou no pesquisaQuiz()");
         sessao = HibernateUtil.abrirSessao();
-        verificaPerguntasFinalizadas();
-        quizFinalizou = verificaPerguntaFinalizado();
+        try {
+            verificaPerguntasFinalizadas();
+            quizFinalizou = verificaPerguntaFinalizado();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            sessao.close();
+        }
+
     }
 
     public void verificaPerguntasFinalizadas() {
@@ -121,15 +128,21 @@ public class AplicacaoQuizController implements Serializable {
         removerPerguntasJaSalvadas();
 
         for (int i = 0; i < perguntas.size(); i++) {
-            sessao = HibernateUtil.abrirSessao();
-            aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
-            aplicacaoQuizResultado = new AplicacaoQuizResultado(Date.from(Instant.now()));
-            aplicacaoQuizResultado.setUsuario(LoginController.usuarioSessao());
-            aplicacaoQuizResultado.setAplicacaoQuiz(aplicacaoQuiz);
-            aplicacaoQuizResultado.setAlternativa(salvaAlternativaErrada(perguntas.get(i).getAlternativas()));
-            sessao = HibernateUtil.abrirSessao();
-            aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
-            sessao.close();
+            try {
+                aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
+                aplicacaoQuizResultado = new AplicacaoQuizResultado(Date.from(Instant.now()));
+                aplicacaoQuizResultado.setUsuario(LoginController.usuarioSessao());
+                aplicacaoQuizResultado.setAplicacaoQuiz(aplicacaoQuiz);
+                aplicacaoQuizResultado.setAlternativa(salvaAlternativaErrada(perguntas.get(i).getAlternativas()));
+                sessao = HibernateUtil.abrirSessao();
+                aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
+
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            } finally {
+               
+            }
+
         }
 
         return "resultadoQuiz.html?faces-redirect=true";
@@ -219,11 +232,18 @@ public class AplicacaoQuizController implements Serializable {
         return "#e98787";
     }
 
-    public String resultadoFinal() {
+    public String resultadoFinal(Long idQuiz) {
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
         sessao = HibernateUtil.abrirSessao();
-        List<AplicacaoQuizResultado> aplicacaoQuizResultado = aplicacaoQuizResultadoDao
-                .pesquisarPorId(aplicacaoQuiz.getId(), LoginController.usuarioSessao().getId(), sessao);
+        List<AplicacaoQuizResultado> aplicacaoQuizResultado = null;
+        try {
+            aplicacaoQuizResultado = aplicacaoQuizResultadoDao
+                    .pesquisarPorId(idQuiz == null ? aplicacaoQuiz.getId() : idQuiz, LoginController.usuarioSessao().getId(), sessao);
+        } catch (Exception e) {
+        } finally {
+            sessao.close();
+        }
+
         aplicacaoQuiz = null;
         return formataRespostaFinal(aplicacaoQuizResultado);
     }

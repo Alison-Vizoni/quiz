@@ -8,60 +8,60 @@
 
     <ui:define name="content">      
 
-            <link rel="stylesheet" href="resources/senac/styles/custom.css"/>
-            <section class="principal">
-                <div class="container">
-                    <div class="user signinBx">
-                        <div class="imgBx">
-                            <img class="imgBx" src="./resources/senac/images/login.jpeg"/>
-                        </div>
+        <link rel="stylesheet" href="resources/senac/styles/custom.css"/>
+        <section class="principal">
+            <div class="container">
+                <div class="user signinBx">
+                    <div class="imgBx">
+                        <img class="imgBx" src="./resources/senac/images/login.jpeg"/>
+                    </div>
+                    <div class="formBx">
+                        <h:form class="form-primeface" >                            	
+                            <p:focus context="panel_entrar"/>
+                            <p:messages id="messages" showDetail="true" closable="true" >
+                                <p:autoUpdate />
+                            </p:messages>
+                            <h:panelGrid id="panel_entrar">
+                                <h2 class="login-title">Bem Vindo</h2>
+                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}" required="true"/>
+                                <p:inputText type="password" placeholder="Senha" value="#{loginC.usuario.senha}" required="true"/>
+                                <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
+                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                </div>
+                <div>
+                    <div class="user signupBx">
                         <div class="formBx">
-							<h:form class="form-primeface" >                            	
-	                            <p:focus context="panel_entrar"/>
-	                            <p:messages id="messages" showDetail="true" closable="true" >
-				                        <p:autoUpdate />
-				                </p:messages>
-                            	<h:panelGrid id="panel_entrar">
-	                                <h2 class="login-title">Bem Vindo</h2>
-	                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}" required="true"/>
-	                                <p:inputText type="password" placeholder="Senha" value="#{loginC.usuario.senha}" required="true"/>
-	                                <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
-	                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
-                                </h:panelGrid>
+                            <h:form id="formTeste">
+                                <h2 class="login-title">Criar uma conta</h2>
+                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}" required="true"/>
+                                <p:inputText type="text" placeholder="Email" value="#{usuarioC.usuario.email}" required="true"/>
+                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" required="true"/>
+                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}" required="true"/>
+                                <h:commandButton action="#{usuarioC.salvar()}" type="submit" value='Cadastrar'/>
+                                <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
                             </h:form>
                         </div>
-                    </div>
-                    <div>
-                        <div class="user signupBx">
-                            <div class="formBx">
-                                <h:form id="formTeste">
-	                                <h2 class="login-title">Criar uma conta</h2>
-	                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}" required="true"/>
-	                                <p:inputText type="text" placeholder="Email" value="#{usuarioC.usuario.email}" required="true"/>
-	                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" required="true"/>
-	                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}" required="true"/>
-	                                <h:commandButton action="#{usuarioC.salvar()}" type="submit" value='Cadastrar'/>
-	                                <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
-                                </h:form>
-                            </div>
-                            <div class="imgBx">
-                                <img src="./resources/senac/images/logout.jpeg"/>
-                            </div>
+                        <div class="imgBx">
+                            <img src="./resources/senac/images/logout.jpeg"/>
                         </div>
                     </div>
                 </div>
-                
-                 <script>
-	                const toogle = () => {
-	                    let container = document.querySelector('.container');
-	                    let section = document.querySelector('section');
-	                    container.classList.toggle('active');
-	                    section.classList.toggle('active');
-	                }
-	                
-	             </script>
+            </div>
 
-            </section>        
+            <script>
+                const toogle = () => {
+                    let container = document.querySelector('.container');
+                    let section = document.querySelector('section');
+                    container.classList.toggle('active');
+                    section.classList.toggle('active');
+                }
+
+            </script>
+
+        </section>        
 
     </ui:define>
 

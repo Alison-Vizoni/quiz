@@ -26,7 +26,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INDUSTRIALIZAÇÃO E COM
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOPOLÍTICA", 1);
 
 -- HISTÓRIA
-INSERT INTO categoria (nome) VALUES ("HISTÓRIA");
+INSERT INTO categoria (nome) VALUES ("HISTORIA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FEUDALISMO", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ABSOLUTISMO", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CIVILIZAÇÕES PRÉ-COMLOMBIANAS", 2);
@@ -37,7 +37,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ERA VARGAS", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PROCESSO DE IDEPENDENCIA DO BRASIL", 2);
 
 -- MATEMÁTICA
-INSERT INTO categoria (nome) VALUES ("MATEMÁTICA");
+INSERT INTO categoria (nome) VALUES ("MATEMATICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("TRIGONOMETRIA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOMETRIA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PORCENTAGEM", 3);
@@ -48,7 +48,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ALGEBRA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INTRODUÇÃO AO CÁLCULO", 3);
 
 -- PORTUGUÊS
-INSERT INTO categoria (nome) VALUES ("PORTUGUÊS");
+INSERT INTO categoria (nome) VALUES ("PORTUGUES");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LITERATURA", 4);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LINGUÍSTICA", 4);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GRAMÁTICA", 4);
@@ -68,7 +68,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("BIOLOGIA MOLECULAR", 5);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("DETERMINISMO BIOLÓGICO", 5);
 
 -- QUÍMICA
-INSERT INTO categoria (nome) VALUES ("QUÍMICA");
+INSERT INTO categoria (nome) VALUES ("QUIMICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUNÇÕES INORGÂNICAS", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("REAÇÕES INORGÂNICAS", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SOLUÇÕES", 6);
@@ -79,7 +79,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("RADIOATIVIDADE", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUNÇÕES ORGÂNICAS", 6);
 
 -- FÍSICA
-INSERT INTO categoria (nome) VALUES ("FÍSICA");
+INSERT INTO categoria (nome) VALUES ("FISICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("MECÂNICA", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("TERMODINÂMICA", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ÓPTICA", 7);
@@ -88,7 +88,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FÍSICA NUCLEAR", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ASTRONOMIA", 7);
 
 -- EDUCAÇÃO FÍSICA
-INSERT INTO categoria (nome) VALUES ("EDUCAÇÃO FÍSICA");
+INSERT INTO categoria (nome) VALUES ("EDUCACAO FISICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUTEBOL", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LINGUAGENS DO CORPO", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GINÁSTICA", 8);
@@ -127,7 +127,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("A ÉTICA DE SANTO AGOSTI
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CONFÚCIO E SEUS ENSINAMENTOS", 11);
 
 -- INGLÊS
-INSERT INTO categoria (nome) VALUES ("INGLÊS");
+INSERT INTO categoria (nome) VALUES ("INGLES");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("VERB TO BE", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SIMPLE PAST", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT CONTINUOUS", 12);
