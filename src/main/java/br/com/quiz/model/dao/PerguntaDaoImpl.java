@@ -100,6 +100,11 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 		
         return consulta.list();
 	}
+
+    @Override
+    public Pergunta buscaPerguntaPorId(Long idPergunta, Session sessao) {
+            return (Pergunta) sessao.get(Pergunta.class, idPergunta);
+    }
     
     
 }

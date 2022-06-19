@@ -13,52 +13,52 @@
 
         <!-- HEADER --> 
         <p:panel id="combo_busca_questao" styleClass="color"  >
-	        	<h:form id="formCategoria">
-	        		
-		        	<div style="width:100vw; display: flex; flex-direction: column;">
-			        	<div id="filtros_questao" style="display: flex; justify-content: space-between;">
-			        		<!-- CATEGORIA -->
-			        		<div id="combo_categoria" style="margin-right: 5px">	        
-								 <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
-					                                 id="categoria"		                                 
-					                                 filter="true"
-					                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
-					
-					                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-					                    <f:selectItems value="#{categoriaC.comboCategorias}" />
-					                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-					                    <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria"/>
-					            </p:selectOneMenu>
-		                    </div>
-							<!-- SUB-CATEGORIA -->
-							<div id="combo_SubCategoria" style="margin-right: 5px">
-								<p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
-					                                 id="sub_categoria"
-					                                 filter="true"
-					                                 style="width: 35vw; background: #f2f2f2; border-radius:5px">
-					
-					                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
-					                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
-					                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
-			                        	<p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
-			                    </p:selectOneMenu>
-			                </div>
-						    <div id="refina_busca" >
-					       		<p:inputText disabled="#{categoriaC.categoria.id == null ? true : false}" id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
-					       			<f:validateLength minimum="3"/>
-					       			<p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
-					       		</p:inputText>
-						    </div>
-						</div>
-						<div style="display:grid;">
-							
-				        		<p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
-						       			<p:ajax listener="#{quizC.quiz.titulo}"/>
-						       	</p:inputText>
-			        		
-						</div>
-					</div>     
-	        	</h:form>
+            <h:form id="formCategoria">
+
+                <div style="width:100vw; display: flex; flex-direction: column;">
+                    <div id="filtros_questao" style="display: flex; justify-content: space-between;">
+                        <!-- CATEGORIA -->
+                        <div id="combo_categoria" style="margin-right: 5px">	        
+                            <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+                                             id="categoria"		                                 
+                                             filter="true"
+                                             style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+
+                                <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+                                <f:selectItems value="#{categoriaC.comboCategorias}" />
+                                <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <!-- SUB-CATEGORIA -->
+                        <div id="combo_SubCategoria" style="margin-right: 5px">
+                            <p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
+                                             id="sub_categoria"
+                                             filter="true"
+                                             style="width: 35vw; background: #f2f2f2; border-radius:5px">
+
+                                <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+                                <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+                                <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div id="refina_busca" >
+                            <p:inputText disabled="#{categoriaC.categoria.id == null ? true : false}" id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
+                                <f:validateLength minimum="3"/>
+                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                            </p:inputText>
+                        </div>
+                    </div>
+                    <div style="display:grid;">
+
+                        <p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
+                            <p:ajax listener="#{quizC.quiz.titulo}"/>
+                        </p:inputText>
+
+                    </div>
+                </div>     
+            </h:form>
         </p:panel>
 
         <!-- TABELA -->

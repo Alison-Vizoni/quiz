@@ -21,4 +21,6 @@ public interface AplicacaoQuizResultadoDao extends BaseDao<AplicacaoQuizResultad
 	List<AplicacaoQuizResultado> pesquisarPorId(Long idAplicacaoQuiz, Long idUsuario, Session sessao);
 
 	AplicacaoQuizResultado pesquisarPorId(Long idAplicacaoQuiz, Long idUsuario, Long idAlternativa, Session sessao);
+        
+    List<AplicacaoQuizResultado> pesquisarPorIdUsuario(Long idUsuario, Session sessao);
 }
