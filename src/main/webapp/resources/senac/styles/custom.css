@@ -1410,6 +1410,7 @@ body .ui-panel .ui-panel-content{
 	border-radius: 15px; 
 	padding: 5px; 
 	background-color: #E8E2EA;
+	overflow: hidden;
 }
 
 
