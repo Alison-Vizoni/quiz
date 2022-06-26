@@ -164,6 +164,19 @@
                     </div>
                   </p:column>
                 </p:outputPanel>
+<!--                 <p:commandButton icon="pi pi-save" value="Utilizar Quiz"  -->
+<!--                                                          actionListener="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}"  action="logado/final" -->
+<!--                                                          styleClass="rounded-button ui-button-outlined" update=":form:panelPergunta" /> -->
+
+<!-- 					<p:commandButton icon="pi pi-save" -->
+<!--                                        actionListener="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}"   -->
+<!--                                        styleClass="rounded-button ui-button-outlined" update=":form:panelPergunta" > -->
+									<div style="border-radius: 25%; border: 1px solid gray;; width: fit-content; background-color: #E8E8EA; padding: 5px; margin: auto">
+                                       <p:link  outcome="logado/final" value="Cadastrar Quiz" >
+                                       	<p:ajax listener="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}"/>
+                                       </p:link>
+                                   </div>
+<!--                     </p:commandButton> -->
               </p:dialog>
             </section>
 	       </p:panel>         
