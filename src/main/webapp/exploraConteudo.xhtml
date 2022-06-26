@@ -148,7 +148,7 @@
                   <p:column>
                     <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
                       <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
-	                     <div style="margin-top: 35px">
+	                     <div class="separador_questao">
 	                       <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
 	                                       style="float: left; font-weight:bold;" /><br></br>
 	                       <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
@@ -173,9 +173,6 @@
             let quiz_elaborados = document.querySelector('.quiz_elaborados');
             
             quizElaborados.addEventListener('click', () => {
-//                 configuracoes.style.display = 'none';
-//                 quiz_respondidos.style.display = 'none';
-//                 perguntas_elaboradas.style.display = 'none';
                 quiz_elaborados.style.display = 'flex';
             });
 
