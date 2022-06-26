@@ -1395,3 +1395,17 @@ body .ui-panel .ui-panel-content{
     backdrop-filter: brightness(0.5);
     cursor: default;
 }
+
+/* EXPLORA CONTEUDO */
+
+.quiz_elaborados_explora{
+    position: relative;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    height: 80vh;
+    width :80vw;
+}
+
+
