@@ -941,14 +941,6 @@ body .ui-panel .ui-panel-content{
 }
 
 
-
-
-
-
-
-
-
-
 /* MODAL BUSCA DE QUEST�ES */
 
 #botao_seleciona_questao{
@@ -1406,6 +1398,10 @@ body .ui-panel .ui-panel-content{
     flex-wrap: wrap;
     height: 80vh;
     width :80vw;
+}
+
+.ui-panel .ui-panel-title{
+	color: rgba(114,79,139,1);
 }
 
 

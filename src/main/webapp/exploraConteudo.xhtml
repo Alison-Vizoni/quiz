@@ -11,7 +11,8 @@
         </p:messages>
 
         <!-- HEADER --> 
-        <p:panel id="combo_explora_conteudo" styleClass="color"  header="Explore aqui as PERGUNTAS">
+        <p:panel id="combo_explora_conteudo" styleClass="color"  header="Explore aqui as PERGUNTAS" 
+        			style="margin-top: 35px; text-align: center; color: green" >
           <h:form id="formExploraConteudo">
             <div >
               <div id="filtros_questao" style="display: flex; justify-content: space-between;">
@@ -105,7 +106,7 @@
                       </div>
 
                       <div class="product-grid-item-content">
-                        <div >ALTERNATIVAS</div>
+                        <div style="float:left; font-weight: bolder; margin-top: 10px">ALTERNATIVAS</div>
 
                         <ui:repeat value="#{perguntaC.pergunta.alternativas}" var="alt" varStatus="status">								
                           <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
@@ -121,7 +122,7 @@
          </h:form>
          
          <h:form id="formQuizzes">
-          <p:panel header="Explore aqui os QUIZZES" style="margin-top: 35px">
+          <p:panel header="Explore aqui os QUIZZES" style="margin-top: 35px; text-align: center">
          	<section class="quiz_elaborados_explora">
               <p:repeat value="#{quizC.quizzes}" var="quiz">
                 <div class="quiz_elaborados_container">
@@ -147,16 +148,18 @@
                   <p:column>
                     <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
                       <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
-                        <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
-                                       style="float: left; font-weight:bold " /><br></br>
-                        <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
-
-                          <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
-                                          style="justify-content: left; float: left;color:#{alt.statusCorreta ? 'white': 'black'};
-                                          background-color:#{alt.statusCorreta ? '#5d2d7e': ''}">
-                              - #{alt.texto}
-                          </p:outputLabel><br></br>
-                        </ui:repeat>
+	                     <div style="margin-top: 35px">
+	                       <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
+	                                       style="float: left; font-weight:bold;" /><br></br>
+	                       <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
+	
+	                        <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+	                                        style="justify-content: left; float: left;color:#{alt.statusCorreta ? 'white': 'black'};
+	                                        background-color:#{alt.statusCorreta ? '#5d2d7e': ''}">
+	                             - #{alt.texto}
+	                        </p:outputLabel><br></br>
+	                      </ui:repeat>
+                        </div>
                       </ui:repeat>
                     </div>
                   </p:column>
