@@ -137,8 +137,8 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PAST CONTINUOUS", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT PERFECT SIMPLE", 12);
 
 -- OUTROS
-INSERT INTO categoria VALUES ("OUTROS");
-INSERT INTO sub_categoria (nome, id_cateogria) VALUES ("OUTROS", 13);
+INSERT INTO categoria (nome) VALUES ("OUTROS");
+INSERT INTO sub_categoria (nome, id_categoria) VALUES ("OUTROS", 13);
 
 
 
