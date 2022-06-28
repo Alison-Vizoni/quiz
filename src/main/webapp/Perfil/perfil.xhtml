@@ -53,16 +53,18 @@
                             <p:column>
                                 <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
                                     <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
-                                        <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
-                                                       style="float: left; font-weight:bold " /><br></br>
-                                        <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
-
-                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
-                                                            style="justify-content: left; float: left;color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''}">
-                                                - #{alt.texto}
-                                            </p:outputLabel><br></br>
-
-                                        </ui:repeat>
+                                    	<div class="separador_questao" >
+	                                        <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
+	                                                       style="float: left; font-weight:bold " /><br></br>
+	                                        <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
+	
+	                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+	                                                            style="justify-content: left; float: left;color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''}">
+	                                                - #{alt.texto}
+	                                            </p:outputLabel><br></br>
+	
+	                                        </ui:repeat>
+                                        </div>
                                     </ui:repeat>
                                 </div>
                             </p:column> 
@@ -155,23 +157,23 @@
                         <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">
                             <p:column>
                                 <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
-                                    <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
-                                        <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
-                                                       style="float: left; font-weight:bold " /><br></br>
-                                        <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
-
-                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
-                                                            style="justify-content: left; float: left;color:'black'">
-                                                - #{alt.texto}
-                                            </p:outputLabel><br></br>
-
-                                        </ui:repeat>
-                                    </ui:repeat>
+                                   <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
+	                                  <div class="separador_questao" >
+	                                    <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
+	                                                       style="float: left; font-weight:bold " /><br></br>
+	                                      <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
+	
+	                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+	                                                            style="justify-content: left; float: left;color:'black'">
+	                                                - #{alt.texto}
+	                                            </p:outputLabel><br></br>
+	
+	                                    </ui:repeat>
+                                    </div>
+                                  </ui:repeat>
                                 </div>
-                            </p:column> 
-
+                            </p:column>
                         </p:outputPanel>
-
                     </p:dialog>
                 </section>
                 <section style="display:none" class="configuracoes">

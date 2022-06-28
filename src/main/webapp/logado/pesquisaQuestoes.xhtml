@@ -161,12 +161,16 @@
 
                 <!-- REMOVE QUESTÃO DO MODAL E DA LISTA -->
 
-                <p:toolbar>
+                <p:toolbar >
                     <p:toolbarGroup>					                
-                        <p:commandButton icon="pi pi-trash" value="Remover questão" 
+                        <p:commandButton icon="pi pi-trash" value="Remover questão" style="margin-right: 50px"
                                          actionListener="#{quizC.retiraQuestaoVisualizacao()}"
                                          styleClass="rounded-button ui-button-outlined" update=":form:panelQuiz"> 
                         </p:commandButton>
+                        <h:outputText value="Conteúdo Privado: "/>
+		                <p:selectBooleanCheckbox id="visibilidade_privada" value="#{quizC.quiz.visibilidadePrivada}" >
+		                    <p:ajax update="visibilidade_privada"  />
+		                </p:selectBooleanCheckbox>
                     </p:toolbarGroup>		            
                 </p:toolbar>
 
@@ -176,7 +180,7 @@
                              style="text-align:left; width: 88vw; height: 70vh">
 
                     <p:column rendered="#{not empty quizC.modelperguntas}" style="margin-top: 20px; ">
-                        <div class="product"> 
+                        <div class="separador_questao"> 
                             <h:outputLabel value="#{questao.texto}" styleClass="outputLabel"
                                            style="float: left; font-weight:bolder " /><br></br>
                             <ui:repeat value="#{questao.alternativas}" var="alt" varStatus="status">

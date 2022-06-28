@@ -129,6 +129,11 @@ public class QuizController implements Serializable {
             logger.error("Erro ao incluiPergunta - " + e.getMessage());
         }
     }
+    
+    // Adiciona idQuiz escolhido para aplicacao no Explora Conteudo
+    public void adicionaQuizEscolhido(Long idQuizSelecionado) {
+		idQuiz = idQuizSelecionado;
+    }
 
     /* * CRUD * */
     public String salvarQuiz() {

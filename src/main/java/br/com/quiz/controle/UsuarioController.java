@@ -50,7 +50,7 @@ public class UsuarioController implements Serializable{
             	usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
             	// TODO criar campo de nome, cpf e telefone ao cadastrar
             	usuario.setCpf("14785236985");
-            	usuario.setNome("Alison Vizoni");
+            	usuario.setNome(usuario.getLogin());
                 usuarioDao.salvarOuAlterar(usuario, sessao);
             }
         } catch (HibernateException e) {

@@ -32,7 +32,7 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
 
     public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i) {
         logger.info("método buscarQuizPorUsuario()");
-        Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id");
+        Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id AND statusAtivo = true");
         consulta.setParameter("id", i);
         return consulta.list();
     }
@@ -43,13 +43,8 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long>
         consulta.setParameter("id", idQuiz);
         return consulta.list();
     }
-
-    public Quiz pesquisarPorID(Long id, Session sessao) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
         
-    public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {		
-		 
+    public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {
 		return (Long) sessao.save(entidade);
 	}
 

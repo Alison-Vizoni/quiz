@@ -941,14 +941,6 @@ body .ui-panel .ui-panel-content{
 }
 
 
-
-
-
-
-
-
-
-
 /* MODAL BUSCA DE QUEST�ES */
 
 #botao_seleciona_questao{
@@ -1395,3 +1387,30 @@ body .ui-panel .ui-panel-content{
     backdrop-filter: brightness(0.5);
     cursor: default;
 }
+
+/* EXPLORA CONTEUDO */
+
+.quiz_elaborados_explora{
+    position: relative;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    height: 80vh;
+    width :80vw;
+}
+
+.ui-panel .ui-panel-title{
+	color: rgba(114,79,139,1);
+}
+
+.separador_questao{
+	margin-top: 35px; 
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; 
+	border-radius: 15px; 
+	padding: 5px; 
+	background-color: #E8E2EA;
+	overflow: hidden;
+}
+
+
