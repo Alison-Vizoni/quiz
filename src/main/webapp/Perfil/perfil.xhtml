@@ -188,20 +188,20 @@
                             <p:inputText id="input_nome" value="#{usuarioC.usuarioEdit.nome}"/>
                       </div>
                       <div class="p-field p-col-12 p-md-4">
-                            <p:outputLabel value="CPF" for="@next"/>
+                            <p:outputLabel value="Cpf" for="@next"/>
                             <p:inputMask value="#{usuarioC.usuarioEdit.cpf}" id="input_cpf" mask="999.999.999-99" validateMask="true"/>
                       </div>
                       <div class="p-field p-col-12 p-md-4">
-                            <p:outputLabel value="EMAIL" for="@next"/>
+                            <p:outputLabel value="E-mail" for="@next"/>
                             <p:inputMask value="#{usuarioC.usuarioEdit.email}" id="input_email" type="email"/>
                       </div>
                       <div class="p-field p-col-12 p-md-4">
-                            <p:outputLabel value="TELEFONE" for="@next"/>
+                            <p:outputLabel value="Telefone" for="@next"/>
                             <p:inputMask value="#{usuarioC.usuarioEdit.telefone}" mask="(99) 99999-9999" id="input_telefone" />
                       </div>
                     <div style="display:flex;justify-content:space-between;align-items:center;padding:30px">
                             
-                              <p:commandButton value="editar" action="#{usuarioC.editar()}" style="height: 35px; width:75px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1);border: none"></p:commandButton>
+                              <p:commandButton value="Editar" action="#{usuarioC.editar()}" style="height: 35px; width:75px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1);border: none"></p:commandButton>
                               <p:commandButton value="Desativar conta"  oncomplete="PF('modalDesativarConta').show()" style="height: 35px; width:150px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgb(203 41 41);border: none"></p:commandButton>
                         </div>
                         <p:dialog header="Aviso" widgetVar="modalDesativarConta" modal="true" resizable="true" showEffect="fade">

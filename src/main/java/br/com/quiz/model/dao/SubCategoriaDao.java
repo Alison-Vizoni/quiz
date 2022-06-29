@@ -24,5 +24,7 @@ public interface SubCategoriaDao extends BaseDao<SubCategoria, Long>{
     SubCategoria buscaNomeEspecifico(String nome, Session sessao);
 
 	List<SubCategoria> buscaPorCategoria(Categoria categoria, Session sessao);
+	
+	List<SubCategoria> pesquisarPorIdCategoria(Long id_categoria, Session sessao);
     
 }

@@ -23,6 +23,8 @@ import br.com.quiz.model.dao.AlternativaDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.PerguntaDao;
 import br.com.quiz.model.dao.PerguntaDaoImpl;
+import br.com.quiz.model.dao.SubCategoriaDao;
+import br.com.quiz.model.dao.SubCategoriaDaoImpl;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
@@ -242,6 +244,35 @@ public class PerguntaController implements Serializable {
 
 	public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
 		logger.info("método - buscaPerguntasComFiltro()");
+		
+		if (id_categoria != null && id_sub_categoria != null) {
+			SubCategoriaDao subCategoriaDao = new SubCategoriaDaoImpl();
+			List<SubCategoria> subCategoriaValida = null;
+			try {
+				sessao = HibernateUtil.abrirSessao();
+				subCategoriaValida = subCategoriaDao.pesquisarPorIdCategoria(id_categoria, sessao);
+			} catch (HibernateException e) {
+				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+			} finally {
+				sessao.close();
+			}
+			
+			boolean flag = false;
+			if (subCategoriaValida != null) {
+				for (SubCategoria subCategoria : subCategoriaValida) {
+					if (subCategoria.getId() == id_sub_categoria) {
+						flag = false;
+						break;
+					} else {
+						flag = true;
+					}
+				}
+			}
+			
+			if (flag) {
+				id_sub_categoria = null;
+			}
+		}
 
 		if (id_categoria != null) {
 			try {

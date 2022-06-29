@@ -49,20 +49,17 @@ public class UsuarioController implements Serializable {
 
         try {
             String mensagem = usuarioBO.validaUsuario(usuario, confirmarSenha);
-            Boolean emailExists = usuarioBO.existeEmail(usuario.getEmail(), sessao);
+            boolean emailExists = usuarioBO.existeEmail(usuario.getEmail(), sessao);
             if (mensagem != "ok" || emailExists) {
                 mensagem = emailExists ? "Email já cadastrado" : mensagem;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", mensagem);
-                PrimeFaces.current().dialog().showMessageDynamic(message);
+                Mensagem.erro(mensagem);
                 return null;
             } else {
                 usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
-                usuario.setNome(usuario.getLogin());
                 usuarioDao.salvarOuAlterar(usuario, sessao);
                 LoginController login = new LoginController();
                 login.pesquisaUsuarioPorLogin(usuario.getLogin());
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/inicio.xhtml");
-
             }
         } catch (HibernateException e) {
             System.err.println("Erro ao salvar " + e.getMessage());
