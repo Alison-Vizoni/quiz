@@ -105,8 +105,8 @@
                         </div>
                       </div>
 
-                      <div class="product-grid-item-content">
-                        <div style="float:left; font-weight: bolder; margin-top: 10px">ALTERNATIVAS</div>
+                      <div class="product-grid-item-content" style="display: flex; flex-direction: column" >
+                        <div style="text-align:left; font-weight: bolder; margin-top: 10px">ALTERNATIVAS</div>
 
                         <ui:repeat value="#{perguntaC.pergunta.alternativas}" var="alt" varStatus="status">								
                           <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
@@ -145,14 +145,18 @@
               <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
                         hideEffect="fade" resizable="false" id="modal_quiz">
                         
-                <div style="border-radius: 25%; border: 1px solid gray;; width: fit-content; background-color: #E8E8EA; padding: 5px; margin: auto">
-                  <p:link  outcome="logado/final" value="Utilizar Quiz" >
-                   	<p:ajax listener="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}"/>
-                  </p:link>
-                </div>			              		                            
+                <div style="border-radius: 15px; width: fit-content; padding: 5px; margin: auto" >
+	                  <p:tooltip for="btnUtilizaQuiz" value="Clique e depois é só preencher o(s) email(s) para enviar o quiz " position="right"/>
+					<p:commandButton id="btnUtilizaQuiz" action="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}" value="Utilizar Quiz"/>
+
+                </div>
+                
+                
+                
+                			              		                            
                 <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 70vh">
                   <p:column>
-                    <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
+                    <div class="product" style="overflow: hidden; overflow-y: scroll;"> 
                       <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
 	                     <div class="separador_questao">
 	                       <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"

@@ -32,9 +32,11 @@ public class EmailConvidadoController implements Serializable {
 
 	private final Logger logger = LoggerFactory.logger(getClass());
 
-	private List<String> listaEmailConvidado;
+	private static List<String> listaEmailConvidado;
 	private DataModel<String> modelEmails;
 	private String emailConvidado;
+
+	private String sucesso = "";
 
 	private Session sessao;
 
@@ -43,7 +45,7 @@ public class EmailConvidadoController implements Serializable {
 			listaEmailConvidado = new ArrayList<>();
 		}
 	}
-	
+
 	/**
 	 * Adiciona emails na lista de remessa
 	 */
@@ -52,7 +54,7 @@ public class EmailConvidadoController implements Serializable {
 		if (Utils.stringValida(emailConvidado)) {
 			listaEmailConvidado.add(emailConvidado);
 			modelEmails = new ListDataModel<>(listaEmailConvidado);
-			emailConvidado = null;			
+			emailConvidado = null;
 		} else {
 			Mensagem.erro("Não há email para incluir!");
 		}
@@ -82,8 +84,10 @@ public class EmailConvidadoController implements Serializable {
 	 */
 	private void verificaListaEmail(String[] emails) throws IOException, URISyntaxException {
 		if (emails.length > 0) {
-			EnviaEmail.enviaEmail(emails, QuizController.idAplicacaoQuiz , LoginController.usuarioSessao().getNome());
-			Mensagem.sucesso("Envio finalizado!");				
+			EnviaEmail.enviaEmail(emails, QuizController.idAplicacaoQuiz, LoginController.usuarioSessao().getNome());
+//			Mensagem.sucesso("Envio finalizado!");
+			sucesso = String.valueOf(QuizController.idAplicacaoQuiz);
+
 		} else {
 			Mensagem.erro("Ops, parece que você esqueceu de adicionar os emails!");
 		}
@@ -105,12 +109,20 @@ public class EmailConvidadoController implements Serializable {
 		this.modelEmails = modelEmails;
 	}
 
-	public String getEmailConvidado() {		
+	public String getEmailConvidado() {
 		return emailConvidado;
 	}
 
 	public void setEmailConvidado(String emailConvidado) {
 		this.emailConvidado = emailConvidado;
+	}
+
+	public String getSucesso() {
+		return sucesso;
+	}
+
+	public void setSucesso(String sucesso) {
+		this.sucesso = sucesso;
 	}
 
 }
