@@ -15,40 +15,48 @@
         <p:panel id="combo_busca_questao" styleClass="color"  >
             <h:form id="formCategoria">
 
-                <div style="width:100vw; display: flex; flex-direction: column;">
+                <div style="    width: 100vw;
+                     display: flex;
+                     flex-direction: column;
+                     height: 150px;
+                     justify-content: space-around;
+                     margin: 10px;">
                     <div id="filtros_questao" style="display: flex; justify-content: space-between;">
                         <!-- CATEGORIA -->
-                        <div id="combo_categoria" style="margin-right: 5px">	        
-                            <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
-                                             id="categoria"		                                 
-                                             filter="true"
-                                             style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
 
-                                <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
-                                <f:selectItems value="#{categoriaC.comboCategorias}" />
-                                <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria"/>
-                            </p:selectOneMenu>
-                        </div>
+                        <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+                                         id="categoria"		                                 
+                                         filter="true"
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+
+                            <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+                            <f:selectItems value="#{categoriaC.comboCategorias}" />
+                            <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria"/>
+                        </p:selectOneMenu>
+
                         <!-- SUB-CATEGORIA -->
-                        <div id="combo_SubCategoria" style="margin-right: 5px">
-                            <p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
-                                             id="sub_categoria"
-                                             filter="true"
-                                             style="width: 35vw; background: #f2f2f2; border-radius:5px">
 
-                                <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
-                                <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
-                                <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
-                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
-                            </p:selectOneMenu>
-                        </div>
-                        <div id="refina_busca" >
+                        <p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
+                                         id="sub_categoria"
+                                         filter="true"
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px">
+
+                            <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+                            <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+                            <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                        </p:selectOneMenu>
+
+
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search" />
                             <p:inputText disabled="#{categoriaC.categoria.id == null ? true : false}" id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
                                 <f:validateLength minimum="3"/>
                                 <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
                             </p:inputText>
-                        </div>
+                        </span>
+
                     </div>
                     <div style="display:grid;">
 
@@ -168,9 +176,9 @@
                                          styleClass="rounded-button ui-button-outlined" update=":form:panelQuiz"> 
                         </p:commandButton>
                         <h:outputText value="Conteúdo Privado: "/>
-		                <p:selectBooleanCheckbox id="visibilidade_privada" value="#{quizC.quiz.visibilidadePrivada}" >
-		                    <p:ajax update="visibilidade_privada"  />
-		                </p:selectBooleanCheckbox>
+                        <p:selectBooleanCheckbox id="visibilidade_privada" value="#{quizC.quiz.visibilidadePrivada}" >
+                            <p:ajax update="visibilidade_privada"  />
+                        </p:selectBooleanCheckbox>
                     </p:toolbarGroup>		            
                 </p:toolbar>
 

@@ -79,7 +79,7 @@ public class QuizController implements Serializable {
 
         try {
             sessao = HibernateUtil.abrirSessao();
-            quizzes = quizDao.buscarQuizPorUsuario(sessao, 1L);
+            quizzes = quizDao.buscarQuizPorUsuario(sessao, LoginController.usuarioSessao().getId());
             logger.info(quizzes);
 
         } catch (HibernateException e) {
