@@ -23,8 +23,8 @@
                             </p:messages>
                             <h:panelGrid id="panel_entrar">
                                 <h2 class="login-title">Bem Vindo</h2>
-                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}" required="true"/>
-                                <p:inputText type="password" placeholder="Senha" value="#{loginC.usuario.senha}" required="true"/>
+                                <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}" />
+                                <p:inputText type="password" placeholder="Senha" value="#{loginC.usuario.senha}" />
                                 <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
                                 <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
                             </h:panelGrid>
@@ -36,11 +36,13 @@
                         <div class="formBx">
                             <h:form id="formTeste">
                                 <h2 class="login-title">Criar uma conta</h2>
-                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}" required="true"/>
-                                <p:inputText type="text" placeholder="Email" value="#{usuarioC.usuario.email}" required="true"/>
-                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" required="true"/>
-                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}" required="true"/>
-                                <h:commandButton action="#{usuarioC.salvar()}" type="submit" value='Cadastrar'/>
+                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}"/>
+                                <p:inputText type="email" placeholder="Email" value="#{usuarioC.usuario.email}" />
+                                <p:inputMask mask="999.999.999-99" placeholder="CPF" value="#{usuarioC.usuario.cpf}" />
+                                <p:inputMask mask="(99) 99999-9999" placeholder="Telefone" value="#{usuarioC.usuario.telefone}" />
+                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" />
+                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}"/>
+                                <p:commandButton action="#{usuarioC.salvar()}" value='Cadastrar'/>
                                 <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
                             </h:form>
                         </div>
