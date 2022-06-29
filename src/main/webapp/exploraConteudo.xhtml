@@ -25,7 +25,8 @@
 
                     <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
                     <f:selectItems value="#{categoriaC.comboCategorias}" />
-                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+                    <p:ajax update="sub_categoria"
+                    		listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
                     <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" 
                     		  update="form:tabela formExploraConteudo"/>
                   </p:selectOneMenu>

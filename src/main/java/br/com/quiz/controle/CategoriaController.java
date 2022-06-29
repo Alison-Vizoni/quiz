@@ -49,7 +49,7 @@ public class CategoriaController implements Serializable {
             sessao = HibernateUtil.abrirSessao();
             categorias = categoriaDao.populaComboInicial(sessao);
             comboCategorias = new ArrayList<>();
-
+            
             categorias.forEach(cat -> {
                 comboCategorias.add(new SelectItem(cat.getId(), cat.getNome().toUpperCase()));
             });

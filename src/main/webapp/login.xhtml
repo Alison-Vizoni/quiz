@@ -36,12 +36,13 @@
                         <div class="formBx">
                             <h:form id="formTeste">
                                 <h2 class="login-title">Criar uma conta</h2>
-                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}"/>
-                                <p:inputText type="email" placeholder="Email" value="#{usuarioC.usuario.email}" />
-                                <p:inputMask mask="999.999.999-99" placeholder="CPF" value="#{usuarioC.usuario.cpf}" />
-                                <p:inputMask mask="(99) 99999-9999" placeholder="Telefone" value="#{usuarioC.usuario.telefone}" />
-                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" />
-                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}"/>
+                                <p:inputText type="text" placeholder="Nome Completo" value="#{usuarioC.usuario.nome}" style="height:35px"/>
+                                <p:inputText type="text" placeholder="Usuário" value="#{usuarioC.usuario.login}" style="height:35px"/>
+                                <p:inputText type="email" placeholder="Email" value="#{usuarioC.usuario.email}" style="height:35px"/>
+                                <p:inputMask mask="999.999.999-99" placeholder="CPF" value="#{usuarioC.usuario.cpf}" style="height:35px"/>
+                                <p:inputMask mask="(99) 99999-9999" placeholder="Telefone" value="#{usuarioC.usuario.telefone}" style="height:35px"/>
+                                <p:inputText type="password" placeholder="Senha" value="#{usuarioC.usuario.senha}" style="height:35px"/>
+                                <p:inputText type="password" placeholder="Confirmar Senha" value="#{usuarioC.confirmarSenha}" style="height:35px"/>
                                 <p:commandButton action="#{usuarioC.salvar()}" value='Cadastrar'/>
                                 <p class="signup">Já tem uma conta?<a href="#" onclick="toogle()"> Entrar</a></p>
                             </h:form>
