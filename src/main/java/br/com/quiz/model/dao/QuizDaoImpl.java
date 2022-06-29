@@ -29,13 +29,6 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long> implements QuizDao, Ser
 		return (Quiz) sessao.get(Quiz.class, id);
 	}
 
-	public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i) {
-		logger.info("método buscarQuizPorUsuario()");
-		Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id");
-		consulta.setParameter("id", i);
-		return consulta.list();
-	}
-
 	@Override
 	public List<Quiz> pesquisarPorIdQuiz(Session sessao, Long idQuiz) throws HibernateException {
 		Query consulta = sessao.createQuery("FROM Quiz WHERE id = :id");
@@ -48,8 +41,14 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long> implements QuizDao, Ser
 																		// nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 	}
 
-	public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {
-
+    public List<Quiz> buscarQuizPorUsuario(Session sessao, Long i) {
+        logger.info("método buscarQuizPorUsuario()");
+        Query consulta = sessao.createQuery("FROM Quiz WHERE id_usuario_proprietario = :id AND statusAtivo = true");
+        consulta.setParameter("id", i);
+        return consulta.list();
+    }
+        
+    public Long salvarRetornaId(Quiz entidade, Session sessao) throws HibernateException {
 		return (Long) sessao.save(entidade);
 	}
 

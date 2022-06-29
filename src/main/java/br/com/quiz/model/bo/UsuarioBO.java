@@ -17,6 +17,7 @@ import org.hibernate.Session;
 public class UsuarioBO {
 
     private UsuarioDao usuarioDao;
+
     public UsuarioBO() {
         usuarioDao = new UsuarioDaoImpl();
     }
@@ -25,4 +26,17 @@ public class UsuarioBO {
         List<Usuario> usuarios = usuarioDao.pesquisarPorEmail(email, sessao);
         return usuarios.size() > 0;
     }
+
+    public String validaUsuario(Usuario usuario, String confirmaSenha) {
+        String novaSenha = usuario.getSenha();
+        String confirmarSenha = confirmaSenha;
+        if (usuario.getEmail() == "" || confirmaSenha == "" || usuario.getCpf() == "" || usuario.getNome() == "" || usuario.getTelefone() == "" || usuario.getSenha() == "") {
+            return "Todos os campos devem ser preenchidos";
+        }
+        if (novaSenha == confirmarSenha) {
+            return "Senhas diferentes!";
+        }
+        return "ok";
+    }
+
 }

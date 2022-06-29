@@ -29,7 +29,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOPOLÍTICA", 1);
 INSERT INTO categoria (nome) VALUES ("HISTORIA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FEUDALISMO", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ABSOLUTISMO", 2);
-INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CIVILIZAÇÕES PRÉ-COMLOMBIANAS", 2);
+INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CIVILIZAÇÕES PRÉ-COLOMBIANAS", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ANTIGUIDADE CLÁSSICA", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("REVOLUÇÃO FRANCESA", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("COLONIZAÇÃO MERCANTILISTA", 2);
@@ -135,6 +135,10 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SIMPLE PRESENT", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SIMPLE FUTURE", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PAST CONTINUOUS", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT PERFECT SIMPLE", 12);
+
+-- OUTROS
+INSERT INTO categoria (nome) VALUES ("OUTROS");
+INSERT INTO sub_categoria (nome, id_categoria) VALUES ("OUTROS", 13);
 
 
 

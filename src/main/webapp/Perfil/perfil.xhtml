@@ -8,7 +8,12 @@
     <ui:define name="content">
 
 
-        <section name="perfil" class="container_perfil"  onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario(); aplicacaoQuizResultadoC.pesquisaAplicacaoQuizPorUsuario();quizC.pesquisarQuizElaboradoPeloUsuario()}">
+        <section name="perfil" class="container_perfil" 
+                 onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario();
+                aplicacaoQuizResultadoC.pesquisaAplicacaoQuizPorUsuario();
+                quizC.pesquisarQuizElaboradoPeloUsuario();
+                usuarioC.usuarioSessao()
+            }">
             <div class="container_perfil_top">
                 <nav class="menu_perfil">
                     <h:form>
@@ -19,7 +24,7 @@
                                 <p:menuitem styleClass="perguntasElaboradas" value="Perguntas elaboradas"/>
                             </p:submenu>
                             <p:submenu label="Perfil">
-                                <p:menuitem styleClass="configucoesPerfil" value="Configuração"/>
+                                <p:menuitem styleClass="configucoesPerfil" value="Usuário"/>
                             </p:submenu>
                         </p:menu>
 
@@ -27,7 +32,7 @@
                 </nav>
 
             </div>
-            <div class="actions">
+            <div class="actions" style="width: 80%;">
                 <section class="quiz_elaborados">
                     <p:repeat value="#{quizC.quizzes}" var="quiz">
                         <div class="quiz_elaborados_container">
@@ -176,30 +181,37 @@
                         </p:outputPanel>
                     </p:dialog>
                 </section>
-                <section style="display:none" class="configuracoes">
-                    <div class="teste">
-                        <h2>Texto 4</h2>
-                    </div>
-                    <div>
-                        <h2>Texto</h2>
-                    </div>
-                    <div>
-                        <h2>Texto</h2>
-                    </div>
-                    <div>
-                        <h2>Texto</h2>
-                    </div>
-                    <div>
-                        <h2>Texto</h2>
-                    </div>
-                    <div>
-                        <h2>Texto</h2>
-                    </div>       <div>
-                        <h2>Texto</h2>
-                    </div>
-
-
-                </section>
+                <div style="display:none" class="configuracoes card ui-fluid">
+                    <h:form>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="Nome" for="@next"/>
+                            <p:inputText id="input_nome" value="#{usuarioC.usuarioEdit.nome}"/>
+                      </div>
+                      <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="CPF" for="@next"/>
+                            <p:inputMask value="#{usuarioC.usuarioEdit.cpf}" id="input_cpf" mask="999.999.999-99" validateMask="true"/>
+                      </div>
+                      <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="EMAIL" for="@next"/>
+                            <p:inputMask value="#{usuarioC.usuarioEdit.email}" id="input_email" type="email"/>
+                      </div>
+                      <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="TELEFONE" for="@next"/>
+                            <p:inputMask value="#{usuarioC.usuarioEdit.telefone}" mask="(99) 99999-9999" id="input_telefone" />
+                      </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:30px">
+                            
+                              <p:commandButton value="editar" action="#{usuarioC.editar()}" style="height: 35px; width:75px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1);border: none"></p:commandButton>
+                              <p:commandButton value="Desativar conta"  oncomplete="PF('modalDesativarConta').show()" style="height: 35px; width:150px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgb(203 41 41);border: none"></p:commandButton>
+                        </div>
+                        <p:dialog header="Aviso" widgetVar="modalDesativarConta" modal="true" resizable="true" showEffect="fade">
+                            <div style="display:flex; flex-direction:column; justify-content:space-evenly;align-items: center;height:130px">
+                                <div>Deseja mesmo desativar a conta?</div>
+                                <p:commandButton value="Desativar" action="#{usuarioC.desativarConta()}" style="height: 35px; width:150px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgb(203 41 41);border: none"></p:commandButton>
+                            </div>
+                        </p:dialog>
+                    </h:form>
+                </div>
             </div>
         </section>
         <script>
