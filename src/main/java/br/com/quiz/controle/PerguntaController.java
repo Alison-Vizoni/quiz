@@ -141,6 +141,7 @@ public class PerguntaController implements Serializable {
 			if(validaDados(categoria)) {
 				perguntaDao.salvarOuAlterar(pergunta, sessao);
 				selecionaAlternativaCorreta(pergunta.getId());
+				Mensagem.sucesso("Questão cadastrada com sucesso!");
 				this.listaAlternativas.removeAll(listaAlternativas);
 				this.alternativaCorreta = null;
 				this.modelAlternativas = null;
