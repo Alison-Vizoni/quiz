@@ -226,8 +226,18 @@
 			<!-- MODAL AJUDA  -->
             <p:dialog header="Cadastrar Quiz" widgetVar="modalCadastraQuiz" modal="true" showEffect="fade"
                       hideEffect="fade" resizable="false" id="modalAjudaQuiz">			              		                            
-                <p:outputPanel id="cadastraQuiz" style="text-align:center; width: 88vw; height: 70vh">
-                    
+                <p:outputPanel id="cadastraQuiz" style="text-align: left; width: 88vw; height: 70vh">
+                	<ul id="lista_itens_ajuda">
+                    	<li>Digite o título do quiz</li>
+                    	<li>Utilize os campos de categoria, subcategoria e refinar busca para visualizar as questões cadastradas do assunto selecionado</li>
+                    	<li>Após o retorno das questões, basta clicar na questão escolhida (linha ficará azul) e clicar no botão<b>  Visualizar Questão  </b>para ver o conteúdo de forma completa</li>
+                    	<li>Se optar por utilizar a questão em seu quiz, basta clicar no botão<b>  Usar Questão  </b>, caso contrário, é só fechar a janela que foi aberta para visualização</li>
+                    	<li>Repita o processo anterior até seu quiz estar completo</li>
+                    	<li>Para pré-visualizar seu quiz, clique no botão <b> Visualizar Quiz </b> abrirá uma página mostrando as questões incluídas até o momento</li>
+                    	<li>Caso queira excluir alguma questão, basta clicar na questão escolhida (linha ficará azul) e clicar no botão<b>  Remover Questão  </b></li>
+                    	<li>No campo<b>  Conteúdo Privado  </b>você escolhe se seu quiz será público (não selecionado) ou privado (selecionado)</li>
+                    	<li>Quando terminar de incluir as questões e quiser finalizar seu quiz, basta clicar no botão<b>  Cadastrar Quiz  </b></li>
+                    </ul>                    
                 </p:outputPanel>
                 <div id="botaoFechaModalAjudaQuiz">
                     <p:commandButton value="Fechar ajuda" update="modalAjudaQuiz" styleClass="rounded-button ui-button-outlined"/>

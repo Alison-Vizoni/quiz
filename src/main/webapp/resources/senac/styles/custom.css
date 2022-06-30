@@ -444,6 +444,15 @@ body {
     flex-direction: column;
 }
 
+
+.cards_home:hover {
+   cursor: pointer;
+   transition:.5s;
+   transform: scale(1.08);
+   box-shadow: 5px 8px 2px #8a8a8a;
+        
+}
+
 .cards_home h1 {
     font-size: 25px;
     text-align: center;
@@ -611,9 +620,8 @@ body {
     }
     .cards_home {
         margin: 25px auto;
-        width: 90vw;
+        width: 90vw;        
     }
-
 }
 
 
@@ -1412,6 +1420,10 @@ body .ui-panel .ui-panel-content{
     padding: 5px;
     background-color: #E8E2EA;
     overflow: hidden;
+}
+
+#lista_itens_ajuda li {
+	margin-top:10px;
 }
 
 

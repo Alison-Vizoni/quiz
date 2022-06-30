@@ -35,7 +35,7 @@
 				<!--  PERGUNTA  -->
                 
                 <p:outputLabel value="Pergunta *" for="Pergunta" style="font-weight: bold"/>
-                <p:inputTextarea id="Pergunta" rows="2" cols="33" value="#{perguntaC.pergunta.texto}" placeholder="Digite o texto da pergunta *" style="width:100%">
+                <p:inputTextarea id="Pergunta" rows="2" cols="33" value="#{perguntaC.pergunta.texto}" placeholder="Digite o texto da pergunta" style="width:100%">
                     <f:validateLength minimum="2"/>    
                 </p:inputTextarea>
                  
@@ -86,7 +86,7 @@
 <!-- 	                <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *"  -->
 <!-- 	                				style="width:93vw"/> -->
 
-					<p:inputTextarea id="alternativa" rows="2" cols="33" value="#{perguntaC.alternativa.texto}" placeholder="Digite o texto da alternativa *" style="width:100%">
+					<p:inputTextarea id="alternativa" rows="2" cols="33" value="#{perguntaC.alternativa.texto}" placeholder="Digite o texto da alternativa" style="width:100%">
 	                    <f:validateLength minimum="1"/>    
 	                </p:inputTextarea>
 		
@@ -133,14 +133,25 @@
                
 			
 			<!-- MODAL AJUDA  -->
-            <p:dialog header="Cadastrar Questão" widgetVar="modalCadastraQuestao" modal="true" showEffect="fade"
+            <p:dialog header="Ajuda - Cadastrar Questão" widgetVar="modalCadastraQuestao" modal="true" showEffect="fade"
                       hideEffect="fade" resizable="false" id="modalAjudaQuestao">			              		                            
-                <p:outputPanel id="cadastraQuestao" style="text-align:center; width: 88vw; height: 70vh">
-                    
+                <p:outputPanel id="cadastraQuestao" style="text-align:left; width: 88vw; height: 70vh">
+                	<ul id="lista_itens_ajuda">
+                    	<li><b>Campos com asterísco * são obrigatórios</b></li>
+                    	<li>Preencha o campo<b>  Pergunta*  </b>com o texto da pergunta</li>
+                    	<li>Selecione a Categoria e Subcategoria</li>
+                    	<li>Alternativas serão incluídas uma de cada vez</li>
+                    	<li>Não é necessário colocar numeração para ordenar as alternativas, isso é feito de forma automática</li>
+                    	<li>Preencha o campo<b>  Alternativa*  </b>com o texto da alternativa de resposta para a pergunta inserida acima</li>
+                    	<li>Após digitar o texto da alternativa, clique no botão <b> [+] </b> do lado direito do campo para o texto da alternativa</li>
+                    	<li>Quando terminar de incluir as alternativas de resposta, deve ser assinalada qual é a alternativa correta, para isto basta selecionar na coluna<b> Correta* </b></li>
+                    	<li>Caso queira excluir a alternativa depois de inserir, basta clicar no<b>  ícone de lixeira  </b>que está ao lado direito da alternativa em questão</li>
+                    	<li>No campo<b>  Conteúdo Privado*  </b>você escolhe se seu material será público (não selecionado) ou privado (selecionado)</li>
+                    	<li>Após isto, é só clicar no botão  <b>Cadastrar Questão </b> para finalizar o processo</li>
+                    </ul>    
                 </p:outputPanel>
 				<div id="botaoFechaModalAjudaQuestao">
-                    <p:commandButton value="Fechar ajuda" update="modalAjudaQuestao" styleClass="rounded-button ui-button-outlined"/>
-                        
+                    <p:commandButton value="Fechar ajuda" update="modalAjudaQuestao" styleClass="rounded-button ui-button-outlined"/>                    
                 </div>
             </p:dialog>
 			
