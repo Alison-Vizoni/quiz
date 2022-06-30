@@ -8,27 +8,36 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 	<ui:define name="content">
-		<p:panel id="painel" styleClass="" header="CADASTRO DE QUESTÕES">
-			<h:form id="formCadQuestao">				
+                         
+          <p:panel>
+        	<h:form>
+	        	 <div style="background-color: #eaeaea; display: flex; padding: 15px; align-content: center">
+	             <h3 style="color: #84509c; display: flex; margin: 15px 0;">CADASTRO DE QUESTÃO</h3>
+           
+				 <p:commandButton icon="pi pi-question"	id="btnAjudaQuestao"							  
+								  styleClass="rounded-button ui-button-outlined"  
+								  oncomplete="PF('modalCadastraQuestao').show()"
+								  style="width: 22px; height: 22px; margin-left: 15px; align-self:center; display: flex; justify-content:center; color: #84509c" >
+					<p:tooltip for="btnAjudaQuestao" 
+							   value="Ajuda sobre como cadastrar questão" 
+							   position="right"/>			  
+			  </p:commandButton>
+			</div>
+       	  </h:form>
+        </p:panel>                
+                
+		<p:panel id="painel" styleClass="" >
+			<h:form id="formCadQuestao">
+			<p:messages id="messages" showDetail="true" closable="true" >
+                  <p:autoUpdate />
+          	</p:messages>				
 				
 				<!--  PERGUNTA  -->
-
-                <p:messages id="messages" showDetail="true" closable="true" >
-                        <p:autoUpdate />
-                </p:messages>
                 
                 <p:outputLabel value="Pergunta *" for="Pergunta" style="font-weight: bold"/>
                 <p:inputTextarea id="Pergunta" rows="2" cols="33" value="#{perguntaC.pergunta.texto}" placeholder="Digite o texto da pergunta *" style="width:100%">
                     <f:validateLength minimum="2"/>    
                 </p:inputTextarea>
-<!--                 <p:outputLabel value="Pergunta" for="Pergunta" style="font-weight: bold"/> -->
-<!--                 <p:inputText id="Pergunta" value="#{perguntaC.pergunta.texto}"                              -->
-<!--                              label=" "  -->
-<!--                              maxlength="255" -->
-<!--                              style="width:100%" -->
-<!--                              placeholder="Digite sua pergunta *"> -->
-<!--                     <f:validateLength minimum="2"/>     -->
-<!--                 </p:inputText> -->
                  
                 <!--  CATEGORIA  -->
                                 
@@ -43,7 +52,7 @@
 		                    <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
 		                    <f:selectItems value="#{categoriaC.comboCategorias}" />
 		                    <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-		                </p:selectOneMenu>
+		                </p:selectOneMenu> 
 	                </div>
 	                
 	             <!--  SUB-CATEGORIA  -->
@@ -53,10 +62,10 @@
 		                <p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
 		                                 id="sub_categoria"		                                
 		                                 filter="true"
-		                                 style="width: 50vw">                                                       
+		                                 style="width: 50vw" >                                                       
 		
 		                    <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
-		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+		                    <f:selectItems value="#{subcategoriaC.comboSubcategorias}" id="subCombo"/>
 		                    <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
 		                </p:selectOneMenu>
 	                </div>
@@ -65,12 +74,13 @@
 				<!--     ALTERNATIVAS      -->
 				
 				<p:outputLabel id="tituloAlternativa" for="alternativa" value="Alternativa * " style="font-weight: bold">
-					<i class="pi pi-info-circle" style="color: gray; size: 1px" />
+					<i class="pi pi-info-circle" style="color: gray; size: 1px" >
 					<p:tooltip for="tituloAlternativa" 
 							   value="Você pode cadastrar de uma até várias alternativas.
 							    Digite o texto e logo após clique no botão '+' ao lado para incluir.
 							    Não é necessário incluir numeração para ordenar as alternativas" 
 							   position="right"/>
+					</i>
 				</p:outputLabel>
 				<div style="display: flex; justify-content: space-around;">
 <!-- 	                <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *"  -->
@@ -121,7 +131,20 @@
                 				actionListener="#{perguntaC.salvarPergunta(categoriaC.categoria)}"                				
                                 update="@all" process="@all" style="float: right" />                
                
-			</h:form>
+			
+			<!-- MODAL AJUDA  -->
+            <p:dialog header="Cadastrar Questão" widgetVar="modalCadastraQuestao" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="false" id="modalAjudaQuestao">			              		                            
+                <p:outputPanel id="cadastraQuestao" style="text-align:center; width: 88vw; height: 70vh">
+                    
+                </p:outputPanel>
+				<div id="botaoFechaModalAjudaQuestao">
+                    <p:commandButton value="Fechar ajuda" update="modalAjudaQuestao" styleClass="rounded-button ui-button-outlined"/>
+                        
+                </div>
+            </p:dialog>
+			
+		  </h:form>
 		</p:panel>
 	</ui:define>
 </ui:composition>

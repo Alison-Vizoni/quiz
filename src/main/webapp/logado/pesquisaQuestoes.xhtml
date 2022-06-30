@@ -6,37 +6,60 @@
                 template="/WEB-INF/layout.xhtml">
 
     <ui:define name="content">
-
+							 
         <p:messages id="messages" showDetail="true" closable="true" style="margin:0 auto; width: 90%">
             <p:autoUpdate />
         </p:messages>
-
+        
         <!-- HEADER --> 
+        <p:panel>
+        	<h:form>
+        		<div style="background-color: #eaeaea; display: flex; padding: 15px; align-content: center">
+	            	<h3 style="color: #84509c; display: flex; margin: 15px 0;">CADASTRO DE QUIZ</h3>
+	            
+					<p:commandButton  icon="pi pi-question"	id="btnAjudaQuiz"							  
+									  styleClass="rounded-button ui-button-outlined"  
+									  oncomplete="PF('modalCadastraQuiz').show()"
+									  style="width: 22px; height: 22px; margin-left: 15px; align-self:center; display: flex; justify-content:center; color: #84509c" >
+						<p:tooltip for="btnAjudaQuiz" 
+								   value="Ajuda sobre como cadastrar quiz" 
+								   position="right"/>
+					</p:commandButton>
+				</div>
+        	</h:form>
+        </p:panel>
+
         <p:panel id="combo_busca_questao" styleClass="color"  >
             <h:form id="formCategoria">
-
+            					
                 <div style="    width: 100vw;
                      display: flex;
                      flex-direction: column;
                      height: 150px;
                      justify-content: space-around;
                      margin: 10px;">
+                     
+	            	<div style="display:grid;">
+	                   <p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
+	                       <p:ajax listener="#{quizC.quiz.titulo}"/>
+	                   </p:inputText>
+	
+	                </div>
                     <div id="filtros_questao" style="display: flex; justify-content: space-between;">
+                    
                         <!-- CATEGORIA -->
-
                         <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
                                          id="categoria"		                                 
                                          filter="true"
-                                         style="width: 35vw; background: #f2f2f2; border-radius:5px">                                                       
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px" >                                                       
 
                             <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
                             <f:selectItems value="#{categoriaC.comboCategorias}" />
-                            <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
-                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria"/>
+                            <p:ajax listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" update="sub_categoria form:tabela" />
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria "/>
                         </p:selectOneMenu>
 
                         <!-- SUB-CATEGORIA -->
-
                         <p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
                                          id="sub_categoria"
                                          filter="true"
@@ -58,19 +81,11 @@
                         </span>
 
                     </div>
-                    <div style="display:grid;">
-
-                        <p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
-                            <p:ajax listener="#{quizC.quiz.titulo}"/>
-                        </p:inputText>
-
-                    </div>
                 </div>     
             </h:form>
         </p:panel>
 
         <!-- TABELA -->
-
         <h:form id="form">			
             <p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
                          paginator="true" paginatorPosition="bottom"
@@ -207,6 +222,18 @@
                     </p:column> 
                 </p:dataTable>			        		        
             </p:dialog>
+            
+			<!-- MODAL AJUDA  -->
+            <p:dialog header="Cadastrar Quiz" widgetVar="modalCadastraQuiz" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="false" id="modalAjudaQuiz">			              		                            
+                <p:outputPanel id="cadastraQuiz" style="text-align:center; width: 88vw; height: 70vh">
+                    
+                </p:outputPanel>
+                <div id="botaoFechaModalAjudaQuiz">
+                    <p:commandButton value="Fechar ajuda" update="modalAjudaQuiz" styleClass="rounded-button ui-button-outlined"/>
+                        
+                </div>
+            </p:dialog>	
         </h:form>			
     </ui:define>
 </ui:composition>
