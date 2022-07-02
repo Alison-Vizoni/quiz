@@ -49,9 +49,13 @@ public class EmailConvidadoController implements Serializable {
 	/**
 	 * Adiciona emails na lista de remessa
 	 */
+	
 	public void salvarListaEmails() {
 		logger.info("método - salvarListaEmails()");
-		if (Utils.stringValida(emailConvidado)) {
+		
+		if (listaEmailConvidado.contains(emailConvidado)) {
+			Mensagem.erro("Email já adicionado!");
+		} else if (Utils.stringValida(emailConvidado)) {
 			listaEmailConvidado.add(emailConvidado);
 			modelEmails = new ListDataModel<>(listaEmailConvidado);
 			emailConvidado = null;
@@ -85,8 +89,11 @@ public class EmailConvidadoController implements Serializable {
 	private void verificaListaEmail(String[] emails) throws IOException, URISyntaxException {
 		if (emails.length > 0) {
 			EnviaEmail.enviaEmail(emails, QuizController.idAplicacaoQuiz, LoginController.usuarioSessao().getNome());
-//			Mensagem.sucesso("Envio finalizado!");
+			Mensagem.sucesso("Envio finalizado!");
 			sucesso = String.valueOf(QuizController.idAplicacaoQuiz);
+			modelEmails = null;
+			listaEmailConvidado = null;
+			emailConvidado = null;
 
 		} else {
 			Mensagem.erro("Ops, parece que você esqueceu de adicionar os emails!");

@@ -100,7 +100,6 @@ public class QuizController implements Serializable {
 		emailList = new ArrayList<>();
 		if (emails == null) {
 			Mensagem.erro("Não há emails para enviar!");
-//			return "";
 		} else {
 			try {
 				emails.forEach(email -> emailList.add(email));
@@ -117,14 +116,13 @@ public class QuizController implements Serializable {
 				EmailConvidadoController emailController = new EmailConvidadoController();
 				emailController.enviaEmail();
 				Mensagem.sucesso(defineFluxoFinalizar());
-//				defineFluxoFinalizar();
 			} catch (Exception e) {
 				logger.error("Erro ao salvar aplicação quiz - " + e.getMessage());
 			} finally {
 				sessao.close();
+				emails = null;
+				emailList = null;
 			}
-//			return "";
-//        	return "/logado/pesquisaQuestoes?faces-redirect=true";
 		}
 
 	}
