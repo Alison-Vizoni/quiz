@@ -27,7 +27,7 @@
                         <p:repeat value="#{aplicacaoQuizC.pergunta.alternativas}" var="alternativa" varStatus="card">
                             <h:commandButton
                                 value="#{alternativa.texto}"
-                                style="font-size: 22px;color:black;text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold;
+                                style="font-size: 22px;color:white;text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold;
                                 height: 200px; width: 50%;background: #{aplicacaoQuizC.random_rgba(card.index)}"
                                 action="#{aplicacaoQuizC.enviarResposta(alternativa)}"
                                 />

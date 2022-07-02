@@ -63,18 +63,18 @@
 
 	<div id="container_cards">
 
-         <div class="cards_home">
+         <div class="cards_home" id="card_responde" onclick="respondeQuiz()">
              <h1>Responder Quiz</h1>
              <p>
 				 Recebeu o código para responder um Quiz? Então clique no link abaixo, insira o 
 				 código de acesso e pronto.
              </p>
-             <div class="cards_link">
-					<p:link  outcome="logado/inicioResponderQuiz.xhtml" value="Responder Quiz" />
-             </div>	
+<!--              <div class="cards_link"> -->
+<!-- 					<p:link  outcome="logado/inicioResponderQuiz.xhtml" value="Responder Quiz" /> -->
+<!--              </div>	 -->
          </div>
          
-         <div class="cards_home">
+         <div class="cards_home" id="card_explora" onclick="explraConteudo()">
          	
              <h1>Explorar Conteúdo</h1>
              <p>
@@ -82,31 +82,31 @@
                  fácil criar seu questionário ou Quiz.
              </p>
              
-             <div class="cards_link">
-                 <p:link  outcome="exploraConteudo" value="Explorar Conteúdo" />
-             </div>	
+<!--              <div class="cards_link"> -->
+<!--                  <p:link  outcome="exploraConteudo" value="Explorar Conteúdo" /> -->
+<!--              </div>	 -->
          </div>
          
-         <div class="cards_home">
+         <div class="cards_home"  id="card_cad_questao" onclick="cadastraQuestao()">
              <h1>Cadastrar Questão</h1>
              <p>
                  Cadastre suas questões uma vez e pronto! Agora toda vez que precisar, elas estão
                  prontas para usar. 
              </p>
-             <div class="cards_link">
-                 <p:link  outcome="logado/cadastroQuestoesSinglePage" value="Cadastrar Questões" />
-             </div>	
+<!--              <div class="cards_link"> -->
+<!--                  <p:link  outcome="logado/cadastroQuestoesSinglePage" value="Cadastrar Questões" /> -->
+<!--              </div>	 -->
          </div>
 
-         <div class="cards_home">
+         <div class="cards_home"  id="card_cad_quiz" onclick="cadastraQuiz()">
              <h1>Cadastrar Quiz</h1>
              <p>
                  Seleciona as questões que deseja salvar no seu Quiz. Depois é só enviar
                  para quem irá responder.
              </p>
-             <div class="cards_link">
-                 <p:link  outcome="logado/pesquisaQuestoes" value="Cadastrar Quiz" />
-             </div>	
+<!--              <div class="cards_link"> -->
+<!--                  <p:link  outcome="logado/pesquisaQuestoes" value="Cadastrar Quiz" /> -->
+<!--              </div>	 -->
          </div>
          
        </div>  
