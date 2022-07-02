@@ -79,7 +79,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			sql.append(" AND sub.id = :idSubCategoria ");
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+		if (refinarBusca != null && !refinarBusca.isEmpty() && !refinarBusca.trim().equals(" ")) {
 			sql.append(" AND (p.texto LIKE :refinarBusca OR a.texto LIKE :refinarBusca) ");
 		}
 		
@@ -93,7 +93,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			consulta.setParameter("idSubCategoria", idSubCategoria);
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+		if (refinarBusca != null && !refinarBusca.isEmpty() && !refinarBusca.trim().equals(" ")) {
 			consulta.setParameter("refinarBusca", "%" + refinarBusca + "%");
 		}
 		

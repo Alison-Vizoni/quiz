@@ -197,12 +197,9 @@ public class QuizController implements Serializable {
 		try {
 			sessao = HibernateUtil.abrirSessao();
 			quiz.setUsuarioProprietario(LoginController.usuarioSessao());
-//			quiz.setTitulo(fluxo);
 			if (preparaQuiz()) {
 				quizDao.salvarOuAlterar(quiz, sessao);
 				idQuiz = quiz.getId();
-//				idQuiz = new AplicacaoQuizDaoImpl().salvarRetornaId(quiz, sessao);
-//				logger.error("Id retornado - " + idQuiz);
 			}
 			defineFluxo();
 
@@ -223,6 +220,10 @@ public class QuizController implements Serializable {
 			Mensagem.erro("Sem perguntas para adicionar ao Quiz!");
 			logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
 
+		} else if(null == quiz.getTitulo() || quiz.getTitulo().isEmpty()) {
+			Mensagem.erro("Favor incluir um título no quiz!");
+			logger.error("Erro ao preparaQuiz - quiz sem título");
+			
 		} else {
 			Date criacao = new Date(System.currentTimeMillis());
 			quiz.setDataCriacao(criacao);
@@ -234,7 +235,7 @@ public class QuizController implements Serializable {
 
 	public String defineFluxo() {
 		logger.info("entrou no defineFluxo()");
-		if (quiz.getPerguntas().size() < 1) {
+		if (quiz.getPerguntas().size() < 1 || (null == quiz.getTitulo() || quiz.getTitulo().isEmpty())) {
 			this.fluxo = "";
 		} else {
 			this.fluxo = "final";
