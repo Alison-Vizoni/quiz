@@ -52,17 +52,16 @@ public class PerguntaController implements Serializable {
 
 	private List<Pergunta> perguntas = new ArrayList<>();
 	private DataModel<Pergunta> modelPerguntas;
+	private Pergunta perguntaSelecionada;
 	private SubCategoria subCategoria;
 	private PerguntaDao perguntaDao;
 	private Categoria categoria;
-	private Pergunta pergunta;
 	private String refinaBusca;
+	private Pergunta pergunta;
 
 	private Long contadorId = 0L;
 	private Session sessao;
 	
-	Usuario usuario;
-
 	public PerguntaController() {
 		logger.info("entrou na PerguntaController");
 		perguntaDao = new PerguntaDaoImpl();
@@ -73,22 +72,11 @@ public class PerguntaController implements Serializable {
 		logger.info("método - vinculaSubcategoriaComPergunta()");
 		this.subCategoria = subCategoria;
 	}
-
-	public void onRowSelect(SelectEvent<Pergunta> event) {
-		FacesMessage msg = new FacesMessage("Pergunta Selected", String.valueOf(event.getObject().getId()));
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public Pergunta getRowData(String rowKey) {
-		logger.info("método - getRowData()");
-		for (Pergunta perg : perguntas) {
-			if (perg.getId() == Integer.parseInt(rowKey)) {
-				return perg;
-			}
-		}
-
-		return null;
-	}
+	
+	public void visualizaQuestaoSelecionada(Pergunta perguntaSele) {
+		logger.info("entrou no método visualizaQuestaoSelecionada()");
+        perguntaSelecionada = perguntaSele;
+    }
 
 	/** ALTERNATIVA **/
 
@@ -309,14 +297,6 @@ public class PerguntaController implements Serializable {
 		return pergunta;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public void setPergunta(Pergunta pergunta) {
 		this.pergunta = pergunta;
 	}
@@ -412,5 +392,16 @@ public class PerguntaController implements Serializable {
 	public void setRefinaBusca(String refinaBusca) {
 		this.refinaBusca = refinaBusca;
 	}
+
+	public Pergunta getPerguntaSelecionada() {
+		if (perguntaSelecionada == null) {
+			perguntaSelecionada = new Pergunta();
+		}
+		return perguntaSelecionada;
+	}
+
+	public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
+		this.perguntaSelecionada = perguntaSelecionada;
+	}	
 
 }
