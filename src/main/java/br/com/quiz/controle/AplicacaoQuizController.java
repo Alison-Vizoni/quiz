@@ -60,7 +60,8 @@ public class AplicacaoQuizController implements Serializable {
     public String validaAcessoQuiz() throws IOException {
         logger.info("entrou no validaAcessoQuiz()");
         AplicacaoQuizBO aplicacaoQuizBO = new AplicacaoQuizBO();
-        if (aplicacaoQuizBO.validaAcessoQuiz(aplicacaoQuiz.getId())) {
+        String mensagem = (String) aplicacaoQuizBO.validaAcessoQuiz(aplicacaoQuiz.getId());
+        if ("ok".equals(mensagem)) {
             try {
                 sessao = HibernateUtil.abrirSessao();
                 aplicacaoQuiz = AplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
@@ -71,7 +72,7 @@ public class AplicacaoQuizController implements Serializable {
                 sessao.close();
             }
         } else {
-            Mensagem.erro("Acesso negado!");
+            Mensagem.erro(mensagem);
         }
         return "";
     }

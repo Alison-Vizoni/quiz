@@ -42,22 +42,25 @@ public class LoginController implements Serializable {
         logger.info("método logar");
         try {
             if (usuario.getLogin() == "" || usuario.getSenha() == "") {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", " Senha e usuário são obrigatórios!");
-
-                PrimeFaces.current().dialog().showMessageDynamic(message);
+                Mensagem.erro("usuário e senha são obrigatórios!");
                 return null;
             };
 
             pesquisaUsuarioPorLogin(usuario.getLogin());
-            if (true == usuarioLogado.getStatusAtivo() && usuario.getLogin().equals(usuarioLogado.getLogin())
-                    && Criptografia.criptografar(usuario.getSenha()).equals(usuarioLogado.getSenha())) {
-                return "/inicio.xhtml?faces-redirect=true";
-
+            if(usuarioLogado != null) {
+	            if (true == usuarioLogado.getStatusAtivo() && usuario.getLogin().equals(usuarioLogado.getLogin())
+	                    && Criptografia.criptografar(usuario.getSenha()).equals(usuarioLogado.getSenha())) {
+	                return "/inicio.xhtml?faces-redirect=true";
+	
+	            } else {
+	                String mensagem = usuarioLogado.getStatusAtivo() ? "Usuário e/ou Senha incorretos(s)" : "Usuário desativado!";
+	                Mensagem.erro(mensagem);
+	                usuarioLogado = null;
+	                return null;
+	            }
             } else {
-                String mensagem = usuarioLogado.getStatusAtivo() ? "Usuário e/ou Senha incorretos(s)" : "Usuário desativado!";
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", mensagem);
-                PrimeFaces.current().dialog().showMessageDynamic(message);
-                usuarioLogado = null;
+            	Mensagem.erro("Usuário e/ou Senha incorretos(s)");
+            	usuarioLogado = null;
                 return null;
             }
         } catch (Exception e) {
