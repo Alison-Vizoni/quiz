@@ -9,7 +9,10 @@
     <ui:define name="content">      
 
         <link rel="stylesheet" href="resources/senac/styles/custom.css"/>
-        <section class="principal">
+        <section class="principal" style="flex-direction:column;">
+            <p:messages id="messages" showDetail="true" closable="true" style="width:40%">
+				<p:autoUpdate />
+           	</p:messages>
             <div class="container">
                 <div class="user signinBx">
                     <div class="imgBx">
@@ -18,15 +21,12 @@
                     <div class="formBx">
                         <h:form class="form-primeface" >                            	
                             <p:focus context="panel_entrar"/>
-                            <p:messages id="messages" showDetail="true" closable="true" >
-                                <p:autoUpdate />
-                            </p:messages>
                             <h:panelGrid id="panel_entrar">
                                 <h2 class="login-title">Bem Vindo</h2>
                                 <p:inputText type="text" placeholder="Usuário" value="#{loginC.usuario.login}" />
                                 <p:inputText type="password" placeholder="Senha" value="#{loginC.usuario.senha}" />
                                 <p:commandButton action="#{loginC.logar()}" value="Entrar" style="width: 100px; margin-top: 2rem" />
-                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscrever-se</a></p>
+                                <p class="signup">Não tem uma conta?<a href="#"  onclick="toogle()"> Inscreva-se</a></p>
                             </h:panelGrid>
                         </h:form>
                     </div>
