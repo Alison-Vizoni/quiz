@@ -30,169 +30,169 @@ import br.com.quiz.model.entidade.Categoria;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.SubCategoria;
 import br.com.quiz.model.entidade.Usuario;
+import java.io.IOException;
+import java.util.Map;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author alf_a
  */
 @ManagedBean(name = "perguntaC")
-@ViewScoped
+@SessionScoped
 public class PerguntaController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final Logger logger = LoggerFactory.logger(getClass());
+    private final Logger logger = LoggerFactory.logger(getClass());
 
-	private List<Alternativa> listaAlternativas = new ArrayList<>();
-	private DataModel<Alternativa> modelAlternativas;
-	private Alternativa alternativaCorreta;
-	private AlternativaDao alternativaDao;
-	private Alternativa alternativa;
-	private Alternativa alter;
+    private List<Alternativa> listaAlternativas = new ArrayList<>();
+    private DataModel<Alternativa> modelAlternativas;
+    private Alternativa alternativaCorreta;
+    private AlternativaDao alternativaDao;
+    private Alternativa alternativa;
+    private Alternativa alter;
 
-	private List<Pergunta> perguntas = new ArrayList<>();
-	private DataModel<Pergunta> modelPerguntas;
-	private Pergunta perguntaSelecionada;
-	private SubCategoria subCategoria;
-	private PerguntaDao perguntaDao;
-	private Categoria categoria;
-	private String refinaBusca;
-	private Pergunta pergunta;
+    private List<Pergunta> perguntas = new ArrayList<>();
+    private DataModel<Pergunta> modelPerguntas;
+    private Pergunta perguntaSelecionada;
+    private SubCategoria subCategoria;
+    private PerguntaDao perguntaDao;
+    private Categoria categoria;
+    private String refinaBusca;
+    private Pergunta pergunta;
+    private Pergunta perguntaEdit;
+    private Long contadorId = 0L;
+    private Session sessao;
 
-	private Long contadorId = 0L;
-	private Session sessao;
-	
-	public PerguntaController() {
-		logger.info("entrou na PerguntaController");
-		perguntaDao = new PerguntaDaoImpl();
+    public PerguntaController() {
+        logger.info("entrou na PerguntaController");
+        perguntaDao = new PerguntaDaoImpl();
 //                buscarPerguntasElaboradasPeloUsuario();
-	}
+    }
 
-	public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
-		logger.info("método - vinculaSubcategoriaComPergunta()");
-		this.subCategoria = subCategoria;
-	}
-	
-	public void visualizaQuestaoSelecionada(Pergunta perguntaSele) {
-		logger.info("entrou no método visualizaQuestaoSelecionada()");
+    public void vinculaSubcategoriaComPergunta(SubCategoria subCategoria) {
+        logger.info("método - vinculaSubcategoriaComPergunta()");
+        this.subCategoria = subCategoria;
+    }
+
+    public void visualizaQuestaoSelecionada(Pergunta perguntaSele) {
+        logger.info("entrou no método visualizaQuestaoSelecionada()");
         perguntaSelecionada = perguntaSele;
     }
 
-	/** ALTERNATIVA **/
+    /**
+     * ALTERNATIVA *
+     */
+    /**
+     * Insere alternativas na tabela
+     */
+    public void populaListaAlternativa() {
+        if (alternativa.getTexto() != null && alternativa.getTexto().trim().length() != 0) {
+            alternativa.setId(contadorId++);
+            listaAlternativas.add(alternativa);
+            apresentaTabela();
+            alternativa = null;
+        } else {
+            Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
+        }
+    }
 
-	/**
-	 * Insere alternativas na tabela
-	 */
-	public void populaListaAlternativa() {
-		if (alternativa.getTexto() != null && alternativa.getTexto().trim().length() != 0) {
-			alternativa.setId(contadorId++);
-			listaAlternativas.add(alternativa);
-			apresentaTabela();
-			alternativa = null;
-		} else {
-			Mensagem.sucesso("Texto da alternativa não pode ser vazio!");
-		}
-	}
+    /**
+     * Apresenta na tela as alternativas cadastradas
+     */
+    public void apresentaTabela() {
+        try {
+            modelAlternativas = new ListDataModel<>(listaAlternativas);
+        } catch (HibernateException e) {
+            logger.error("Método apresentaTabela() - " + e.getMessage());
+        }
+    }
 
-	/**
-	 * Apresenta na tela as alternativas cadastradas
-	 */
-	public void apresentaTabela() {
-		try {
-			modelAlternativas = new ListDataModel<>(listaAlternativas);
-		} catch (HibernateException e) {
-			logger.error("Método apresentaTabela() - " + e.getMessage());
-		}
-	}
+    /**
+     * Exclui alternativa da tabela
+     */
+    public void excluir() {
+        alter = new Alternativa();
+        alter = modelAlternativas.getRowData();
+        listaAlternativas.removeIf(alt -> alt.equals(alter));
+    }
 
-	/**
-	 * Exclui alternativa da tabela
-	 */
-	public void excluir() {
-		alter = new Alternativa();
-		alter = modelAlternativas.getRowData();
-		listaAlternativas.removeIf(alt -> alt.equals(alter));
-	}
+    // CRUD
+    public void salvarPergunta(Categoria categoria) {
+        logger.info("método - salvar()");
 
-	// CRUD
+        try {
 
-	public void salvarPergunta(Categoria categoria) {
-		logger.info("método - salvar()");		
-		
-		try {
-			
-			sessao = HibernateUtil.abrirSessao();
-			subCategoria.setCategoria(categoria);
-			pergunta.setSubCategoria(subCategoria);
-			Date criacao = new Date(System.currentTimeMillis());
-			pergunta.setDataCriacao(criacao);
-			pergunta.setUsuarioProprietario(LoginController.usuarioSessao());
-			
-			if(validaDados(categoria)) {
-				perguntaDao.salvarOuAlterar(pergunta, sessao);
-				selecionaAlternativaCorreta(pergunta.getId());
-				Mensagem.sucesso("Questão cadastrada com sucesso!");
-				this.listaAlternativas.removeAll(listaAlternativas);
-				this.alternativaCorreta = null;
-				this.modelAlternativas = null;
-				this.pergunta = null;
-			} else {
-				throw new Exception("Dados obrigatórios não preenchidos");
-			}
-			
-		} catch (Exception e) {
-			logger.error("Erro ao salvar - " + e.getMessage());
-		
-		} finally {			
-			sessao.close();			
-		}			
-		
-	}
+            sessao = HibernateUtil.abrirSessao();
+            subCategoria.setCategoria(categoria);
+            pergunta.setSubCategoria(subCategoria);
+            Date criacao = new Date(System.currentTimeMillis());
+            pergunta.setDataCriacao(criacao);
+            pergunta.setUsuarioProprietario(LoginController.usuarioSessao());
 
-	private boolean validaDados(Categoria categoria) {
-		logger.info("método - validaDados()");
-		
-		boolean camposValidos = true;
-		
-		if (null == this.pergunta.getTexto() ||  this.pergunta.getTexto().isEmpty()) {
-			camposValidos = false;
-			Mensagem.erro("Campo 'PERGUNTA' deve ser preenchido!");
-		} else if (null == categoria.getId()){
-			camposValidos = false;
-			Mensagem.erro("Campo 'CATEGORIA' deve ser preenchido!");
-		} else if (null == this.pergunta.getSubCategoria().getId()){
-			camposValidos = false;
-			Mensagem.erro("Campo 'SUBCATEGORIA' deve ser preenchido!");
-		} else if (null == this.listaAlternativas || this.listaAlternativas.isEmpty()){
-			camposValidos = false;
-			Mensagem.erro("Campo 'ALTERNATIVA' deve ser preenchido!");
-		} else if (this.listaAlternativas.size() < 2){
-			camposValidos = false;
-			Mensagem.erro("Campo 'ALTERNATIVA' deve conter no mínimo 2 alternativas!");
-		} else if (null == alternativaCorreta.getId()){
-			camposValidos = false;
-			Mensagem.erro("Selecione a 'ALTERNATIVA CORRETA'!");
-		}
-		return camposValidos;		
-	}
+            if (validaDados(categoria)) {
+                perguntaDao.salvarOuAlterar(pergunta, sessao);
+                selecionaAlternativaCorreta(pergunta.getId());
+                Mensagem.sucesso("Questão cadastrada com sucesso!");
+                this.listaAlternativas.removeAll(listaAlternativas);
+                this.alternativaCorreta = null;
+                this.modelAlternativas = null;
+                this.pergunta = null;
+            } else {
+                throw new Exception("Dados obrigatórios não preenchidos");
+            }
 
-	private void selecionaAlternativaCorreta(Long id) {
-		alternativaDao = new AlternativaDaoImpl();
-		for (Alternativa altern : listaAlternativas) {
-			if (altern.getId() == alternativaCorreta.getId()) {
-				altern.setStatusCorreta(true);
-			} else {
-				altern.setStatusCorreta(false);
-			}
-			altern.setPergunta(pergunta);
-			altern.setId(null);
-			alternativaDao.salvarOuAlterar(altern, sessao);
-		}
-		
-	}
+        } catch (Exception e) {
+            logger.error("Erro ao salvar - " + e.getMessage());
+
+        } finally {
+            sessao.close();
+        }
+
+    }
+
+    private boolean validaDados(Categoria categoria) {
+        logger.info("método - validaDados()");
+
+        boolean camposValidos = true;
+
+        if (null == this.pergunta.getTexto() || this.pergunta.getTexto().isEmpty()) {
+            camposValidos = false;
+            Mensagem.erro("Campo 'TEXTO' da pergunta deve ser preenchido!");
+        } else if (null == categoria.getId()) {
+            camposValidos = false;
+            Mensagem.erro("Campos 'CATEGORIA' e 'SUBCATEGORIA' devem ser preenchidos!");
+        } else if (null == this.pergunta.getSubCategoria().getId()) {
+            camposValidos = false;
+            Mensagem.erro("Campos 'CATEGORIA' e 'SUBCATEGORIA' devem ser preenchidos!");
+        } else if (null == this.listaAlternativas || this.listaAlternativas.size() < 1) {
+            camposValidos = false;
+            Mensagem.erro("Campo 'ALTERNATIVAS' deve ser preenchido!");
+        } else if (null == alternativaCorreta.getId()) {
+            camposValidos = false;
+            Mensagem.erro("Selecione a 'ALTERNATIVA CORRETA'!");
+        }
+        return camposValidos;
+    }
+
+    private void selecionaAlternativaCorreta(Long id) {
+        alternativaDao = new AlternativaDaoImpl();
+        for (Alternativa altern : listaAlternativas) {
+            if (altern.getId() == alternativaCorreta.getId()) {
+                altern.setStatusCorreta(true);
+            } else {
+                altern.setStatusCorreta(false);
+            }
+            altern.setPergunta(pergunta);
+            altern.setId(null);
+            alternativaDao.salvarOuAlterar(altern, sessao);
+        }
+
+    }
 
     public void buscaPerguntasPorCategoria() {
-    	logger.info("método - buscaPerguntaPorCategoria()");
+        logger.info("método - buscaPerguntaPorCategoria()");
         try {
             sessao = HibernateUtil.abrirSessao();
             perguntas = perguntaDao.buscaPerguntasPorCategoria(categoria, sessao);
@@ -203,9 +203,9 @@ public class PerguntaController implements Serializable {
             sessao.close();
         }
     }
-    
+
     public void buscaPerguntasPorSubCategoria() {
-    	logger.info("método - buscaPerguntasPorSubCategoria()");
+        logger.info("método - buscaPerguntasPorSubCategoria()");
         try {
             sessao = HibernateUtil.abrirSessao();
             perguntas = perguntaDao.buscaPerguntasPorSubCategoria(subCategoria.getId(), sessao);
@@ -217,194 +217,244 @@ public class PerguntaController implements Serializable {
         }
     }
 
-	public void buscarPerguntasElaboradasPeloUsuario() {
-		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
+    public void buscarPerguntasElaboradasPeloUsuario() {
+        logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
 
-		Usuario usuarioLogado = LoginController.usuarioSessao();
+        Usuario usuarioLogado = LoginController.usuarioSessao();
 
-		try {
-			sessao = HibernateUtil.abrirSessao();
-			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(usuarioLogado.getId(), sessao);
-			modelPerguntas = new ListDataModel<>(perguntas);
-		} catch (HibernateException e) {
-			logger.error("erro na busca de perguntas por usuario " + e.getMessage());
-		} finally {
-			sessao.close();
-		}
-	}
-
-	public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
-		logger.info("método - buscaPerguntasComFiltro()");
-		
-		if (id_categoria != null && id_sub_categoria != null) {
-			SubCategoriaDao subCategoriaDao = new SubCategoriaDaoImpl();
-			List<SubCategoria> subCategoriaValida = null;
-			try {
-				sessao = HibernateUtil.abrirSessao();
-				subCategoriaValida = subCategoriaDao.pesquisarPorIdCategoria(id_categoria, sessao);
-			} catch (HibernateException e) {
-				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-			} finally {
-				sessao.close();
-			}
-			
-			boolean flag = false;
-			if (subCategoriaValida != null) {
-				for (SubCategoria subCategoria : subCategoriaValida) {
-					if (subCategoria.getId() == id_sub_categoria) {
-						flag = false;
-						break;
-					} else {
-						flag = true;
-					}
-				}
-			}
-			
-			if (flag) {
-				id_sub_categoria = null;
-			}
-		}
-
-		if (id_categoria != null) {
-			try {
-				sessao = HibernateUtil.abrirSessao();
-				perguntas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
-				modelPerguntas = new ListDataModel<>(perguntas);
-			} catch (HibernateException e) {
-				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-			} finally {
-				sessao.close();
-			}
-		} else {
-			perguntas = null;
-			modelPerguntas = new ListDataModel<>(perguntas);
-		}
-	}
-        
-        
-        public void buscaPerguntaPorId(Long idPergunta){
-            logger.info("método - buscaPerguntaPorId()");
+        try {
             sessao = HibernateUtil.abrirSessao();
-            pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
-            System.out.println(pergunta);
+            perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(usuarioLogado.getId(), sessao);
+            modelPerguntas = new ListDataModel<>(perguntas);
+        } catch (HibernateException e) {
+            logger.error("erro na busca de perguntas por usuario " + e.getMessage());
+        } finally {
             sessao.close();
-            
+        }
+    }
+
+    public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
+        logger.info("método - buscaPerguntasComFiltro()");
+
+        if (id_categoria != null && id_sub_categoria != null) {
+            SubCategoriaDao subCategoriaDao = new SubCategoriaDaoImpl();
+            List<SubCategoria> subCategoriaValida = null;
+            try {
+                sessao = HibernateUtil.abrirSessao();
+                subCategoriaValida = subCategoriaDao.pesquisarPorIdCategoria(id_categoria, sessao);
+            } catch (HibernateException e) {
+                logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
+
+            boolean flag = false;
+            if (subCategoriaValida != null) {
+                for (SubCategoria subCategoria : subCategoriaValida) {
+                    if (subCategoria.getId() == id_sub_categoria) {
+                        flag = false;
+                        break;
+                    } else {
+                        flag = true;
+                    }
+                }
+            }
+
+            if (flag) {
+                id_sub_categoria = null;
+            }
         }
 
-	// GETTERS AND SETTERS
-	
-	public Pergunta getPergunta() {
-		if (pergunta == null) {
-			pergunta = new Pergunta();
-		}
-		return pergunta;
-	}
+        if (id_categoria != null) {
+            try {
+                sessao = HibernateUtil.abrirSessao();
+                perguntas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
+                modelPerguntas = new ListDataModel<>(perguntas);
+            } catch (HibernateException e) {
+                logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+            } finally {
+                sessao.close();
+            }
+        } else {
+            perguntas = null;
+            modelPerguntas = new ListDataModel<>(perguntas);
+        }
+    }
 
-	public void setPergunta(Pergunta pergunta) {
-		this.pergunta = pergunta;
-	}
+    public void buscaPerguntaPorId(Long idPergunta, boolean isEdit) throws IOException {
+        logger.info("método - buscaPerguntaPorId()");
+        sessao = HibernateUtil.abrirSessao();
+        pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
+        sessao.close();
+    }
+    
+    public String populaPerguntaEdit(Long id){ 
+        sessao = HibernateUtil.abrirSessao();
+        perguntaEdit = perguntaDao.buscaPerguntaPorId(id, sessao);
 
-	public Categoria getCategoria() {
-		if (categoria == null) {
-			categoria = new Categoria();
-		}
-		return categoria;
-	}
+        return "/Perfil/editarQuestao.xhtml";
+    
+    }
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
+    public String editarPergunta(Long idPergunta) throws Exception {
+        try {
 
-	public SubCategoria getSubCategoria() {
-		if (subCategoria == null) {
-			subCategoria = new SubCategoria();
-		}
-		return subCategoria;
-	}
+            sessao = HibernateUtil.abrirSessao();
+            subCategoria.setCategoria(categoria);
+            perguntaEdit.setSubCategoria(subCategoria);
+            Date criacao = new Date(System.currentTimeMillis());
+            perguntaEdit.setDataCriacao(criacao);
+            perguntaEdit.setUsuarioProprietario(LoginController.usuarioSessao());
 
-	public void setSubCategoria(SubCategoria subCategoria) {
-		this.subCategoria = subCategoria;
-	}
-	
-	public Alternativa getAlternativaCorreta() {
-		if (null == alternativaCorreta) {
-			alternativaCorreta = new Alternativa();
-		}
-		return alternativaCorreta;
-	}
+            if (validaDados(categoria)) {
+                perguntaDao.salvarOuAlterar(perguntaEdit, sessao);
+                pergunta.setStatusAtivo(false);
+                perguntaDao.salvarOuAlterar(pergunta, sessao);
+                selecionaAlternativaCorreta(perguntaEdit.getId());
+                Mensagem.sucesso("Questão cadastrada com sucesso!");
+                this.listaAlternativas.removeAll(listaAlternativas);
+                this.alternativaCorreta = null;
+                this.modelAlternativas = null;
+                this.pergunta = null;
+                this.perguntaEdit = null;
+                return "";
+            } else {
+                throw new Exception("Dados obrigatórios não preenchidos");
+            }
 
-	public void setAlternativaCorreta(Alternativa alternativaCorreta) {
-		this.alternativaCorreta = alternativaCorreta;
-	}
+        } catch (Exception e) {
+            logger.error("Erro ao salvar - " + e.getMessage());
 
-	public Alternativa getAlternativa() {
-		if (alternativa == null) {
-			alternativa = new Alternativa();
-		}
-		return alternativa;
-	}
+        } finally {
+            sessao.close();
+        }
+        return "";
+    }
 
-	public void setAlternativa(Alternativa alternativa) {
-		this.alternativa = alternativa;
-	}
+    // GETTERS AND SETTERS
+    public Pergunta getPergunta() {
+        if (pergunta == null) {
+            pergunta = new Pergunta();
+        }
+        return pergunta;
+    }
 
-	public List<Pergunta> getPerguntas() {
-		return perguntas;
-	}
+    public void setPergunta(Pergunta pergunta) {
+        this.pergunta = pergunta;
+    }
 
-	public void setPerguntas(List<Pergunta> perguntas) {
-		this.perguntas = perguntas;
-	}
+    public Categoria getCategoria() {
+        if (categoria == null) {
+            categoria = new Categoria();
+        }
+        return categoria;
+    }
 
-	public DataModel<Pergunta> getModelPerguntas() {
-		return modelPerguntas;
-	}
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
-	public void setModelPerguntas(DataModel<Pergunta> modelPerguntas) {
-		this.modelPerguntas = modelPerguntas;
-	}
+    public SubCategoria getSubCategoria() {
+        if (subCategoria == null) {
+            subCategoria = new SubCategoria();
+        }
+        return subCategoria;
+    }
 
-	public List<Alternativa> getListaAlternativas() {
-		return listaAlternativas;
-	}
+    public void setSubCategoria(SubCategoria subCategoria) {
+        this.subCategoria = subCategoria;
+    }
 
-	public void setListaAlternativas(List<Alternativa> listaAlternativas) {
-		this.listaAlternativas = listaAlternativas;
-	}
+    public Alternativa getAlternativaCorreta() {
+        if (null == alternativaCorreta) {
+            alternativaCorreta = new Alternativa();
+        }
+        return alternativaCorreta;
+    }
 
-	public DataModel<Alternativa> getModelAlternativas() {
-		return modelAlternativas;
-	}
+    public void setAlternativaCorreta(Alternativa alternativaCorreta) {
+        this.alternativaCorreta = alternativaCorreta;
+    }
 
-	public void setModelAlternativas(DataModel<Alternativa> modelAlternativas) {
-		this.modelAlternativas = modelAlternativas;
-	}
+    public Alternativa getAlternativa() {
+        if (alternativa == null) {
+            alternativa = new Alternativa();
+        }
+        return alternativa;
+    }
 
-	public Alternativa getAlter() {
-		return alter;
-	}
+    public void setAlternativa(Alternativa alternativa) {
+        this.alternativa = alternativa;
+    }
 
-	public void setAlter(Alternativa alter) {
-		this.alter = alter;
-	}
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
 
-	public String getRefinaBusca() {
-		return refinaBusca;
-	}
+    public void setPerguntas(List<Pergunta> perguntas) {
+        this.perguntas = perguntas;
+    }
 
-	public void setRefinaBusca(String refinaBusca) {
-		this.refinaBusca = refinaBusca;
-	}
+    public DataModel<Pergunta> getModelPerguntas() {
+        return modelPerguntas;
+    }
 
-	public Pergunta getPerguntaSelecionada() {
-		if (perguntaSelecionada == null) {
-			perguntaSelecionada = new Pergunta();
-		}
-		return perguntaSelecionada;
-	}
+    public void setModelPerguntas(DataModel<Pergunta> modelPerguntas) {
+        this.modelPerguntas = modelPerguntas;
+    }
 
-	public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
-		this.perguntaSelecionada = perguntaSelecionada;
-	}	
+    public List<Alternativa> getListaAlternativas() {
+        return listaAlternativas;
+    }
+
+    public void setListaAlternativas(List<Alternativa> listaAlternativas) {
+        this.listaAlternativas = listaAlternativas;
+    }
+
+    public DataModel<Alternativa> getModelAlternativas() {
+        return modelAlternativas;
+    }
+
+    public void setModelAlternativas(DataModel<Alternativa> modelAlternativas) {
+        this.modelAlternativas = modelAlternativas;
+    }
+
+    public Alternativa getAlter() {
+        return alter;
+    }
+
+    public void setAlter(Alternativa alter) {
+        this.alter = alter;
+    }
+
+    public String getRefinaBusca() {
+        return refinaBusca;
+    }
+
+    public void setRefinaBusca(String refinaBusca) {
+        this.refinaBusca = refinaBusca;
+    }
+
+    public Pergunta getPerguntaSelecionada() {
+        if (perguntaSelecionada == null) {
+            perguntaSelecionada = new Pergunta();
+        }
+        return perguntaSelecionada;
+    }
+
+    public void setPerguntaSelecionada(Pergunta perguntaSelecionada) {
+        this.perguntaSelecionada = perguntaSelecionada;
+    }
+
+    public Pergunta getPerguntaEdit() {
+        if (perguntaEdit == null) {
+            perguntaEdit = new Pergunta();
+        }
+        return perguntaEdit;
+    }
+
+    public void setPerguntaEdit(Pergunta perguntaEdit) {
+        this.perguntaEdit = perguntaEdit;
+    }
 
 }

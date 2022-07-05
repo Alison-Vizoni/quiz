@@ -1,0 +1,157 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/layout.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <ui:define name="content">
+
+        <p:panel>
+            <h:form>
+                <div  style="background-color: #eaeaea; display: flex; padding: 15px; align-content: center">
+                    <h3 style="color: #84509c; display: flex; margin: 15px 0;">EDITA QUESTÃO</h3>
+
+                    <p:commandButton icon="pi pi-question" id="btnAjudaQuestao"							  
+                                     styleClass="rounded-button ui-button-outlined"  
+                                     oncomplete="PF('modalCadastraQuestao').show()"
+                                     style="width: 22px; height: 22px; margin-left: 15px; align-self:center; display: flex; justify-content:center; color: #84509c" >
+                        <p:tooltip for="btnAjudaQuestao" 
+                                   value="Ajuda sobre como cadastrar questão" 
+                                   position="right"/>			  
+                    </p:commandButton>
+                </div>
+            </h:form>
+        </p:panel>                
+
+        <p:panel id="painelEdit" styleClass="" >
+            <h:form id="formEditaQuestao">
+                <!--  PERGUNTA  -->
+
+                <p:outputLabel value="Pergunta *" for="Pergunta" style="font-weight: bold"/>
+                <p:inputTextarea id="Pergunta" rows="2" cols="33" value="#{perguntaC.perguntaEdit.texto}" placeholder="Digite o texto da pergunta" style="width:100%">
+                    <f:validateLength minimum="2"/>    
+                </p:inputTextarea>
+
+                <!--  CATEGORIA  -->
+
+                <div style="display: flex; justify-content: space-around; margin: 25px 0">
+                    <div style="width: 50vw">
+                        <p:outputLabel value="Categoria *" for="categoria" style="font-weight: bold"/>
+                        <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+                                         id="categoria"		                                 
+                                         filter="true"                                       
+                                         style="width: 45vw">                                                       
+
+                            <f:selectItem itemLabel="#{perguntaC.perguntaEdit.subCategoria.categoria.nome}" itemValue="#{perguntaC.perguntaEdit.subCategoria.categoria.id}"/>
+                            <f:selectItems value="#{categoriaC.comboCategorias}" />
+                            <p:ajax update="sub_categoria" listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" />
+                        </p:selectOneMenu> 
+                    </div>
+
+                    <!--  SUB-CATEGORIA  -->
+
+                    <div style="width: 50vw">
+                        <p:outputLabel value="Subcategoria *" for="sub_categoria" style="font-weight: bold"/>	                
+                        <p:selectOneMenu value="#{perguntaC.subCategoria.id}"                                                             
+                                         id="sub_categoria"		                                
+                                         filter="true"
+                                         style="width: 50vw" >                                                       
+
+                            <f:selectItem itemLabel="#{perguntaC.perguntaEdit.subCategoria.nome}" itemValue="#{perguntaC.perguntaEdit.subCategoria.id}"/>
+                            <f:selectItems value="#{subcategoriaC.comboSubcategorias}" id="subCombo"/>
+                            <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+
+                <!--     ALTERNATIVAS      -->
+
+                <p:outputLabel id="tituloAlternativa" for="alternativa" value="Alternativa * " style="font-weight: bold">
+                    <i class="pi pi-info-circle" style="color: gray; size: 1px" >
+                        <p:tooltip for="tituloAlternativa" 
+                                   value="Você pode cadastrar de uma até várias alternativas.
+                                   Digite o texto e logo após clique no botão '+' ao lado para incluir.
+                                   Não é necessário incluir numeração para ordenar as alternativas" 
+                                   position="right"/>
+                    </i>
+                </p:outputLabel>
+                <div style="display: flex; justify-content: space-around;">
+<!-- 	                <p:inputText id="alternativa" value="#{perguntaC.alternativa.texto}" placeholder="Digite suas alternativas *"  -->
+                    <!-- 	                				style="width:93vw"/> -->
+
+                    <p:inputTextarea id="alternativa" rows="2" cols="33" value="#{perguntaC.alternativa.texto}" placeholder="Digite o texto da alternativa" style="width:100%">
+                        <f:validateLength minimum="1"/>    
+                    </p:inputTextarea>
+
+                    <p:commandButton value="+"
+                                     update="radioDT alternativa" 
+                                     action="#{perguntaC.populaListaAlternativa()}" style="font-weight: bold;"/>
+                </div>
+
+                <p:dataTable id="radioDT" var="alternativa" value="#{perguntaC.perguntaEdit.alternativas}" rows="10"
+                             selection="#{perguntaC.alternativaCorreta}"
+                             rowKey="#{alternativa.id}">					               
+
+                    <p:column selectionMode="single" style="text-align:left; margin-right: 10px" headerText="Correta" width="4%"/>											
+
+                    <p:column headerText="Alternativas Incluídas" style="word-wrap: break-word;">
+                        <p:inputTextarea rows="1" cols="33" value="#{alternativa.texto}" style="width: 100%; word-wrap: break-word;"/>
+                    </p:column>
+
+                    <p:column headerText="Excluir" style="width: 9%; margin-left: 0">
+                        <p:commandButton icon="pi pi-trash" title="Excluir"
+                                         process="@all" actionListener="#{perguntaC.excluir()}"
+                                         update="radioDT" styleClass="rounded-button ui-button-outlined">
+
+                            <p:confirm header="Confirmação" message="Deseja realmente excluir?" icon="pi pi-info-circle" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
+
+                <br></br>
+                <h:outputText value="Conteúdo Privado: "/>
+                <p:selectBooleanCheckbox id="visibilidade_privada" value="#{perguntaC.perguntaEdit.visibilidadePrivada}" >
+                    <p:ajax update="visibilidade_privada"  />
+                </p:selectBooleanCheckbox>
+
+                <p:commandButton value="Editar Questão"
+                                 actionListener="#{perguntaC.editarPergunta(categoriaC.categoria)}"                				
+                                 update="@all" process="@all" style="float: right" />                
+
+
+                <!-- MODAL AJUDA  -->
+                <p:dialog header="Ajuda - Editar Questão" widgetVar="modalCadastraQuestao" modal="true" showEffect="fade"
+                          hideEffect="fade" resizable="false" id="modalAjudaQuestao" style="position: absolute; top:20%">			              		                            
+                    <p:outputPanel id="cadastraQuestao" style="text-align:left; width: 88vw; height: 70vh">
+                        <ul id="lista_itens_ajuda">
+                            <li><b>Campos com asterísco * são obrigatórios</b></li>
+                            <li>Preencha o campo<b>  Pergunta*  </b>com o texto da pergunta</li>
+                            <li>Selecione a Categoria e Subcategoria</li>
+                            <li>Alternativas serão incluídas uma de cada vez</li>
+                            <li>Não é necessário colocar numeração para ordenar as alternativas, isso é feito de forma automática</li>
+                            <li>Preencha o campo<b>  Alternativa*  </b>com o texto da alternativa de resposta para a pergunta inserida acima</li>
+                            <li>Após digitar o texto da alternativa, clique no botão <b> [+] </b> do lado direito do campo para o texto da alternativa</li>
+                            <li>Quando terminar de incluir as alternativas de resposta, deve ser assinalada qual é a alternativa correta, para isto basta selecionar na coluna<b> Correta* </b></li>
+                            <li>Caso queira excluir a alternativa depois de inserir, basta clicar no<b>  ícone de lixeira  </b>que está ao lado direito da alternativa em questão</li>
+                            <li>No campo<b>  Conteúdo Privado*  </b>você escolhe se seu material será público (não selecionado) ou privado (selecionado)</li>
+                            <li>Após isto, é só clicar no botão  <b>Editar Questão </b> para finalizar o processo</li>
+                        </ul>    
+                    </p:outputPanel>
+                    <div id="botaoFechaModalAjudaQuestao">
+                        <p:commandButton value="Fechar ajuda" update="modalAjudaQuestao" styleClass="rounded-button ui-button-outlined"/>                    
+                    </div>
+                </p:dialog>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+</ui:composition>
