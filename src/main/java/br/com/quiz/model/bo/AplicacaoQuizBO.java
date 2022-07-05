@@ -36,7 +36,7 @@ public class AplicacaoQuizBO {
 				mensagem = "Acesso negado!";
 			}
 		} else {
-			mensagem = "Código inválido!";
+			mensagem = "Código do quiz inválido!";
 		}
 		return mensagem;
 	}
