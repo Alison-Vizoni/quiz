@@ -5,6 +5,8 @@
 package br.com.quiz.model.dao;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -61,5 +63,17 @@ public class AplicacaoQuizDaoImpl extends BaseDaoImpl<AplicacaoQuiz, Long>
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<AplicacaoQuiz> buscarQuizzesAplicados(Long id_usuario_logado, Session sessao) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM AplicacaoQuiz WHERE usuarioAplicador.id = :id_usuario_logado ");
+		
+		Query consulta = sessao.createQuery(sql.toString());
+		
+		consulta.setParameter("id_usuario_logado", id_usuario_logado);
+		
+		return consulta.list();
 	}
 }
