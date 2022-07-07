@@ -125,8 +125,6 @@ public class AplicacaoQuizController implements Serializable {
         }
     }
 
-    ;
-
     public String finalizarQuiz() {
         logger.info("entrou no finalizarQuiz()");
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
@@ -145,7 +143,7 @@ public class AplicacaoQuizController implements Serializable {
             } catch (Exception e) {
                 logger.error(e.getMessage());
             } finally {
-               
+               sessao.close();
             }
 
         }

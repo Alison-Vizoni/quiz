@@ -117,11 +117,6 @@ public class AplicacaoQuizResultadoController implements Serializable {
     		aplicacaoQuizResultadoDTO.add(resultados);
 		}
 	}
-    
-    public static void main(String[] args) {
-    	AplicacaoQuizResultadoController test = new AplicacaoQuizResultadoController();
-    	test.buscarUsuariosQueResponderamAplicacaoQuiz(1L);
-	}
 
 	public AplicacaoQuizResultado getAplicacaoQuizResultado() {
         return aplicacaoQuizResultado;
