@@ -47,7 +47,7 @@ public class AplicacaoQuizBO {
 			AplicacaoQuiz aplicacaoQuiz = aplicacaoQuizDao.pesquisarPorId(idAplicacaoQuiz, sessao);
 			return aplicacaoQuiz != null ? true : false;
 		}catch (HibernateException e) {
-			// TODO: handle exception
+			logger.error("Existe aplicação quiz BO: " + e.getMessage());
 		} finally {
 			sessao.close();
 		}
@@ -60,7 +60,7 @@ public class AplicacaoQuizBO {
 			return aplicacaoQuizDao.usuarioJaRespondeuQuiz(
 					idAplicacaoQuiz, LoginController.usuarioSessao().getId(), sessao);
 		} catch (HibernateException e) {
-			// TODO: handle exception
+			logger.error("usuario já responddeu quiz BO: " + e.getMessage());
 		} finally {
 			sessao.close();
 		}
@@ -73,7 +73,7 @@ public class AplicacaoQuizBO {
 			return aplicacaoQuizDao.verificarPermissaoParaResponderAplicacaoQuiz(
 					idAplicacaoQuiz, LoginController.usuarioSessao().getEmail(), sessao);
 		} catch (HibernateException e) {
-			// TODO: handle exception
+			logger.error("verificar permissão para responder aplicacao quiz BO: " + e.getMessage());
 		} finally {
 			sessao.close();
 		}

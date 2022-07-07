@@ -5,11 +5,14 @@ import br.com.quiz.model.dao.AplicacaoQuizDaoImpl;
 import br.com.quiz.model.dao.AplicacaoQuizResultadoDao;
 import br.com.quiz.model.dao.AplicacaoQuizResultadoDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dto.AplicacaoQuizResultadoDTO;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.AplicacaoQuizResultado;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
@@ -18,6 +21,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
@@ -29,6 +34,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
+import org.primefaces.component.tree.Tree;
 
 /**
  *
@@ -48,8 +54,9 @@ public class AplicacaoQuizResultadoController implements Serializable {
     private List<AplicacaoQuizResultado> resultados;
     private Session sessao;
     private Quiz quiz;
+    private Set<AplicacaoQuizResultadoDTO> aplicacaoQuizResultadoDTO;
 
-    public AplicacaoQuizResultadoController() {
+	public AplicacaoQuizResultadoController() {
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
     }
 
@@ -71,8 +78,52 @@ public class AplicacaoQuizResultadoController implements Serializable {
         }
         return noDuplicates;
     }
+    
+    public void buscarUsuariosQueResponderamAplicacaoQuiz(Long idAplicacaoQuiz) {
+    	logger.info("Método buscar usuários que responderamAplicacao quiz.");
+    	try {
+    		sessao = HibernateUtil.abrirSessao();
+    		List<AplicacaoQuizResultado> aplicacoesRespondidas = aplicacaoQuizResultadoDao
+    				.pesquisarPorIdAplicacaoQuiz(idAplicacaoQuiz, sessao);
+    		this.converterParaAplicacaoQuizResultadoDTO(aplicacoesRespondidas);
+    	} catch (HibernateException e) {
+			logger.error("Erro ao buscar usuários que responderamAplicacao quiz: " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+    }
 
-    public AplicacaoQuizResultado getAplicacaoQuizResultado() {
+    private void converterParaAplicacaoQuizResultadoDTO(List<AplicacaoQuizResultado> aplicacoesRespondidas) {
+    	Set<Usuario> usuarios = new HashSet<>();
+    	for (AplicacaoQuizResultado usuariosDuplicados : aplicacoesRespondidas) {
+			usuarios.add(usuariosDuplicados.getUsuario());
+		}
+    	
+    	for (Usuario usuario : usuarios) {
+    		Integer quantidadeTotalDeAcertos = 0;
+    		for (AplicacaoQuizResultado respostas : aplicacoesRespondidas) {
+    			if (respostas.getUsuario().getId() == usuario.getId() &&
+    					respostas.getAlternativa().isStatusCorreta()) {
+    				quantidadeTotalDeAcertos++;
+    			}
+    		}
+    		AplicacaoQuizResultadoDTO resultados = new AplicacaoQuizResultadoDTO();
+    		if(!aplicacoesRespondidas.isEmpty()) {
+	    		resultados.setNomeUsuario(usuario.getNome());
+	    		resultados.setEmailUsuario(usuario.getEmail());
+	    		resultados.setQuantidadeTotalDeAcertos(quantidadeTotalDeAcertos);
+	    		resultados.setTotalDePerguntas(aplicacoesRespondidas.get(0).getAplicacaoQuiz().getQuiz().getPerguntas().size());
+    		}
+    		aplicacaoQuizResultadoDTO.add(resultados);
+		}
+	}
+    
+    public static void main(String[] args) {
+    	AplicacaoQuizResultadoController test = new AplicacaoQuizResultadoController();
+    	test.buscarUsuariosQueResponderamAplicacaoQuiz(1L);
+	}
+
+	public AplicacaoQuizResultado getAplicacaoQuizResultado() {
         return aplicacaoQuizResultado;
     }
 
@@ -103,5 +154,8 @@ public class AplicacaoQuizResultadoController implements Serializable {
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
     }
-
+    
+    public Set<AplicacaoQuizResultadoDTO> getAplicacaoQuizResultadoDTO() {
+		return aplicacaoQuizResultadoDTO;
+	}
 }

@@ -269,15 +269,15 @@ public class AplicacaoQuizController implements Serializable {
     	try {
     		sessao = HibernateUtil.abrirSessao();
     		List<AplicacaoQuiz> quizzesAplicados = aplicacaoQuizDao.buscarQuizzesAplicados(id_usuario_logado, sessao);
-    		this.converterParaDTO(quizzesAplicados);
+    		this.converterParaAplicacaoQuizDTO(quizzesAplicados);
     	} catch (HibernateException e) {
-			logger.error("Erro ao buscar quizzes aplicados" + e.getMessage());
+			logger.error("Erro ao buscar quizzes aplicados: " + e.getMessage());
 		} finally {
 			sessao.close();
 		}
     }
 
-    private void converterParaDTO(List<AplicacaoQuiz> quizzesAplicados) {
+    private void converterParaAplicacaoQuizDTO(List<AplicacaoQuiz> quizzesAplicados) {
 		for (AplicacaoQuiz quizAplicado : quizzesAplicados) {
 			AplicacaoQuizDTO quizAplicadoDTO = new AplicacaoQuizDTO();
 			quizAplicadoDTO.setIdAplicacaoQuiz(quizAplicado.getId());
@@ -287,11 +287,6 @@ public class AplicacaoQuizController implements Serializable {
 			quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado().size());
 			quizzesAplicadosDTO.add(quizAplicadoDTO);
 		}
-	}
-    
-    public static void main(String[] args) {
-    	AplicacaoQuizController test = new AplicacaoQuizController();
-    	test.buscarQuizzesAplicados();
 	}
 
 	public void voltaListaPerguntas() throws IOException {
