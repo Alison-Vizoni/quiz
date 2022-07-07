@@ -5,6 +5,7 @@ import br.com.quiz.model.dao.AplicacaoQuizDaoImpl;
 import br.com.quiz.model.dao.AplicacaoQuizResultadoDao;
 import br.com.quiz.model.dao.AplicacaoQuizResultadoDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dto.AplicacaoQuizDTO;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.AplicacaoQuizResultado;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
@@ -40,13 +43,14 @@ public class AplicacaoQuizController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Logger logger = LoggerFactory.logger(getClass());
-    private AplicacaoQuizDaoImpl AplicacaoQuizDao;
+    private AplicacaoQuizDaoImpl aplicacaoQuizDao;
     private AplicacaoQuizResultado aplicacaoQuizResultado;
     private AplicacaoQuizResultadoDao aplicacaoQuizResultadoDao;
     private AplicacaoQuiz aplicacaoQuiz;
     private List<Pergunta> perguntas = new ArrayList<>();
     private List<Alternativa> alternativas = new ArrayList<>();
     private List<AplicacaoQuizResultado> resultados;
+    private List<AplicacaoQuizDTO> quizzesAplicadosDTO = new ArrayList<>();
     private Session sessao;
     private Pergunta pergunta;
     private Quiz quiz;
@@ -54,7 +58,7 @@ public class AplicacaoQuizController implements Serializable {
     public static Long idQuiz;
 
     public AplicacaoQuizController() {
-        AplicacaoQuizDao = new AplicacaoQuizDaoImpl();
+    	aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
     }
 
     public String validaAcessoQuiz() throws IOException {
@@ -64,7 +68,7 @@ public class AplicacaoQuizController implements Serializable {
         if ("ok".equals(mensagem)) {
             try {
                 sessao = HibernateUtil.abrirSessao();
-                aplicacaoQuiz = AplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
+                aplicacaoQuiz = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
                 return "listaPerguntasQuiz.xhtml?faces-redirect=true";
             } catch (HibernateException e) {
                 logger.error(e.getMessage());
@@ -257,17 +261,49 @@ public class AplicacaoQuizController implements Serializable {
 
         return totalRespostasCorretas + "/" + aplicacaoQuizResultado.size();
     }
+    
+    public void buscarQuizzesAplicados() {
+    	logger.info("Método Buscar quizzes aplicados.");
+    	
+    	Long id_usuario_logado = LoginController.usuarioSessao().getId();
+    	try {
+    		sessao = HibernateUtil.abrirSessao();
+    		List<AplicacaoQuiz> quizzesAplicados = aplicacaoQuizDao.buscarQuizzesAplicados(id_usuario_logado, sessao);
+    		this.converterParaDTO(quizzesAplicados);
+    	} catch (HibernateException e) {
+			logger.error("Erro ao buscar quizzes aplicados" + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+    }
 
-    public void voltaListaPerguntas() throws IOException {
+    private void converterParaDTO(List<AplicacaoQuiz> quizzesAplicados) {
+		for (AplicacaoQuiz quizAplicado : quizzesAplicados) {
+			AplicacaoQuizDTO quizAplicadoDTO = new AplicacaoQuizDTO();
+			quizAplicadoDTO.setIdAplicacaoQuiz(quizAplicado.getId());
+			quizAplicadoDTO.setDataAplicacao(quizAplicado.getDataAplicacao());
+			quizAplicadoDTO.setTituloQuiz(quizAplicado.getQuiz().getTitulo());
+			quizAplicadoDTO.setQuantidadeTotalDePessoas(quizAplicado.getEmails().size());
+			quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado().size());
+			quizzesAplicadosDTO.add(quizAplicadoDTO);
+		}
+	}
+    
+    public static void main(String[] args) {
+    	AplicacaoQuizController test = new AplicacaoQuizController();
+    	test.buscarQuizzesAplicados();
+	}
+
+	public void voltaListaPerguntas() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("listaPerguntasQuiz.xhtml");
     }
 
     public AplicacaoQuizDaoImpl getAplicacaoQuizDao() {
-        return AplicacaoQuizDao;
+        return aplicacaoQuizDao;
     }
 
     public void setAplicacaoQuizDao(AplicacaoQuizDaoImpl AplicacaoQuizDao) {
-        this.AplicacaoQuizDao = AplicacaoQuizDao;
+        this.aplicacaoQuizDao = AplicacaoQuizDao;
     }
 
     public AplicacaoQuiz getAplicacaoQuiz() {
@@ -304,5 +340,13 @@ public class AplicacaoQuizController implements Serializable {
     public void setQuizFinalizou(boolean quizFinalizou) {
         this.quizFinalizou = quizFinalizou;
     }
+
+	public List<AplicacaoQuizDTO> getQuizzesAplicadosDTO() {
+		return quizzesAplicadosDTO;
+	}
+
+	public void setQuizzesAplicadosDTO(List<AplicacaoQuizDTO> quizzesAplicadosDTO) {
+		this.quizzesAplicadosDTO = quizzesAplicadosDTO;
+	}
 
 }
