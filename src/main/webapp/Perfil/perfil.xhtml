@@ -12,7 +12,8 @@
                  onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario();
                 aplicacaoQuizResultadoC.pesquisaAplicacaoQuizPorUsuario();
                 quizC.pesquisarQuizElaboradoPeloUsuario();
-                usuarioC.usuarioSessao()
+                usuarioC.usuarioSessao();
+                aplicacaoQuizC.buscarQuizzesAplicados()
             }">
             <div class="container_perfil_top">
                 <nav class="menu_perfil">
@@ -243,9 +244,27 @@
                     </h:form>
                 </div>
                 
-                <div style="display:none" class="quiz_aplicados card ui-fluid">
+                <div style="display:none; margin: 20px" class="quiz_aplicados card ui-fluid" >
                     <h:form>
-                 
+                        <p:dataTable id="tabela" var="quiz" value="#{aplicacaoQuizC.quizzesAplicadosDTO}" rows="10"
+                         paginator="true" paginatorPosition="bottom"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+                         rowKey="#{quiz.idAplicacaoQuiz}">
+                            <p:column headerText="Nome quiz" style="word-wrap: break-word">
+                                <h:outputText value="#{quiz.tituloQuiz}" />
+                            </p:column>
+                            <p:column headerText="Código quiz" style="word-wrap: break-word">
+                                <h:outputText value="#{quiz.idAplicacaoQuiz}" />
+                            </p:column>
+                             <p:column headerText="Total aplicado" style="word-wrap: break-word">
+                                 <h:outputText value="#{quiz.quantidadeTotalDePessoas}" />
+                            </p:column>
+                            <p:column headerText="Total respondidos" style="word-wrap: break-word">
+                                <h:outputText value="#{quiz.quantidadeDePessoasQueResponderam}" />
+                            </p:column>
+                         </p:dataTable>
                     </h:form>
                 </div>
             </div>

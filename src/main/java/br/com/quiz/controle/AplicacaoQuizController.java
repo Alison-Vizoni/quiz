@@ -58,7 +58,7 @@ public class AplicacaoQuizController implements Serializable {
     public static Long idQuiz;
 
     public AplicacaoQuizController() {
-    	aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
+        aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
     }
 
     public String validaAcessoQuiz() throws IOException {
@@ -145,7 +145,7 @@ public class AplicacaoQuizController implements Serializable {
             } catch (Exception e) {
                 logger.error(e.getMessage());
             } finally {
-               
+
             }
 
         }
@@ -261,40 +261,43 @@ public class AplicacaoQuizController implements Serializable {
 
         return totalRespostasCorretas + "/" + aplicacaoQuizResultado.size();
     }
-    
+
     public void buscarQuizzesAplicados() {
-    	logger.info("Método Buscar quizzes aplicados.");
-    	
-    	Long id_usuario_logado = LoginController.usuarioSessao().getId();
-    	try {
-    		sessao = HibernateUtil.abrirSessao();
-    		List<AplicacaoQuiz> quizzesAplicados = aplicacaoQuizDao.buscarQuizzesAplicados(id_usuario_logado, sessao);
-    		this.converterParaDTO(quizzesAplicados);
-    	} catch (HibernateException e) {
-			logger.error("Erro ao buscar quizzes aplicados" + e.getMessage());
-		} finally {
-			sessao.close();
-		}
+        logger.info("Método Buscar quizzes aplicados.");
+
+        Long id_usuario_logado = LoginController.usuarioSessao().getId();
+        sessao = HibernateUtil.abrirSessao();
+        try {
+            if (quizzesAplicadosDTO.size() == 0) {
+              
+                List<AplicacaoQuiz> quizzesAplicados = aplicacaoQuizDao.buscarQuizzesAplicados(id_usuario_logado, sessao);
+                this.converterParaDTO(quizzesAplicados);
+            }
+        } catch (HibernateException e) {
+            logger.error("Erro ao buscar quizzes aplicados" + e.getMessage());
+        } finally {
+            sessao.close();
+        }
     }
 
     private void converterParaDTO(List<AplicacaoQuiz> quizzesAplicados) {
-		for (AplicacaoQuiz quizAplicado : quizzesAplicados) {
-			AplicacaoQuizDTO quizAplicadoDTO = new AplicacaoQuizDTO();
-			quizAplicadoDTO.setIdAplicacaoQuiz(quizAplicado.getId());
-			quizAplicadoDTO.setDataAplicacao(quizAplicado.getDataAplicacao());
-			quizAplicadoDTO.setTituloQuiz(quizAplicado.getQuiz().getTitulo());
-			quizAplicadoDTO.setQuantidadeTotalDePessoas(quizAplicado.getEmails().size());
-			quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado().size());
-			quizzesAplicadosDTO.add(quizAplicadoDTO);
-		}
-	}
-    
-    public static void main(String[] args) {
-    	AplicacaoQuizController test = new AplicacaoQuizController();
-    	test.buscarQuizzesAplicados();
-	}
+        for (AplicacaoQuiz quizAplicado : quizzesAplicados) {
+            AplicacaoQuizDTO quizAplicadoDTO = new AplicacaoQuizDTO();
+            quizAplicadoDTO.setIdAplicacaoQuiz(quizAplicado.getId());
+            quizAplicadoDTO.setDataAplicacao(quizAplicado.getDataAplicacao());
+            quizAplicadoDTO.setTituloQuiz(quizAplicado.getQuiz().getTitulo());
+            quizAplicadoDTO.setQuantidadeTotalDePessoas(quizAplicado.getEmails().size());
+            quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado().size());
+            quizzesAplicadosDTO.add(quizAplicadoDTO);      
+    }
+}
 
-	public void voltaListaPerguntas() throws IOException {
+public static void main(String[] args) {
+        AplicacaoQuizController test = new AplicacaoQuizController();
+        test.buscarQuizzesAplicados();
+    }
+
+    public void voltaListaPerguntas() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("listaPerguntasQuiz.xhtml");
     }
 
@@ -341,12 +344,12 @@ public class AplicacaoQuizController implements Serializable {
         this.quizFinalizou = quizFinalizou;
     }
 
-	public List<AplicacaoQuizDTO> getQuizzesAplicadosDTO() {
-		return quizzesAplicadosDTO;
-	}
+    public List<AplicacaoQuizDTO> getQuizzesAplicadosDTO() {
+        return quizzesAplicadosDTO;
+    }
 
-	public void setQuizzesAplicadosDTO(List<AplicacaoQuizDTO> quizzesAplicadosDTO) {
-		this.quizzesAplicadosDTO = quizzesAplicadosDTO;
-	}
+    public void setQuizzesAplicadosDTO(List<AplicacaoQuizDTO> quizzesAplicadosDTO) {
+        this.quizzesAplicadosDTO = quizzesAplicadosDTO;
+    }
 
 }
