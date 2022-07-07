@@ -22,6 +22,7 @@
                                 <p:menuitem styleClass="quizElaborados" value="Quizz elaborados"/>
                                 <p:menuitem styleClass="quizRespondidos" value="Quizz respondidos"/>
                                 <p:menuitem styleClass="perguntasElaboradas" value="Perguntas elaboradas"/>
+                                <p:menuitem styleClass="quizAplicados" value="Quiz aplicados"/>
                             </p:submenu>
                             <p:submenu label="Perfil">
                                 <p:menuitem styleClass="configucoesPerfil" value="Usuário"/>
@@ -53,8 +54,9 @@
                         </div>
                     </p:repeat>
                     <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
-                              hideEffect="fade" resizable="false" id="modal_quiz">			              		                            
-                        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 70vh">
+                              hideEffect="fade" resizable="false" id="modal_quiz">			         
+                  
+                        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 80vh">
                             <p:column>
                                 <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
                                     <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
@@ -71,14 +73,15 @@
 	                                        </ui:repeat>
                                         </div>
                                     </ui:repeat>
+                                    <div style="display: flex;justify-content: space-evenly; margin:10px">
+                                        <p:commandButton value="Editar" action="editarQuiz"></p:commandButton>
+                                        <p:commandButton value="Excluir"></p:commandButton>
+                                    </div>
                                 </div>
                             </p:column> 
 
                         </p:outputPanel>
-                        <div>
-                            <p:commandButton value="Editar"></p:commandButton>
-                            <p:commandButton value="Excluir"></p:commandButton>
-                        </div>
+        
                     </p:dialog>
                 </section>
                 <section style="display:none" class="perguntas_elaboradas">
@@ -107,8 +110,8 @@
                                                 icon="pi pi-eye"
                                                 styleClass="rounded-button ui-button-outlined"
                                                 oncomplete="PF('modalPerguntaElaborada').show()"/>
-                                         <p:commandButton
-                                                action="#{perguntaC.populaPerguntaEdit(pergunta.id)}"
+<!--                                         <p:commandButton
+                                                action=""
                                                 style="background-color:transparent; color:rgb(130 75 173)"
                                                 title="Editar questão"
                                                 icon="pi pi-pencil"
@@ -116,12 +119,12 @@
                                                 />
                                          <p:commandButton
                                                 update="modal"
-                                                action="#{perguntaC.buscaPerguntaPorId(pergunta.id)}"
+                                                action
                                                 style="background-color:transparent; color:rgb(130 75 173)"
                                                 title="Deletar questão"
                                                 icon="pi pi-trash"
                                                 styleClass="rounded-button ui-button-outlined"
-                                                oncomplete="PF('modalPerguntaElaborada').show()"/>
+                                                oncomplete="PF('modalPerguntaElaborada').show()"/>-->
                                          </div>
                                          
                                         
@@ -239,6 +242,12 @@
                         </p:dialog>
                     </h:form>
                 </div>
+                
+                <div style="display:none" class="quiz_aplicados card ui-fluid">
+                    <h:form>
+                 
+                    </h:form>
+                </div>
             </div>
         </section>
         <script>
@@ -246,17 +255,20 @@
             let quizRespondidos = document.querySelector('.quizRespondidos');
             let perguntasElaboradas = document.querySelector('.perguntasElaboradas');
             let configucoesPerfil = document.querySelector('.configucoesPerfil');
-
+            let quizAplicados = document.querySelector('.quizAplicados');
+            
             let quiz_elaborados = document.querySelector('.quiz_elaborados');
             let perguntas_elaboradas = document.querySelector('.perguntas_elaboradas');
             let quiz_respondidos = document.querySelector('.quiz_respondidos');
             let configuracoes = document.querySelector('.configuracoes');
-
+            let quiz_aplicados = document.querySelector('.quiz_aplicados');
+            
             quizElaborados.addEventListener('click', () => {
                 configuracoes.style.display = 'none';
                 quiz_respondidos.style.display = 'none';
                 perguntas_elaboradas.style.display = 'none';
                 quiz_elaborados.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
             });
 
             quizRespondidos.addEventListener('click', () => {
@@ -264,6 +276,7 @@
                 perguntas_elaboradas.style.display = 'none';
                 configuracoes.style.display = 'none';
                 quiz_respondidos.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
             });
 
 
@@ -272,6 +285,7 @@
                 quiz_elaborados.style.display = 'none';
                 configuracoes.style.display = 'none';
                 perguntas_elaboradas.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
             });
 
             configucoesPerfil.addEventListener('click', () => {
@@ -279,6 +293,14 @@
                 perguntas_elaboradas.style.display = 'none';
                 quiz_elaborados.style.display = 'none';
                 configuracoes.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
+            });
+            quizAplicados.addEventListener('click', () => {
+                quiz_respondidos.style.display = 'none';
+                perguntas_elaboradas.style.display = 'none';
+                quiz_elaborados.style.display = 'none';
+                configuracoes.style.display = 'none';
+                quiz_aplicados.style.display = 'flex';
             });
 
 

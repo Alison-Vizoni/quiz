@@ -19,6 +19,8 @@ public interface QuizDao extends BaseDao<Quiz, Long>{
 
     public List<Quiz> pesquisarPorIdQuiz(Session sessao, Long idQuiz);
 
-	public List<Quiz> buscaPerguntasPublicas(Session sessao);
+    public List<Quiz> buscaPerguntasPublicas(Session sessao);
+    
+    public boolean setStatusAtivoFalse(Session sessao, Long idQuiz);
     
 }

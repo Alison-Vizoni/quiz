@@ -54,8 +54,16 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long> implements QuizDao, Ser
 
 	@Override
 	public List<Quiz> buscaPerguntasPublicas(Session sessao) {
-		Query consulta = sessao.createQuery("FROM Quiz WHERE statusAtivo = true and visibilidadePrivada = false");
-		return consulta.list();
+            Query consulta = sessao.createQuery("FROM Quiz WHERE statusAtivo = true and visibilidadePrivada = false");
+            return consulta.list();
 	}
+
+    @Override
+        public boolean setStatusAtivoFalse(Session sessao, Long id) {
+          Query query = sessao.createQuery("update Quiz set statusAtivo = false where id = :id");
+          query.setParameter("id", id);
+          int result = query.executeUpdate();
+          return result > 0;
+        }
 
 }

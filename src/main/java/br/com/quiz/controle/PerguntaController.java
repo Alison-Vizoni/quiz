@@ -287,49 +287,7 @@ public class PerguntaController implements Serializable {
         pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
         sessao.close();
     }
-    
-    public String populaPerguntaEdit(Long id){ 
-        sessao = HibernateUtil.abrirSessao();
-        perguntaEdit = perguntaDao.buscaPerguntaPorId(id, sessao);
 
-        return "/Perfil/editarQuestao.xhtml";
-    
-    }
-
-    public String editarPergunta(Long idPergunta) throws Exception {
-        try {
-
-            sessao = HibernateUtil.abrirSessao();
-            subCategoria.setCategoria(categoria);
-            perguntaEdit.setSubCategoria(subCategoria);
-            Date criacao = new Date(System.currentTimeMillis());
-            perguntaEdit.setDataCriacao(criacao);
-            perguntaEdit.setUsuarioProprietario(LoginController.usuarioSessao());
-
-            if (validaDados(categoria)) {
-                perguntaDao.salvarOuAlterar(perguntaEdit, sessao);
-                pergunta.setStatusAtivo(false);
-                perguntaDao.salvarOuAlterar(pergunta, sessao);
-                selecionaAlternativaCorreta(perguntaEdit.getId());
-                Mensagem.sucesso("Questão cadastrada com sucesso!");
-                this.listaAlternativas.removeAll(listaAlternativas);
-                this.alternativaCorreta = null;
-                this.modelAlternativas = null;
-                this.pergunta = null;
-                this.perguntaEdit = null;
-                return "";
-            } else {
-                throw new Exception("Dados obrigatórios não preenchidos");
-            }
-
-        } catch (Exception e) {
-            logger.error("Erro ao salvar - " + e.getMessage());
-
-        } finally {
-            sessao.close();
-        }
-        return "";
-    }
 
     // GETTERS AND SETTERS
     public Pergunta getPergunta() {

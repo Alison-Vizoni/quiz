@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/layout.xhtml">
+
+    <ui:define name="content">
+        <!-- HEADER --> 
+        <p:panel>
+            <h:form>
+                <div style="background-color: #eaeaea; display: flex; padding: 15px; align-content: center" onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario()}">
+                    <h3 style="color: #84509c; display: flex; margin: 15px 0;">EDITAR QUIZ</h3>
+                </div>
+            </h:form>
+        </p:panel>
+
+        <p:panel id="combo_busca_questao" styleClass="color"  >
+            <h:form id="formCategoria">
+
+                <div style="width: 100vw;
+                     display: flex;
+                     flex-direction: column;
+                     height: 150px;
+                     justify-content: space-around;
+                     margin: 10px;">
+
+                    <div style="display:grid;">
+                        <h4>Título do Quiz *</h4>
+                        <p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
+<!--                            <p:ajax listener="#{quizC.quiz.titulo}"/>-->
+                        </p:inputText>
+
+                    </div>
+                    <div id="filtros_questao" style="display: flex; justify-content: space-between;">
+
+                        <!-- CATEGORIA -->
+                        <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+                                         id="categoria"		                                 
+                                         filter="true"
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px" >                                                       
+
+                            <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+                            <f:selectItems value="#{categoriaC.comboCategorias}" />
+                            <p:ajax listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" update="sub_categoria form:tabela" />
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria "/>
+                        </p:selectOneMenu>
+
+                        <!-- SUB-CATEGORIA -->
+                        <p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
+                                         id="sub_categoria"
+                                         filter="true"
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px">
+
+                            <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+                            <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+                            <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                        </p:selectOneMenu>
+
+
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search" />
+                            <p:inputText disabled="#{categoriaC.categoria.id == null ? true : false}" id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
+                                <!--                                 <f:validateLength minimum="3"/> -->
+                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                            </p:inputText>
+                        </span>
+
+                    </div>
+                </div>     
+            </h:form>
+        </p:panel>
+
+        <h:form id="form">			
+            <p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
+                         paginator="true" paginatorPosition="bottom"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+                         selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
+                <p:column headerText="Perguntas" style="word-wrap: break-word">
+                    <h:outputText value="#{pergunta.texto}" />
+                </p:column>
+
+                <p:column headerText="Visualizar" style="width: 9%;">
+
+                    <p:commandButton icon="pi pi-eye" title="Visualizar pergunta" update=":form:panelPergunta"
+                                     process="tabela" oncomplete="PF('modalPergunta').show()"
+                                     styleClass="rounded-button ui-button-outlined"
+                                     actionListener="#{perguntaC.visualizaQuestaoSelecionada(pergunta)}">
+
+                    </p:commandButton>    
+
+
+                </p:column>
+                <p:column headerText="Adicionar" style="width: 9%;">
+
+                    <p:commandButton icon="pi pi-plus" title="Adicionar pergunta" update="form:tabelaQuiz"
+
+                                     styleClass="rounded-button ui-button-outlined"
+                                     actionListener="#{quizC.incluiPerguntaQuiz(pergunta)}">
+
+                    </p:commandButton>    
+
+
+                </p:column>
+            </p:dataTable>
+
+
+
+            <p:dialog header="QUESTÃO" widgetVar="modalPergunta" modal="true" showEffect="fade" style="position: absolute"
+                      hideEffect="fade" resizable="false" id="modal">			              		                            
+                <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
+                    <p:column rendered="#{not empty perguntaC.pergunta}">
+                        <div class="produto">
+                            <div class="product-grid-item card" style="margin-bottom: 0">
+                                <div class="product-grid-item-top">
+                                    <div id="texto_pergunta_modal" style="font-weight:900" >
+                                        <span class="product-category" style="word-wrap: break-word;">#{perguntaC.perguntaSelecionada.texto}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-grid-item-content" style="text-align:left">
+                                <div style="font-weight: bolder; margin-top: 20px">ALTERNATIVAS</div>
+
+                                <ui:repeat value="#{perguntaC.perguntaSelecionada.alternativas}" var="alt" varStatus="status">
+                                    <div style="display: flex; flex-direction: column; margin-top: 8px">
+                                        <p:outputLabel  value="#{status.index+1}"  
+                                                        styleClass="outputLabel" 
+                                                        style="color:#{alt.statusCorreta ? 'white': 'black'};
+                                                        background-color:#{alt.statusCorreta ? '#5d2d7e': ''};
+                                                        text-align: left;
+                                                        float: left;"> - #{alt.texto}</p:outputLabel>
+                                    </div>
+                                </ui:repeat>									
+
+                            </div>
+                        </div>
+                    </p:column>
+                </p:outputPanel>
+
+            </p:dialog>	
+
+
+            <p:dataTable id="tabelaQuiz" var="pergunta" value="#{quizC.quiz.perguntas}" rows="10"
+                         paginator="true" paginatorPosition="bottom"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+                         rowKey="#{pergunta.id}">
+                <p:column headerText="Perguntas cadastradas" style="word-wrap: break-word">
+                    <h:outputText value="#{pergunta.texto}" />
+                </p:column>
+
+                <p:column headerText="Visualizar" style="width: 9%;">
+
+                    <p:commandButton icon="pi pi-eye" title="Visualizar pergunta" 
+                                     process="tabelaQuiz" oncomplete="PF('modalPergunta').show()"
+                                     styleClass="rounded-button ui-button-outlined"
+                                     actionListener="#{perguntaC.visualizaQuestaoSelecionada(pergunta)}">
+
+                    </p:commandButton>    
+
+
+                </p:column>
+                <p:column headerText="Excluir" style="width: 9%;">
+
+                    <p:commandButton icon="pi pi-trash" title="Adicionar pergunta"
+                                     process="tabelaQuiz"
+                                     update="form:tabelaQuiz"
+                                     styleClass="rounded-button ui-button-outlined"
+                                     actionListener="#{quizC.excluirPergunta(pergunta)}"
+                                     >
+                    </p:commandButton>    
+
+                </p:column>
+            </p:dataTable>
+            <div style="display: flex; justify-content: center">
+                <p:commandButton value="Editar quiz"
+                                 style="width: 200px"
+                                 action="#{quizC.editarQuiz(quizC.quiz.id)}"                				
+                                 />    
+            </div>
+        </h:form> 
+    </ui:define>
+</ui:composition>
