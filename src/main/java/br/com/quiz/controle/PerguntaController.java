@@ -217,79 +217,107 @@ public class PerguntaController implements Serializable {
         }
     }
 
-    public void buscarPerguntasElaboradasPeloUsuario() {
-        logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
+	public void buscarPerguntasElaboradasPeloUsuario() {
+		logger.info("método - buscarPerguntasElaboradasPeloUsuario()");
 
-        Usuario usuarioLogado = LoginController.usuarioSessao();
+		Usuario usuarioLogado = LoginController.usuarioSessao();
 
-        try {
-            sessao = HibernateUtil.abrirSessao();
-            perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(usuarioLogado.getId(), sessao);
-            modelPerguntas = new ListDataModel<>(perguntas);
-        } catch (HibernateException e) {
-            logger.error("erro na busca de perguntas por usuario " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-    }
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			perguntas = perguntaDao.buscarPerguntasElaboradosPeloUsuario(usuarioLogado.getId(), sessao);
+			modelPerguntas = new ListDataModel<>(perguntas);
+		} catch (HibernateException e) {
+			logger.error("erro na busca de perguntas por usuario " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+	}
 
-    public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
-        logger.info("método - buscaPerguntasComFiltro()");
+	public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
+		logger.info("método - buscaPerguntasComFiltro()");
+		
+		if (id_categoria != null && id_sub_categoria != null) {
+			SubCategoriaDao subCategoriaDao = new SubCategoriaDaoImpl();
+			List<SubCategoria> subCategoriaValida = null;
+			try {
+				sessao = HibernateUtil.abrirSessao();
+				subCategoriaValida = subCategoriaDao.pesquisarPorIdCategoria(id_categoria, sessao);
+			} catch (HibernateException e) {
+				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+			} finally {
+				sessao.close();
+			}
+			
+			boolean flag = false;
+			if (subCategoriaValida != null) {
+				for (SubCategoria subCategoria : subCategoriaValida) {
+					if (subCategoria.getId() == id_sub_categoria) {
+						flag = false;
+						break;
+					} else {
+						flag = true;
+					}
+				}
+			}
+			
+			if (flag) {
+				id_sub_categoria = null;
+			}
+		}
 
-        if (id_categoria != null && id_sub_categoria != null) {
-            SubCategoriaDao subCategoriaDao = new SubCategoriaDaoImpl();
-            List<SubCategoria> subCategoriaValida = null;
-            try {
-                sessao = HibernateUtil.abrirSessao();
-                subCategoriaValida = subCategoriaDao.pesquisarPorIdCategoria(id_categoria, sessao);
-            } catch (HibernateException e) {
-                logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-            } finally {
-                sessao.close();
-            }
+		if (id_categoria != null) {
+			try {
+				sessao = HibernateUtil.abrirSessao();
+				List<Pergunta> perguntasBuscadas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
+				this.filtrarPerguntas(perguntasBuscadas);
+				modelPerguntas = new ListDataModel<>(perguntas);
+			} catch (HibernateException e) {
+				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
+			} finally {
+				sessao.close();
+			}
+		} else {
+			perguntas = null;
+			modelPerguntas = new ListDataModel<>(perguntas);
+		}
+	}
 
-            boolean flag = false;
-            if (subCategoriaValida != null) {
-                for (SubCategoria subCategoria : subCategoriaValida) {
-                    if (subCategoria.getId() == id_sub_categoria) {
-                        flag = false;
-                        break;
-                    } else {
-                        flag = true;
-                    }
-                }
-            }
+    private void filtrarPerguntas(List<Pergunta> perguntasBuscadas) {
+    	perguntas = new ArrayList<Pergunta>();
+    	Long usuarioLogado = LoginController.usuarioSessao().getId();
+		if(usuarioLogado != null) {
+			for (Pergunta perguntaBuscada : perguntasBuscadas) {
+				if(perguntaBuscada.isVisibilidadePrivada()) {
+					if (perguntaBuscada.getUsuarioProprietario().getId() == usuarioLogado) {
+						perguntas.add(perguntaBuscada);
+					}
+				} else {
+					perguntas.add(perguntaBuscada);
+				}
+			}
+		} else {
+			for (Pergunta perguntaBuscada : perguntasBuscadas) {
+				if(!perguntaBuscada.isVisibilidadePrivada()) {
+					perguntas.add(perguntaBuscada);
+				}
+			}
+		}
+	}
 
-            if (flag) {
-                id_sub_categoria = null;
-            }
-        }
-
-        if (id_categoria != null) {
-            try {
-                sessao = HibernateUtil.abrirSessao();
-                perguntas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
-                modelPerguntas = new ListDataModel<>(perguntas);
-            } catch (HibernateException e) {
-                logger.error("erro na busca de perguntas com filtro " + e.getMessage());
-            } finally {
-                sessao.close();
-            }
-        } else {
-            perguntas = null;
-            modelPerguntas = new ListDataModel<>(perguntas);
-        }
-    }
-
-    public void buscaPerguntaPorId(Long idPergunta, boolean isEdit) throws IOException {
+	public void buscaPerguntaPorId(Long idPergunta){
         logger.info("método - buscaPerguntaPorId()");
-        sessao = HibernateUtil.abrirSessao();
-        pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
-        sessao.close();
+        try {
+        	sessao = HibernateUtil.abrirSessao();
+        	pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
+        	System.out.println(pergunta);
+        } catch (HibernateException e) {
+			logger.error("erro na busca de perguntas por id: " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
     }
-
-
-    // GETTERS AND SETTERS
+	
+	// GETTERS AND SETTERS
     public Pergunta getPergunta() {
         if (pergunta == null) {
             pergunta = new Pergunta();
