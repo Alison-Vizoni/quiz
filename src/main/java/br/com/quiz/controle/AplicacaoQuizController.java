@@ -252,6 +252,22 @@ public class AplicacaoQuizController implements Serializable {
         aplicacaoQuiz = null;
         return formataRespostaFinal(aplicacaoQuizResultado);
     }
+    
+    public String resultadoFinalUsuario(Long idAplicacao, Long idUsuario) {
+        aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
+        sessao = HibernateUtil.abrirSessao();
+        List<AplicacaoQuizResultado> aplicacaoQuizResultado = null;
+        try {
+            aplicacaoQuizResultado = aplicacaoQuizResultadoDao
+                    .pesquisarPorId(idAplicacao, idUsuario, sessao);
+        } catch (Exception e) {
+        } finally {
+            sessao.close();
+        }
+
+        aplicacaoQuiz = null;
+        return formataRespostaFinal(aplicacaoQuizResultado);
+    }
 
     public String formataRespostaFinal(List<AplicacaoQuizResultado> aplicacaoQuizResultado) {
         int totalRespostasCorretas = 0;

@@ -12,6 +12,7 @@ import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +47,7 @@ public class AplicacaoQuizResultadoController implements Serializable {
     private AplicacaoQuizResultadoDao aplicacaoQuizResultadoDao;
     private AplicacaoQuiz aplicacaoQuiz;
     private List<AplicacaoQuizResultado> resultados;
+    private List<AplicacaoQuizResultado> resultadosModal;
     private Session sessao;
     private Quiz quiz;
 
@@ -70,6 +72,57 @@ public class AplicacaoQuizResultadoController implements Serializable {
             }
         }
         return noDuplicates;
+    }
+
+    public void pesquisaAplicacaoQuizResultadoPorId(Long id) {
+ 
+        sessao = HibernateUtil.abrirSessao();
+        resultadosModal = null;
+        resultadosModal = removeQuizDuplicado(aplicacaoQuizResultadoDao.pesquisarPorIdAplicacaoQuiz(id, sessao));
+        sessao.close();
+    }
+
+    public String resultadoFinalUsuario(Long idAplicacao, Long idUsuario) {
+        aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
+        sessao = HibernateUtil.abrirSessao();
+        List<AplicacaoQuizResultado> aplicacaoQuizResultado = null;
+        String resultado = "";
+        try {
+            aplicacaoQuizResultado = aplicacaoQuizResultadoDao
+                    .pesquisarPorId(idAplicacao, idUsuario, sessao);
+        } catch (Exception e) {
+        } finally {
+            sessao.close();
+        }
+
+        aplicacaoQuiz = null;
+        
+        resultado =  formataRespostaFinal(aplicacaoQuizResultado);
+        aplicacaoQuizResultado = null;
+        return resultado;
+    }
+    
+
+    public String formataRespostaFinal(List<AplicacaoQuizResultado> aplicacaoQuizResultado) {
+        int totalRespostasCorretas = 0;
+        for (int i = 0; i < aplicacaoQuizResultado.size(); i++) {
+            totalRespostasCorretas += aplicacaoQuizResultado.get(i).getAlternativa().isStatusCorreta() ? 1 : 0;
+        }
+
+        return totalRespostasCorretas + "/" + aplicacaoQuizResultado.size();
+    }
+    
+    public String formatarData (Date data) {
+        String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(data);
+        return dateFormat;
+    }
+    
+    
+    public int totalQuizRespondidos(Long idAplicacaoQuiz) {
+        sessao = HibernateUtil.abrirSessao();
+        int totalQuizRespondidos = removeQuizDuplicado(aplicacaoQuizResultadoDao.pesquisarPorIdAplicacaoQuiz(idAplicacaoQuiz, sessao)).size();
+        sessao.close();
+        return totalQuizRespondidos;
     }
 
     public AplicacaoQuizResultado getAplicacaoQuizResultado() {
@@ -102,6 +155,14 @@ public class AplicacaoQuizResultadoController implements Serializable {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
+    }
+
+    public List<AplicacaoQuizResultado> getResultadosModal() {
+        return resultadosModal;
+    }
+
+    public void setResultadosModal(List<AplicacaoQuizResultado> resultadosModal) {
+        this.resultadosModal = resultadosModal;
     }
 
 }
