@@ -36,6 +36,14 @@ public class SubCategoriaDaoImpl extends BaseDaoImpl<SubCategoria, Long>
         consulta.setParameter("nome", nome);
         return consulta.list();
     }
+    
+    @Override
+    public List<SubCategoria> pesquisarPorIdCategoria(Long id_categoria, Session sessao) 
+            throws HibernateException {
+        Query consulta = sessao.createQuery("FROM SubCategoria WHERE id_categoria = :id_categoria");
+        consulta.setParameter("id_categoria", id_categoria);
+        return consulta.list();
+    }
 
     @Override
     public List<SubCategoria> populaComboInicial(Session sessao) throws HibernateException {

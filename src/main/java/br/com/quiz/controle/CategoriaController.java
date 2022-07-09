@@ -1,8 +1,10 @@
     package br.com.quiz.controle;
 
 import java.io.Serializable;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -49,7 +51,7 @@ public class CategoriaController implements Serializable {
             sessao = HibernateUtil.abrirSessao();
             categorias = categoriaDao.populaComboInicial(sessao);
             comboCategorias = new ArrayList<>();
-
+            
             categorias.forEach(cat -> {
                 comboCategorias.add(new SelectItem(cat.getId(), cat.getNome().toUpperCase()));
             });
@@ -78,6 +80,11 @@ public class CategoriaController implements Serializable {
         }
 
         if (isTodosElementosIguais(cat)) {
+        	
+//        	String ajuste = Normalizer.normalize(cat.get(0), Normalizer.Form.NFD);
+//            Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+//            String categoriaSemAcentofinal = pattern.matcher(ajuste).replaceAll("");
+        	
             return cat.get(0).toLowerCase();
         }
 

@@ -432,7 +432,7 @@ body {
 }
 
 .cards_home {
-    box-shadow: 15px 20px 10px #8a8a8a;
+    box-shadow: 12px 16px 10px #8a8a8a;
     border-radius: 20px;
     padding: 15px;
     margin: 20px;
@@ -442,6 +442,15 @@ body {
     justify-content: center;
     display: flex;
     flex-direction: column;
+}
+
+
+.cards_home:hover {
+   cursor: pointer;
+   transition:.5s;
+   transform: scale(1.08);
+   box-shadow: 20px 18px 12px #c4bfbd;
+        
 }
 
 .cards_home h1 {
@@ -611,9 +620,8 @@ body {
     }
     .cards_home {
         margin: 25px auto;
-        width: 90vw;
+        width: 90vw;        
     }
-
 }
 
 
@@ -941,14 +949,6 @@ body .ui-panel .ui-panel-content{
 }
 
 
-
-
-
-
-
-
-
-
 /* MODAL BUSCA DE QUEST�ES */
 
 #botao_seleciona_questao{
@@ -1044,7 +1044,6 @@ body .ui-panel .ui-panel-content{
         display:flex;
         flex-direction: column;
         padding: 5px;
-        margin: 5px 0;
         overflow:hidden;
 
     }
@@ -1066,6 +1065,7 @@ body .ui-panel .ui-panel-content{
 .container_perfil {
     height: 100vh;
     font-family: 'Poppins', sans-serif;
+    display: flex;
 }
 
 .container_perfil_top {
@@ -1126,11 +1126,9 @@ body .ui-panel .ui-panel-content{
 }
 
 
-/* PERFIL QUIZ ELABORADOS */
+/* PERFIL QUIZ ELABORADOS || QUIZ RESPONDIDOS */
 
-.quiz_elaborados{
-    height: 60vh;
-    width: 70%;
+.quiz_elaborados, .quiz_respondidos{
     position: relative;
     margin: 2rem auto;
     overflow:hidden;
@@ -1138,11 +1136,11 @@ body .ui-panel .ui-panel-content{
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-
-
+    height: 80vh;
+    width :80vw;
 }
 
-.quiz_elaborados_container {
+.quiz_elaborados_container,.quiz_respondidos_container {
     max-width: 200px;
     height: 250px;
     margin:20px;
@@ -1156,12 +1154,12 @@ body .ui-panel .ui-panel-content{
     box-shadow: 4px 5px 14px -3px rgba(0,0,0,0.84), 4px 5px 12px -3px rgba(0,0,0,0.67);
 }
 
-.quiz_elaborados_container:hover{
+.quiz_elaborados_container:hover, .quiz_respondidos_container:hover{
     transform: scale(1.1);
     transition: ease 0.5s all;
 }
 
-.quiz_elaborados_info {
+.quiz_elaborados_info, .quiz_respondidos_info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -1173,8 +1171,8 @@ body .ui-panel .ui-panel-content{
     width: 100%;
     height: 50%;
     display: flex;
-    object-fit: contain;
-    border-radius: 10px 10px 10px 10px
+    object-fit: cover;
+    padding: 10px
 
 }
 
@@ -1183,39 +1181,35 @@ body .ui-panel .ui-panel-content{
 }
 
 
-.quiz_elaborados_info h2{
+.quiz_elaborados_info h2,.quiz_respondidos_info h2 {
     font-size: 18px;
     text-align: center;
     margin: 10px;
-    width: 250px;
+    width: 170px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
 }
 
+.configuracoes {
 
-/* PERFIL QUIZ RESPONDIDOS*/
-.quiz_respondidos {
-    height: 60vh;
-    width: 70%;
-    /*background: green;*/
-    position: relative;
     margin: 2rem auto;
-    overflow:hidden;
-    overflow-y: scroll
 }
+
 
 /* PERFIL PERGUNTAS ELABORADOS*/
 
 
 .perguntas_elaboradas {
-    height: 60vh;
-    width: 70%;
+    height: 80vh;
+    width :80vw;
     position: relative;
     margin: 2rem auto;
     overflow:hidden;
     overflow-y: scroll;
-    display: flex;
-    justify-content: start;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .perguntas_elaborados_info {
@@ -1223,29 +1217,38 @@ body .ui-panel .ui-panel-content{
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    border: 1px solid rgb(130 75 173);
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    border-radius: 10px;
+    margin-top:10px;
 }
 
 .perguntas_elaborados_container {
     width: 80%;
-    height: 100px;
+    height: 150px;
     border-radius: 10px;
-    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    display:flex;
+    justify-content: start;
     margin: 10px;
+    flex-direction: column
 }
 
 .perguntas_elaboradas_card_topside{
     font-size: 18px;
     padding:10px;
-    width:  80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    justify-content: space-between
 
 }
 
 .perguntas_elaboradas_card_botside {
     display: flex;
     justify-content: space-between;
+    height: 50px;
+    align-items: center;
 }
 
 .perguntas_elaboradas_card_botside span {
@@ -1284,6 +1287,7 @@ body .ui-panel .ui-panel-content{
     font-size: 48px;
     font-family:'Montserrat', sans-serif;
     color: #B37AC7;
+    text-align: center;
 }
 
 .container_responder_card h3 {
@@ -1308,7 +1312,7 @@ body .ui-panel .ui-panel-content{
     flex-direction: column;
     align-items: center;
     width: 80%;
-    height: 841px;
+    height: 80vh;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #B37AC7;
@@ -1355,10 +1359,6 @@ body .ui-panel .ui-panel-content{
     text-overflow: ellipsis;
 }
 
-.container_responder_final {
-
-}
-
 .container_pergunta_texto {
     width: 100%;
     background: #724F8B;
@@ -1398,3 +1398,37 @@ body .ui-panel .ui-panel-content{
     backdrop-filter: brightness(0.5);
     cursor: default;
 }
+
+/* EXPLORA CONTEUDO */
+
+.quiz_elaborados_explora{
+    position: relative;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    height: 80vh;
+    width :80vw;
+}
+
+.ui-panel .ui-panel-title{
+    color: rgba(114,79,139,1);
+}
+
+.separador_questao{
+    margin-top: 35px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    border-radius: 15px;
+    padding: 5px;
+    background-color: #E8E2EA;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#lista_itens_ajuda li {
+	margin-top:10px;
+}
+
+

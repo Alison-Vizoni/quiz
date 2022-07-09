@@ -8,54 +8,73 @@
 
 	<ui:define name="content">
 
-   		<p:messages id="messages" showDetail="true" closable="true" style="margin:0 auto; width: 90%">
-			<p:autoUpdate />
-		</p:messages>
-
-		<h:form id="form_quiz">
-			<div id="container_finaliza_quiz">
-			
-
-				<div id="content_email_quiz">
-					<span id="titulo_content_quiz">Insira o email de quem irá responder seu Quiz</span>
-					<div style="display: flex; margin-bottom: 15px">
-
-						<p:inputText id="email_cadastrado" value="#{emailC.emailConvidado}" style="width:90%" validatorMessage="Formato de email incorreto!">
-							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-						</p:inputText>
-						<p:commandButton value="Incluir" action="#{emailC.salvarListaEmails()}"
-							update="email_cadastrado tabela_email" style="margin-left:5px" />
-
+		<p:panel>
+			<h:form id="form_quiz">
+				<div id="container_finaliza_quiz">				
+	
+					<div id="content_email_quiz">					
+						
+					
+						<span id="titulo_content_quiz">Insira o e-mail de quem irá responder seu Quiz</span>
+						<div style="display: flex; margin-bottom: 15px">
+	
+							<p:inputText id="email_cadastrado" value="#{emailC.emailConvidado}" style="width:90%" validatorMessage="Formato de email incorreto!">
+								<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</p:inputText>
+							<p:commandButton value="Incluir" action="#{emailC.salvarListaEmails()}"
+								update="email_cadastrado tabela_email" style="margin-left:5px" />
+	
+						</div>
+						<h3>E-mails Cadastrados</h3>
+						<p:scrollPanel mode="native" style="width:45vw; height:35vh">
+							<p:dataTable id="tabela_email" var="email"
+								value="#{emailC.modelEmails}" rows="10">
+								<p:column headerText=" ">
+									<p:inputText value="#{email}" style="width:40vw" />
+								</p:column>
+							</p:dataTable>
+						</p:scrollPanel>
+	
 					</div>
-					<h3>Emails Cadastrados</h3>
-					<p:scrollPanel mode="native" style="width:45vw; height:35vh">
-						<p:dataTable id="tabela_email" var="email"
-							value="#{emailC.modelEmails}" rows="10">
-							<p:column headerText=" ">
-								<p:inputText value="#{email}" style="width:40vw" />
-							</p:column>
-						</p:dataTable>
-					</p:scrollPanel>
-
+					<div id="container_visualiza_encerra_quiz">
+						<p:messages id="messages" showDetail="true" closable="true" style="margin: 0 auto; width: 90%;">
+							<p:autoUpdate />
+						</p:messages>
+						<div id="content_visualiza_quiz">
+							<h:graphicImage library="senac/images" name="final.png"
+								style="display: block;
+	                                   max-height: 100%;
+	                                   max-width: 100%;" />
+							<p id="texto_final_quiz">Tudo pronto, agora é só adicionar os
+								e-mails de quem vai responder seu quiz e clicar em enviar</p>
+						</div>
+	
+						<div id="content_encerra_quiz">
+							<p:commandButton value="Enviar Quiz"							
+								actionListener="#{quizC.cadastraAplicacaoQuiz(emailC.modelEmails)}"
+								update="email_cadastrado tabela_email" 
+								
+								style="width:100%"
+								 />
+						</div>
+					</div>
 				</div>
-				<div id="container_visualiza_encerra_quiz">
-					<div id="content_visualiza_quiz">
-						<h:graphicImage library="senac/images" name="final.png"
-							style="display: block;
-                                   max-height: 100%;
-                                   max-width: 100%;" />
-						<p id="texto_final_quiz">Tudo pronto, agora é só adicionar os
-							emails de quem vai responder seu quiz e clicar em enviar</p>
-					</div>
-
-					<div id="content_encerra_quiz">
-						<p:commandButton value="Enviar Quiz"
-							action="#{emailC.enviaEmail()}"
-							actionListener="#{quizC.cadastraAplicacaoQuiz(emailC.modelEmails)}"
-							update="email_cadastrado tabela_email" style="width:100%" />
-					</div>
-				</div>
-			</div>
-		</h:form>
+				
+	<!-- 			<p:dialog header="Envio Realizado !!!" widgetVar="modalEmailEnviado" modal="true" showEffect="fade"  -->
+	<!--                       hideEffect="fade" resizable="false" id="modalEnvioEmail" style="overflow: hidden; text-align:center" closable="false"> -->
+	<!--                <p:outputPanel id="panel" style="text-align:center; width: 40vw; height: 40vh"> -->
+	<!-- 	              <div style="display:flex; flex-direction: column; border-radius: 20px"> -->
+	<!-- 	              	<h:outputText value="Se preferir enviar agora, o código do seu Quiz é : " style="margin: 5vh auto; text-align: center; font-size: 1.5rem "/> -->
+	<!-- 	              	<h:outputText value="#{emailC.sucesso}" style="margin: auto; text-align: center" /> -->
+	<!-- 	                	<p:outputLabel value="#{emailC.sucesso}" />				                 -->
+	<!-- 	                <p:commandButton value="Continuar" style="margin-top: 10vh" -->
+	<!-- 	                                  action="{emailC.modelEmails == null ? /final : /inicio }" -->
+	<!-- 	                                  styleClass="rounded-button ui-button-outlined" update="@all">  -->
+	<!-- 	                </p:commandButton> -->
+	<!-- 	              </div> -->
+	<!--               </p:outputPanel> -->
+	<!--             </p:dialog>			 -->
+			</h:form>
+		</p:panel>
 	</ui:define>
 </ui:composition>

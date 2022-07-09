@@ -55,4 +55,11 @@ public class AplicacaoQuizResultadoDaoImpl extends BaseDaoImpl<AplicacaoQuizResu
         consulta.setParameter("idAlternativa", idAlternativa);
         return (AplicacaoQuizResultado) consulta.uniqueResult();
 	}
+
+    @Override
+    public List<AplicacaoQuizResultado> pesquisarPorIdUsuario(Long idUsuario, Session sessao) {
+       Query consulta = sessao.createQuery("SELECT DISTINCT app FROM AplicacaoQuizResultado app WHERE "+" app.id.idUsuario = :idUsuario");
+        consulta.setParameter("idUsuario", idUsuario);
+        return consulta.list();
+    }
 }

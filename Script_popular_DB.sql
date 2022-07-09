@@ -26,10 +26,10 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INDUSTRIALIZAÇÃO E COM
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOPOLÍTICA", 1);
 
 -- HISTÓRIA
-INSERT INTO categoria (nome) VALUES ("HISTÓRIA");
+INSERT INTO categoria (nome) VALUES ("HISTORIA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FEUDALISMO", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ABSOLUTISMO", 2);
-INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CIVILIZAÇÕES PRÉ-COMLOMBIANAS", 2);
+INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CIVILIZAÇÕES PRÉ-COLOMBIANAS", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ANTIGUIDADE CLÁSSICA", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("REVOLUÇÃO FRANCESA", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("COLONIZAÇÃO MERCANTILISTA", 2);
@@ -37,7 +37,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ERA VARGAS", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PROCESSO DE IDEPENDENCIA DO BRASIL", 2);
 
 -- MATEMÁTICA
-INSERT INTO categoria (nome) VALUES ("MATEMÁTICA");
+INSERT INTO categoria (nome) VALUES ("MATEMATICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("TRIGONOMETRIA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOMETRIA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PORCENTAGEM", 3);
@@ -48,7 +48,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ALGEBRA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INTRODUÇÃO AO CÁLCULO", 3);
 
 -- PORTUGUÊS
-INSERT INTO categoria (nome) VALUES ("PORTUGUÊS");
+INSERT INTO categoria (nome) VALUES ("PORTUGUES");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LITERATURA", 4);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LINGUÍSTICA", 4);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GRAMÁTICA", 4);
@@ -68,7 +68,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("BIOLOGIA MOLECULAR", 5);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("DETERMINISMO BIOLÓGICO", 5);
 
 -- QUÍMICA
-INSERT INTO categoria (nome) VALUES ("QUÍMICA");
+INSERT INTO categoria (nome) VALUES ("QUIMICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUNÇÕES INORGÂNICAS", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("REAÇÕES INORGÂNICAS", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SOLUÇÕES", 6);
@@ -79,7 +79,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("RADIOATIVIDADE", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUNÇÕES ORGÂNICAS", 6);
 
 -- FÍSICA
-INSERT INTO categoria (nome) VALUES ("FÍSICA");
+INSERT INTO categoria (nome) VALUES ("FISICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("MECÂNICA", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("TERMODINÂMICA", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ÓPTICA", 7);
@@ -88,7 +88,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FÍSICA NUCLEAR", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ASTRONOMIA", 7);
 
 -- EDUCAÇÃO FÍSICA
-INSERT INTO categoria (nome) VALUES ("EDUCAÇÃO FÍSICA");
+INSERT INTO categoria (nome) VALUES ("EDUCACAO FISICA");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUTEBOL", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LINGUAGENS DO CORPO", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GINÁSTICA", 8);
@@ -127,7 +127,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("A ÉTICA DE SANTO AGOSTI
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CONFÚCIO E SEUS ENSINAMENTOS", 11);
 
 -- INGLÊS
-INSERT INTO categoria (nome) VALUES ("INGLÊS");
+INSERT INTO categoria (nome) VALUES ("INGLES");
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("VERB TO BE", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SIMPLE PAST", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT CONTINUOUS", 12);
@@ -136,17 +136,21 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SIMPLE FUTURE", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PAST CONTINUOUS", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT PERFECT SIMPLE", 12);
 
+-- OUTROS
+INSERT INTO categoria (nome) VALUES ("OUTROS");
+INSERT INTO sub_categoria (nome, id_categoria) VALUES ("OUTROS", 13);
+
 
 
 -- USUÁRIO
 INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
-("Ian Benedito Almeida", "506.726.137-43", "ian_benedito_almeida@coldblock.com.br", "(43) 99120-3042", "ian", "ian", TRUE);
+("Ian Benedito Almeida", "506.726.137-43", "ian_benedito_almeida@coldblock.com.br", "(43) 99120-3042", "ian", "b54a95127a4b573f41e335fdbd339dcc2208fbfb1ae0b6fab7599d6e2d6ec754", TRUE);
 INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
-("Valentina Lavínia Isabelle Castro", "254.100.896-18", "valentina_castro@teravida.com.br", "(41) 2749-0455", "valentina", "valentina", TRUE);
+("Valentina Lavínia Isabelle Castro", "254.100.896-18", "valentina_castro@teravida.com.br", "(41) 2749-0455", "valentina", "ba2d0830e65eadb371708af3592703d68353b5566093002111df7c34f89c9ff0", TRUE);
 INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
-("José Danilo dos Santos", "046.349.843-77", "jose-dossantos70@aspadvocacia.com", "(79) 99773-0287", "jose", "jose", TRUE);
+("José Danilo dos Santos", "046.349.843-77", "jose-dossantos70@aspadvocacia.com", "(79) 99773-0287", "jose", "1ec4ed037766aa181d8840ad04b9fc6e195fd37dedc04c98a5767a67d3758ece", TRUE);
 INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
-("André Leonardo Jesus", "738.161.742-05", "andre_leonardo_jesus@stilomovelaria.com.br", "(48) 98446-0449", "andre", "andre", TRUE);
+("André Leonardo Jesus", "738.161.742-05", "andre_leonardo_jesus@stilomovelaria.com.br", "(48) 98446-0449", "andre", "bd01b0b648c2c64eb1bddd9361d9972ea684b344fedc4d166654a85e8919e7ad", TRUE);
 
 -- PERGUNTAS E ALTERNATIVAS
 -- IAN, GEOGRAFIA, HIDROGRAFIA
@@ -561,7 +565,7 @@ join categoria on categoria_quiz.id_categoria = categoria.id;
 */
 
 -- IAN APLICANDO QUIZ DO ANDRÉ
-INSERT INTO aplicacao_quiz (data_aplicacao, descricao, id_quiz, id_usuario_aplicador) VALUES ("2022-02-05", "Descrição do quiz...", 
+INSERT INTO aplicacao_quiz (data_aplicacao, id_quiz, id_usuario_aplicador) VALUES ("2022-02-05", 
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1), 1);
 
 INSERT INTO emails_aplicacao_quiz (emails, id_aplicacao_quiz) values ((SELECT email FROM usuario WHERE nome = "Ian Benedito Almeida"), 1);
@@ -569,7 +573,7 @@ INSERT INTO emails_aplicacao_quiz (emails, id_aplicacao_quiz) values ((SELECT em
 
 
 -- ANDRÉ APLICANDO SEU PRÓRPIO QUIZ
-INSERT INTO aplicacao_quiz (data_aplicacao, descricao, id_quiz, id_usuario_aplicador) VALUES ("2022-02-05", "Descrição do quiz...", 
+INSERT INTO aplicacao_quiz (data_aplicacao, id_quiz, id_usuario_aplicador) VALUES ("2022-02-05", 
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1), 4);
 
 INSERT INTO emails_aplicacao_quiz (emails, id_aplicacao_quiz) values ((SELECT email FROM usuario WHERE nome = "Ian Benedito Almeida"), 2);

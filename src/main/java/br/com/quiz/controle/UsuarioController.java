@@ -17,6 +17,10 @@ import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.UsuarioDao;
 import br.com.quiz.model.dao.UsuarioDaoImpl;
 import br.com.quiz.model.entidade.Usuario;
+import java.io.IOException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -24,39 +28,83 @@ import br.com.quiz.model.entidade.Usuario;
  */
 @ManagedBean(name = "usuarioC")
 @ViewScoped
-public class UsuarioController implements Serializable{
+public class UsuarioController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Usuario usuario;
-//    private Login login;
+    private static final long serialVersionUID = 1L;
+
+    private Usuario usuario;
+    public Usuario usuarioEdit;
     private UsuarioBO usuarioBO;
-//    private LoginDao loginDao;
     private UsuarioDao usuarioDao;
     private Session sessao;
+    private String confirmarSenha;
 
     public UsuarioController() {
         usuarioDao = new UsuarioDaoImpl();
- //       loginDao = new LoginDaoImpl();
     }
-     
 
-    public void salvar() {
+    public String salvar() throws IOException {
         sessao = HibernateUtil.abrirSessao();
         usuarioBO = new UsuarioBO();
-        try {
-            if (usuarioBO.existeEmail(usuario.getEmail(), sessao)) {
-                Mensagem.erro("Email já cadastrado");
-            } else {    
-                usuario.setLogin(usuario.getEmail());
-                usuarioDao.salvarOuAlterar(usuario, sessao);
-            }
 
+        try {
+            String mensagem = usuarioBO.validaUsuario(usuario, confirmarSenha);
+            boolean emailExists = usuarioBO.existeEmail(usuario.getEmail(), sessao);
+            if (mensagem != "ok" || emailExists) {
+                mensagem = emailExists ? "Email já cadastrado" : mensagem;
+                Mensagem.erro(mensagem);
+                return null;
+            } else {
+                usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
+                usuarioDao.salvarOuAlterar(usuario, sessao);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/login.xhtml");
+            }
         } catch (HibernateException e) {
             System.err.println("Erro ao salvar " + e.getMessage());
         } finally {
             sessao.close();
+
         }
+        return null;
+    }
+
+    public void usuarioSessao() {
+        usuarioEdit = LoginController.usuarioSessao();
+    }
+
+    public void editar() {
+        sessao = HibernateUtil.abrirSessao();
+        try {
+            usuarioDao.salvarOuAlterar(usuarioEdit, sessao);
+        } catch (Exception e) {
+            System.err.println("Erro ao alterar " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    }
+
+    public void desativarConta() {
+        sessao = HibernateUtil.abrirSessao();
+        try {
+            usuarioEdit.setStatusAtivo(false);
+            usuarioDao.salvarOuAlterar(usuarioEdit, sessao);
+            LoginController login = new LoginController();
+            login.logout();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/login.xhtml");
+
+        } catch (Exception e) {
+            System.err.println("Erro ao alterar " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+
+    }
+
+    private boolean validarSenha() {
+        if (confirmarSenha != null && confirmarSenha.equals(usuario.getSenha())) {
+            return true;
+        }
+        return false;
     }
 
     public Usuario getUsuario() {
@@ -68,13 +116,20 @@ public class UsuarioController implements Serializable{
         this.usuario = usuario;
     }
 
-//    public Login getLogin() {
-//        login = login == null ? new Login() : login;
-//        return login;
-//    }
-//
-//    public void setLogin(Login login) {
-//        this.login = login;
-//    }
+    public String getConfirmarSenha() {
+        return confirmarSenha;
+    }
+
+    public void setConfirmarSenha(String confirmarSenha) {
+        this.confirmarSenha = confirmarSenha;
+    }
+
+    public Usuario getUsuarioEdit() {
+        return usuarioEdit;
+    }
+
+    public void setUsuarioEdit(Usuario usuarioEdit) {
+        this.usuarioEdit = usuarioEdit;
+    }
 
 }

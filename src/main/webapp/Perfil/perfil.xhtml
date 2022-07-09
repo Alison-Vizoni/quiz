@@ -2,9 +2,11 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/layout.xhtml">
+                template="/WEB-INF/layout.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
+
 
         <section name="perfil" class="container_perfil">
             <div class="container_perfil_top">
@@ -15,62 +17,319 @@
                                 <p:menuitem styleClass="quizElaborados" value="Quizz elaborados"/>
                                 <p:menuitem styleClass="quizRespondidos" value="Quizz respondidos"/>
                                 <p:menuitem styleClass="perguntasElaboradas" value="Perguntas elaboradas"/>
+                                <p:menuitem styleClass="quizAplicados" value="Quiz aplicados"/>
                             </p:submenu>
                             <p:submenu label="Perfil">
-                                <p:menuitem styleClass="configucoesPerfil" value="Configuração"/>
+                                <p:menuitem styleClass="configucoesPerfil" value="Usuário"/>
                             </p:submenu>
                         </p:menu>
 
                     </h:form>
                 </nav>
-                <img class="container__perfil_side" src="../resources/senac/images/perfil_banner.jpg"/>
+
             </div>
-            <div class="actions"></div>
+            <div class="actions" style="width: 80%;">
+                <section class="quiz_elaborados" onloadstart="#{quizC.pesquisarQuizElaboradoPeloUsuario()}">
+                    <p:repeat value="#{quizC.quizzes}" var="quiz">
+                        <div class="quiz_elaborados_container">
+                            <img class="image_categoria" 
+                            	 src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
+                            <div class="title__center">
+                                <span>#{categoriaC.validaCategoria(quiz)}</span>
+                            </div>
+                            <div class="quiz_elaborados_info">
+                                <h2>#{quiz.titulo}</h2>
+                            </div>
+                            <p:commandButton
+                                update="modal_quiz"
+                                action="#{quizC.pesquisaQuizPorIdModal(quiz.id)}"
+                                value="Visualizar quiz"
+                                style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold;
+                                color:white; background-color:transparent; color:rgb(130 75 173);border: none"
+                                oncomplete="PF('modalQuizElaborado').show()"  />
+                        </div>
+                    </p:repeat>
+                    <p:dialog header="#{quizC.quizModal.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
+                              hideEffect="fade" resizable="false" id="modal_quiz">			         
+                  
+                        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 80vh">
+                            <p:column>
+                                <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
+                                    <ui:repeat  value="#{quizC.quizModal.perguntas}" var="perg" varStatus="statusPerg">
+                                    	<div class="separador_questao" >
+	                                        <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
+	                                                       style="float: left; font-weight:bold; margin: 5px 0" />
+	                                        <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
+	
+	                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+	                                                            style="margin: 5px 0;justify-content: left; float: left;color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''}">
+	                                                - #{alt.texto}
+	                                            </p:outputLabel>
+	
+	                                        </ui:repeat>
+                                        </div>
+                                    </ui:repeat>
+                                    <div style="display: flex;justify-content: space-evenly; margin:10px">
+                                        <p:commandButton value="Editar" action="editarQuiz">
+                                        	<p:ajax listener="#{quizEditadoC.selecionadoQuizEditar(quizC.quiz)}"/>
+                                        </p:commandButton>
+                                        <p:commandButton value="Excluir"></p:commandButton>
+                                    </div>
+                                </div>
+                            </p:column> 
+
+                        </p:outputPanel>
+        
+                    </p:dialog>
+                </section>
+                <section style="display:none" class="perguntas_elaboradas" onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario()}">
+                     <div class="perguntas_elaborados_container">
+                    <p:repeat value="#{perguntaC.perguntas}" var="pergunta">
+                       
+                            <div class="perguntas_elaborados_info">
+                                <div class="perguntas_elaboradas_card_topside">
+                                    <span>#{pergunta.texto}</span>
+                                    <span>
+                                        #{pergunta.visibilidadePrivada ? "Privada" : "Pública"}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span style="display: flex;
+                                                justify-content: space-between;
+                                                padding: 10px;
+                                                align-items: center;">
+                                        #{pergunta.subCategoria.nome}
+                                        <div style='display: flex;justify-content: space-around;'>
+                                            
+                                         <p:commandButton
+                                                update="modal"
+                                                action="#{perguntaC.buscaPerguntaPorId(pergunta.id, false)}"
+                                                style="background-color:transparent; color:rgb(130 75 173); border:none"
+                                                value="Visualizar pergunta"
+                                                styleClass="rounded-button "
+                                                oncomplete="PF('modalPerguntaElaborada').show()"/>
+                                         </div>                                                                    
+                                    </span>
+                                </div>   
+                            </div>
+                  
+                             </p:repeat>
+                        </div>
+                    <p:dialog  header="PERGUNTA" widgetVar="modalPerguntaElaborada" modal="true" showEffect="fade"
+                              hideEffect="fade" resizable="false" id="modal">			              		                            
+                        <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
+                            <p:column rendered="#{not empty perguntaC.perguntaModal}">
+                                <div class="product">
+                                    <div class="product-grid-item card" style="margin-bottom: 0">
+                                        <div class="product-grid-item-top">
+                                            <div id="texto_pergunta_modal" >
+                                                <span class="product-category" style="word-wrap: break-word;font-weight:bold">#{perguntaC.perguntaModal.texto}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-grid-item-content" style="text-align: start;">
+                                        <div style="text-align:start; margin:10px 0; font-weight:bold">ALTERNATIVAS</div>
+
+                                        <ui:repeat value="#{perguntaC.perguntaModal.alternativas}" var="alt" varStatus="status">								
+                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+                                                            style="color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''};margin: 5px 0"> - #{alt.texto}</p:outputLabel><br></br>
+
+                                        </ui:repeat>									
+
+                                    </div>
+                                </div>
+                            </p:column>
+                        </p:outputPanel>
+                    </p:dialog>
 
 
+                </section>
+                <section style="display:none" class="quiz_respondidos" onloadstart="#{aplicacaoQuizResultadoC.pesquisaAplicacaoQuizPorUsuario()}">         
+                    <p:repeat value="#{aplicacaoQuizResultadoC.resultados}" var="quiz">
+                        <div class="quiz_respondidos_container">
+                            <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz.aplicacaoQuiz.quiz)}.jpg" />
+                            <div class="title__center">
+                                <span>#{categoriaC.validaCategoria(quiz.aplicacaoQuiz.quiz)}</span>
+                            </div>
+                            <div class="quiz_respondidos_info">
+                                <h2>#{quiz.aplicacaoQuiz.quiz.titulo}</h2>
+                                <h3 style="font-size:18px">Resultado: #{aplicacaoQuizC.resultadoFinal(quiz.aplicacaoQuiz.id)}</h3> 
+                            </div>
+                            
+                            <p:commandButton
+                                update="modal_quiz_respondidos"
+                                action="#{quizC.pesquisaQuizPorIdModal(quiz.aplicacaoQuiz.quiz.id)}"
+                                value="Visualizar quiz"
+                                style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold;
+                                color:white; background-color:transparent; color:rgb(130 75 173);border: none"
+                                oncomplete="PF('modalQuizRespondido').show()"  />
+                        </div>
+                    </p:repeat>
+                    <p:dialog rendered="#{not empty quizC.quizModal}" header="#{quizC.quizModal.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
+                              hideEffect="fade" resizable="false" id="modal_quiz_respondidos">			              		                            
+                        <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">
+                            <p:column>
+                                <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
+                                   <ui:repeat  value="#{quizC.quizModal.perguntas}" var="perg" varStatus="statusPerg">
+	                                  <div class="separador_questao" >
+	                                    <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
+	                                                       style="float: left; font-weight:bold; margin:5px 0px" />
+	                                      <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
+	
+	                                            <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+	                                                            style="justify-content: left; float: left; margin:5px 0px;color:'black'">
+	                                                - #{alt.texto}
+	                                            </p:outputLabel>
+	
+	                                    </ui:repeat>
+                                    </div>
+                                  </ui:repeat>
+                                </div>
+                            </p:column>
+                        </p:outputPanel>
+                    </p:dialog>
+                </section>
+                <div style="display:none" class="configuracoes card ui-fluid" onloadstart="#{usuarioC.usuarioSessao()}">
+                    <h:form>
+                        <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="Nome" for="@next"/>
+                            <p:inputText id="input_nome" value="#{usuarioC.usuarioEdit.nome}"/>
+                      </div>
+                      <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="Cpf" for="@next"/>
+                            <p:inputMask value="#{usuarioC.usuarioEdit.cpf}" id="input_cpf" mask="999.999.999-99" validateMask="true"/>
+                      </div>
+                      <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="E-mail" for="@next"/>
+                            <p:inputMask value="#{usuarioC.usuarioEdit.email}" id="input_email" type="email"/>
+                      </div>
+                      <div class="p-field p-col-12 p-md-4">
+                            <p:outputLabel value="Telefone" for="@next"/>
+                            <p:inputMask value="#{usuarioC.usuarioEdit.telefone}" mask="(99) 99999-9999" id="input_telefone" />
+                      </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:30px">
+                            
+                              <p:commandButton value="Editar" action="#{usuarioC.editar()}" style="height: 35px; width:75px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1);border: none"></p:commandButton>
+                              <p:commandButton value="Desativar conta"  oncomplete="PF('modalDesativarConta').show()" style="height: 35px; width:150px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgb(203 41 41);border: none"></p:commandButton>
+                        </div>
+                        <p:dialog header="Aviso" widgetVar="modalDesativarConta" modal="true" resizable="true" showEffect="fade">
+                            <div style="display:flex; flex-direction:column; justify-content:space-evenly;align-items: center;height:130px">
+                                <div>Deseja mesmo desativar a conta?</div>
+                                <p:commandButton value="Desativar" action="#{usuarioC.desativarConta()}" style="height: 35px; width:150px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgb(203 41 41);border: none"></p:commandButton>
+                            </div>
+                        </p:dialog>
+                    </h:form>
+                </div>
+                
+                <div style="display:none; margin: 20px" class="quiz_aplicados card ui-fluid" onloadstart="#{aplicacaoQuizC.buscarQuizzesAplicados()}" >
+                    <h:form>
+                        <p:dataTable id="tabela" var="quiz" value="#{aplicacaoQuizC.quizzesAplicadosDTO}" rows="10"
+                         paginator="true" paginatorPosition="bottom"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+                         rowKey="#{quiz.idAplicacaoQuiz}">
+                            <p:column headerText="Nome quiz" style="word-wrap: break-word">
+                                <h:outputText value="#{quiz.tituloQuiz}" />
+                            </p:column>
+                            <p:column headerText="Código quiz" style="word-wrap: break-word; text-align:center">
+                                <h:outputText value="#{quiz.idAplicacaoQuiz}" />
+                            </p:column>
+                             <p:column headerText="Total aplicado" style="word-wrap: break-word; text-align:center">
+                                 <h:outputText value="#{quiz.quantidadeTotalDePessoas}" />
+                            </p:column>
+                            <p:column headerText="Total respondidos" style="word-wrap: break-word; text-align:center">
+                                <h:outputText value="#{aplicacaoQuizResultadoC.totalQuizRespondidos(quiz.idAplicacaoQuiz)}" />
+                            </p:column>
+                            <p:column headerText="Visualizar" style="word-wrap: break-word; text-align:center">
+                                <p:commandButton 
+                                     style="background-color:transparent; color:rgb(130 75 173)"
+                                                update="modalAplicacaoQuiz"
+                                                title="Visualizar resultados"
+                                                icon="pi pi-eye"
+                                                styleClass="rounded-button ui-button-outlined"
+                                                oncomplete="PF('modalAplicacaoQuiz').show()"
+                                                actionListener="#{aplicacaoQuizResultadoC.pesquisaAplicacaoQuizResultadoPorId(quiz.idAplicacaoQuiz)}"
+                                                />
+                            </p:column>
+                         </p:dataTable>
+                    </h:form>
+                    
+                    <p:dialog header="RESULTADOS" widgetVar="modalAplicacaoQuiz" modal="true" showEffect="fade"
+                              hideEffect="fade" resizable="false" id="modalAplicacaoQuiz">			              		                            
+                        <p:outputPanel  style="text-align:center; width: 88vw; height: 70vh">
+                            <div style="display:flex; flex-direction:column; overflow-y:scroll">
+                                <p:repeat value="#{aplicacaoQuizResultadoC.resultadosModal}" var="quizResultado">                             
+                                        <div style="height:100px; border:1px solid rgb(130 75 173); margin-top:10px; display:flex; justify-content:space-between;padding:10px; align-items:center">
+                                            <p:outputLabel style="font-size:24px; font-weight:bold; width:200px; text-align:start" value="Usuário: #{quizResultado.usuario.nome}"></p:outputLabel>
+                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Data de resolução #{aplicacaoQuizResultadoC.formatarData(quizResultado.dataResolucao)}"></p:outputLabel>
+                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Resultado :#{aplicacaoQuizResultadoC.resultadoFinalUsuario(quizResultado.aplicacaoQuiz.id, quizResultado.usuario.id)}"></p:outputLabel>
+                                        </div>  
+                                </p:repeat>
+                            </div>
+                        </p:outputPanel>
+                    </p:dialog>
+                </div>
+            </div>
         </section>
-        <script >
-
-            document.addEventListener('DOMContentLoaded', function (event) {
-
-                //Path dos arquivos 
-                let quizRespondidos = `<ui:include id="include" src="/Perfil/quizRespondidos.xhtml"/>`;
-                let quizElaborados = `<ui:include id="include" src="/Perfil/quizElaborados.xhtml"/>`;
-                let perguntasElaboradas = `<ui:include id="include" src="/Perfil/perguntasElaboradas.xhtml"/>`;
-                let configuracao = `<ui:include id="include" src="/Perfil/configuracoesPerfil.xhtml"/>`;
-                let actions = document.querySelector('.actions');
-                
-                
-
-                //Pegando as class das tags
-                let classQuizRespondidos = document.querySelector('.quizRespondidos');
-                let classQuizElaborados = document.querySelector('.quizElaborados');
-                let classPerguntasElaboradas = document.querySelector('.perguntasElaboradas');
-                let classConfigucoesPerfil = document.querySelector('.configucoesPerfil');
-                
-
-                //Inserindo os arquivos dependendo do click
-
-                classQuizRespondidos.addEventListener('click', function (e) {
-                    actions.innerHTML = quizRespondidos;
-                });
-                classQuizElaborados.addEventListener('click', function (e) {
-                    actions.innerHTML = quizElaborados;
-                });
-                classPerguntasElaboradas.addEventListener('click', function (e) {
-                    actions.innerHTML = perguntasElaboradas;
-                });
-
-                classConfigucoesPerfil.addEventListener('click', function (e) {
-                    actions.innerHTML = configuracao;
-                });
-
+        <script>
+            let quizElaborados = document.querySelector('.quizElaborados');
+            let quizRespondidos = document.querySelector('.quizRespondidos');
+            let perguntasElaboradas = document.querySelector('.perguntasElaboradas');
+            let configucoesPerfil = document.querySelector('.configucoesPerfil');
+            let quizAplicados = document.querySelector('.quizAplicados');
+            
+            let quiz_elaborados = document.querySelector('.quiz_elaborados');
+            let perguntas_elaboradas = document.querySelector('.perguntas_elaboradas');
+            let quiz_respondidos = document.querySelector('.quiz_respondidos');
+            let configuracoes = document.querySelector('.configuracoes');
+            let quiz_aplicados = document.querySelector('.quiz_aplicados');
+            
+            quizElaborados.addEventListener('click', () => {
+                configuracoes.style.display = 'none';
+                quiz_respondidos.style.display = 'none';
+                perguntas_elaboradas.style.display = 'none';
+                quiz_elaborados.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
             });
-            
-            
+
+            quizRespondidos.addEventListener('click', () => {
+                quiz_elaborados.style.display = 'none';
+                perguntas_elaboradas.style.display = 'none';
+                configuracoes.style.display = 'none';
+                quiz_respondidos.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
+            });
+
+
+            perguntasElaboradas.addEventListener('click', () => {
+                quiz_respondidos.style.display = 'none';
+                quiz_elaborados.style.display = 'none';
+                configuracoes.style.display = 'none';
+                perguntas_elaboradas.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
+            });
+
+            configucoesPerfil.addEventListener('click', () => {
+                quiz_respondidos.style.display = 'none';
+                perguntas_elaboradas.style.display = 'none';
+                quiz_elaborados.style.display = 'none';
+                configuracoes.style.display = 'flex';
+                quiz_aplicados.style.display = 'none';
+            });
+            quizAplicados.addEventListener('click', () => {
+                quiz_respondidos.style.display = 'none';
+                perguntas_elaboradas.style.display = 'none';
+                quiz_elaborados.style.display = 'none';
+                configuracoes.style.display = 'none';
+                quiz_aplicados.style.display = 'flex';
+            });
+
 
         </script>
     </ui:define>
+
 
 
 </ui:composition>

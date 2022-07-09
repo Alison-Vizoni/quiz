@@ -78,7 +78,7 @@ public class AplicacaoQuizResultadoDaoImplTest {
     @Test
     public void testAlterar(){
         LOG.info("test alterar aplicacao quiz resultado");
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy--MM-dd");
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
         buscarAplicacaoQuizResultadoNoBancoDeDados();
         aplicacaoQuizResultado.setDataResolucao(Date.from(Instant.now()));
         

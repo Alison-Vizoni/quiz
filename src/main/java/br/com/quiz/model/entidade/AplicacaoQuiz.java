@@ -25,8 +25,6 @@ public class AplicacaoQuiz implements Serializable {
     @Column(name = "data_aplicacao", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataAplicacao;
-
-    private String descricao;
     
     @ElementCollection
     @CollectionTable(name = "emails_aplicacao_quiz", joinColumns = {
@@ -48,9 +46,8 @@ public class AplicacaoQuiz implements Serializable {
     public AplicacaoQuiz() {
     }
 
-    public AplicacaoQuiz(Date dataAplicacao, String descricao) {
+    public AplicacaoQuiz(Date dataAplicacao) {
         this.dataAplicacao = dataAplicacao;
-        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -67,14 +64,6 @@ public class AplicacaoQuiz implements Serializable {
 
     public void setDataAplicacao(Date dataAplicacao) {
         this.dataAplicacao = dataAplicacao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public Usuario getUsuarioAplicador() {

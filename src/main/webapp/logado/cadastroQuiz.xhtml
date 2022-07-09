@@ -1,0 +1,300 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/layout.xhtml">
+
+    <ui:define name="content">
+
+        <p:messages id="messages" showDetail="true" closable="true" style="margin:0 auto; width: 90%">
+            <p:autoUpdate />
+        </p:messages>
+
+        <!-- HEADER --> 
+        <p:panel>
+            <h:form>
+                <div style="background-color: #eaeaea; display: flex; padding: 15px; align-content: center">
+                    <h3 style="color: #84509c; display: flex; margin: 15px 0;">CADASTRO DE QUIZ</h3>
+
+                    <p:commandButton  icon="pi pi-question"	id="btnAjudaQuiz"							  
+                                      styleClass="rounded-button ui-button-outlined"  
+                                      oncomplete="PF('modalCadastraQuiz').show()"
+                                      style="width: 22px; height: 22px; margin-left: 15px; align-self:center; display: flex; justify-content:center; color: #84509c" >
+                        <p:tooltip for="btnAjudaQuiz" 
+                                   value="Ajuda sobre como cadastrar quiz" 
+                                   position="right"/>
+                    </p:commandButton>
+                </div>
+            </h:form>
+        </p:panel>
+
+        <p:panel id="combo_busca_questao" styleClass="color"  >
+            <h:form id="formCategoria">
+
+                <div style="width: 100vw;
+                     display: flex;
+                     flex-direction: column;
+                     height: 150px;
+                     justify-content: space-around;
+                     margin: 10px;">
+
+                    <div style="display:grid;">
+                        <h4>Título do Quiz *</h4>
+                        <p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
+                            <p:ajax listener="#{quizC.quiz.titulo}"/>
+                        </p:inputText>
+
+                    </div>
+                    <div id="filtros_questao" style="display: flex; justify-content: space-between;">
+
+                        <!-- CATEGORIA -->
+                        <p:selectOneMenu value="#{categoriaC.categoria.id}"                                                             
+                                         id="categoria"		                                 
+                                         filter="true"
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px" >                                                       
+
+                            <f:selectItem itemLabel="Escolha uma categoria..." itemValue=""/>
+                            <f:selectItems value="#{categoriaC.comboCategorias}" />
+                            <p:ajax listener="#{subcategoriaC.populaComboSubCategorias(categoriaC.categoria)}" update="sub_categoria form:tabela" />
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela formCategoria "/>
+                        </p:selectOneMenu>
+
+                        <!-- SUB-CATEGORIA -->
+                        <p:selectOneMenu disabled="#{categoriaC.categoria.id == null ? true : false}" value="#{perguntaC.subCategoria.id}"
+                                         id="sub_categoria"
+                                         filter="true"
+                                         style="width: 35vw; background: #f2f2f2; border-radius:5px">
+
+                            <f:selectItem itemLabel="Escolha uma Subcategoria..." itemValue=""/>
+                            <f:selectItems value="#{subcategoriaC.comboSubcategorias}" />
+                            <p:ajax update="sub_categoria" listener="#{perguntaC.vinculaSubcategoriaComPergunta(perguntaC.subCategoria)}"/>
+                            <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                        </p:selectOneMenu>
+
+
+                        <span class="ui-input-icon-left">
+                            <i class="pi pi-search" />
+                            <p:inputText disabled="#{categoriaC.categoria.id == null ? true : false}" id="text_busca" value="#{perguntaC.refinaBusca}" placeholder="Refine sua busca"  style="background: #f2f2f2; width: 20vw" filter="true">
+                                <!--                                 <f:validateLength minimum="3"/> -->
+                                <p:ajax listener="#{perguntaC.buscaPerguntasComFiltro(categoriaC.categoria.id, perguntaC.subCategoria.id)}" update="form:tabela"/>
+                            </p:inputText>
+                        </span>
+
+                    </div>
+                </div>     
+            </h:form>
+        </p:panel>
+
+        <!-- TABELA -->
+        <h:form id="form">			
+            <p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
+                         paginator="true" paginatorPosition="bottom"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
+                         selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
+                <p:column headerText="QUESTÕES" style="word-wrap: break-word">
+                    <h:outputText value="#{pergunta.texto}" />
+                </p:column>
+
+                <p:column headerText="Visualizar" style="width: 9%;">
+
+                    <p:commandButton icon="pi pi-eye" title=" " update=":form:panelPergunta"
+                                     process="tabela" oncomplete="PF('modalPergunta').show()"
+                                     styleClass="rounded-button ui-button-outlined"
+                                     actionListener="#{perguntaC.visualizaQuestaoSelecionada(pergunta)}">
+
+                    </p:commandButton>    
+
+
+                </p:column>
+
+               	<f:facet name="footer" >
+                    <div style="display: flex; justify-content: space-around">
+                        <p:commandButton process="tabela" update=":form:panelQuiz" icon="pi pi-eye"
+                                         value="Visualizar Quiz" styleClass="rounded-button ui-button-outlined"
+                                         oncomplete="PF('modalVisualizaQuiz').show()"  />
+
+                        <!--                         <p:commandButton process="tabela"  icon="pi pi-eye" -->
+                        <!--                                          value="Finaliza Quiz" styleClass="rounded-button ui-button-outlined" -->
+                        <!--                                          oncomplete="PF('modalFinalizaQuiz').show()"  /> -->
+                        <!--                     </div> -->
+
+                        <!-- MODAL FINALIZA QUIZ  -->
+                        <!-- 		            <p:dialog header="FINALIZAR QUIZ ?" widgetVar="modalFinalizaQuiz" modal="true" showEffect="fade" closable="false" -->
+                        <!-- 		                      hideEffect="fade" resizable="false" id="modalFinalQuiz" style="text-align: center; ">			              		                             -->
+                        <!-- 		                <p:outputPanel style="width: 50vw; justify-content: center">		                 -->
+                        <!-- 		                	<div style="display:flex; padding: 8px"> -->
+                        <!-- 		                		<div style="display:flex; flex-direction: column; justify-content: center; width:50%;"> -->
+                        <!-- 				                	<div > -->
+                        <!-- 				                    	<p:commandButton id="btnContinuarAdicionando" value="Continuar adicionando" style="width: 15vw; height: 6vh; margin: 0 auto" -->
+                        <!-- 				                    					update="modalFinalQuiz" styleClass="rounded-button ui-button-outlined"> -->
+                        <!-- 				                    		<p:tooltip for="btnContinuarAdicionando"  -->
+                        <!-- 													   value="Clique para continuar adicionando questões no quiz"  -->
+                        <!-- 													   position="right"/> -->
+                        <!-- 				                    	</p:commandButton> -->
+                        <!-- 				                	</div> -->
+                        <!-- 			                	</div> -->
+
+                        <!--                                 <div style="display:flex; flex-direction: column; justify-content: center; width:50%;">                                         -->
+                        <!-- 	                                <div >                                         -->
+                        <!-- 	                                    <p:commandButton icon="pi pi-save" value="Finalizar Quiz" id="btnFinalizarQuiz" style="width: 15vw; height: 6vh; margin: 0 auto" -->
+                        <!-- 	                                                     actionListener="#{quizC.salvarQuiz()}" action="#{quizC.defineFluxo()}" -->
+                        <!-- 	                                                     styleClass="rounded-button ui-button-outlined" update=":form:panelPergunta :form:tabela modalFinalQuiz" > -->
+
+                        <!-- 	                                        <p:tooltip for="btnFinalizarQuiz"  -->
+                        <!-- 													   value="Finalizar o quiz e seguir para a etapa de enviar os e-mails"  -->
+                        <!-- 													   position="right"/> -->
+                        <!-- 	                                    </p:commandButton> -->
+                        <!-- 	                                </div> -->
+                        <!--                                 </div> -->
+                        <!--                            </div>       -->
+                        <!-- 		                </p:outputPanel> -->
+                        <!-- 		            </p:dialog> -->
+
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" 
+                                style="border-radius: 20px; padding: 0 25px">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            Finalizar Quiz
+                        </button>		               
+                    </div>
+                    <!-- MODAL CONFIRMA INCLUSÃO DE QUIZ  -->
+
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Finalizar inclusão de questões?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Clique em cadastrar Quiz e siga para a etapa de envio do Quiz por email
+                                </div>
+                                <div class="modal-footer" style="display:flex; justify-content: space-around;">
+                                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" style="border-radius: 20px; padding: 7px 25px">
+                                        Continuar adicionando
+
+                                    </button>
+                                    <p:commandButton icon="pi pi-save" value="Cadastrar Quiz" 
+                                                     actionListener="#{quizC.salvarQuiz()}" action="#{quizC.defineFluxo()}"
+                                                     styleClass="rounded-button ui-button-outlined" update=":form:panelPergunta" onclick="staticBackdrop.hide()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </f:facet>
+            </p:dataTable>
+
+            <!--  MODAL VER QUESTÃO --> 
+
+            <p:dialog header="QUESTÃO" widgetVar="modalPergunta" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="false" id="modal">			              		                            
+                <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
+                    <p:column rendered="#{not empty perguntaC.pergunta}">
+                        <div class="produto">
+                            <div class="product-grid-item card" style="margin-bottom: 0">
+                                <div class="product-grid-item-top">
+                                    <div id="texto_pergunta_modal" style="font-weight:900" >
+                                        <span class="product-category" style="word-wrap: break-word;">#{perguntaC.perguntaSelecionada.texto}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-grid-item-content" style="text-align:left">
+                                <div style="font-weight: bolder; margin-top: 20px">ALTERNATIVAS</div>
+
+                                <ui:repeat value="#{perguntaC.perguntaSelecionada.alternativas}" var="alt" varStatus="status">
+                                    <div style="display: flex; flex-direction: column; margin-top: 8px">
+                                        <p:outputLabel  value="#{status.index+1}"  
+                                                        styleClass="outputLabel" 
+                                                        style="color:#{alt.statusCorreta ? 'white': 'black'};
+                                                        background-color:#{alt.statusCorreta ? '#5d2d7e': ''};
+                                                        text-align: left;
+                                                        float: left;"> - #{alt.texto}</p:outputLabel>
+                                    </div>
+                                </ui:repeat>									
+
+                            </div>
+                        </div>
+                    </p:column>
+                </p:outputPanel>
+                <div id="botao_seleciona_questao">
+                    <p:commandButton value="Utilizar questão" 
+                                     icon="pi pi-plus" 
+                                     actionListener="#{quizC.incluiPergunta(perguntaC.perguntaSelecionada)}" 
+                                     update="modal" />
+                </div>
+            </p:dialog>	
+
+            <!--  MODAL VISUALIZA QUIZ -->			    
+
+            <p:dialog header="QUIZ" widgetVar="modalVisualizaQuiz" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="false" id="modalQuiz" style="overflow: hidden">
+
+                <!-- REMOVE QUESTÃO DO MODAL E DA LISTA -->
+
+                <p:toolbar >
+                    <p:toolbarGroup>					                
+                        <p:commandButton icon="pi pi-trash" value="Remover questão" style="margin-right: 50px"
+                                         actionListener="#{quizC.retiraQuestaoVisualizacao()}"
+                                         styleClass="rounded-button ui-button-outlined" update=":form:panelQuiz"> 
+                        </p:commandButton>
+                        <h:outputText value="Conteúdo Privado: "/>
+                        <p:selectBooleanCheckbox id="visibilidade_privada" value="#{quizC.quiz.visibilidadePrivada}" >
+                            <p:ajax update="visibilidade_privada"  />
+                        </p:selectBooleanCheckbox>
+                    </p:toolbarGroup>		            
+                </p:toolbar>
+
+
+                <p:dataTable id="panelQuiz" var="questao" value="#{quizC.modelperguntas}"
+                             rowKey="#{questao.id}"	selection="#{quizC.perguntaSelecionada}" selectionMode="single"
+                             style="text-align:left; width: 88vw; height: 70vh">
+
+                    <p:column rendered="#{not empty quizC.modelperguntas}" style="margin-top: 20px; ">
+                        <div class="separador_questao"> 
+                            <h:outputLabel value="#{questao.texto}" styleClass="outputLabel"
+                                           style="float: left; font-weight:bolder " /><br></br>
+                            <ui:repeat value="#{questao.alternativas}" var="alt" varStatus="status">
+
+                                <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
+                                                style="justify-content: left; float: left;color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''}">
+                                    - #{alt.texto}
+                                </p:outputLabel><br></br>
+
+                            </ui:repeat>
+                        </div>
+                    </p:column> 
+                </p:dataTable>			        		        
+            </p:dialog>
+
+            <!-- MODAL AJUDA  -->
+            <p:dialog header="Cadastrar Quiz" widgetVar="modalCadastraQuiz" modal="true" showEffect="fade"
+                      hideEffect="fade" resizable="false" id="modalAjudaQuiz">			              		                            
+                <p:outputPanel id="cadastraQuiz" style="text-align: left; width: 88vw; height: 70vh">
+                    <ul id="lista_itens_ajuda">
+                        <li>Digite o título do quiz (obrigatório)</li>
+                        <li>Utilize os campos de categoria, subcategoria e refinar busca para visualizar as questões cadastradas do assunto selecionado</li>
+                        <li>Para visualizar uma questão de forma completa, após o retorno da busca basta clicar no botão com o ícone de um oho à direita do texto</li>
+                        <li>Se optar por utilizar a questão em seu quiz, basta clicar no botão<b>  Usar Questão  </b>, caso contrário, é só fechar a janela que foi aberta para visualização</li>
+                        <li>Repita o processo anterior até seu quiz estar completo</li>
+                        <li>Para pré-visualizar seu quiz, clique no botão <b> Visualizar Quiz </b> abrirá uma página mostrando as questões incluídas até o momento</li>
+                        <li>Caso queira excluir alguma questão, basta clicar na questão escolhida (linha ficará azul) e clicar no botão<b>  Remover Questão  </b></li>
+                        <li>No campo<b>  Conteúdo Privado  </b>você escolhe se seu quiz será público (não selecionado) ou privado (selecionado)</li>
+                        <li>Quando terminar de incluir as questões e quiser finalizar seu quiz, basta clicar no botão<b>  Cadastrar Quiz  </b></li>
+                    </ul>                    
+                </p:outputPanel>
+                <div id="botaoFechaModalAjudaQuiz">
+                    <p:commandButton value="Fechar ajuda" update="modalAjudaQuiz" styleClass="rounded-button ui-button-outlined"/>
+
+                </div>
+            </p:dialog>
+        </h:form>			
+    </ui:define>
+</ui:composition>

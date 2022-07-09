@@ -36,15 +36,14 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 	
 	public List<Pergunta> buscaTodasPerguntas(Session sessao){
             logger.info("método buscaTodasPerguntas()");
-		Query consulta = sessao.createQuery("FROM pergunta");
+		Query consulta = sessao.createQuery("FROM pergunta p WHERE p.statusAtivo = true");
 		return consulta.list();
-		
 	}
 
 	@Override
 	public List<Pergunta> buscaPerguntasPorCategoria(Categoria categoria, Session sessao) {
 		logger.info("método buscaPerguntasPorCategoria()");
-		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_categoria = :id_categoria");
+		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_categoria = :id_categoria AND statusAtivo = true");
 		consulta.setParameter("id_categoria", categoria.getId());
 		return consulta.list();
 	}
@@ -52,7 +51,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
     @Override
 	public List<Pergunta> buscaPerguntasPorSubCategoria(Long idSubCategoria, Session sessao) {
 		logger.info("método buscaPerguntasPorCategoria()");
-		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_sub_categoria = :id_sub_categoria");
+		Query consulta = sessao.createQuery("FROM Pergunta WHERE id_sub_categoria = :id_sub_categoria AND statusAtivo = true");
 		consulta.setParameter("id_sub_categoria", idSubCategoria);
 		return consulta.list();
 	}
@@ -60,7 +59,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
     @Override
     public List<Pergunta> buscarPerguntasElaboradosPeloUsuario(Long idUsuarioLogado, Session sessao) {
         logger.info("método buscarPerguntasElaboradosPeloUsuario()");
-        Query consulta = sessao.createQuery("FROM Pergunta WHERE usuarioProprietario.id = :idUsuarioLogado");
+        Query consulta = sessao.createQuery("FROM Pergunta WHERE usuarioProprietario.id = :idUsuarioLogado AND statusAtivo = true");
         consulta.setParameter("idUsuarioLogado", idUsuarioLogado);
         return consulta.list();
     }
@@ -70,7 +69,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 		logger.info("método buscarPerguntasElaboradosPeloUsuario()");
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT DISTINCT p FROM Categoria cat JOIN cat.subCategorias sub JOIN sub.perguntas p JOIN p.alternativas a ");
-		sql.append(" WHERE 1=1 ");
+		sql.append(" WHERE p.statusAtivo = true ");
 		
 		if (idCategoria != null) {			
 			sql.append(" AND cat.id = :idCategoria ");
@@ -80,7 +79,7 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			sql.append(" AND sub.id = :idSubCategoria ");
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+		if (refinarBusca != null && !refinarBusca.isEmpty() && !refinarBusca.trim().equals(" ")) {
 			sql.append(" AND (p.texto LIKE :refinarBusca OR a.texto LIKE :refinarBusca) ");
 		}
 		
@@ -94,12 +93,17 @@ public class PerguntaDaoImpl extends BaseDaoImpl<Pergunta, Long>
 			consulta.setParameter("idSubCategoria", idSubCategoria);
 		}
 		
-		if (refinarBusca != null && !refinarBusca.isEmpty() && refinarBusca.trim().equals(" ")) {
+		if (refinarBusca != null && !refinarBusca.isEmpty() && !refinarBusca.trim().equals(" ")) {
 			consulta.setParameter("refinarBusca", "%" + refinarBusca + "%");
 		}
 		
         return consulta.list();
 	}
+
+    @Override
+    public Pergunta buscaPerguntaPorId(Long idPergunta, Session sessao) {
+            return (Pergunta) sessao.get(Pergunta.class, idPergunta);
+    }
     
     
 }

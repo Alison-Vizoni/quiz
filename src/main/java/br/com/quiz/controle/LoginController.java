@@ -14,6 +14,8 @@ import br.com.quiz.model.dao.HibernateUtil;
 import br.com.quiz.model.dao.UsuarioDao;
 import br.com.quiz.model.dao.UsuarioDaoImpl;
 import br.com.quiz.model.entidade.Usuario;
+import javax.faces.application.FacesMessage;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -23,113 +25,98 @@ import br.com.quiz.model.entidade.Usuario;
 @SessionScoped
 public class LoginController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final Logger logger = LoggerFactory.logger(getClass());
+    private final Logger logger = LoggerFactory.logger(getClass());
 
-	private static Usuario usuarioLogado;
-	private UsuarioDao usuarioDao;
-	private Usuario usuario;
-	private Session sessao;
+    private static Usuario usuarioLogado;
+    private UsuarioDao usuarioDao;
+    private Usuario usuario;
+    private Session sessao;
 
-	public LoginController() {
-		usuarioDao = new UsuarioDaoImpl();
-	}
+    public LoginController() {
+        usuarioDao = new UsuarioDaoImpl();
+    }
 
-//	public String logar() {
-//		logger.info("método logar");
-//
-//		pesquisaUsuarioPorLogin(usuario.getLogin());
-//
-//		if (usuario.getLogin().equals(usuarioLogado.getLogin())
-//				&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
-//
-//			return "/Perfil/perfil.xhtml?faces-redirect=true";
-//
-//		} else {
-//			FacesContext context = FacesContext.getCurrentInstance();
-//			context.addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
-//			return null;
-//		}
-//	}
+    public String logar() {
+        logger.info("método logar");
+        try {
+            if (usuario.getLogin() == "" || usuario.getSenha() == "") {
+                Mensagem.erro("usuário e senha são obrigatórios!");
+                return null;
+            };
+
+            pesquisaUsuarioPorLogin(usuario.getLogin());
+            if(usuarioLogado != null) {
+	            if (true == usuarioLogado.getStatusAtivo() && usuario.getLogin().equals(usuarioLogado.getLogin())
+	                    && Criptografia.criptografar(usuario.getSenha()).equals(usuarioLogado.getSenha())) {
+	                return "/inicio.xhtml?faces-redirect=true";
 	
-	public String logar() {
-		logger.info("método logar");
-		try {
-			pesquisaUsuarioPorLogin(usuario.getLogin());
-			if (usuario.getLogin().equals(usuarioLogado.getLogin())
-					&& usuario.getSenha().equals(usuarioLogado.getSenha())) {
-				
-//				return "/Perfil/perfil.xhtml?faces-redirect=true";
-				return "/inicio.xhtml?faces-redirect=true";
-				
-			} else {
-//				FacesContext context = FacesContext.getCurrentInstance();
-//				context.addMessage(null,
-//						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e/ou Senha incorretos(s)", null));
-				Mensagem.erro("Usuário e/ou Senha incorretos(s)");
-				return null;
-			}
-			
-		} catch (Exception e) {
-			logger.info("Erro na autenticação de usuário - "+e.getMessage());
-			return null;
-		}
+	            } else {
+	                String mensagem = usuarioLogado.getStatusAtivo() ? "Usuário e/ou Senha incorretos(s)" : "Usuário desativado!";
+	                Mensagem.erro(mensagem);
+	                usuarioLogado = null;
+	                return null;
+	            }
+            } else {
+            	Mensagem.erro("Usuário e/ou Senha incorretos(s)");
+            	usuarioLogado = null;
+                return null;
+            }
+        } catch (Exception e) {
+            logger.info("Erro na autenticação de usuário - " + e.getMessage());
+            return null;
+        }
+    }
 
+    public String logout() {
+        logger.info("método logout");
 
-	}
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        usuario = null;
+        usuarioLogado = null;
+        return "/inicio?faces-redirect=true";
+    }
+    
 
-	public String logout() {
-		logger.info("método logout");
+    public void pesquisaUsuarioPorLogin(String login) {
+        logger.info("método pesquisaPorLogin");
 
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		usuario = null;
-		usuarioLogado = null;
-		return "/inicio?faces-redirect=true";
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            usuarioLogado = usuarioDao.buscaPorLogin(login, sessao);
+        } catch (Exception e) {
+            logger.error("Erro na busca de usuário por login - " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+    }
 
-	}
+    // GETTER AND SETTER
+    public Usuario getUsuario() {
+        if (usuario == null) {
+            usuario = new Usuario();
+        }
+        return usuario;
+    }
 
-	private void pesquisaUsuarioPorLogin(String login) {
-		logger.info("método pesquisaPorLogin");
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-		try {
-			sessao = HibernateUtil.abrirSessao();
-			usuarioLogado = usuarioDao.buscaPorLogin(login, sessao);
-		} catch (Exception e) {
-			logger.error("Erro na busca de usuário por login - " + e.getMessage());
-		} finally {
-			sessao.close();
-		}
+    public Usuario getUsuarioLogado() {
+        if (usuarioLogado == null) {
+            usuarioLogado = new Usuario();
+        }
+        return usuarioLogado;
+    }
 
-	}
+    public void setUsuarioLogado(Usuario usuarioLog) {
+        usuarioLogado = usuarioLog;
+    }
 
-	// GETTER AND SETTER
-
-	public Usuario getUsuario() {
-		if (usuario == null) {
-			usuario = new Usuario();
-		}
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Usuario getUsuarioLogado() {
-		if (usuarioLogado == null) {
-			usuarioLogado = new Usuario();
-		}
-		return usuarioLogado;
-	}
-
-	public void setUsuarioLogado(Usuario usuarioLog) {
-		usuarioLogado = usuarioLog;
-	}
-	
-	public static Usuario usuarioSessao() {
-		return usuarioLogado;
-	}
+    public static Usuario usuarioSessao() {
+        return usuarioLogado;
+    }
 
 }
