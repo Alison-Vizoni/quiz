@@ -37,7 +37,7 @@ import org.jboss.logging.Logger;
  * @author alf_a
  */
 @ManagedBean(name = "aplicacaoQuizC")
-@SessionScoped
+@ViewScoped
 public class AplicacaoQuizController implements Serializable {
 
     private static final long serialVersionUID = 1L;
