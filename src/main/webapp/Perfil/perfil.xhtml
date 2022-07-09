@@ -36,7 +36,8 @@
                 <section class="quiz_elaborados">
                     <p:repeat value="#{quizC.quizzes}" var="quiz">
                         <div class="quiz_elaborados_container">
-                            <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
+                            <img class="image_categoria" 
+                            	 src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
                             <div class="title__center">
                                 <span>#{categoriaC.validaCategoria(quiz)}</span>
                             </div>
