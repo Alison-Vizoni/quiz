@@ -78,7 +78,7 @@ public class AplicacaoQuizResultadoController implements Serializable {
  
         sessao = HibernateUtil.abrirSessao();
         resultadosModal = null;
-        resultadosModal = aplicacaoQuizResultadoDao.pesquisarPorIdAplicacaoQuiz(id, sessao);
+        resultadosModal = removeQuizDuplicado(aplicacaoQuizResultadoDao.pesquisarPorIdAplicacaoQuiz(id, sessao));
         sessao.close();
     }
 
@@ -101,6 +101,7 @@ public class AplicacaoQuizResultadoController implements Serializable {
         aplicacaoQuizResultado = null;
         return resultado;
     }
+    
 
     public String formataRespostaFinal(List<AplicacaoQuizResultado> aplicacaoQuizResultado) {
         int totalRespostasCorretas = 0;
@@ -114,6 +115,14 @@ public class AplicacaoQuizResultadoController implements Serializable {
     public String formatarData (Date data) {
         String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(data);
         return dateFormat;
+    }
+    
+    
+    public int totalQuizRespondidos(Long idAplicacaoQuiz) {
+        sessao = HibernateUtil.abrirSessao();
+        int totalQuizRespondidos = removeQuizDuplicado(aplicacaoQuizResultadoDao.pesquisarPorIdAplicacaoQuiz(idAplicacaoQuiz, sessao)).size();
+        sessao.close();
+        return totalQuizRespondidos;
     }
 
     public AplicacaoQuizResultado getAplicacaoQuizResultado() {

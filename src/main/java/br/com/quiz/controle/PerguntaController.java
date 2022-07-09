@@ -61,6 +61,7 @@ public class PerguntaController implements Serializable {
     private Categoria categoria;
     private String refinaBusca;
     private Pergunta pergunta;
+    private Pergunta perguntaModal;
     private Pergunta perguntaEdit;
     private Long contadorId = 0L;
     private Session sessao;
@@ -284,7 +285,7 @@ public class PerguntaController implements Serializable {
     public void buscaPerguntaPorId(Long idPergunta, boolean isEdit) throws IOException {
         logger.info("método - buscaPerguntaPorId()");
         sessao = HibernateUtil.abrirSessao();
-        pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
+        perguntaModal = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
         sessao.close();
     }
 
@@ -414,5 +415,15 @@ public class PerguntaController implements Serializable {
     public void setPerguntaEdit(Pergunta perguntaEdit) {
         this.perguntaEdit = perguntaEdit;
     }
+
+    public Pergunta getPerguntaModal() {
+        return perguntaModal;
+    }
+
+    public void setPerguntaModal(Pergunta perguntaModal) {
+        this.perguntaModal = perguntaModal;
+    }
+    
+    
 
 }

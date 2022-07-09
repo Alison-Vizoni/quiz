@@ -35,7 +35,7 @@ import javax.faces.bean.SessionScoped;
  * @author alf_a
  */
 @ManagedBean(name = "quizC")
-@SessionScoped
+@ViewScoped
 public class QuizController implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class QuizController implements Serializable {
 
     private QuizDao quizDao;
     private Quiz quiz;
-
+    private Quiz quizModal;
     private List<Pergunta> perguntas = new ArrayList<>();
     private List<Quiz> quizzes = new ArrayList<>();
     private DataModel<Pergunta> modelperguntas;
@@ -327,14 +327,27 @@ public class QuizController implements Serializable {
             sessao.close();
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/Perfil/perfil.xhtml");
-    };
-    
+    }    
     
     public boolean desativaQuiz(Long id) {
         sessao = HibernateUtil.abrirSessao();
         boolean result = quizDao.setStatusAtivoFalse(sessao, id);
         sessao.close();
         return result;
+    }
+    
+    public void pesquisaQuizPorIdModal(Long idQuiz) {
+        quizModal = null;
+        try {
+            sessao = HibernateUtil.abrirSessao();
+            List<Quiz> quizBd = quizDao.pesquisarPorIdQuiz(sessao, idQuiz);
+            quizModal = quizBd.get(0);
+            logger.info("entrou no pesquisaQuizPorIdModal()" + quizModal);
+        } catch (HibernateException e) {
+            logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
     }
 
     /* * GETTERS AND SETTERS * */
@@ -430,4 +443,13 @@ public class QuizController implements Serializable {
         this.quizEdit = quizEdit;
     }
 
+    public Quiz getQuizModal() {
+        return quizModal;
+    }
+
+    public void setQuizModal(Quiz quizModal) {
+        this.quizModal = quizModal;
+    }
+    
+    
 }

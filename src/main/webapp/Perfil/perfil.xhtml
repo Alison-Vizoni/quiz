@@ -8,13 +8,7 @@
     <ui:define name="content">
 
 
-        <section name="perfil" class="container_perfil" 
-                 onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario();
-                aplicacaoQuizResultadoC.pesquisaAplicacaoQuizPorUsuario();
-                quizC.pesquisarQuizElaboradoPeloUsuario();
-                usuarioC.usuarioSessao();
-                aplicacaoQuizC.buscarQuizzesAplicados()
-            }">
+        <section name="perfil" class="container_perfil">
             <div class="container_perfil_top">
                 <nav class="menu_perfil">
                     <h:form>
@@ -35,7 +29,7 @@
 
             </div>
             <div class="actions" style="width: 80%;">
-                <section class="quiz_elaborados">
+                <section class="quiz_elaborados" onloadstart="#{quizC.pesquisarQuizElaboradoPeloUsuario()}">
                     <p:repeat value="#{quizC.quizzes}" var="quiz">
                         <div class="quiz_elaborados_container">
                             <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
@@ -47,20 +41,20 @@
                             </div>
                             <p:commandButton
                                 update="modal_quiz"
-                                action="#{quizC.pesquisaQuizPorId(quiz.id)}"
+                                action="#{quizC.pesquisaQuizPorIdModal(quiz.id)}"
                                 value="Visualizar quiz"
                                 style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold;
                                 color:white; background-color:transparent; color:rgb(130 75 173);border: none"
                                 oncomplete="PF('modalQuizElaborado').show()"  />
                         </div>
                     </p:repeat>
-                    <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
+                    <p:dialog header="#{quizC.quizModal.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal_quiz">			         
                   
                         <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 80vh">
                             <p:column>
                                 <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
-                                    <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
+                                    <ui:repeat  value="#{quizC.quizModal.perguntas}" var="perg" varStatus="statusPerg">
                                     	<div class="separador_questao" >
 	                                        <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
 	                                                       style="float: left; font-weight:bold; margin: 5px 0" />
@@ -85,9 +79,10 @@
         
                     </p:dialog>
                 </section>
-                <section style="display:none" class="perguntas_elaboradas">
+                <section style="display:none" class="perguntas_elaboradas" onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario()}">
+                     <div class="perguntas_elaborados_container">
                     <p:repeat value="#{perguntaC.perguntas}" var="pergunta">
-                        <div class="perguntas_elaborados_container">
+                       
                             <div class="perguntas_elaborados_info">
                                 <div class="perguntas_elaboradas_card_topside">
                                     <span>#{pergunta.texto}</span>
@@ -101,7 +96,7 @@
                                                 padding: 10px;
                                                 align-items: center;">
                                         #{pergunta.subCategoria.nome}
-                                        <div style='width: 200px;display: flex;justify-content: space-around;'>
+                                        <div style='display: flex;justify-content: space-around;'>
                                             
                                          <p:commandButton
                                                 update="modal"
@@ -110,41 +105,22 @@
                                                 value="Visualizar pergunta"
                                                 styleClass="rounded-button "
                                                 oncomplete="PF('modalPerguntaElaborada').show()"/>
-<!--                                         <p:commandButton
-                                                action=""
-                                                style="background-color:transparent; color:rgb(130 75 173)"
-                                                title="Editar questão"
-                                                icon="pi pi-pencil"
-                                                styleClass="rounded-button ui-button-outlined"
-                                                />
-                                         <p:commandButton
-                                                update="modal"
-                                                action
-                                                style="background-color:transparent; color:rgb(130 75 173)"
-                                                title="Deletar questão"
-                                                icon="pi pi-trash"
-                                                styleClass="rounded-button ui-button-outlined"
-                                                oncomplete="PF('modalPerguntaElaborada').show()"/>-->
-                                         </div>
-                                         
-                                        
+                                         </div>                                                                    
                                     </span>
-                                    
-                                           
-                                 
                                 </div>   
                             </div>
+                  
+                             </p:repeat>
                         </div>
-                    </p:repeat>
                     <p:dialog  header="PERGUNTA" widgetVar="modalPerguntaElaborada" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal">			              		                            
                         <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
-                            <p:column rendered="#{not empty perguntaC.pergunta}">
+                            <p:column rendered="#{not empty perguntaC.perguntaModal}">
                                 <div class="product">
                                     <div class="product-grid-item card" style="margin-bottom: 0">
                                         <div class="product-grid-item-top">
                                             <div id="texto_pergunta_modal" >
-                                                <span class="product-category" style="word-wrap: break-word;font-weight:bold">#{perguntaC.pergunta.texto}</span>
+                                                <span class="product-category" style="word-wrap: break-word;font-weight:bold">#{perguntaC.perguntaModal.texto}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +128,7 @@
                                     <div class="product-grid-item-content" style="text-align: start;">
                                         <div style="text-align:start; margin:10px 0; font-weight:bold">ALTERNATIVAS</div>
 
-                                        <ui:repeat value="#{perguntaC.pergunta.alternativas}" var="alt" varStatus="status">								
+                                        <ui:repeat value="#{perguntaC.perguntaModal.alternativas}" var="alt" varStatus="status">								
                                             <p:outputLabel  value="#{status.index+1}"  styleClass="outputLabel" 
                                                             style="color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''};margin: 5px 0"> - #{alt.texto}</p:outputLabel><br></br>
 
@@ -166,7 +142,7 @@
 
 
                 </section>
-                <section style="display:none" class="quiz_respondidos">         
+                <section style="display:none" class="quiz_respondidos" onloadstart="#{aplicacaoQuizResultadoC.pesquisaAplicacaoQuizPorUsuario()}">         
                     <p:repeat value="#{aplicacaoQuizResultadoC.resultados}" var="quiz">
                         <div class="quiz_respondidos_container">
                             <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz.aplicacaoQuiz.quiz)}.jpg" />
@@ -180,19 +156,19 @@
                             
                             <p:commandButton
                                 update="modal_quiz_respondidos"
-                                action="#{quizC.pesquisaQuizPorId(quiz.aplicacaoQuiz.quiz.id)}"
+                                action="#{quizC.pesquisaQuizPorIdModal(quiz.aplicacaoQuiz.quiz.id)}"
                                 value="Visualizar quiz"
                                 style="padding: 5px;border-radius: 10px;font-size: 14px; font-weight: bold;
                                 color:white; background-color:transparent; color:rgb(130 75 173);border: none"
                                 oncomplete="PF('modalQuizRespondido').show()"  />
                         </div>
                     </p:repeat>
-                    <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
+                    <p:dialog rendered="#{not empty quizC.quizModal}" header="#{quizC.quizModal.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal_quiz_respondidos">			              		                            
                         <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">
                             <p:column>
                                 <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
-                                   <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
+                                   <ui:repeat  value="#{quizC.quizModal.perguntas}" var="perg" varStatus="statusPerg">
 	                                  <div class="separador_questao" >
 	                                    <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
 	                                                       style="float: left; font-weight:bold; margin:5px 0px" />
@@ -211,7 +187,7 @@
                         </p:outputPanel>
                     </p:dialog>
                 </section>
-                <div style="display:none" class="configuracoes card ui-fluid">
+                <div style="display:none" class="configuracoes card ui-fluid" onloadstart="#{usuarioC.usuarioSessao()}">
                     <h:form>
                         <div class="p-field p-col-12 p-md-4">
                             <p:outputLabel value="Nome" for="@next"/>
@@ -243,7 +219,7 @@
                     </h:form>
                 </div>
                 
-                <div style="display:none; margin: 20px" class="quiz_aplicados card ui-fluid" >
+                <div style="display:none; margin: 20px" class="quiz_aplicados card ui-fluid" onloadstart="#{aplicacaoQuizC.buscarQuizzesAplicados()}" >
                     <h:form>
                         <p:dataTable id="tabela" var="quiz" value="#{aplicacaoQuizC.quizzesAplicadosDTO}" rows="10"
                          paginator="true" paginatorPosition="bottom"
@@ -254,16 +230,16 @@
                             <p:column headerText="Nome quiz" style="word-wrap: break-word">
                                 <h:outputText value="#{quiz.tituloQuiz}" />
                             </p:column>
-                            <p:column headerText="Código quiz" style="word-wrap: break-word">
+                            <p:column headerText="Código quiz" style="word-wrap: break-word; text-align:center">
                                 <h:outputText value="#{quiz.idAplicacaoQuiz}" />
                             </p:column>
-                             <p:column headerText="Total aplicado" style="word-wrap: break-word">
+                             <p:column headerText="Total aplicado" style="word-wrap: break-word; text-align:center">
                                  <h:outputText value="#{quiz.quantidadeTotalDePessoas}" />
                             </p:column>
-                            <p:column headerText="Total respondidos" style="word-wrap: break-word">
-                                <h:outputText value="#{quiz.quantidadeDePessoasQueResponderam}" />
+                            <p:column headerText="Total respondidos" style="word-wrap: break-word; text-align:center">
+                                <h:outputText value="#{aplicacaoQuizResultadoC.totalQuizRespondidos(quiz.idAplicacaoQuiz)}" />
                             </p:column>
-                            <p:column headerText="Visualizar" style="word-wrap: break-word">
+                            <p:column headerText="Visualizar" style="word-wrap: break-word; text-align:center">
                                 <p:commandButton 
                                      style="background-color:transparent; color:rgb(130 75 173)"
                                                 update="modalAplicacaoQuiz"

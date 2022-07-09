@@ -1218,15 +1218,19 @@ body .ui-panel .ui-panel-content{
     justify-content: space-between;
     height: 100%;
     border: 1px solid rgb(130 75 173);
-    border-radius: 10px
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    border-radius: 10px;
+    margin-top:10px;
 }
 
 .perguntas_elaborados_container {
     width: 80%;
     height: 150px;
     border-radius: 10px;
-    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    display:flex;
+    justify-content: start;
     margin: 10px;
+    flex-direction: column
 }
 
 .perguntas_elaboradas_card_topside{
