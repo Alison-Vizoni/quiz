@@ -27,10 +27,7 @@
 
                     <div style="display:grid;">
                         <h4>Título do Quiz *</h4>
-                        <p:inputText id="titulo_quiz" value="#{quizC.quiz.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" >
-<!--                            <p:ajax listener="#{quizC.quiz.titulo}"/>-->
-                        </p:inputText>
-
+                        <p:inputText id="titulo_quiz" value="#{quizEditadoC.quizSelecionadoEdicao.titulo}" placeholder="Digite o título do Quiz"  style="background: #f2f2f2" />
                     </div>
                     <div id="filtros_questao" style="display: flex; justify-content: space-between;">
 
@@ -99,7 +96,7 @@
                     <p:commandButton icon="pi pi-plus" title="Adicionar pergunta" update="form:tabelaQuiz"
 
                                      styleClass="rounded-button ui-button-outlined"
-                                     actionListener="#{quizC.incluiPerguntaQuiz(pergunta)}">
+                                     actionListener="#{quizEditadoC.incluiPerguntaQuiz(pergunta)}">
 
                     </p:commandButton>    
 
@@ -144,7 +141,7 @@
             </p:dialog>	
 
 
-            <p:dataTable id="tabelaQuiz" var="pergunta" value="#{quizC.quiz.perguntas}" rows="10"
+            <p:dataTable id="tabelaQuiz" var="pergunta" value="#{quizEditadoC.quizSelecionadoEdicao.perguntas}" rows="10"
                          paginator="true" paginatorPosition="bottom"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
@@ -171,7 +168,7 @@
                                      process="tabelaQuiz"
                                      update="form:tabelaQuiz"
                                      styleClass="rounded-button ui-button-outlined"
-                                     actionListener="#{quizC.excluirPergunta(pergunta)}"
+                                     actionListener="#{quizEditadoC.excluirPergunta(pergunta)}"
                                      >
                     </p:commandButton>    
 

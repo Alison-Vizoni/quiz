@@ -75,7 +75,9 @@
                                         </div>
                                     </ui:repeat>
                                     <div style="display: flex;justify-content: space-evenly; margin:10px">
-                                        <p:commandButton value="Editar" action="editarQuiz"></p:commandButton>
+                                        <p:commandButton value="Editar" action="editarQuiz">
+                                        	<p:ajax listener="#{quizEditadoC.selecionadoQuizEditar(quizC.quiz)}"/>
+                                        </p:commandButton>
                                         <p:commandButton value="Excluir"></p:commandButton>
                                     </div>
                                 </div>
