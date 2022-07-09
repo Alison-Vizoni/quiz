@@ -144,18 +144,17 @@
                         </div>
                     </p:repeat>
                     <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
-                              hideEffect="fade" resizable="false" id="modal_quiz">
+                              hideEffect="fade" resizable="false" id="modal_quiz" >
+                        <div style="border-radius: 15px; width: fit-content; padding: 5px; margin: auto" >
+                            <p:tooltip for="btnUtilizaQuiz" value="Clique e depois é só preencher o(s) email(s) para enviar o quiz " position="right"/>
+                            <p:commandButton id="btnUtilizaQuiz" action="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}" value="Utilizar Quiz" styleClass="rounded-button ui-button-outlined"/>
 
-
-
-
-
-
-                        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 70vh">
+                        </div>
+                        <p:outputPanel id="panelQuiz" style="text-align:center; width: 88vw; height: 70vh;">
                             <p:column>
-                                <div class="product" style="overflow: hidden; overflow-y: scroll;"> 
+                                <div class="product" style="overflow: hidden; padding-bottom:20px"> 
                                     <ui:repeat  value="#{quizC.quiz.perguntas}" var="perg" varStatus="statusPerg">
-                                        <div class="separador_questao">
+                                        <div class="separador_questao" >
                                             <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
                                                            style="float: left; font-weight:bold;" />
                                             <ui:repeat value="#{perg.alternativas}" var="alt" varStatus="status">
@@ -171,12 +170,6 @@
                                 </div>
                             </p:column>
                         </p:outputPanel>
-                        <div style="border-radius: 15px; width: fit-content; padding: 5px; margin: auto" >
-                            <p:tooltip for="btnUtilizaQuiz" value="Clique e depois é só preencher o(s) email(s) para enviar o quiz " position="right"/>
-                            <p:commandButton id="btnUtilizaQuiz" action="#{quizC.adicionaQuizEscolhido(quizC.quiz.id)}" value="Utilizar Quiz"/>
-
-                        </div>
-
                     </p:dialog>
                 </section>
             </p:panel>         

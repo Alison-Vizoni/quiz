@@ -32,7 +32,8 @@
                 <section class="quiz_elaborados" onloadstart="#{quizC.pesquisarQuizElaboradoPeloUsuario()}">
                     <p:repeat value="#{quizC.quizzes}" var="quiz">
                         <div class="quiz_elaborados_container">
-                            <img class="image_categoria" src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
+                            <img class="image_categoria" 
+                            	 src="../resources/senac/images/#{categoriaC.validaCategoria(quiz)}.jpg" />
                             <div class="title__center">
                                 <span>#{categoriaC.validaCategoria(quiz)}</span>
                             </div>
@@ -69,7 +70,9 @@
                                         </div>
                                     </ui:repeat>
                                     <div style="display: flex;justify-content: space-evenly; margin:10px">
-                                        <p:commandButton value="Editar" action="editarQuiz"></p:commandButton>
+                                        <p:commandButton value="Editar" action="editarQuiz">
+                                        	<p:ajax listener="#{quizEditadoC.selecionadoQuizEditar(quizC.quiz)}"/>
+                                        </p:commandButton>
                                         <p:commandButton value="Excluir"></p:commandButton>
                                     </div>
                                 </div>

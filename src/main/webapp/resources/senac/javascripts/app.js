@@ -32,11 +32,12 @@ function explraConteudo() {
 //	window.location.href = "http://localhost:8080/quiz/exploraConteudo.xhtml?jftfdi=&jffi=exploraConteudo";
 }
 function cadastraQuestao() {
-	window.location.href = "http://localhost:8080/quiz/logado/cadastroQuestoesSinglePage.xhtml";
+	window.location.href = "http://localhost:8080/quiz/logado/cadastroQuestao.xhtml";
 //	window.location.href = "http://localhost:8080/quiz/logado/cadastroQuestoesSinglePage.xhtml?jftfdi=&jffi=logado%2FcadastroQuestoesSinglePage";
 }
 function cadastraQuiz() {
-	window.location.href = "http://localhost:8080/quiz/logado/pesquisaQuestoes.xhtml";
+	window.location.href = "http://localhost:8080/quiz/logado/cadastroQuiz.xhtml";
 //	window.location.href = "http://localhost:8080/quiz/logado/pesquisaQuestoes.xhtml?jftfdi=&jffi=logado%2FpesquisaQuestoes";
 }
+
 
