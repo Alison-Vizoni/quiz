@@ -101,15 +101,14 @@
                                                 padding: 10px;
                                                 align-items: center;">
                                         #{pergunta.subCategoria.nome}
-                                        <div style='width: 150px;display: flex;justify-content: space-around;'>
+                                        <div style='width: 200px;display: flex;justify-content: space-around;'>
                                             
                                          <p:commandButton
                                                 update="modal"
                                                 action="#{perguntaC.buscaPerguntaPorId(pergunta.id, false)}"
-                                                style="background-color:transparent; color:rgb(130 75 173)"
-                                                title="Visualizar questão"
-                                                icon="pi pi-eye"
-                                                styleClass="rounded-button ui-button-outlined"
+                                                style="background-color:transparent; color:rgb(130 75 173); border:none"
+                                                value="Visualizar pergunta"
+                                                styleClass="rounded-button "
                                                 oncomplete="PF('modalPerguntaElaborada').show()"/>
 <!--                                         <p:commandButton
                                                 action=""
@@ -264,8 +263,34 @@
                             <p:column headerText="Total respondidos" style="word-wrap: break-word">
                                 <h:outputText value="#{quiz.quantidadeDePessoasQueResponderam}" />
                             </p:column>
+                            <p:column headerText="Visualizar" style="word-wrap: break-word">
+                                <p:commandButton 
+                                     style="background-color:transparent; color:rgb(130 75 173)"
+                                                update="modalAplicacaoQuiz"
+                                                title="Visualizar resultados"
+                                                icon="pi pi-eye"
+                                                styleClass="rounded-button ui-button-outlined"
+                                                oncomplete="PF('modalAplicacaoQuiz').show()"
+                                                actionListener="#{aplicacaoQuizResultadoC.pesquisaAplicacaoQuizResultadoPorId(quiz.idAplicacaoQuiz)}"
+                                                />
+                            </p:column>
                          </p:dataTable>
                     </h:form>
+                    
+                    <p:dialog header="RESULTADOS" widgetVar="modalAplicacaoQuiz" modal="true" showEffect="fade"
+                              hideEffect="fade" resizable="false" id="modalAplicacaoQuiz">			              		                            
+                        <p:outputPanel  style="text-align:center; width: 88vw; height: 70vh">
+                            <div style="display:flex; flex-direction:column; overflow-y:scroll">
+                                <p:repeat value="#{aplicacaoQuizResultadoC.resultadosModal}" var="quizResultado">                             
+                                        <div style="height:100px; border:1px solid rgb(130 75 173); margin-top:10px; display:flex; justify-content:space-between;padding:10px; align-items:center">
+                                            <p:outputLabel style="font-size:24px; font-weight:bold; width:200px; text-align:start" value="Usuário: #{quizResultado.usuario.nome}"></p:outputLabel>
+                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Data de resolução #{aplicacaoQuizResultadoC.formatarData(quizResultado.dataResolucao)}"></p:outputLabel>
+                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Resultado :#{aplicacaoQuizResultadoC.resultadoFinalUsuario(quizResultado.aplicacaoQuiz.id, quizResultado.usuario.id)}"></p:outputLabel>
+                                        </div>  
+                                </p:repeat>
+                            </div>
+                        </p:outputPanel>
+                    </p:dialog>
                 </div>
             </div>
         </section>
