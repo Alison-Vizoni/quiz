@@ -453,8 +453,6 @@ public class QuizEditadoController implements Serializable {
 	public void setQuizSelecionadoEdicao(Quiz quizSelecionadoEdicao) {
 		this.quizSelecionadoEdicao = quizSelecionadoEdicao;
 	}
-    
-    
 
 
 }

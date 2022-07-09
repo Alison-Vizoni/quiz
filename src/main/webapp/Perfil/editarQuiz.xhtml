@@ -148,7 +148,7 @@
                          rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
                          rowKey="#{pergunta.id}">
                 <p:column headerText="Perguntas cadastradas" style="word-wrap: break-word">
-                    <h:outputText value="#{quizEditadoC.modelperguntas.rowData}" />
+                    <h:outputText value="#{pergunta.texto}" />
                 </p:column>
 
                 <p:column headerText="Visualizar" style="width: 9%;">
