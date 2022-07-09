@@ -39,7 +39,7 @@ import javax.faces.bean.SessionScoped;
  * @author alf_a
  */
 @ManagedBean(name = "perguntaC")
-@SessionScoped
+@ViewScoped
 public class PerguntaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
