@@ -69,7 +69,9 @@
             </h:form>
         </p:panel>
 
-        <h:form id="form">			
+        <h:form id="form">
+        
+        	<!-- TABELA PERGUNTAS -->			
             <p:dataTable id="tabela" var="pergunta" value="#{perguntaC.modelPerguntas}" rows="10"
                          paginator="true" paginatorPosition="bottom"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -103,9 +105,7 @@
 
                 </p:column>
             </p:dataTable>
-
-
-
+            
             <p:dialog header="QUESTÃO" widgetVar="modalPergunta" modal="true" showEffect="fade" style="position: absolute"
                       hideEffect="fade" resizable="false" id="modal">			              		                            
                 <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
@@ -140,25 +140,31 @@
 
             </p:dialog>	
 
-
-            <p:dataTable id="tabelaQuiz" var="pergunta" value="#{quizEditadoC.quizSelecionadoEdicao.perguntas}" rows="10"
+			<!-- TABELA PERGUNTAS CADASTRADAS -->
+            <p:dataTable id="tabelaQuiz" var="pergunta" value="#{quizEditadoC.modelperguntas}" rows="10"
                          paginator="true" paginatorPosition="bottom"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                          rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
                          rowKey="#{pergunta.id}">
                 <p:column headerText="Perguntas cadastradas" style="word-wrap: break-word">
-                    <h:outputText value="#{pergunta.texto}" />
+                    <h:outputText value="#{quizEditadoC.modelperguntas.rowData}" />
                 </p:column>
 
                 <p:column headerText="Visualizar" style="width: 9%;">
 
                     <p:commandButton icon="pi pi-eye" title="Visualizar pergunta" 
                                      process="tabelaQuiz" oncomplete="PF('modalPergunta').show()"
-                                     styleClass="rounded-button ui-button-outlined"
-                                     actionListener="#{perguntaC.visualizaQuestaoSelecionada(pergunta)}">
+                                     styleClass="rounded-button ui-button-outlined" >
+<!--                                      actionListener="#{quizEditadoC.excluirPergunta(pergunta)}"> -->
 
                     </p:commandButton>    
+<!--                     <p:commandButton icon="pi pi-eye" title="Visualizar pergunta"  -->
+<!--                                      process="tabelaQuiz" oncomplete="PF('modalPergunta').show()" -->
+<!--                                      styleClass="rounded-button ui-button-outlined" -->
+<!--                                      actionListener="#{perguntaC.visualizaQuestaoSelecionada(pergunta)}"> -->
+
+<!--                     </p:commandButton>     -->
 
 
                 </p:column>

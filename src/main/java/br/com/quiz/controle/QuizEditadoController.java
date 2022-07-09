@@ -69,17 +69,17 @@ public class QuizEditadoController implements Serializable {
 //        populaQuizzesPublicos();
     }
 
-    /**
-     * Retira questao da modal de visualizar Quiz
-     *
-     * @param pergunta
-     */
-    public void retiraQuestaoVisualizacao() {
-        logger.info("método - retiraQuestaoVisualizacao()");
-        perguntas.remove(perguntaSelecionada);
-        logger.info("lista tem : " + perguntas.size());
-
-    }
+//    /**
+//     * Retira questao da modal de visualizar Quiz
+//     *
+//     * @param pergunta
+//     */
+//    public void retiraQuestaoVisualizacao() {
+//        logger.info("método - retiraQuestaoVisualizacao()");
+//        perguntas.remove(perguntaSelecionada);
+//        logger.info("lista tem : " + perguntas.size());
+//
+//    }
 
 //    public void buscaQuizBanco() {
 //        logger.info("método - buscaQuizBanco()");
@@ -96,54 +96,54 @@ public class QuizEditadoController implements Serializable {
 //        }
 //    }
 
-    List<String> emailList;
+//    List<String> emailList;
 
-    public void cadastraAplicacaoQuiz(DataModel<String> emails) {
-        logger.info("método - cadastraAplicacaoQuiz()");
-        emailList = new ArrayList<>();
-        if (emails == null) {
-            Mensagem.erro("Não há emails para enviar!");
-        } else {
-            try {
-                emails.forEach(email -> emailList.add(email));
-                aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
-                sessao = HibernateUtil.abrirSessao();
-                aplicacaoQuiz = new AplicacaoQuiz();
-                aplicacaoQuiz.setDataAplicacao(new Date());
-                aplicacaoQuiz.setQuiz(quizDao.pesquisarPorId(idQuiz, sessao));
-                aplicacaoQuiz.setUsuarioAplicador(LoginController.usuarioSessao());
-                aplicacaoQuiz.setEmails(new HashSet<>(emailList));
-                aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
-                idAplicacaoQuiz = aplicacaoQuiz.getId();
-                logger.info("idAplicacaoQuiz -> " + idAplicacaoQuiz);
-                EmailConvidadoController emailController = new EmailConvidadoController();
-                emailController.enviaEmail();
-                Mensagem.sucesso(defineFluxoFinalizar());
-            } catch (Exception e) {
-                logger.error("Erro ao salvar aplicação quiz - " + e.getMessage());
-            } finally {
-                sessao.close();
-                emails = null;
-                emailList = null;
-            }
-        }
+//    public void cadastraAplicacaoQuiz(DataModel<String> emails) {
+//        logger.info("método - cadastraAplicacaoQuiz()");
+//        emailList = new ArrayList<>();
+//        if (emails == null) {
+//            Mensagem.erro("Não há emails para enviar!");
+//        } else {
+//            try {
+//                emails.forEach(email -> emailList.add(email));
+//                aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
+//                sessao = HibernateUtil.abrirSessao();
+//                aplicacaoQuiz = new AplicacaoQuiz();
+//                aplicacaoQuiz.setDataAplicacao(new Date());
+//                aplicacaoQuiz.setQuiz(quizDao.pesquisarPorId(idQuiz, sessao));
+//                aplicacaoQuiz.setUsuarioAplicador(LoginController.usuarioSessao());
+//                aplicacaoQuiz.setEmails(new HashSet<>(emailList));
+//                aplicacaoQuizDao.salvarOuAlterar(aplicacaoQuiz, sessao);
+//                idAplicacaoQuiz = aplicacaoQuiz.getId();
+//                logger.info("idAplicacaoQuiz -> " + idAplicacaoQuiz);
+//                EmailConvidadoController emailController = new EmailConvidadoController();
+//                emailController.enviaEmail();
+//                Mensagem.sucesso(defineFluxoFinalizar());
+//            } catch (Exception e) {
+//                logger.error("Erro ao salvar aplicação quiz - " + e.getMessage());
+//            } finally {
+//                sessao.close();
+//                emails = null;
+//                emailList = null;
+//            }
+//        }
+//
+//    }
 
-    }
-
-    public String defineFluxoFinalizar() throws IOException {
-        logger.info("entrou no defineFluxoFinalizar()");
-
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(ec.getRequestContextPath() + "/inicio.xhtml");
-        if (!emailList.isEmpty()) {
-            this.fluxoFinal = String.valueOf(ec);
-            Mensagem.sucesso("Email enviado com sucesso!");
-        } else {
-            this.fluxoFinal = "";
-        }
-        return fluxoFinal;
-
-    }
+//    public String defineFluxoFinalizar() throws IOException {
+//        logger.info("entrou no defineFluxoFinalizar()");
+//
+//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//        ec.redirect(ec.getRequestContextPath() + "/inicio.xhtml");
+//        if (!emailList.isEmpty()) {
+//            this.fluxoFinal = String.valueOf(ec);
+//            Mensagem.sucesso("Email enviado com sucesso!");
+//        } else {
+//            this.fluxoFinal = "";
+//        }
+//        return fluxoFinal;
+//
+//    }
 
 //	public void defineFluxoFinalizar() throws IOException {
 //		logger.info("entrou no defineFluxoFinalizar()");
@@ -156,6 +156,7 @@ public class QuizEditadoController implements Serializable {
 //		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 //		ec.redirect(ec.getRequestContextPath() + pageDestino);
 //	}
+    
     public void incluiPergunta(Pergunta pergunta) {
         logger.info("método - incluiPergunta()");
 
@@ -223,69 +224,69 @@ public class QuizEditadoController implements Serializable {
 //        return "/final.xhtml?faces-redirect=true";
 //    }
 
-    private boolean preparaQuiz() {
-        logger.info("método - preparaQuiz()");
+//    private boolean preparaQuiz() {
+//        logger.info("método - preparaQuiz()");
+//
+//        boolean quizValido = false;
+//        quizSelecionadoEdicao.setPerguntas(perguntas);
+//        if (null == quizSelecionadoEdicao.getPerguntas() || quizSelecionadoEdicao.getPerguntas().isEmpty()) {
+//            Mensagem.erro("Nenhuma questão ao quiz foi adicionada!");
+//            logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
+//
+//        } else if (quizSelecionadoEdicao.getPerguntas().size() < 2) {
+//            Mensagem.erro("É necessário inserir no mínimo duas questões ao quiz!");
+//            logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
+//
+//        } else if (null == quizSelecionadoEdicao.getTitulo() || quizSelecionadoEdicao.getTitulo().isEmpty()) {
+//            Mensagem.erro("Favor incluir um título no quiz!");
+//            logger.error("Erro ao preparaQuiz - quiz sem título");
+//
+//        } else {
+//            Date criacao = new Date(System.currentTimeMillis());
+//            quizSelecionadoEdicao.setDataCriacao(criacao);
+//            quizSelecionadoEdicao.setCategorias(Set.of(perguntas.get(0).getSubCategoria().getCategoria()));
+//            quizValido = true;
+//        }
+//        return quizValido;
+//    }
 
-        boolean quizValido = false;
-        quizSelecionadoEdicao.setPerguntas(perguntas);
-        if (null == quizSelecionadoEdicao.getPerguntas() || quizSelecionadoEdicao.getPerguntas().isEmpty()) {
-            Mensagem.erro("Nenhuma questão ao quiz foi adicionada!");
-            logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
+//    public String defineFluxo() {
+//        logger.info("entrou no defineFluxo()");
+//        if (quizSelecionadoEdicao.getPerguntas().size() < 1 || (null == quizSelecionadoEdicao.getTitulo() || quizSelecionadoEdicao.getTitulo().isEmpty())) {
+//            this.fluxo = "";
+//        } else {
+//            this.fluxo = "final";
+//        }
+//        return fluxo;
+//    }
 
-        } else if (quizSelecionadoEdicao.getPerguntas().size() < 2) {
-            Mensagem.erro("É necessário inserir no mínimo duas questões ao quiz!");
-            logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
+//    public void pesquisarQuizElaboradoPeloUsuario() {
+//        logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
+//
+//        Long idUsuarioLogado = LoginController.usuarioSessao().getId();
+//
+//        try {
+//            sessao = HibernateUtil.abrirSessao();
+//            quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
+//        } catch (HibernateException e) {
+//            logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
+//        } finally {
+//            sessao.close();
+//        }
+//    }
 
-        } else if (null == quizSelecionadoEdicao.getTitulo() || quizSelecionadoEdicao.getTitulo().isEmpty()) {
-            Mensagem.erro("Favor incluir um título no quiz!");
-            logger.error("Erro ao preparaQuiz - quiz sem título");
-
-        } else {
-            Date criacao = new Date(System.currentTimeMillis());
-            quizSelecionadoEdicao.setDataCriacao(criacao);
-            quizSelecionadoEdicao.setCategorias(Set.of(perguntas.get(0).getSubCategoria().getCategoria()));
-            quizValido = true;
-        }
-        return quizValido;
-    }
-
-    public String defineFluxo() {
-        logger.info("entrou no defineFluxo()");
-        if (quizSelecionadoEdicao.getPerguntas().size() < 1 || (null == quizSelecionadoEdicao.getTitulo() || quizSelecionadoEdicao.getTitulo().isEmpty())) {
-            this.fluxo = "";
-        } else {
-            this.fluxo = "final";
-        }
-        return fluxo;
-    }
-
-    public void pesquisarQuizElaboradoPeloUsuario() {
-        logger.info("entrou no pesquisarQuizConstruidoPeloUsuario()");
-
-        Long idUsuarioLogado = LoginController.usuarioSessao().getId();
-
-        try {
-            sessao = HibernateUtil.abrirSessao();
-            quizzes = quizDao.buscarQuizPorUsuario(sessao, idUsuarioLogado);
-        } catch (HibernateException e) {
-            logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-    }
-
-    public void pesquisaQuizPorId(Long idQuiz) {
-        try {
-            sessao = HibernateUtil.abrirSessao();
-            List<Quiz> quizBd = quizDao.pesquisarPorIdQuiz(sessao, idQuiz);
-            quizSelecionadoEdicao = quizBd.get(0);
-            logger.info("entrou no pesquisaQuizPorId()" + quizSelecionadoEdicao);
-        } catch (HibernateException e) {
-            logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-    }
+//    public void pesquisaQuizPorId(Long idQuiz) {
+//        try {
+//            sessao = HibernateUtil.abrirSessao();
+//            List<Quiz> quizBd = quizDao.pesquisarPorIdQuiz(sessao, idQuiz);
+//            quizSelecionadoEdicao = quizBd.get(0);
+//            logger.info("entrou no pesquisaQuizPorId()" + quizSelecionadoEdicao);
+//        } catch (HibernateException e) {
+//            logger.error("Erro ao pesquisar quiz elaborado pelo usuario: " + e.getMessage());
+//        } finally {
+//            sessao.close();
+//        }
+//    }
 
     public void incluiPerguntaQuiz(Pergunta pergunta) {
         logger.info("método - incluiPergunta()");
@@ -301,6 +302,7 @@ public class QuizEditadoController implements Serializable {
     }
 
     private boolean validarPerguntaRepetida(Pergunta pergunta) {
+    	logger.info("método - validarPerguntaRepetida()");
         for (int i = 0; i < quizSelecionadoEdicao.getPerguntas().size(); i++) {
             if (pergunta.getId() == quizSelecionadoEdicao.getPerguntas().get(i).getId()) {
                 return false;
@@ -309,43 +311,49 @@ public class QuizEditadoController implements Serializable {
         return true;
     }
 
-    public String pesquisaQuizEdita(Long id) {
-        pesquisaQuizPorId(id);
-        return "editaQuiz";
-    }
+//    public String pesquisaQuizEdita(Long id) {
+//    	logger.info("método - pesquisaQuizEdita()");
+//        pesquisaQuizPorId(id);
+//        return "editaQuiz";
+//    }
 
     public void excluirPergunta(Pergunta pergunta) {
+    	logger.info("método - excluirPergunta()");
         quizSelecionadoEdicao.getPerguntas().removeIf(p -> p.getId() == pergunta.getId());
 
     }
 
-    public void editarQuiz(Long id) throws IOException {
-        logger.info("método - editarQuiz()");
-        try {
-            if (desativaQuiz(id)) {
-                sessao = HibernateUtil.abrirSessao();
-                quizSelecionadoEdicao.setUsuarioProprietario(LoginController.usuarioSessao());
-                quizSelecionadoEdicao.setStatusAtivo(true);
-                quizSelecionadoEdicao.setId(null);
-                
-                quizDao.salvarOuAlterar(quizSelecionadoEdicao, sessao);
-
-            }
-        } catch (HibernateException e) {
-            logger.error("Erro ao salvar - " + e.getMessage());
-        } finally {
-            sessao.close();
-        }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/Perfil/perfil.xhtml");
-    };
+//    public void editarQuiz(Long id) throws IOException {
+//        logger.info("método - editarQuiz()");
+//        try {
+//            if (desativaQuiz(id)) {
+//                sessao = HibernateUtil.abrirSessao();
+//                quizSelecionadoEdicao.setUsuarioProprietario(LoginController.usuarioSessao());
+//                quizSelecionadoEdicao.setStatusAtivo(true);
+//                quizSelecionadoEdicao.setId(null);
+//                
+//                quizDao.salvarOuAlterar(quizSelecionadoEdicao, sessao);
+//
+//            }
+//        } catch (HibernateException e) {
+//            logger.error("Erro ao salvar - " + e.getMessage());
+//        } finally {
+//            sessao.close();
+//        }
+//        FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/Perfil/perfil.xhtml");
+//    };
     
-    public void selecionadoQuizEditar(Quiz quizSelecionado) {    	
-    	quizSelecionadoEdicao = quizSelecionado;
+    public void selecionadoQuizEditar(Quiz quizSelecionado) { 
+    	logger.info("método - selecionadoQuizEditar()");
+//    	quizSelecionadoEdicao = quizSelecionado;
+    	perguntas = quizSelecionado.getPerguntas();
+    	modelperguntas = new ListDataModel<>(perguntas);
     	System.out.println();
     }
     
     
     public boolean desativaQuiz(Long id) {
+    	logger.info("método - desativaQuiz()");
         sessao = HibernateUtil.abrirSessao();
         boolean result = quizDao.setStatusAtivoFalse(sessao, id);
         sessao.close();
@@ -442,8 +450,8 @@ public class QuizEditadoController implements Serializable {
 		return quizSelecionadoEdicao;
 	}
 
-	public static void setQuizSelecionadoEdicao(Quiz quizSelecionadoEdicao) {
-		QuizEditadoController.quizSelecionadoEdicao = quizSelecionadoEdicao;
+	public void setQuizSelecionadoEdicao(Quiz quizSelecionadoEdicao) {
+		this.quizSelecionadoEdicao = quizSelecionadoEdicao;
 	}
     
     

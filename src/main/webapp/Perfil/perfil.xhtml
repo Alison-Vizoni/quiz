@@ -35,6 +35,7 @@
 
             </div>
             <div class="actions" style="width: 80%;">
+            
                 <section class="quiz_elaborados">
                     <p:repeat value="#{quizC.quizzes}" var="quiz">
                         <div class="quiz_elaborados_container">
@@ -55,6 +56,8 @@
                                 oncomplete="PF('modalQuizElaborado').show()"  />
                         </div>
                     </p:repeat>
+                    
+                    <!-- QUIZZES ELABORADOS  -->
                     <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal_quiz">			         
                   
@@ -191,6 +194,8 @@
                                 oncomplete="PF('modalQuizRespondido').show()"  />
                         </div>
                     </p:repeat>
+                    
+                    <!-- QUIZZES RESPONDIDOS  -->
                     <p:dialog rendered="#{not empty quizC.quiz}" header="#{quizC.quiz.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal_quiz_respondidos">			              		                            
                         <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">
