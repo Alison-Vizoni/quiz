@@ -6,6 +6,8 @@ package br.com.quiz.model.dao;
 
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
+
 import java.util.List;
 import org.hibernate.Session;
 
@@ -19,6 +21,8 @@ public interface QuizDao extends BaseDao<Quiz, Long>{
 
     public List<Quiz> pesquisarPorIdQuiz(Session sessao, Long idQuiz);
 
-	public List<Quiz> buscaPerguntasPublicas(Session sessao);
+    public List<Quiz> buscaQuizzesPublicos(Usuario usario, Session sessao);
+    
+    public boolean setStatusAtivoFalse(Session sessao, Long idQuiz);
     
 }

@@ -15,6 +15,7 @@ import org.jboss.logging.Logger;
 
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
 
 /**
  *
@@ -53,9 +54,26 @@ public class QuizDaoImpl extends BaseDaoImpl<Quiz, Long> implements QuizDao, Ser
 	}
 
 	@Override
-	public List<Quiz> buscaPerguntasPublicas(Session sessao) {
-		Query consulta = sessao.createQuery("FROM Quiz WHERE statusAtivo = true and visibilidadePrivada = false");
-		return consulta.list();
+	public List<Quiz> buscaQuizzesPublicos(Usuario usuario, Session sessao) {
+		logger.info("método buscaQuizzesPublicos()");
+		if (null == usuario.getId()) {
+			Query consulta = sessao.createQuery("FROM Quiz WHERE statusAtivo = true and visibilidadePrivada = false");
+			return consulta.list();			
+		} else {
+			Query consulta = sessao.createQuery("FROM Quiz WHERE "
+					+ "(status_ativo = true and visibilidade_privada = false)"
+					+ " or id_usuario_proprietario = :id");
+			consulta.setParameter("id", usuario.getId());
+			return consulta.list();
+		}
 	}
+
+    @Override
+        public boolean setStatusAtivoFalse(Session sessao, Long id) {
+          Query query = sessao.createQuery("update Quiz set statusAtivo = false where id = :id");
+          query.setParameter("id", id);
+          int result = query.executeUpdate();
+          return result > 0;
+        }
 
 }

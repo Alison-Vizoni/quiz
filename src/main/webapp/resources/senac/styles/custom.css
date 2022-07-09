@@ -1208,9 +1208,8 @@ body .ui-panel .ui-panel-content{
     margin: 2rem auto;
     overflow:hidden;
     overflow-y: scroll;
-    display: flex;
-    justify-content: start;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .perguntas_elaborados_info {
@@ -1419,6 +1418,9 @@ body .ui-panel .ui-panel-content{
     padding: 5px;
     background-color: #E8E2EA;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 
 #lista_itens_ajuda li {
