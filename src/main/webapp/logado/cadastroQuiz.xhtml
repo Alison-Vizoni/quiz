@@ -94,7 +94,7 @@
                          currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                          rowsPerPageTemplate="5,10,15,{ShowAll|'Todos'}" 
                          selection="#{perguntaC.pergunta}" rowKey="#{pergunta.id}">
-                <p:column headerText="PERGUNTAS" style="word-wrap: break-word">
+                <p:column headerText="QUESTÕES" style="word-wrap: break-word">
                     <h:outputText value="#{pergunta.texto}" />
                 </p:column>
 
@@ -193,7 +193,7 @@
 
             <!--  MODAL VER QUESTÃO --> 
 
-            <p:dialog header="PERGUNTA" widgetVar="modalPergunta" modal="true" showEffect="fade"
+            <p:dialog header="QUESTÃO" widgetVar="modalPergunta" modal="true" showEffect="fade"
                       hideEffect="fade" resizable="false" id="modal">			              		                            
                 <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
                     <p:column rendered="#{not empty perguntaC.pergunta}">
@@ -287,6 +287,7 @@
                     	<li>Para pré-visualizar seu quiz, clique no botão <b> Visualizar Quiz </b> abrirá uma página mostrando as questões incluídas até o momento</li>
                     	<li>Caso queira excluir alguma questão, basta clicar na questão escolhida (linha ficará azul) e clicar no botão<b>  Remover Questão  </b></li>
                     	<li>No campo<b>  Conteúdo Privado  </b>você escolhe se seu quiz será público (não selecionado) ou privado (selecionado)</li>
+                    	<li>É necessário incluir no mínimo duas questões para cadastrar o quiz</li>
                     	<li>Quando terminar de incluir as questões e quiser finalizar seu quiz, basta clicar no botão<b>  Cadastrar Quiz  </b></li>
                     </ul>                    
                 </p:outputPanel>

@@ -22,15 +22,36 @@ public class AplicacaoQuizBO {
 		aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
 	}
 	
-	public boolean validaAcessoQuiz(Long idAplicacaoQuiz){
+	public String validaAcessoQuiz(Long idAplicacaoQuiz){
 		logger.info("Método - validaAcessoQuiz BO");
-		boolean acesso = false;
-		if (this.verificarPermissaoParaResponderAplicacaoQuiz(idAplicacaoQuiz)) {
-			if (!this.usuarioJaRespondeuQuiz(idAplicacaoQuiz)) {
-				acesso = true;
+		String mensagem = "";
+		if (this.existeAplicacaoQuiz(idAplicacaoQuiz)) {
+			if (this.verificarPermissaoParaResponderAplicacaoQuiz(idAplicacaoQuiz)) {
+				if (!this.usuarioJaRespondeuQuiz(idAplicacaoQuiz)) {
+					mensagem = "ok";
+				} else {
+					mensagem = "Você já respondeu este quiz!";
+				}
+			} else {
+				mensagem = "Acesso negado!";
 			}
+		} else {
+			mensagem = "Código do quiz inválido!";
 		}
-		return acesso;
+		return mensagem;
+	}
+
+	private boolean existeAplicacaoQuiz(Long idAplicacaoQuiz) {
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			AplicacaoQuiz aplicacaoQuiz = aplicacaoQuizDao.pesquisarPorId(idAplicacaoQuiz, sessao);
+			return aplicacaoQuiz != null ? true : false;
+		}catch (HibernateException e) {
+			// TODO: handle exception
+		} finally {
+			sessao.close();
+		}
+		return false;
 	}
 
 	private boolean usuarioJaRespondeuQuiz(Long idAplicacaoQuiz) {

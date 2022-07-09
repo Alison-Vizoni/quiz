@@ -216,8 +216,12 @@ public class QuizController implements Serializable {
 
 		boolean quizValido = false;
 		quiz.setPerguntas(perguntas);
-		if (null == quiz.getPerguntas() || quiz.getPerguntas().size() == 0) {
-			Mensagem.erro("Sem perguntas para adicionar ao Quiz!");
+		if (null == quiz.getPerguntas() || quiz.getPerguntas().isEmpty()) {
+			Mensagem.erro("Nenhuma questão ao quiz foi adicionada!");
+			logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
+
+		} else if (quiz.getPerguntas().size() < 2) {
+			Mensagem.erro("É necessário inserir no mínimo duas questões ao quiz!");
 			logger.error("Erro ao preparaQuiz - lista de perguntas vazia");
 
 		} else if(null == quiz.getTitulo() || quiz.getTitulo().isEmpty()) {

@@ -156,16 +156,19 @@ public class PerguntaController implements Serializable {
 		
 		if (null == this.pergunta.getTexto() ||  this.pergunta.getTexto().isEmpty()) {
 			camposValidos = false;
-			Mensagem.erro("Campo 'TEXTO' da pergunta deve ser preenchido!");
+			Mensagem.erro("Campo 'PERGUNTA' deve ser preenchido!");
 		} else if (null == categoria.getId()){
 			camposValidos = false;
-			Mensagem.erro("Campos 'CATEGORIA' e 'SUBCATEGORIA' devem ser preenchidos!");
+			Mensagem.erro("Campo 'CATEGORIA' deve ser preenchido!");
 		} else if (null == this.pergunta.getSubCategoria().getId()){
 			camposValidos = false;
-			Mensagem.erro("Campos 'CATEGORIA' e 'SUBCATEGORIA' devem ser preenchidos!");
-		} else if (null == this.listaAlternativas ||  this.listaAlternativas.size() < 1){
+			Mensagem.erro("Campo 'SUBCATEGORIA' deve ser preenchido!");
+		} else if (null == this.listaAlternativas || this.listaAlternativas.isEmpty()){
 			camposValidos = false;
-			Mensagem.erro("Campo 'ALTERNATIVAS' deve ser preenchido!");
+			Mensagem.erro("Campo 'ALTERNATIVA' deve ser preenchido!");
+		} else if (this.listaAlternativas.size() < 2){
+			camposValidos = false;
+			Mensagem.erro("Campo 'ALTERNATIVA' deve conter no mínimo 2 alternativas!");
 		} else if (null == alternativaCorreta.getId()){
 			camposValidos = false;
 			Mensagem.erro("Selecione a 'ALTERNATIVA CORRETA'!");
@@ -265,7 +268,8 @@ public class PerguntaController implements Serializable {
 		if (id_categoria != null) {
 			try {
 				sessao = HibernateUtil.abrirSessao();
-				perguntas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
+				List<Pergunta> perguntasBuscadas = perguntaDao.buscaPerguntasComFiltro(id_categoria, id_sub_categoria, refinaBusca, sessao);
+				this.filtrarPerguntas(perguntasBuscadas);
 				modelPerguntas = new ListDataModel<>(perguntas);
 			} catch (HibernateException e) {
 				logger.error("erro na busca de perguntas com filtro " + e.getMessage());
@@ -277,16 +281,41 @@ public class PerguntaController implements Serializable {
 			modelPerguntas = new ListDataModel<>(perguntas);
 		}
 	}
-        
-        
-        public void buscaPerguntaPorId(Long idPergunta){
-            logger.info("método - buscaPerguntaPorId()");
-            sessao = HibernateUtil.abrirSessao();
-            pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
-            System.out.println(pergunta);
-            sessao.close();
-            
-        }
+
+    private void filtrarPerguntas(List<Pergunta> perguntasBuscadas) {
+    	perguntas = new ArrayList<Pergunta>();
+    	Long usuarioLogado = LoginController.usuarioSessao().getId();
+		if(usuarioLogado != null) {
+			for (Pergunta perguntaBuscada : perguntasBuscadas) {
+				if(perguntaBuscada.isVisibilidadePrivada()) {
+					if (perguntaBuscada.getUsuarioProprietario().getId() == usuarioLogado) {
+						perguntas.add(perguntaBuscada);
+					}
+				} else {
+					perguntas.add(perguntaBuscada);
+				}
+			}
+		} else {
+			for (Pergunta perguntaBuscada : perguntasBuscadas) {
+				if(!perguntaBuscada.isVisibilidadePrivada()) {
+					perguntas.add(perguntaBuscada);
+				}
+			}
+		}
+	}
+
+	public void buscaPerguntaPorId(Long idPergunta){
+        logger.info("método - buscaPerguntaPorId()");
+        try {
+        	sessao = HibernateUtil.abrirSessao();
+        	pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
+        	System.out.println(pergunta);
+        } catch (HibernateException e) {
+			logger.error("erro na busca de perguntas por id: " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+    }
 
 	// GETTERS AND SETTERS
 	
