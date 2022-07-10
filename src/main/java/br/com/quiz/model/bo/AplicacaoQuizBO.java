@@ -25,7 +25,7 @@ public class AplicacaoQuizBO {
 	public String validaAcessoQuiz(Long idAplicacaoQuiz){
 		logger.info("Método - validaAcessoQuiz BO");
 		String mensagem = "";
-		if (this.existeAplicacaoQuiz(idAplicacaoQuiz)) {
+		if (null != idAplicacaoQuiz && this.existeAplicacaoQuiz(idAplicacaoQuiz)) {
 			if (this.verificarPermissaoParaResponderAplicacaoQuiz(idAplicacaoQuiz)) {
 				if (!this.usuarioJaRespondeuQuiz(idAplicacaoQuiz)) {
 					mensagem = "ok";
