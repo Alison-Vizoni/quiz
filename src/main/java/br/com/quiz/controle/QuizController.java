@@ -455,6 +455,9 @@ public class QuizController implements Serializable {
     }
 
     public Quiz getQuizModal() {
+    	if (quizModal == null) {
+    		quizModal = new Quiz();
+    	}
         return quizModal;
     }
 

@@ -49,6 +49,8 @@
                                 oncomplete="PF('modalQuizElaborado').show()"  />
                         </div>
                     </p:repeat>
+                    
+                    <!-- QUIZZES ELABORADOS -->
                     <p:dialog header="#{quizC.quizModal.titulo}" widgetVar="modalQuizElaborado" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal_quiz">			         
                   
@@ -103,7 +105,7 @@
                                             
                                          <p:commandButton
                                                 update="modal"
-                                                action="#{perguntaC.buscaPerguntaPorId(pergunta.id, false)}"
+                                                action="#{perguntaC.buscaPerguntaPorIdModalPerfil(pergunta.id)}"
                                                 style="background-color:transparent; color:rgb(130 75 173); border:none"
                                                 value="Visualizar pergunta"
                                                 styleClass="rounded-button "
@@ -115,6 +117,8 @@
                   
                              </p:repeat>
                         </div>
+                        
+                    <!-- PERGUNTAS ELABORADAS -->
                     <p:dialog  header="PERGUNTA" widgetVar="modalPerguntaElaborada" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal">			              		                            
                         <p:outputPanel id="panelPergunta" style="text-align:center; width: 88vw; height: 70vh">
@@ -166,6 +170,8 @@
                                 oncomplete="PF('modalQuizRespondido').show()"  />
                         </div>
                     </p:repeat>
+                    
+                    <!-- QUIZZES RESPONDIDOS -->
                     <p:dialog rendered="#{not empty quizC.quizModal}" header="#{quizC.quizModal.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modal_quiz_respondidos">			              		                            
                         <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">

@@ -318,6 +318,19 @@ public class PerguntaController implements Serializable {
 		}
     }
 	
+	public void buscaPerguntaPorIdModalPerfil(Long idPergunta){
+		logger.info("método - buscaPerguntaPorId()");
+		try {
+			sessao = HibernateUtil.abrirSessao();
+			perguntaModal = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
+			System.out.println(pergunta);
+		} catch (HibernateException e) {
+			logger.error("erro na busca de perguntas por id: " + e.getMessage());
+		} finally {
+			sessao.close();
+		}
+	}
+	
 	// GETTERS AND SETTERS
     public Pergunta getPergunta() {
         if (pergunta == null) {
@@ -445,13 +458,14 @@ public class PerguntaController implements Serializable {
     }
 
     public Pergunta getPerguntaModal() {
+    	if (perguntaModal == null) {
+    		perguntaModal = new Pergunta();
+		}
         return perguntaModal;
     }
 
     public void setPerguntaModal(Pergunta perguntaModal) {
         this.perguntaModal = perguntaModal;
-    }
-    
-    
+    }    
 
 }
