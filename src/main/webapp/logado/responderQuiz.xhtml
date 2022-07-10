@@ -7,7 +7,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
             
     <ui:define name="content">
-        <div class="container_responder_final" onloadstart="#{aplicacaoQuizC.validaPerguntaResponderRedirect(aplicacaoQuizC.pergunta.id)}">
+        <div class="container_responder_final" onloadstart="#{responderQuizC.validaPerguntaResponderRedirect(responderQuizC.pergunta.id)}">
             <h:form >
                 <div class="container_pergunta_texto">
                     <div style="display: flex;justify-content: space-evenly;position: absolute; left: 3%; top: 10%; padding: 5px;width: 100px;cursor: pointer;">
@@ -17,19 +17,19 @@
                             icon="pi pi-arrow-left" 
                             style="color: white"
                             styleClass="rounded-button ui-button-outlined"
-                            action="#{aplicacaoQuizC.voltaListaPerguntas()}"
+                            action="#{responderQuizC.voltaListaPerguntas()}"
                             />
                     </div>
-                    <h1>#{aplicacaoQuizC.pergunta.texto}</h1>
+                    <h1>#{responderQuizC.pergunta.texto}</h1>
                 </div>
                 <div class="container_pergunta_alternativas">
                     <div class="alternativas">
-                        <p:repeat value="#{aplicacaoQuizC.pergunta.alternativas}" var="alternativa" varStatus="card">
+                        <p:repeat value="#{responderQuizC.pergunta.alternativas}" var="alternativa" varStatus="card">
                             <h:commandButton
                                 value="#{alternativa.texto}"
                                 style="font-size: 22px;color:white;text-align: center;white-space: normal;text-transform: uppercase; font-weight: bold;
-                                height: 200px; width: 50%;background: #{aplicacaoQuizC.random_rgba(card.index)}"
-                                action="#{aplicacaoQuizC.enviarResposta(alternativa)}"
+                                height: 200px; width: 50%;background: #{responderQuizC.random_rgba(card.index)}"
+                                action="#{responderQuizC.enviarResposta(alternativa)}"
                                 />
                         </p:repeat>
                     </div>
