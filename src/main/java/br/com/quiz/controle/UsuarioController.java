@@ -57,7 +57,7 @@ public class UsuarioController implements Serializable {
             } else {
                 usuario.setSenha(Criptografia.criptografar(usuario.getSenha()));
                 usuarioDao.salvarOuAlterar(usuario, sessao);
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/login.xhtml");
+                Mensagem.sucesso("Usuario cadastrado com sucesso!");
             }
         } catch (HibernateException e) {
             System.err.println("Erro ao salvar " + e.getMessage());

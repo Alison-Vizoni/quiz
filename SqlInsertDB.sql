@@ -128,6 +128,9 @@ INSERT INTO categoria (nome, status_ativo) VALUES ("OUTROS", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("OUTROS", 13);
 
 
+UPDATE sub_categoria SET status_ativo = TRUE;
+
+
 -- USUÁRIO
 INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VALUES 
 ("Ian Benedito Almeida", "506.726.137-43", "ian_benedito_almeida@coldblock.com.br", "(43) 99120-3042", "ian", "b54a95127a4b573f41e335fdbd339dcc2208fbfb1ae0b6fab7599d6e2d6ec754", TRUE);
@@ -297,160 +300,48 @@ INSERT INTO alternativa (id,status_ativo,status_correta,texto,id_pergunta) VALUE
 
 
 -- QUIZZES
--- IAN, GEOGRAFIA E HISTÓRIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2020-05-30", "Aprender mais sobre as coisas", FALSE, 1, TRUE);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (1,'2020-05-30',TRUE,'Aprender mais sobre as coisas',FALSE,1);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (2,'2020-06-15',TRUE,'Matemática quiz',FALSE,1);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (3,'2018-10-17',TRUE,'Português quiz',FALSE,2);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (4,'2019-09-11',TRUE,'Biologia quiz',FALSE,2);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (5,'2021-04-18',TRUE,'Física quiz',FALSE,3);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (6,'2015-09-07',TRUE,'Artística quiz',FALSE,3);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (7,'2017-08-08',TRUE,'Social filósofo quiz',FALSE,4);
+INSERT INTO quiz (id,data_criacao,status_ativo,titulo,visibilidade_privada,id_usuario_proprietario) VALUES (8,'2017-08-08',TRUE,'Filósofo inglês quiz',FALSE,4);
 
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Aprender mais sobre as coisas%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "HIDROGRAFIA") LIMIT 1));
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (1,1);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (1,2);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (2,1);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (2,3);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (3,4);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (3,5);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (4,6);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (4,5);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (5,7);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (5,8);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (6,9);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (6,8);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (7,10);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (7,11);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (8,12);
+INSERT INTO quiz_pergunta (id_quiz,id_pergunta) VALUES (8,11);
 
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Aprender mais sobre as coisas%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "FEUDALISMO") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Aprender mais sobre as coisas%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "GEOGRAFIA"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Aprender mais sobre as coisas%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "HISTÓRIA"));
-
--- IAN, GEOGRAFIA E MATEMÀTICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2020-06-15", "Matemática quiz", FALSE, 1, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Matemática quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "HIDROGRAFIA") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Matemática quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 1 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "TRIGONOMETRIA") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Matemática quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "MATEMÀTICA"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Matemática quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "GEOGRAFIA"));
-
-
--- VALENTINA, PORTUGUÊS E BIOLOGIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2018-10-17", "Português quiz", FALSE, 2, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Português quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "LITERATURA") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Português quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "GENÉTICA") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Português quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "BIOLOGIA"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Português quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "PORTUGUÊS"));
-
--- VALENTINA, BIOLOGIA E QUIMICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2019-09-11", "Biologia quiz", FALSE, 2, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Biologia quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "TERMOQUÍMICA") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Biologia quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 2 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "GENÉTICA") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Biologia quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "BIOLOGIA"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Biologia quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "QUIMICA"));
-
-
--- jOSÉ, FISICA E EDUCAÇÃO FÍSICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2021-04-18", "Física quiz", FALSE, 3, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Física quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "TERMODINÂMICA") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Física quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "GINÁSTICA") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Física quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "FISICA"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Física quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "EDUCAÇÃO FÍSICA"));
-
--- jOSÉ, FISICA E EDUCAÇÃO FÍSICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2015-09-07", "Artística quiz", FALSE, 3, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Artística quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "BARROCO") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Artística quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 3 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "GINÁSTICA") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Artística quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "ARTES"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Artística quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "EDUCAÇÃO FÍSICA"));
-
-
--- ANDRÉ, SOCIOLOGIA E FILOSOFIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2017-08-08", "Social filósofo quiz", FALSE, 4, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Social filósofo quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "INTRODUÇÃO A SOCIOLOGIA") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Social filósofo quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "SÓCRATES") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Social filósofo quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "SOCIOLOGIA"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Social filósofo quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "FILOSOFIA"));
-
--- ANDRÉ, INGLÊS E FILOSOFIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2017-08-08", "Filósofo inglês quiz", FALSE, 4, TRUE);
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "VERB TO BE") LIMIT 1));
-
-INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1),
-(SELECT id FROM pergunta WHERE id_usuario_proprietario = 4 AND id_sub_categoria = (SELECT id FROM sub_categoria WHERE nome = "SÓCRATES") LIMIT 1));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "INGLÊS"));
-
-INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
-(SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1),
-(SELECT id FROM categoria WHERE nome = "FILOSOFIA"));
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (1,1);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (2,1);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (1,2);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (3,2);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (4,3);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (5,3);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (5,4);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (6,4);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (7,5);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (8,5);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (8,6);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (9,6);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (10,7);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (11,7);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (11,8);
+INSERT INTO categoria_quiz (id_categoria,id_quiz) VALUES (12,8);
 
 
 -- IAN APLICANDO QUIZ DO ANDRÉ

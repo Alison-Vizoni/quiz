@@ -158,22 +158,25 @@ public class PerguntaController implements Serializable {
 
         boolean camposValidos = true;
 
-        if (null == this.pergunta.getTexto() || this.pergunta.getTexto().isEmpty()) {
-            camposValidos = false;
-            Mensagem.erro("Campo 'TEXTO' da pergunta deve ser preenchido!");
-        } else if (null == categoria.getId()) {
-            camposValidos = false;
-            Mensagem.erro("Campos 'CATEGORIA' e 'SUBCATEGORIA' devem ser preenchidos!");
-        } else if (null == this.pergunta.getSubCategoria().getId()) {
-            camposValidos = false;
-            Mensagem.erro("Campos 'CATEGORIA' e 'SUBCATEGORIA' devem ser preenchidos!");
-        } else if (null == this.listaAlternativas || this.listaAlternativas.size() < 1) {
-            camposValidos = false;
-            Mensagem.erro("Campo 'ALTERNATIVAS' deve ser preenchido!");
-        } else if (null == alternativaCorreta.getId()) {
-            camposValidos = false;
-            Mensagem.erro("Selecione a 'ALTERNATIVA CORRETA'!");
-        }
+        if (null == this.pergunta.getTexto() ||  this.pergunta.getTexto().isEmpty()) {
+			camposValidos = false;
+			Mensagem.erro("Campo 'PERGUNTA' deve ser preenchido!");
+		} else if (null == categoria.getId()){
+			camposValidos = false;
+			Mensagem.erro("Campo 'CATEGORIA' deve ser preenchido!");
+		} else if (null == this.pergunta.getSubCategoria().getId()){
+			camposValidos = false;
+			Mensagem.erro("Campo 'SUBCATEGORIA' deve ser preenchido!");
+		} else if (null == this.listaAlternativas || this.listaAlternativas.isEmpty()){
+			camposValidos = false;
+			Mensagem.erro("Campo 'ALTERNATIVA' deve ser preenchido!");
+		} else if (this.listaAlternativas.size() < 2){
+			camposValidos = false;
+			Mensagem.erro("Campo 'ALTERNATIVA' deve conter no mínimo 2 alternativas!");
+		} else if (null == alternativaCorreta.getId()){
+			camposValidos = false;
+			Mensagem.erro("Selecione a 'ALTERNATIVA CORRETA'!");
+		}
         return camposValidos;
     }
 
