@@ -64,7 +64,9 @@ public class AplicacaoQuizController implements Serializable {
     public String validaAcessoQuiz() throws IOException {
         logger.info("entrou no validaAcessoQuiz()");
         AplicacaoQuizBO aplicacaoQuizBO = new AplicacaoQuizBO();
-        String mensagem = (String) aplicacaoQuizBO.validaAcessoQuiz(aplicacaoQuiz.getId());
+        String mensagem = (String) aplicacaoQuizBO.validaAcessoQuiz(
+        		aplicacaoQuiz != null ? aplicacaoQuiz.getId() : null 
+        		);
         if ("ok".equals(mensagem)) {
             try {
                 sessao = HibernateUtil.abrirSessao();

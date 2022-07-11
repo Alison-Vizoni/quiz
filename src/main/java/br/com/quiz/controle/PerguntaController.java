@@ -310,7 +310,7 @@ public class PerguntaController implements Serializable {
         try {
         	sessao = HibernateUtil.abrirSessao();
         	pergunta = perguntaDao.buscaPerguntaPorId(idPergunta, sessao);
-        	System.out.println(pergunta);
+        	perguntaModal = pergunta;
         } catch (HibernateException e) {
 			logger.error("erro na busca de perguntas por id: " + e.getMessage());
 		} finally {
