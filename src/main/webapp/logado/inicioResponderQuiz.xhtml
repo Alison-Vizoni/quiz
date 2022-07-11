@@ -15,7 +15,7 @@
                     </p:messages>
                     <h1>Olá #{loginC.usuarioLogado.nome}</h1>
                     <h2>Digite o código do quiz</h2>
-                    <p:inputNumber decimalPlaces="0" placeholder="Código" value="#{aplicacaoQuizC.aplicacaoQuiz.id}"/>
+                    <p:inputNumber decimalPlaces="0" placeholder="Código" value="#{responderQuizC.aplicacaoQuiz.id}"/>
                     <h:commandButton action="#{aplicacaoQuizC.validaAcessoQuiz}"
                         style="height: 60px; width:180px; border-radius: 10px;font-size: 16px; font-weight: bold; color:white; background-color: rgba(130,75,173,1);border: none" value="Entrar"/>
                     
