@@ -4,7 +4,7 @@ set sql_safe_updates = 0;
 
 -- CATEGORIAS E SUB CATEGORIAS
 -- GEOGRAFIA
-INSERT INTO categoria (nome) VALUES ("GEOGRAFIA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("GEOGRAFIA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("HIDROGRAFIA", 1);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("URBANIZAÇÃO", 1);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("POPULAÇÃO", 1);
@@ -13,7 +13,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INDUSTRIALIZAÇÃO E COM
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOPOLÍTICA", 1);
 
 -- HISTÓRIA
-INSERT INTO categoria (nome) VALUES ("HISTORIA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("HISTORIA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FEUDALISMO", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ABSOLUTISMO", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CIVILIZAÇÕES PRÉ-COLOMBIANAS", 2);
@@ -24,7 +24,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ERA VARGAS", 2);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PROCESSO DE IDEPENDENCIA DO BRASIL", 2);
 
 -- MATEMÁTICA
-INSERT INTO categoria (nome) VALUES ("MATEMATICA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("MATEMATICA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("TRIGONOMETRIA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GEOMETRIA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PORCENTAGEM", 3);
@@ -35,7 +35,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ALGEBRA", 3);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INTRODUÇÃO AO CÁLCULO", 3);
 
 -- PORTUGUÊS
-INSERT INTO categoria (nome) VALUES ("PORTUGUES");
+INSERT INTO categoria (nome, status_ativo) VALUES ("PORTUGUES", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LITERATURA", 4);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LINGUÍSTICA", 4);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GRAMÁTICA", 4);
@@ -45,7 +45,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("VARIAÇÃO LINGUÍSTICA"
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FIGURAS DE LINGUAGEM", 4);
 
 -- BIOLOGIA
-INSERT INTO categoria (nome) VALUES ("BIOLOGIA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("BIOLOGIA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ANATOMIA ANIMAL", 5);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("BIOESTATICA", 5);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GENÉTICA", 5);
@@ -55,7 +55,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("BIOLOGIA MOLECULAR", 5);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("DETERMINISMO BIOLÓGICO", 5);
 
 -- QUÍMICA
-INSERT INTO categoria (nome) VALUES ("QUIMICA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("QUIMICA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUNÇÕES INORGÂNICAS", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("REAÇÕES INORGÂNICAS", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SOLUÇÕES", 6);
@@ -66,7 +66,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("RADIOATIVIDADE", 6);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUNÇÕES ORGÂNICAS", 6);
 
 -- FÍSICA
-INSERT INTO categoria (nome) VALUES ("FISICA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("FISICA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("MECÂNICA", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("TERMODINÂMICA", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ÓPTICA", 7);
@@ -75,7 +75,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FÍSICA NUCLEAR", 7);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ASTRONOMIA", 7);
 
 -- EDUCAÇÃO FÍSICA
-INSERT INTO categoria (nome) VALUES ("EDUCACAO FISICA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("EDUCACAO FISICA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("FUTEBOL", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("LINGUAGENS DO CORPO", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GINÁSTICA", 8);
@@ -84,7 +84,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("HANDEBOL", 8);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("BASQUETE", 8);
 
 -- ARTES
-INSERT INTO categoria (nome) VALUES ("ARTES");
+INSERT INTO categoria (nome, status_ativo) VALUES ("ARTES", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("BARROCO", 9);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CANTIGAS DE RODA", 9);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("VANGUARDAS EUROPÉIAS", 9);
@@ -94,7 +94,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("DANÇAS FOLCLÓRICAS", 9
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SEMANA DA ARTE MODERNA", 9);
 
 -- SOCIOLOGIA
-INSERT INTO categoria (nome) VALUES ("SOCIOLOGIA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("SOCIOLOGIA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PROCESSOS SOCIAIS", 10);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INTRODUÇÃO A SOCIOLOGIA", 10);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("GRUPOS SOCIAIS", 10);
@@ -104,7 +104,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PROCESSOS SOCIAIS", 10);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("ORGANIZAÇÃO DO ESTADO BRASILEIRO", 10);
 
 -- FILOSOFIA
-INSERT INTO categoria (nome) VALUES ("FILOSOFIA");
+INSERT INTO categoria (nome, status_ativo) VALUES ("FILOSOFIA", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("INTRODUÇÃO A FILOSOFIA", 11);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("OS SOFISTAS", 11);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SÓCRATES", 11);
@@ -114,7 +114,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("A ÉTICA DE SANTO AGOSTI
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("CONFÚCIO E SEUS ENSINAMENTOS", 11);
 
 -- INGLÊS
-INSERT INTO categoria (nome) VALUES ("INGLES");
+INSERT INTO categoria (nome, status_ativo) VALUES ("INGLES", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("VERB TO BE", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("SIMPLE PAST", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT CONTINUOUS", 12);
@@ -124,7 +124,7 @@ INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PAST CONTINUOUS", 12);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("PRESENT PERFECT SIMPLE", 12);
 
 -- OUTROS
-INSERT INTO categoria (nome) VALUES ("OUTROS");
+INSERT INTO categoria (nome, status_ativo) VALUES ("OUTROS", TRUE);
 INSERT INTO sub_categoria (nome, id_categoria) VALUES ("OUTROS", 13);
 
 
@@ -140,34 +140,34 @@ INSERT INTO usuario (nome, cpf, email, telefone, login, senha, status_ativo) VAL
 
 
 -- PERGUNTAS
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (1,'2020-05-05',1,'Assinale a alternativa abaixo que NÃO representa uma das características gerais da hidrografia brasileira.',0,1,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (2,'2021-06-04',1,'(Fatec-SP) – Uma das características a ser reconhecida no feudalismo europeu é:',0,7,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (3,'2022-01-05',1,'(Cefet/MG - 2017) Em um triângulo retângulo, a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5, o valor do seno desse mesmo ângulo é',0,15,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (4,'2019-11-20',1,'(UFRN) A obra de Gregório de Matos – autor que se destaca na literatura barroca brasileira – compreende:',0,23,2);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (5,'2012-06-05',1,'Sobre a recombinação gênica é correto afirmar que:',0,32,2);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (6,'2015-07-06',1,'(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações químicas, pode-se afirmar:',0,42,2);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (7,'2018-03-27',1,'(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico. Sobre a energia cinética média e sobre a velocidade média das moléculas de cada gás, pode-se concluir que:',0,46,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (8,'2015-09-10',1,'Quais são as ginásticas competitivas?',0,53,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (9,'2019-05-06',1,'(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII. Na arte e na economia suas expressões foram respectivamente:',0,57,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (10,'2011-02-17',1,'(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental na constituição da sociologia como ramo científico. Sobre essa corrente de pensamento, que reunia autores como Augusto Comte e Herbert Spencer, assinale o que for correto.',0,65,4);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (11,'2016-05-19',1,'(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental, contribuindo para compreender o mundo e a sua complexidade.Sócrates, um dos seus filósofos mais conhecidos:',0,73,4);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (12,'2013-09-13',1,'Em relação à frase Is it that difficult? é correto afirmar que:',0,78,4);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (13,'2022-07-04',1,'Quantas patas tem um cachorro?',0,30,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (14,'2022-07-04',1,'Qual é a soma da operação matemática \"2+2+(1+1)\"?',1,22,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (15,'2022-07-04',1,'Qual é a ordem de precedencia em uma equação matemática?',0,22,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (16,'2022-07-04',1,'Resolva o seguinte cálculo e assinale a alternativa correta: \"2a + 2b - 3c\", sendo a = 1, b = 3 e c = 2.',1,22,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (17,'2022-07-04',1,'25 representa quantos por cento de 200?',0,17,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (18,'2022-07-04',1,'30 representa 15% de qual número?',0,17,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (19,'2022-07-04',1,'Em uma sala de aula há 30 alunos, dos quais 40% são meninas. Quantas meninas têm na sala?',0,17,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (20,'2022-07-04',1,'Júlia acertou 75% das questões de Matemática do teste e Mariana acertou 4/5. Quem acertou mais questões?',1,17,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (21,'2022-07-04',1,'Na promoção de uma loja de eletrodomésticos, um aparelho de som que custava R$ 400,00 teve um desconto de 12%. Quanto o cliente que decidir comprar o equipamento pagará?',0,22,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (22,'2022-07-04',1,'Em um concurso, 520 candidatos se inscreveram. No dia da prova apenas 364 candidatos compareceram. Neste caso, qual foi a porcentagem dos candidatos que faltaram a prova?',0,17,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (23,'2022-07-04',1,'Em uma indústria, o setor de qualidade constatou que um lote com 4500 peças, 180 apresentavam algum defeito. Para um lote ser aprovado é necessário que o número de peças com defeito seja inferior a 3%. Neste caso, o lote foi aprovado ou reprovado?',0,17,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (24,'2022-07-04',1,'Na última liquidação de verão, uma loja vendia todos os seus produtos com um desconto de 15%. Se uma camisa antes da liquidação custava R$ 145,00, quanto passou a custar na liquidação?',0,17,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (25,'2022-07-04',1,'Os vendedores de uma loja recebem mensalmente um salário fixo no valor de R$ 1200,00 e uma comissão de 6% referente ao valor total do que venderam no mês. Sendo assim, qual será o valor recebido por um vendedor que vendeu no mês R$ 14000,00?',0,17,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (26,'2022-07-04',1,'Em uma loja, uma máquina de lavar roupas custava R$ 1500,00 e seu preço sofreu um aumento de 3%. Logo após o aumento a loja resolveu fazer uma promoção oferecendo um desconto de 3% no mesmo produto. Qual o valor do produto após o aumento e após o desconto?\n\n',0,17,3);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (27,'2022-07-05',1,'Existem quantas pessoas no mundo aproximadamente?',0,3,1);
-INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (28,'2022-07-05',1,'Assinale abaixo a alternativa que representa o gene recessivo.',0,32,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (1,'2020-05-05',TRUE,'Assinale a alternativa abaixo que NÃO representa uma das características gerais da hidrografia brasileira.',FALSE,1,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (2,'2021-06-04',TRUE,'(Fatec-SP) – Uma das características a ser reconhecida no feudalismo europeu é:',FALSE,7,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (3,'2022-01-05',TRUE,'(Cefet/MG - 2017) Em um triângulo retângulo, a tangente de um de seus ângulos agudos é 2. Sabendo-se que a hipotenusa desse triângulo é 5, o valor do seno desse mesmo ângulo é',FALSE,15,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (4,'2019-11-20',TRUE,'(UFRN) A obra de Gregório de Matos – autor que se destaca na literatura barroca brasileira – compreende:',FALSE,23,2);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (5,'2012-06-05',TRUE,'Sobre a recombinação gênica é correto afirmar que:',FALSE,32,2);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (6,'2015-07-06',TRUE,'(UFBA) Em relação aos aspectos energéticos envolvidos nas transformações químicas, pode-se afirmar:',FALSE,42,2);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (7,'2018-03-27',TRUE,'(ITA-SP) Considere uma mistura de gases H2 e N2 , em equilíbrio térmico. Sobre a energia cinética média e sobre a velocidade média das moléculas de cada gás, pode-se concluir que:',FALSE,46,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (8,'2015-09-10',TRUE,'Quais são as ginásticas competitivas?',FALSE,53,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (9,'2019-05-06',TRUE,'(Fuvest-SP) O Estado moderno absolutista atingiu seu maior poder de atuação no século XVII. Na arte e na economia suas expressões foram respectivamente:',FALSE,57,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (10,'2011-02-17',TRUE,'(UEM-2011) O evolucionismo social do século XIX teve um papel fundamental na constituição da sociologia como ramo científico. Sobre essa corrente de pensamento, que reunia autores como Augusto Comte e Herbert Spencer, assinale o que for correto.',FALSE,65,4);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (11,'2016-05-19',TRUE,'(UFPE) Os gregos construíram reflexões importantes para a formação do pensamento ocidental, contribuindo para compreender o mundo e a sua complexidade.Sócrates, um dos seus filósofos mais conhecidos:',FALSE,73,4);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (12,'2013-09-13',TRUE,'Em relação à frase Is it that difficult? é correto afirmar que:',FALSE,78,4);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (13,'2022-07-04',TRUE,'Quantas patas tem um cachorro?',FALSE,30,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (14,'2022-07-04',TRUE,'Qual é a soma da operação matemática \"2+2+(1+1)\"?',TRUE,22,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (15,'2022-07-04',TRUE,'Qual é a ordem de precedencia em uma equação matemática?',FALSE,22,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (16,'2022-07-04',TRUE,'Resolva o seguinte cálculo e assinale a alternativa correta: \"2a + 2b - 3c\", sendo a = 1, b = 3 e c = 2.',TRUE,22,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (17,'2022-07-04',TRUE,'25 representa quantos por cento de 200?',FALSE,17,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (18,'2022-07-04',TRUE,'30 representa 15% de qual número?',FALSE,17,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (19,'2022-07-04',TRUE,'Em uma sala de aula há 30 alunos, dos quais 40% são meninas. Quantas meninas têm na sala?',FALSE,17,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (20,'2022-07-04',TRUE,'Júlia acertou 75% das questões de Matemática do teste e Mariana acertou 4/5. Quem acertou mais questões?',TRUE,17,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (21,'2022-07-04',TRUE,'Na promoção de uma loja de eletrodomésticos, um aparelho de som que custava R$ 400,00 teve um desconto de 12%. Quanto o cliente que decidir comprar o equipamento pagará?',FALSE,22,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (22,'2022-07-04',TRUE,'Em um concurso, 520 candidatos se inscreveram. No dia da prova apenas 364 candidatos compareceram. Neste caso, qual foi a porcentagem dos candidatos que faltaram a prova?',FALSE,17,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (23,'2022-07-04',TRUE,'Em uma indústria, o setor de qualidade constatou que um lote com 4500 peças, 180 apresentavam algum defeito. Para um lote ser aprovado é necessário que o número de peças com defeito seja inferior a 3%. Neste caso, o lote foi aprovado ou reprovado?',FALSE,17,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (24,'2022-07-04',TRUE,'Na última liquidação de verão, uma loja vendia todos os seus produtos com um desconto de 15%. Se uma camisa antes da liquidação custava R$ 145,00, quanto passou a custar na liquidação?',FALSE,17,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (25,'2022-07-04',TRUE,'Os vendedores de uma loja recebem mensalmente um salário fixo no valor de R$ 1200,00 e uma comissão de 6% referente ao valor total do que venderam no mês. Sendo assim, qual será o valor recebido por um vendedor que vendeu no mês R$ 14000,00?',FALSE,17,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (26,'2022-07-04',TRUE,'Em uma loja, uma máquina de lavar roupas custava R$ 1500,00 e seu preço sofreu um aumento de 3%. Logo após o aumento a loja resolveu fazer uma promoção oferecendo um desconto de 3% no mesmo produto. Qual o valor do produto após o aumento e após o desconto?\n\n',FALSE,17,3);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (27,'2022-07-05',TRUE,'Existem quantas pessoas no mundo aproximadamente?',FALSE,3,1);
+INSERT INTO pergunta (id,data_criacao,status_ativo,texto,visibilidade_privada,id_sub_categoria,id_usuario_proprietario) VALUES (28,'2022-07-05',TRUE,'Assinale abaixo a alternativa que representa o gene recessivo.',FALSE,32,1);
 
 
 -- ALTERNATIVAS
@@ -298,7 +298,7 @@ INSERT INTO alternativa (id,status_ativo,status_correta,texto,id_pergunta) VALUE
 
 -- QUIZZES
 -- IAN, GEOGRAFIA E HISTÓRIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2020-05-30", "Aprender mais sobre as coisas", FALSE, 1);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2020-05-30", "Aprender mais sobre as coisas", FALSE, 1, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Aprender mais sobre as coisas%" LIMIT 1),
@@ -317,7 +317,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 (SELECT id FROM categoria WHERE nome = "HISTÓRIA"));
 
 -- IAN, GEOGRAFIA E MATEMÀTICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2020-06-15", "Matemática quiz", FALSE, 1);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2020-06-15", "Matemática quiz", FALSE, 1, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 1 AND titulo LIKE "%Matemática quiz%" LIMIT 1),
@@ -337,7 +337,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 
 
 -- VALENTINA, PORTUGUÊS E BIOLOGIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2018-10-17", "Português quiz", FALSE, 2);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2018-10-17", "Português quiz", FALSE, 2, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Português quiz%" LIMIT 1),
@@ -356,7 +356,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 (SELECT id FROM categoria WHERE nome = "PORTUGUÊS"));
 
 -- VALENTINA, BIOLOGIA E QUIMICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2019-09-11", "Biologia quiz", FALSE, 2);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2019-09-11", "Biologia quiz", FALSE, 2, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 2 AND titulo LIKE "%Biologia quiz%" LIMIT 1),
@@ -376,7 +376,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 
 
 -- jOSÉ, FISICA E EDUCAÇÃO FÍSICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2021-04-18", "Física quiz", FALSE, 3);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2021-04-18", "Física quiz", FALSE, 3, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Física quiz%" LIMIT 1),
@@ -395,7 +395,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 (SELECT id FROM categoria WHERE nome = "EDUCAÇÃO FÍSICA"));
 
 -- jOSÉ, FISICA E EDUCAÇÃO FÍSICA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2015-09-07", "Artística quiz", FALSE, 3);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2015-09-07", "Artística quiz", FALSE, 3, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 3 AND titulo LIKE "%Artística quiz%" LIMIT 1),
@@ -415,7 +415,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 
 
 -- ANDRÉ, SOCIOLOGIA E FILOSOFIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2017-08-08", "Social filósofo quiz", FALSE, 4);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2017-08-08", "Social filósofo quiz", FALSE, 4, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Social filósofo quiz%" LIMIT 1),
@@ -434,7 +434,7 @@ INSERT INTO categoria_quiz (id_quiz, id_categoria) VALUES (
 (SELECT id FROM categoria WHERE nome = "FILOSOFIA"));
 
 -- ANDRÉ, INGLÊS E FILOSOFIA
-INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario) VALUES ("2017-08-08", "Filósofo inglês quiz", FALSE, 4);
+INSERT INTO quiz (data_criacao, titulo, visibilidade_privada, id_usuario_proprietario, status_ativo) VALUES ("2017-08-08", "Filósofo inglês quiz", FALSE, 4, TRUE);
 
 INSERT INTO quiz_pergunta (id_quiz, id_pergunta) VALUES (
 (SELECT id FROM quiz WHERE id_usuario_proprietario = 4 AND titulo LIKE "%Filósofo inglês quiz%" LIMIT 1),
