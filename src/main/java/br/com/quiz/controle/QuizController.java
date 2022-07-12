@@ -361,6 +361,19 @@ public class QuizController implements Serializable {
         }
     }
 
+    public String excluir(Long idQuiz) throws IOException {
+        try {
+             sessao = HibernateUtil.abrirSessao();
+             quizModal.setStatusAtivo(false);
+             quizDao.salvarOuAlterar(quizModal, sessao);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/Perfil/perfil.xhtml");
+        } finally {
+              sessao.close();
+        }
+        return "";    
+    }
+    
+
     /* * GETTERS AND SETTERS * */
     public Quiz getQuiz() {
         return quiz;
