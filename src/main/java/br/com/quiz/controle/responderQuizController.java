@@ -36,9 +36,9 @@ import org.jboss.logging.Logger;
  *
  * @author alf_a
  */
-@ManagedBean(name = "aplicacaoQuizC")
-@ViewScoped
-public class AplicacaoQuizController implements Serializable {
+@ManagedBean(name = "responderQuizC")
+@SessionScoped
+public class responderQuizController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,16 +57,14 @@ public class AplicacaoQuizController implements Serializable {
     private boolean quizFinalizou;
     public static Long idQuiz;
 
-    public AplicacaoQuizController() {
+    public responderQuizController() {
         aplicacaoQuizDao = new AplicacaoQuizDaoImpl();
     }
 
     public String validaAcessoQuiz() throws IOException {
         logger.info("entrou no validaAcessoQuiz()");
         AplicacaoQuizBO aplicacaoQuizBO = new AplicacaoQuizBO();
-        String mensagem = (String) aplicacaoQuizBO.validaAcessoQuiz(
-        		aplicacaoQuiz != null ? aplicacaoQuiz.getId() : null 
-        		);
+        String mensagem = (String) aplicacaoQuizBO.validaAcessoQuiz(aplicacaoQuiz.getId());
         if ("ok".equals(mensagem)) {
             try {
                 sessao = HibernateUtil.abrirSessao();
@@ -113,6 +111,10 @@ public class AplicacaoQuizController implements Serializable {
     }
 
     public boolean validaPerguntaResponder(int idPergunta) {
+
+        if (resultados == null) {
+            return false;
+        }
         for (AplicacaoQuizResultado resultado : resultados) {
             if (idPergunta == resultado.getAlternativa().getPergunta().getId()) {
                 return true;
@@ -205,7 +207,7 @@ public class AplicacaoQuizController implements Serializable {
                     break;
                 }
             }
-            return "responderQuiz.xhtml?faces-redirect=true";
+            return "responderQuiz.xhtml";
         }
     }
 
@@ -219,7 +221,7 @@ public class AplicacaoQuizController implements Serializable {
         sessao = HibernateUtil.abrirSessao();
         aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
         sessao.close();
-        return "listaPerguntasQuiz.xhtml?faces-redirect=true";
+        return "listaPerguntasQuiz.xhtml";
     }
 
     public String random_rgba(int index) {
@@ -254,7 +256,7 @@ public class AplicacaoQuizController implements Serializable {
         aplicacaoQuiz = null;
         return formataRespostaFinal(aplicacaoQuizResultado);
     }
-    
+
     public String resultadoFinalUsuario(Long idAplicacao, Long idUsuario) {
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
         sessao = HibernateUtil.abrirSessao();
@@ -287,7 +289,7 @@ public class AplicacaoQuizController implements Serializable {
         sessao = HibernateUtil.abrirSessao();
         try {
             if (quizzesAplicadosDTO.size() == 0) {
-              
+
                 List<AplicacaoQuiz> quizzesAplicados = aplicacaoQuizDao.buscarQuizzesAplicados(id_usuario_logado, sessao);
                 this.converterParaDTO(quizzesAplicados);
             }
@@ -306,11 +308,11 @@ public class AplicacaoQuizController implements Serializable {
             quizAplicadoDTO.setTituloQuiz(quizAplicado.getQuiz().getTitulo());
             quizAplicadoDTO.setQuantidadeTotalDePessoas(quizAplicado.getEmails().size());
             quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado().size());
-            quizzesAplicadosDTO.add(quizAplicadoDTO);      
+            quizzesAplicadosDTO.add(quizAplicadoDTO);
+        }
     }
-}
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
         AplicacaoQuizController test = new AplicacaoQuizController();
         test.buscarQuizzesAplicados();
     }

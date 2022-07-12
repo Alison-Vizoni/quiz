@@ -70,10 +70,7 @@
                                         </div>
                                     </ui:repeat>
                                     <div style="display: flex;justify-content: space-evenly; margin:10px">
-                                        <p:commandButton value="Editar" action="editarQuiz">
-                                        	<p:ajax listener="#{quizEditadoC.selecionadoQuizEditar(quizC.quiz)}"/>
-                                        </p:commandButton>
-                                        <p:commandButton value="Excluir"></p:commandButton>
+                                        <p:commandButton action="#{quizC.excluir(quizC.quizModal.id)}" value="Excluir"></p:commandButton>
                                     </div>
                                 </div>
                             </p:column> 
@@ -103,7 +100,7 @@
                                             
                                          <p:commandButton
                                                 update="modal"
-                                                action="#{perguntaC.buscaPerguntaPorId(pergunta.id, false)}"
+                                                action="#{perguntaC.buscaPerguntaPorId(pergunta.id)}"
                                                 style="background-color:transparent; color:rgb(130 75 173); border:none"
                                                 value="Visualizar pergunta"
                                                 styleClass="rounded-button "
@@ -167,10 +164,10 @@
                         </div>
                     </p:repeat>
                     <p:dialog rendered="#{not empty quizC.quizModal}" header="#{quizC.quizModal.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
-                              hideEffect="fade" resizable="false" id="modal_quiz_respondidos">			              		                            
+                              hideEffect="fade" resizable="false" style="overflow:scroll" id="modal_quiz_respondidos">			              		                            
                         <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">
                             <p:column>
-                                <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
+                                <div class="product"> 
                                    <ui:repeat  value="#{quizC.quizModal.perguntas}" var="perg" varStatus="statusPerg">
 	                                  <div class="separador_questao" >
 	                                    <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
@@ -240,7 +237,7 @@
                                  <h:outputText value="#{quiz.quantidadeTotalDePessoas}" />
                             </p:column>
                             <p:column headerText="Total respondidos" style="word-wrap: break-word; text-align:center">
-                                <h:outputText value="#{aplicacaoQuizResultadoC.totalQuizRespondidos(quiz.idAplicacaoQuiz)}" />
+                                <h:outputText value="#{quiz.quantidadeDePessoasQueResponderam}" />
                             </p:column>
                             <p:column headerText="Visualizar" style="word-wrap: break-word; text-align:center">
                                 <p:commandButton 
