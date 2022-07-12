@@ -167,10 +167,10 @@
                         </div>
                     </p:repeat>
                     <p:dialog rendered="#{not empty quizC.quizModal}" header="#{quizC.quizModal.titulo}" widgetVar="modalQuizRespondido" modal="true" showEffect="fade"
-                              hideEffect="fade" resizable="false" id="modal_quiz_respondidos">			              		                            
+                              hideEffect="fade" resizable="false" style="overflow:scroll" id="modal_quiz_respondidos">			              		                            
                         <p:outputPanel id="panelQuizRespondido" style="text-align:center; width: 88vw; height: 70vh">
                             <p:column>
-                                <div class="product" style="overflow: hidden; overflow-y: scroll;}"> 
+                                <div class="product"> 
                                    <ui:repeat  value="#{quizC.quizModal.perguntas}" var="perg" varStatus="statusPerg">
 	                                  <div class="separador_questao" >
 	                                    <h:outputLabel value="#{perg.texto}" styleClass="outputLabel"
