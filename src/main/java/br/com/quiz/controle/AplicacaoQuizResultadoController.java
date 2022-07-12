@@ -77,6 +77,7 @@ public class AplicacaoQuizResultadoController implements Serializable {
         for (int i = 0; i < listaQuizUsuario.size(); i++) {
             if (!idDuplicates.contains(listaQuizUsuario.get(i).getAplicacaoQuiz().getQuiz().getId())) {
                 idDuplicates.add(listaQuizUsuario.get(i).getAplicacaoQuiz().getQuiz().getId());
+                noDuplicates.add(listaQuizUsuario.get(i));
             }
 
         }
