@@ -253,15 +253,16 @@
                          </p:dataTable>
                     </h:form>
                     
+					<!--  MODAL VISUALIZA RESULTADOS -->
                     <p:dialog header="RESULTADOS" widgetVar="modalAplicacaoQuiz" modal="true" showEffect="fade"
                               hideEffect="fade" resizable="false" id="modalAplicacaoQuiz">			              		                            
                         <p:outputPanel  style="text-align:center; width: 88vw; height: 70vh">
                             <div style="display:flex; flex-direction:column; overflow-y:scroll">
-                                <p:repeat value="#{aplicacaoQuizResultadoC.resultadosModal}" var="quizResultado">                             
+                                <p:repeat value="#{aplicacaoQuizResultadoC.aplicacaoQuizResultadoDTO}" var="quizResultado">                             
                                         <div style="height:100px; border:1px solid rgb(130 75 173); margin-top:10px; display:flex; justify-content:space-between;padding:10px; align-items:center">
-                                            <p:outputLabel style="font-size:24px; font-weight:bold; width:200px; text-align:start" value="Usuário: #{quizResultado.usuario.nome}"></p:outputLabel>
-                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Data de resolução #{aplicacaoQuizResultadoC.formatarData(quizResultado.dataResolucao)}"></p:outputLabel>
-                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Resultado :#{aplicacaoQuizResultadoC.resultadoFinalUsuario(quizResultado.aplicacaoQuiz.id, quizResultado.usuario.id)}"></p:outputLabel>
+                                            <p:outputLabel style="font-size:24px; font-weight:bold; width:200px; text-align:start" value="Usuário: #{quizResultado.nomeUsuario}"></p:outputLabel>
+
+                                            <p:outputLabel style="font-size:24px; font-weight:bold" value="Resultado : #{quizResultado.quantidadeTotalDeAcertos}"></p:outputLabel>
                                         </div>  
                                 </p:repeat>
                             </div>
