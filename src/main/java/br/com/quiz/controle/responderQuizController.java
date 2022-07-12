@@ -67,8 +67,10 @@ public class responderQuizController implements Serializable {
         String mensagem = (String) aplicacaoQuizBO.validaAcessoQuiz(aplicacaoQuiz.getId());
         if ("ok".equals(mensagem)) {
             try {
+
                 sessao = HibernateUtil.abrirSessao();
                 aplicacaoQuiz = aplicacaoQuizDao.pesquisarPorId(aplicacaoQuiz.getId(), sessao);
+                perguntas = aplicacaoQuiz.getQuiz().getPerguntas();
                 return "listaPerguntasQuiz.xhtml?faces-redirect=true";
             } catch (HibernateException e) {
                 logger.error(e.getMessage());
@@ -85,8 +87,7 @@ public class responderQuizController implements Serializable {
         logger.info("entrou no pesquisaQuiz()");
         sessao = HibernateUtil.abrirSessao();
         try {
-            verificaPerguntasFinalizadas();
-            quizFinalizou = verificaPerguntaFinalizado();
+             verificaPerguntasFinalizadas();
         } catch (Exception e) {
             logger.error(e.getMessage());
         } finally {
@@ -97,7 +98,7 @@ public class responderQuizController implements Serializable {
 
     public void verificaPerguntasFinalizadas() {
         logger.info("entrou no verificaPerguntasFinalizadas()");
-        perguntas = aplicacaoQuiz.getQuiz().getPerguntas();
+       
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
         resultados = aplicacaoQuizResultadoDao.pesquisarPorId(aplicacaoQuiz.getId(), LoginController.usuarioSessao().getId(), sessao);
 
@@ -132,38 +133,16 @@ public class responderQuizController implements Serializable {
     ;
 
     public String finalizarQuiz() {
-        logger.info("entrou no finalizarQuiz()");
-        aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
-        removerPerguntasJaSalvadas();
-
-        for (int i = 0; i < perguntas.size(); i++) {
-            try {
-                aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
-                aplicacaoQuizResultado = new AplicacaoQuizResultado(Date.from(Instant.now()));
-                aplicacaoQuizResultado.setUsuario(LoginController.usuarioSessao());
-                aplicacaoQuizResultado.setAplicacaoQuiz(aplicacaoQuiz);
-                aplicacaoQuizResultado.setAlternativa(salvaAlternativaErrada(perguntas.get(i).getAlternativas()));
-                sessao = HibernateUtil.abrirSessao();
-                aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
-
-            } catch (Exception e) {
-                logger.error(e.getMessage());
-            } finally {
-
-            }
-
-        }
-
+       
         return "resultadoQuiz.html?faces-redirect=true";
     }
 
     public void removerPerguntasJaSalvadas() {
 
         for (int i = 0; i < perguntas.size(); i++) {
-            for (AplicacaoQuizResultado resultado : resultados) {
-                if (perguntas.get(i).getId() == resultado.getAlternativa().getPergunta().getId()) {
-                    perguntas.remove(i);
-                }
+            if(perguntas.get(i).getStatusAtivo() == false) {
+            
+               
             }
         }
     }
@@ -253,7 +232,7 @@ public class responderQuizController implements Serializable {
             sessao.close();
         }
 
-        aplicacaoQuiz = null;
+
         return formataRespostaFinal(aplicacaoQuizResultado);
     }
 
@@ -269,17 +248,18 @@ public class responderQuizController implements Serializable {
             sessao.close();
         }
 
-        aplicacaoQuiz = null;
         return formataRespostaFinal(aplicacaoQuizResultado);
     }
 
     public String formataRespostaFinal(List<AplicacaoQuizResultado> aplicacaoQuizResultado) {
         int totalRespostasCorretas = 0;
+        int totalPerguntas = aplicacaoQuiz.getQuiz().getPerguntas().size();
         for (int i = 0; i < aplicacaoQuizResultado.size(); i++) {
             totalRespostasCorretas += aplicacaoQuizResultado.get(i).getAlternativa().isStatusCorreta() ? 1 : 0;
         }
-
-        return totalRespostasCorretas + "/" + aplicacaoQuizResultado.size();
+        aplicacaoQuiz = null;
+        perguntas = null;
+        return totalRespostasCorretas + "/" + totalPerguntas;
     }
 
     public void buscarQuizzesAplicados() {
