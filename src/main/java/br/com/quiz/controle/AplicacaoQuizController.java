@@ -11,11 +11,14 @@ import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.AplicacaoQuizResultado;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -305,17 +308,20 @@ public class AplicacaoQuizController implements Serializable {
             quizAplicadoDTO.setDataAplicacao(quizAplicado.getDataAplicacao());
             quizAplicadoDTO.setTituloQuiz(quizAplicado.getQuiz().getTitulo());
             quizAplicadoDTO.setQuantidadeTotalDePessoas(quizAplicado.getEmails().size());
-            quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado().size());
+            quizAplicadoDTO.setQuantidadeDePessoasQueResponderam(this.contarQuantidadeDePessoasQueResponderam(quizAplicado.getQuizResultado()));
             quizzesAplicadosDTO.add(quizAplicadoDTO);      
-    }
-}
-
-public static void main(String[] args) {
-        AplicacaoQuizController test = new AplicacaoQuizController();
-        test.buscarQuizzesAplicados();
+        }
     }
 
-    public void voltaListaPerguntas() throws IOException {
+    private Integer contarQuantidadeDePessoasQueResponderam(Set<AplicacaoQuizResultado> quizResultado) {
+		Set<Usuario> usuario = new HashSet<>();
+		for (AplicacaoQuizResultado result : quizResultado) {
+			usuario.add(result.getUsuario());
+		}
+		return usuario.size();
+	}
+
+	public void voltaListaPerguntas() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("listaPerguntasQuiz.xhtml");
     }
 
