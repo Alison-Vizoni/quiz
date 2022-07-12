@@ -190,7 +190,7 @@ public class responderQuizController implements Serializable {
         }
     }
 
-    public String enviarResposta(Alternativa alternativa) {
+    public void enviarResposta(Alternativa alternativa) throws IOException {
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
         aplicacaoQuizResultado = new AplicacaoQuizResultado(Date.from(Instant.now()));
         aplicacaoQuizResultado.setUsuario(LoginController.usuarioSessao());
@@ -200,7 +200,7 @@ public class responderQuizController implements Serializable {
         sessao = HibernateUtil.abrirSessao();
         aplicacaoQuizResultadoDao.salvarOuAlterar(aplicacaoQuizResultado, sessao);
         sessao.close();
-        return "listaPerguntasQuiz.xhtml";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("listaPerguntasQuiz.xhtml");
     }
 
     public String random_rgba(int index) {
