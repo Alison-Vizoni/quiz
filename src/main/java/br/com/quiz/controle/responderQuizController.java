@@ -104,7 +104,7 @@ public class responderQuizController implements Serializable {
 
         for (AplicacaoQuizResultado resultado : resultados) {
             for (int i = 0; i < perguntas.size(); i++) {
-                if (perguntas.get(i).getId() == resultado.getAlternativa().getPergunta().getId()) {
+                if (resultado.getAlternativa().getPergunta().equals(perguntas.get(i))) {
                     perguntas.get(i).setStatusAtivo(false);
                 }
             }
@@ -128,9 +128,7 @@ public class responderQuizController implements Serializable {
         if (validaPerguntaResponder(idPergunta)) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("listaPerguntasQuiz.xhtml");
         }
-    }
-
-    ;
+    };
 
     public String finalizarQuiz() {
        
@@ -258,7 +256,7 @@ public class responderQuizController implements Serializable {
             totalRespostasCorretas += aplicacaoQuizResultado.get(i).getAlternativa().isStatusCorreta() ? 1 : 0;
         }
         aplicacaoQuiz = null;
-        perguntas = null;
+        perguntas.clear();
         return totalRespostasCorretas + "/" + totalPerguntas;
     }
 
