@@ -5,11 +5,14 @@ import br.com.quiz.model.dao.AplicacaoQuizDaoImpl;
 import br.com.quiz.model.dao.AplicacaoQuizResultadoDao;
 import br.com.quiz.model.dao.AplicacaoQuizResultadoDaoImpl;
 import br.com.quiz.model.dao.HibernateUtil;
+import br.com.quiz.model.dto.AplicacaoQuizResultadoDTO;
 import br.com.quiz.model.entidade.Alternativa;
 import br.com.quiz.model.entidade.AplicacaoQuiz;
 import br.com.quiz.model.entidade.AplicacaoQuizResultado;
 import br.com.quiz.model.entidade.Pergunta;
 import br.com.quiz.model.entidade.Quiz;
+import br.com.quiz.model.entidade.Usuario;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -19,6 +22,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
@@ -50,9 +56,12 @@ public class AplicacaoQuizResultadoController implements Serializable {
     private List<AplicacaoQuizResultado> resultadosModal;
     private Session sessao;
     private Quiz quiz;
+    
+    private Set<AplicacaoQuizResultadoDTO> aplicacaoQuizResultadoDTO;
 
     public AplicacaoQuizResultadoController() {
         aplicacaoQuizResultadoDao = new AplicacaoQuizResultadoDaoImpl();
+       
     }
 
     public void pesquisaAplicacaoQuizPorUsuario() {
@@ -70,9 +79,38 @@ public class AplicacaoQuizResultadoController implements Serializable {
                 idDuplicates.add(listaQuizUsuario.get(i).getAplicacaoQuiz().getQuiz().getId());
                 noDuplicates.add(listaQuizUsuario.get(i));
             }
+
         }
+        converterParaAplicacaoQuizResultadoDTO(listaQuizUsuario);
+
         return noDuplicates;
     }
+    
+    private void converterParaAplicacaoQuizResultadoDTO(List<AplicacaoQuizResultado> aplicacoesRespondidas) {
+    	aplicacaoQuizResultadoDTO = new HashSet<AplicacaoQuizResultadoDTO>();
+    	Set<Usuario> usuarios = new HashSet<>();
+    	for (AplicacaoQuizResultado usuariosDuplicados : aplicacoesRespondidas) {
+			usuarios.add(usuariosDuplicados.getUsuario());
+		}
+    	
+    	for (Usuario usuario : usuarios) {
+    		Integer quantidadeTotalDeAcertos = 0;
+    		for (AplicacaoQuizResultado respostas : aplicacoesRespondidas) {
+    			if (respostas.getUsuario().getId() == usuario.getId() &&
+    					respostas.getAlternativa().isStatusCorreta()) {
+    				quantidadeTotalDeAcertos++;
+    			}
+    		}
+    		AplicacaoQuizResultadoDTO resultadosDto = new AplicacaoQuizResultadoDTO();
+    		if(!aplicacoesRespondidas.isEmpty()) {
+    			resultadosDto.setNomeUsuario(usuario.getNome());
+    			resultadosDto.setEmailUsuario(usuario.getEmail());
+    			resultadosDto.setQuantidadeTotalDeAcertos(quantidadeTotalDeAcertos);
+    			resultadosDto.setTotalDePerguntas(aplicacoesRespondidas.get(0).getAplicacaoQuiz().getQuiz().getPerguntas().size());
+    		}
+    		aplicacaoQuizResultadoDTO.add(resultadosDto);
+		}
+	}
 
     public void pesquisaAplicacaoQuizResultadoPorId(Long id) {
  
@@ -164,5 +202,17 @@ public class AplicacaoQuizResultadoController implements Serializable {
     public void setResultadosModal(List<AplicacaoQuizResultado> resultadosModal) {
         this.resultadosModal = resultadosModal;
     }
+
+	public Set<AplicacaoQuizResultadoDTO> getAplicacaoQuizResultadoDTO() {
+		if (aplicacaoQuizResultadoDTO == null) {
+			aplicacaoQuizResultadoDTO = new HashSet<AplicacaoQuizResultadoDTO>();
+		}
+		return aplicacaoQuizResultadoDTO;
+	}
+
+	public void setAplicacaoQuizResultadoDTO(Set<AplicacaoQuizResultadoDTO> aplicacaoQuizResultadoDTO) {
+		this.aplicacaoQuizResultadoDTO = aplicacaoQuizResultadoDTO;
+	}
+    
 
 }

@@ -237,6 +237,18 @@ public class PerguntaController implements Serializable {
 		}
 	}
 
+        public String excluir(Long idPergunta) throws IOException {
+            try {
+                sessao = HibernateUtil.abrirSessao();
+                perguntaModal.setStatusAtivo(false);
+                perguntaDao.salvarOuAlterar(perguntaModal, sessao);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/quiz/Perfil/perfil.xhtml");
+            } finally {
+                sessao.close();
+            }
+            return "";
+        }
+
 	public void buscaPerguntasComFiltro(Long id_categoria, Long id_sub_categoria) {
 		logger.info("método - buscaPerguntasComFiltro()");
 		
