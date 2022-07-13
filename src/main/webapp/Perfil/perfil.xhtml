@@ -69,14 +69,15 @@
 	                                        </ui:repeat>
                                         </div>
                                     </ui:repeat>
-                                    <div style="display: flex;justify-content: space-evenly; margin:10px">
-                                        <p:commandButton action="#{quizC.excluir(quizC.quizModal.id)}" value="Excluir"></p:commandButton>
-                                    </div>
+                                 
                                 </div>
+                              
                             </p:column> 
 
                         </p:outputPanel>
-        
+                        <div style="display: flex;justify-content: space-evenly; margin:10px">
+                               <p:commandButton action="#{quizC.excluir(quizC.quizModal.id)}" value="Excluir"></p:commandButton>
+                       </div>
                     </p:dialog>
                 </section>
                 <section style="display:none" class="perguntas_elaboradas" onloadstart="#{perguntaC.buscarPerguntasElaboradasPeloUsuario()}">
@@ -133,7 +134,9 @@
                                                             style="color:#{alt.statusCorreta ? 'white': 'black'};background-color:#{alt.statusCorreta ? '#5d2d7e': ''};margin: 5px 0"> - #{alt.texto}</p:outputLabel><br></br>
 
                                         </ui:repeat>									
-
+                                    <div style="display: flex;justify-content: space-evenly; margin:10px">
+                                        <p:commandButton action="#{perguntaC.excluir(perguntaC.perguntaModal.id)}" value="Excluir"></p:commandButton>
+                                    </div>
                                     </div>
                                 </div>
                             </p:column>
